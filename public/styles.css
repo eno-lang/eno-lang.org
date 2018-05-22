@@ -1,0 +1,21 @@
+body, textarea {
+  font-size: 18px;
+}
+
+header {
+  padding: 2em 2em 0 2em;
+}
+
+#editor {
+  height: 500px;
+  width: 100%;
+}
+
+.input, .output {
+  padding: 2em;
+  width: 50%;
+}
+
+.split {
+  display: flex;
+}

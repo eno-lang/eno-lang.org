@@ -1,0 +1,27 @@
+{
+  "author": "Simon Repp",
+  "browserslist": [
+    "defaults"
+  ],
+  "dependencies": {
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.7.0",
+    "enojs": "^0.1.0",
+    "http-server": "^0.11.1",
+    "webpack": "^4.8.2"
+  },
+  "description": "The eno-lang.org website",
+  "devDependencies": {
+    "webpack-cli": "^2.1.3"
+  },
+  "name": "eno-lang.org",
+  "repository": "https://github.com/eno-lang/eno-lang.org",
+  "scripts": {
+    "build": "webpack",
+    "deploy": "node deploy.js",
+    "release": "npm run build && npm run deploy",
+    "serve": "http-server -a localhost -c-1",
+    "watch": "webpack -w"
+  },
+  "version": "0.1.0"
+}

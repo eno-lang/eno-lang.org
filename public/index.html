@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The eno notation language">
+
+    <title>The eno notation language</title>
+
+    <link rel="stylesheet" href="eno.css">
+    <link rel="stylesheet" href="styles.css">
+
+    <script defer src="bundle.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <h1>eno</h1>
+
+      <strong>eno</strong> is a structured data notation language for everyone.<br/><br/>
+
+      <a href="https://github.com/eno-lang" target="_blank">eno on github</a>
+    </header>
+
+    <div class="split">
+      <div class="input">
+        <textarea id="editor">> Comment
+
+Field: Value
+
+List:
+- Value
+- Value
+
+-- Block
+Value
+-- Block
+
+# Section
+## Section
+### Section</textarea>
+        <pre id="lookup"></pre>
+      </div>
+
+      <div class="output">
+        Change the parser locale: <a href="#de">de</a> <a href="#en">en</a> <a href="#es">es</a><br/><br/>
+        <pre id="parse"></pre>
+      </div>
+    </div>
+  </body>
+
+</html>

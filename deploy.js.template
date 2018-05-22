@@ -1,0 +1,14 @@
+const { spawn } = require('child_process');
+
+const remote = {
+  directory: '/html',
+  host: 'example.org',
+  user: 'alice'
+};
+
+const rsync = spawn('rsync', ['-avz', '--delete', 'public/', `${remote.user}@${remote.host}:${remote.directory}`]);
+
+rsync.stdout.on('data', (data) => { console.log(data.toString()) });
+rsync.stderr.on('data', (data) => { console.log(data.toString()) });
+rsync.on('close', (code, signal) => { if(code === 0) { /* success */ } });
+depl
