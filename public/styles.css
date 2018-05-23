@@ -1,5 +1,15 @@
+body {
+  background-color: #fafafa;
+  color: #383a42;
+}
+
 body, textarea {
   font-size: 18px;
+}
+
+a {
+  color: #ff5370;
+  text-decoration: none;
 }
 
 header {
