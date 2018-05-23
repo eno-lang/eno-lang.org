@@ -47,7 +47,7 @@ const refresh = () => {
   const input = editor.value;
 
   try {
-    doc = parse(input, locale, 'html');
+    doc = parse(input, { locale: locale, reporter: 'html' });
 
     parseLog.innerHTML = `<b>raw()</b><br/><br/>${escape(JSON.stringify(doc.raw(), null, 2))}`;
   } catch(err) {
