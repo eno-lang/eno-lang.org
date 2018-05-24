@@ -1,0 +1,427 @@
+-- intro
+**Note**: This documentation is preliminary, incomplete and heavily in progress. (v0.4.3)
+
+Installation from npm:
+
+```shell
+npm install enojs
+```
+-- intro
+
+# eno
+
+-- class description
+The main module. You'll be calling `parse` on this, and possibly supplying a custom
+locale (such as `'de'`, `'es'`, ...), reporter type (`'text'`, `'html'`, `'terminal'` are available)
+or source label (usually to have filename appear in error messages) to that call.
+-- class description
+
+## parse
+
+syntax:
+| parse(input) → EnoSection
+| parse(input, options) → EnoSection
+
+-- description
+Parse a string in eno notation.
+-- description
+
+-- eno
+color: blue
+-- eno
+
+-- js
+eno.parse(input);  // returns [object EnoSection]
+
+eno.parse(input, { locale: 'es' });  // Any errors will be reported in spanish
+eno.parse(input, { reporter: 'html' });  // Errors will be html for e.g. web integration
+eno.parse(input, { reporter: 'terminal' });  // Errors will be colored for terminal output
+eno.parse(input, { sourceLabel: 'my-file.eno' });  // Errors will include the label as context
+-- js
+
+### parameters
+
+input: A string containing text in eno notation.
+options: A boolean indicating whether to enforce or not.
+
+# EnoSection
+
+-- class description
+Every section in an eno document, such as for instance `# notes` or `### Appendix`, maps to an `EnoSection`.
+More prominently though **the document itself is represented as an `EnoSection`**,
+consequently this is the interface you'll be utilizing most for many usecases.
+-- class description
+
+## assertAllTouched
+
+## dictionary
+
+## enforcePresence
+
+syntax: enforcePresence(enforce)
+
+-- description
+Set the default for all following queries on this section of whether the presence
+of elements in the eno input text should be enforced. This can be used to prevent
+"template decay" - with presence enforcement enabled elements may be empty, but
+they (at least their declaration) must be there in the eno text and consequently
+they can not disappear from a template over time without triggering an error.
+-- description
+
+-- eno
+color: blue
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+document.field('sound');  // returns null
+
+document.enforcePresence(true);
+
+document.field('sound');  // throws an error
+document.field('sound', { enforcePresence: false });  // returns null
+-- js
+
+### parameters
+
+enforce: A boolean indicating whether to enforce or not.
+
+## field
+
+syntax:
+| field(name) → value or null
+| field(name, loader) → value or null
+| field(name, options) → value or null
+| field(name, loader, options) → value or null
+
+-- description
+Retrieve a field's value from the section, optionally supplying a loader to
+validate and/or transform the value, and/or an options object.
+-- description
+
+-- eno
+color: blue
+sound:
+-- eno
+
+-- js
+section.field('color');   // returns 'blue'
+section.field('sound');   // returns null
+
+section.field('sound', { required: true });   // throws an error
+section.field('sound', { enforcePresence: true });   // returns null
+section.field('texture', { enforcePresence: true });   // throws an error
+
+section.field('color', ({ value }) => value.toUpperCase());   // returns 'BLUE'
+
+section.field('color', ({ value }) => {   // throws an error
+  if(value !== 'green') {
+    throw 'Only green is allowed!';
+  }
+  return value;
+});
+
+section.field('color', { withTrace: true });   // returns { trace: [Object EnoField], value: 'blue' }
+-- js
+
+### parameters
+
+name: A string representing the name of the field to return.
+loader: A function returning the transformed/validated value or throwing an error.
+options: An optional object of options.
+
+### return value
+
+description: The value of the field, or null if empty.
+
+## list
+## lookup
+
+## raw
+
+syntax: raw() → array
+
+-- description
+Retrieve a native javscript object representation of the section.
+-- description
+
+-- eno
+color: blue
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+document.raw();  // returns [{ color: 'blue' }]
+-- js
+
+### return value
+
+description: An array of elements (also returned in their raw representation).
+
+## section
+## sections
+## sequential
+## TODO toString
+
+syntax: toString() → string
+
+-- description
+Retrieve an abstract debug representation of the section.
+-- description
+
+-- eno
+color: blue
+
+# notes
+
+buy milk: important!
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+document.toString();  // returns '[Object EnoDocument length="2"]'
+document.section('notes').toString();  // returns '[Object EnoSection name="notes" length="1"]'
+-- js
+
+### return value
+
+description: An abstract debug representation of the section.
+
+# EnoValue
+
+## getError
+## isEmpty
+## raw
+## TODO toString
+## value
+
+# EnoList
+
+## items
+## raw
+## TODO toString
+
+# EnoDictionary
+
+## assertAllTouched
+## entry
+## enforcePresence
+## raw
+## TODO toString
+
+# EnoEmpty
+
+## getError
+
+syntax:
+| getError() → EnoValidationError
+| getError(message) → EnoValidationError
+
+-- description
+Generate an error in the context of the element. The error includes a generic message by default,
+or a custom one if you supply it (which is the recommended practice). This serves to create
+highly informative error messages that pin-point to the exact origin of the error, even when
+the initial reading of data is already past, e.g. when the error condition is only apparent
+later, when more processing has occurred or other data is available.
+-- description
+
+-- eno
+color:
+-- eno
+
+-- js
+const document = eno.parse(input);
+const { trace, value } = document.field('color', { withTrace: true });
+
+// ...
+
+if(value === null) {
+  throw trace.getError('Postprocessing determined that this value needs to be provided.');
+}
+-- js
+
+### return value
+
+description:
+| An EnoValidationError in the context of the element's value
+| (and with an optional custom message).
+
+## raw
+
+syntax: raw() → object
+
+-- description
+Retrieve a native representation of the empty element.
+-- description
+
+-- eno
+color:
+-- eno
+
+-- js
+const document = eno.parse(input);
+const elements = document.sequential();
+
+const elements = document.sequential();
+elements[0].raw();  // returns { color: null }
+-- js
+
+### return value
+
+description: A native representation of the empty element.
+
+## TODO toString
+
+syntax: toString() → string
+
+-- description
+Retrieve an abstract debug representation of the empty element.
+-- description
+
+-- eno
+color:
+-- eno
+
+-- js
+const document = eno.parse(input);
+const elements = document.sequential();
+
+elements[0].toString();  // returns '[Object EnoEmpty name="color"]'
+-- js
+
+### return value
+
+description: An abstract debug representation of the empty element.
+
+# EnoError
+
+## cursor
+
+syntax: cursor → array
+
+-- description
+Returns a cursor position as [line, column] that indicates where a cursor should be placed
+if an application wants to offer the user a way to move the cursor straight to the error location.
+-- description
+
+-- js
+try {
+  ...
+} catch(err) {
+  if(err instanceof EnoError) {
+    err.cursor;  // returns [3, 14]
+  }
+}
+-- js
+
+### return value
+
+description: An array, where [0] is the line number, and [1] is the column number.
+
+## selection
+
+syntax: selection → array
+
+-- description
+Returns a selection as [[line, column], [line, column]] that indicates a text range to select
+if an application wants to offer the user a way to get a selection for the error in the input.
+-- description
+
+-- js
+try {
+  ...
+} catch(err) {
+  if(err instanceof EnoError) {
+    err.selection;  // returns [[3, 14], [3, 23]];
+  }
+}
+-- js
+
+### return value
+
+description:
+| An array, where [0] is the begin of the selection and [1] is the end,
+| and both begin and end are each again an array, where [0] is the
+| line number, and [1] is the column number.
+
+## message
+
+syntax: message → string
+
+-- description
+Contains both the error text as well as the snippet. This is also what you
+get in the console when you don't catch the error.
+-- description
+
+-- js
+try {
+  ...
+} catch(err) {
+  if(err instanceof EnoError) {
+    err.message;  // returns 'In line 4 'a' is copied into itself.\n\n   Line | Content\n ...';
+  }
+}
+-- js
+
+### return value
+
+description: Both the error text as well as the snippet.
+
+## snippet
+
+syntax: snippet → string
+
+-- description
+Returns a formatted excerpt of those passage(s) from the input where the error occurred.
+-- description
+
+-- js
+try {
+  ...
+} catch(err) {
+  if(err instanceof EnoError) {
+    err.snippet;
+    
+    // returns something like ...
+    //
+    //   Line | Content
+    //      1 | 
+    // *    2 |     # a
+    // *    3 |     ## b
+    // >    4 |     ### c < a
+    //      5 |
+  }
+}
+-- js
+
+### return value
+
+description: A formatted excerpt of those passage(s) from the input where the error occurred.
+
+## text
+
+syntax: text → string
+
+-- description
+Returns a one-liner that describes the error in human language.
+-- description
+
+-- js
+try {
+  ...
+} catch(err) {
+  if(err instanceof EnoError) {
+    err.message;  // returns 'In line 4 'a' is copied into itself.';
+  }
+}
+-- js
+
+### return value
+
+description: A single sentence that describes the error in human language.
+
+# EnoParseError < EnoError
+# EnoValidationError < EnoError

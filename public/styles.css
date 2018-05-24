@@ -1,6 +1,50 @@
+/* cousine-regular - latin-ext_latin */
+@font-face {
+  font-family: 'Cousine';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Cousine Regular'), local('Cousine-Regular'),
+       url('/fonts/cousine-v12-latin-ext_latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('/fonts/cousine-v12-latin-ext_latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* sunflower-300 - latin */
+@font-face {
+  font-family: 'Sunflower';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Sunflower Light'), local('Sunflower-Light'),
+       url('/fonts/sunflower-v3-latin-300.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('/fonts/sunflower-v3-latin-300.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* sunflower-700 - latin */
+@font-face {
+  font-family: 'Sunflower';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Sunflower Bold'), local('Sunflower-Bold'),
+       url('/fonts/sunflower-v3-latin-700.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('/fonts/sunflower-v3-latin-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* sunflower-500 - latin */
+@font-face {
+  font-family: 'Sunflower';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Sunflower Medium'), local('Sunflower-Medium'),
+       url('/fonts/sunflower-v3-latin-500.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('/fonts/sunflower-v3-latin-500.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+
 body {
   background-color: #fafafa;
   color: #383a42;
+  font-family: 'Sunflower';
+  font-weight: 300;
+  margin: 0;
 }
 
 body, textarea {
@@ -12,8 +56,17 @@ a {
   text-decoration: none;
 }
 
+code {
+  font-family: 'Cousine' !important;
+  font-size: 0.8em;
+}
+
 header {
   padding: 2em 2em 0 2em;
+}
+
+pre {
+  position: relative;
 }
 
 #editor {
@@ -28,4 +81,52 @@ header {
 
 .split {
   display: flex;
+}
+
+.docs {
+  display: flex;
+  margin: 0 auto;
+  max-width: 1280px;
+}
+
+.docs .class {
+  border-left: 0.25em solid #383a42;
+  margin-top: 3em;
+  padding-left: 0.25em;
+}
+
+.docs .main {
+  max-width: 900px;
+}
+
+.docs .pad {
+  margin: 1em 0;
+}
+
+.docs .syntax {
+  margin-top: 3em;
+  white-space: pre;
+}
+
+.docs p {
+  line-height: 140%;
+  text-align: justify;
+}
+
+.docs p code {
+  background-color: #eaeaea;
+  padding: 0.25em;
+}
+
+.extension {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 0.5em 1em;
+  font-size: 0.8em;
+  color: #ccc;
+}
+
+.sidebar, .main {
+  padding: 0 1em;
 }

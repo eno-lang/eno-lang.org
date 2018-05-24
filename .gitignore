@@ -1,4 +1,5 @@
 /node_modules/
 
 /public/bundle.js
+/public/js/index.html
 /deploy.js
