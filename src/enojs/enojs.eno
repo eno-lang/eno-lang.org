@@ -54,7 +54,11 @@ consequently this is the interface you'll be utilizing most for many usecases.
 
 ## assertAllTouched
 
+syntax: assertAllTouched TODO
+
 ## dictionary
+
+syntax: dictionary TODO
 
 ## enforcePresence
 
@@ -136,7 +140,12 @@ options: An optional object of options.
 description: The value of the field, or null if empty.
 
 ## list
+
+syntax: list TODO
+
 ## lookup
+
+syntax: lookup TODO
 
 ## raw
 
@@ -161,8 +170,17 @@ document.raw();  // returns [{ color: 'blue' }]
 description: An array of elements (also returned in their raw representation).
 
 ## section
+
+syntax: section TODO
+
 ## sections
+
+syntax: sections TODO
+
 ## sequential
+
+syntax: sequential TODO
+
 ## TODO toString
 
 syntax: toString() → string
@@ -193,24 +211,63 @@ description: An abstract debug representation of the section.
 # EnoValue
 
 ## getError
+
+syntax: getError TODO
+
 ## isEmpty
+
+syntax:  isEmptyTODO
+
 ## raw
+
+syntax: raw TODO
+
 ## TODO toString
+
+syntax: toString TODO
+
 ## value
+
+syntax: value TODO
+
 
 # EnoList
 
 ## items
+
+syntax: items TODO
+
 ## raw
+
+syntax: raw TODO
+
 ## TODO toString
+
+syntax: toString TODO
+
 
 # EnoDictionary
 
 ## assertAllTouched
+
+syntax: assertAllTouched TODO
+
 ## entry
+
+syntax: entry TODO
+
 ## enforcePresence
+
+syntax: enforcePresence TODO
+
 ## raw
+
+syntax: raw TODO
+
 ## TODO toString
+
+syntax: toString TODO
+
 
 # EnoEmpty
 
@@ -309,7 +366,7 @@ if an application wants to offer the user a way to move the cursor straight to t
 
 -- js
 try {
-  ...
+  // ...
 } catch(err) {
   if(err instanceof EnoError) {
     err.cursor;  // returns [3, 14]
@@ -332,7 +389,7 @@ if an application wants to offer the user a way to get a selection for the error
 
 -- js
 try {
-  ...
+  // ...
 } catch(err) {
   if(err instanceof EnoError) {
     err.selection;  // returns [[3, 14], [3, 23]];
@@ -358,7 +415,7 @@ get in the console when you don't catch the error.
 
 -- js
 try {
-  ...
+  // ...
 } catch(err) {
   if(err instanceof EnoError) {
     err.message;  // returns 'In line 4 'a' is copied into itself.\n\n   Line | Content\n ...';
@@ -380,7 +437,7 @@ Returns a formatted excerpt of those passage(s) from the input where the error o
 
 -- js
 try {
-  ...
+  // ...
 } catch(err) {
   if(err instanceof EnoError) {
     err.snippet;
@@ -411,7 +468,7 @@ Returns a one-liner that describes the error in human language.
 
 -- js
 try {
-  ...
+  // ...
 } catch(err) {
   if(err instanceof EnoError) {
     err.message;  // returns 'In line 4 'a' is copied into itself.';

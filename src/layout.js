@@ -13,8 +13,10 @@ module.exports = content => {
         <link rel="stylesheet" href="/eno.css">
         <link rel="stylesheet" href="/styles.css">
         <link rel="stylesheet" href="/prism.css">
+        <link rel="stylesheet" href="/prism-eno.css">
 
         <script defer src="/prism.js"></script>
+        <script defer src="/prism-eno.js"></script>
       </head>
 
       <body>

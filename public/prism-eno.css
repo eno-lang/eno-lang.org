@@ -1,0 +1,23 @@
+.language-eno .token.name {
+	color: #ff5370;
+}
+
+.language-eno .token.block {
+	color: red;
+}
+
+.language-eno .token.section1stLevel {
+	color: #ffb500;
+}
+
+.language-eno .token.section2ndLevel {
+	color: #ff3f00;
+}
+
+.language-eno .token.section3rdLevelPlus {
+	color: #ff00ac;
+}
+
+.language-eno .token.template {
+	color: #b2d218;
+}
