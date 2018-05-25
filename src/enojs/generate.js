@@ -58,14 +58,16 @@ for(let enoClass of document.sequential()) {
       main += `<h4>Parameters</h4>`;
       for(let parameter of parameters.sequential()) {
         main += `<strong>${parameter.name}</strong>`;
-        main += `<div class="pad">${parameter.value()}</div>`;
+        main += markdownIt.render(parameter.value());
       }
     }
 
     const returnValue = method.section('return value', { required: false })
     if(returnValue) {
+      const description = returnValue.field('description', { required: true });
+
       main += `<h4>Return value</h4>`;
-      main += `<div>${returnValue.field('description', { required: true })}</div>`;
+      main += markdownIt.render(description);
     }
 
     const examples = method.section('Examples', { required: false })

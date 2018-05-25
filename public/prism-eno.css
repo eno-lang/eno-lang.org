@@ -2,19 +2,15 @@
 	color: #ff5370;
 }
 
-.language-eno .token.block {
-	color: red;
-}
-
-.language-eno .token.section1stLevel {
+.language-eno .token.section-1st {
 	color: #ffb500;
 }
 
-.language-eno .token.section2ndLevel {
+.language-eno .token.section-2nd {
 	color: #ff3f00;
 }
 
-.language-eno .token.section3rdLevelPlus {
+.language-eno .token.section-3rd-plus {
 	color: #ff00ac;
 }
 

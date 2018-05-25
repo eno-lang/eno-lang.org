@@ -42,7 +42,11 @@ eno.parse(input, { sourceLabel: 'my-file.eno' });  // Errors will include the la
 ### parameters
 
 input: A string containing text in eno notation.
-options: A boolean indicating whether to enforce or not.
+options: An options object.
+
+### return value
+
+description: An `EnoSection` representing the document.
 
 # EnoSection
 
