@@ -141,14 +141,17 @@ description: An `EnoDictionary`, or `null`.
 
 ## enforcePresence
 
-syntax: enforcePresence(enforce)
+syntax:
+| enforcePresence()
+| enforcePresence(enforce)
 
 -- description
-Set the default for all following queries on this section of whether the presence
-of elements in the eno input text should be enforced. This can be used to prevent
-"template decay" - with presence enforcement enabled elements may be empty, but
-they (at least their declaration) must be there in the eno text and consequently
-they can not disappear from a template over time without triggering an error.
+Set the default for all following queries on this section of whether the
+presence of elements in the eno input text should be enforced (by default it is
+not). This can be used to prevent "template decay" - with presence enforcement
+enabled elements may be empty, but they (at least their declaration) must be
+there in the eno text and consequently they can not disappear from a template
+over time without triggering an error.
 -- description
 
 -- eno
@@ -168,7 +171,7 @@ document.field('sound', { enforcePresence: false });  // returns null
 
 ### parameters
 
-enforce: A boolean indicating whether to enforce or not.
+enforce: An optional boolean indicating whether to enforce or not. (otherwise `true` is assumed)
 
 ## field
 
@@ -471,7 +474,39 @@ syntax: entry TODO
 
 ## enforcePresence
 
-syntax: enforcePresence TODO
+syntax:
+| enforcePresence()
+| enforcePresence(enforce)
+
+-- description
+Set the default for all following queries on this dictionary of whether the
+presence of elements in the eno input text should be enforced (by default it is
+not). This can be used to prevent "template decay" - with presence enforcement
+enabled entries may be empty, but they (at least their declaration) must be
+there in the eno document and consequently they can not disappear from a
+template at any point without triggering an error.
+-- description
+
+-- eno
+conversions:
+0001 = 1
+0010 = 2
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+const conversions = document.dictionary('conversions');
+
+conversions.enforcePresence(true);
+
+conversions.entry('0011');  // throws an error
+conversions.entry('0011', { enforcePresence: false });  // returns null
+-- js
+
+### parameters
+
+enforce: An optional boolean indicating whether to enforce or not. (otherwise `true` is assumed)
 
 ## raw
 
