@@ -377,7 +377,32 @@ syntax: value TODO
 
 ## items
 
-syntax: items TODO
+syntax:
+| items() → array
+| items(loader) → array
+
+-- description
+Retrieve the items of the list, optionally passing them through a loader function.
+-- description
+
+-- eno
+colors:
+- pink
+- peach
+-- eno
+
+-- js
+const document = eno.parse(input);
+const list = document.sequential()[0]
+
+list.items();  // returns ['pink', 'peach']
+
+list.items(({ value }) => `${value}!!`);  // returns ['pink!!', 'peach!!']
+-- js
+
+### return value
+
+description: The (optionally transformed/validated) items of this list as an array.
 
 ## raw
 
