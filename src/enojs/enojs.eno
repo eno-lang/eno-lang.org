@@ -310,7 +310,7 @@ description: `true` if empty, otherwise `false`.
 syntax: raw() → object or value
 
 -- description
-Retrieve a native javscript object representation of the value.
+Retrieve a native javascript object representation of the value.
 The raw representation differs depending on whether there is a name (e.g. for a field value),
 or not (applies only to list item values).
 -- description
@@ -337,7 +337,33 @@ description: A native representation of the value element.
 
 ## toString
 
-syntax: toString TODO
+syntax: toString() → string
+
+-- description
+Retrieve an abstract debug representation of of this `EnoValue`.
+The representation differs depending on whether there is a name (e.g. for a field value)
+or not (applies only to list item values).
+-- description
+
+-- eno
+color: blue
+numbers:
+- 13
+- 42
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+document.sequential()[0].toString();  // returns '[Object EnoValue name="color" value="blue"]'
+
+const list = document.list('numbers', { withTrace: true });
+list[0].trace.toString();  // returns '[Object EnoValue value="13"]'
+-- js
+
+### return value
+
+description: An abstract debug representation of this `EnoValue`.
 
 ## value
 
@@ -356,8 +382,27 @@ syntax: raw TODO
 
 ## toString
 
-syntax: toString TODO
+syntax: toString() → string
 
+-- description
+Retrieve an abstract debug representation of the list.
+-- description
+
+-- eno
+numbers:
+- 13
+- 42
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+document.list('numbers').toString();  // returns '[Object EnoList name="numbers" length="2"]'
+-- js
+
+### return value
+
+description: An abstract debug representation of the list.
 
 # EnoDictionary
 
@@ -379,8 +424,27 @@ syntax: raw TODO
 
 ## toString
 
-syntax: toString TODO
+syntax: toString() → string
 
+-- description
+Retrieve an abstract debug representation of the dictionary.
+-- description
+
+-- eno
+numbers:
+13 = thirteen
+23 = twentythree
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+document.dictionary('numbers').toString();  // returns '[Object EnoDictionary name="numbers" length="2"]'
+-- js
+
+### return value
+
+description: An abstract debug representation of the dictionary.
 
 # EnoEmpty
 
