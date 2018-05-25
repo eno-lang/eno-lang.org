@@ -58,11 +58,86 @@ consequently this is the interface you'll be utilizing most for many usecases.
 
 ## assertAllTouched
 
-syntax: assertAllTouched TODO
+syntax:
+| assertAllTouched()
+| assertAllTouched(options)
+
+-- description
+Assert that all elements that were parsed from the eno document were also queried
+(and therefore *touched*) by the application. This, combined with eno's query methods,
+serves to ensure a two-way guarantee for both users and developers: No data that the
+application requires can be left out, and no data that the application does not
+process can be supplied.
+-- description
+
+-- eno
+Important data A: I need to be processed!
+Important data B: Me too!
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+const dataA = document1.field('Important data A');
+
+// ... processing happens only for dataA
+
+document.assertAllTouched(); // throws an error
+-- js
+
+### parameters
+
+-- options
+An optional object.
+ 
+`only` - An array of strings, e.g. `['name', 'email']`, which tells enojs to only check these elements for whether they've been touched.  
+`except` - An array of strings, e.g. `['phone number']`, which tells enojs to excude these elements from checking whether they've been touched.  
+-- options
 
 ## dictionary
 
-syntax: dictionary TODO
+syntax:
+| dictionary(name) → EnoDictionary or null
+| dictionary(name, options) → EnoDictionary or null
+
+-- description
+Retrieve a dictionary from the section, optionally supplying an options object.
+-- description
+
+-- eno
+color ratings:
+red = 5
+green = 7
+blue = 3
+-- eno
+
+-- js
+section.dictionary('color ratings');   // returns [object EnoDictionary]
+section.dictionary('temperature ratings');   // throws an error
+
+section.dictionary('temperature ratings', { required: false });   // returns null
+section.dictionary('temperature ratings', { enforcePresence: true });   // throws an error
+-- js
+
+### parameters
+
+name: A string representing the name of the field to return.
+
+-- options
+An optional object of options.
+ 
+`required` - A boolean stating whether the dictionary must exist. (defaults to `true`)  
+`enforcePresence` - A boolean stating whether the dictionary must exist. (defaults to `false`)
+
+Note: The two options are obviously redundant, here's why: `enforcePresence` affects all elements,
+therefore we need it here as well. `required` was added because it exists on other elements as
+well (where it does something different, namely, enforce the *value*) and it would be odd if
+it were missing here now suddenly, so that's why there are two options with the same effect.
+-- options
+
+### return value
+
+description: An `EnoDictionary`, or `null`.
 
 ## enforcePresence
 
@@ -224,7 +299,33 @@ syntax:  isEmptyTODO
 
 ## raw
 
-syntax: raw TODO
+syntax: raw() → object or value
+
+-- description
+Retrieve a native javscript object representation of the value.
+The raw representation differs depending on whether there is a name (e.g. for a field value),
+or not (applies only to list item values).
+-- description
+
+-- eno
+color: blue
+numbers:
+- 13
+- 42
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+document.sequential()[0].raw();  // returns { color: 'blue' }
+
+const list = document.list('numbers', { withTrace: true });
+list[0].trace.raw();  // returns '13'
+-- js
+
+### return value
+
+description: A native representation of the value element.
 
 ## TODO toString
 

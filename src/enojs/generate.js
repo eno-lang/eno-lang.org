@@ -77,6 +77,9 @@ for(let enoClass of document.sequential()) {
   }
 }
 
+// TODO: There is an open issue with touching sections for this
+// document.assertAllTouched();
+
 main += '<br/><br/>';
 
 const content = `
