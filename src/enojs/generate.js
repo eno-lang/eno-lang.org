@@ -26,8 +26,8 @@ for(let enoClass of document.sequential()) {
       continue;
     }
 
-    main += `<a name="${method.name}"></a>`;
-    sidebar += `<a href="#${method.name}">${method.name}</a><br/>`;
+    main += `<a name="${enoClass.name}-${method.name}"></a>`;
+    sidebar += `<a href="#${enoClass.name}-${method.name}">${method.name}</a><br/>`;
 
     const syntax = method.field('syntax')
     if(syntax) {
