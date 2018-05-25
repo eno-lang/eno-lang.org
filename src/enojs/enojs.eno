@@ -378,7 +378,27 @@ syntax: items TODO
 
 ## raw
 
-syntax: raw TODO
+syntax: raw() → object
+
+-- description
+Retrieve a native representation of the list.
+-- description
+
+-- eno
+colors:
+- pink
+- peach
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+document.sequential()[0].raw();  // returns { colors: ['pink', 'peach'] }
+-- js
+
+### return value
+
+description: A native javascript representation of the list.
 
 ## toString
 
@@ -455,7 +475,27 @@ syntax: enforcePresence TODO
 
 ## raw
 
-syntax: raw TODO
+syntax: raw() → object
+
+-- description
+Retrieve a native representation of the dictionary.
+-- description
+
+-- eno
+weights:
+apple = 100g
+pineapple = 800g
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+document.dictionary('weights').raw();  // returns { weights: { apple: '100g', pineapple: '800g' } }
+-- js
+
+### return value
+
+description: A native object representation of the dictionary.
 
 ## toString
 
@@ -532,10 +572,8 @@ color:
 
 -- js
 const document = eno.parse(input);
-const elements = document.sequential();
 
-const elements = document.sequential();
-elements[0].raw();  // returns { color: null }
+document.sequential()[0].raw();  // returns { color: null }
 -- js
 
 ### return value
