@@ -260,7 +260,7 @@ syntax: sections TODO
 
 syntax: sequential TODO
 
-## TODO toString
+## toString
 
 syntax: toString() → string
 
@@ -327,7 +327,7 @@ list[0].trace.raw();  // returns '13'
 
 description: A native representation of the value element.
 
-## TODO toString
+## toString
 
 syntax: toString TODO
 
@@ -346,7 +346,7 @@ syntax: items TODO
 
 syntax: raw TODO
 
-## TODO toString
+## toString
 
 syntax: toString TODO
 
@@ -369,7 +369,7 @@ syntax: enforcePresence TODO
 
 syntax: raw TODO
 
-## TODO toString
+## toString
 
 syntax: toString TODO
 
@@ -435,7 +435,7 @@ elements[0].raw();  // returns { color: null }
 
 description: A native representation of the empty element.
 
-## TODO toString
+## toString
 
 syntax: toString() → string
 
