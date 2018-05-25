@@ -178,8 +178,8 @@ enforce: An optional boolean indicating whether to enforce or not. (otherwise `t
 syntax:
 | field(name) → value or null
 | field(name, loader) → value or null
-| field(name, options) → value or null
-| field(name, loader, options) → value or null
+| field(name, options) → object/value or null
+| field(name, loader, options) → object/value or null
 
 -- description
 Retrieve a field's value from the section, optionally supplying a loader to
@@ -208,7 +208,7 @@ section.field('color', ({ value }) => {   // throws an error
   return value;
 });
 
-section.field('color', { withTrace: true });   // returns { trace: [Object EnoField], value: 'blue' }
+section.field('color', { withTrace: true });   // returns { trace: [Object EnoValue], value: 'blue' }
 -- js
 
 ### parameters
@@ -219,7 +219,7 @@ options: An optional object of options.
 
 ### return value
 
-description: The value of the field, or null if empty.
+description: The value of the field, or `null` if empty.
 
 ## list
 
@@ -470,7 +470,65 @@ An optional object.
 
 ## entry
 
-syntax: entry TODO
+syntax:
+| entry(name) → value or null
+| entry(name, loader) → value or null
+| entry(name, options) → object/value or null
+| entry(name, loader, options) → object/value or null
+
+-- description
+Retrieve an entry's value from the dictionary, optionally supplying a loader to
+validate and/or transform the value, and/or an options object.
+-- description
+
+-- eno
+Q&A:
+Meaning = 42
+Green = Yes
+Purpose =
+-- eno
+
+-- js
+const document = eno.parse(input);
+const qa = document.dictionary('Q&A');
+
+qa.entry('Meaning');   // returns '42'
+qa.entry('Purpose');   // returns null
+
+qa.entry('Purpose', { required: true });   // throws an error
+qa.entry('Purpose', { enforcePresence: true });   // returns null
+qa.entry('Beige', { enforcePresence: true });   // throws an error
+
+qa.entry('Green', ({ value }) => value.toUpperCase());   // returns 'YES'
+
+qa.entry('Meaning', ({ value }) => {   // throws an error
+  if(value === '42') {
+    throw "That one's getting old!";
+  }
+  return value;
+});
+
+qa.entry('Meaning', { withTrace: true });   // returns { trace: [Object EnoValue], value: '42' }
+-- js
+
+### parameters
+
+name: The name of the entry as a string.
+
+loader:
+| A function returning the transformed/validated value or throwing an error.  
+| The function is passed `name` and `value` inside a single object parameter.
+
+-- options
+An optional object of options:  
+`enforcePresence`: Whether the entry must be present in the document (defaults to `false`)  
+`required`: Whether there must be a value for this entry (defaults to `false`)  
+`withTrace`: Whether to return an object with both the element and the value (defaults to `false`)
+-- options
+
+### return value
+
+description: The entry's value, or `null` if empty.
 
 ## enforcePresence
 
