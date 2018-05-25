@@ -63,7 +63,7 @@ syntax:
 | assertAllTouched(options)
 
 -- description
-Assert that all elements that were parsed from the eno document were also queried
+Assert that all elements of this section that were present in the parsed eno document were also queried
 (and therefore *touched*) by the application. This, combined with eno's query methods,
 serves to ensure a two-way guarantee for both users and developers: No data that the
 application requires can be left out, and no data that the application does not
@@ -78,7 +78,7 @@ Important data B: Me too!
 -- js
 const document = eno.parse(input);
 
-const dataA = document1.field('Important data A');
+const dataA = document.field('Important data A');
 
 // ... processing happens only for dataA
 
@@ -408,7 +408,42 @@ description: An abstract debug representation of the list.
 
 ## assertAllTouched
 
-syntax: assertAllTouched TODO
+syntax:
+| assertAllTouched()
+| assertAllTouched(options)
+
+-- description
+Assert that all entries of this dictionary that were present in the parsed eno document
+were also queried (and therefore *touched*) by the application. This, combined with eno's
+query methods, serves to ensure a two-way guarantee for both users and developers:
+No data that the application requires can be left out, and no data that the application
+does not process can be supplied.
+-- description
+
+-- eno
+Important data:
+A = I need to be processed!
+B = Me too!
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+const dataA = document.dictionary('Important data').entry('A');
+
+// ... processing happens only for dataA
+
+document.assertAllTouched(); // throws an error
+-- js
+
+### parameters
+
+-- options
+An optional object.
+ 
+`only` - An array of strings, e.g. `['name', 'email']`, which tells enojs to only check these entries for whether they've been touched.  
+`except` - An array of strings, e.g. `['phone number']`, which tells enojs to excude these entries from checking whether they've been touched.  
+-- options
 
 ## entry
 
