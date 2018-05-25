@@ -295,7 +295,15 @@ syntax: getError TODO
 
 ## isEmpty
 
-syntax:  isEmptyTODO
+syntax: isEmpty() → boolean
+
+-- description
+Query whether the value is empty (e.g. `comment:  ` in an eno document), which in javascript terms is equivalent of `null`.
+-- description
+
+### return value
+
+description: `true` if empty, otherwise `false`.
 
 ## raw
 
