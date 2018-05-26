@@ -326,7 +326,44 @@ syntax: sections TODO
 
 ## sequential
 
-syntax: sequential TODO
+syntax: sequential() → array
+
+-- description
+Retrieve the elements of this section in sequential order. This seamlessly lets you switch from
+associative readout to sequential readout, allowing sections within, or the whole document, to
+represent document-like structures (think generic markup) instead of just associative data stores.
+-- description
+
+-- eno
+date: 2018-03-01
+title: 'My blog post'
+
+# page
+
+h1: Hello world
+p: This is my first post, I'm so happy!
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+const metadata = {
+  date: document.field('date', myDateLoader),
+  title: document.field('title')
+};
+
+let html = '';
+
+document.section('page').sequential().forEach(element => {
+  html += `<${element.name}>${element.value()}&lt;/${element.name}>`
+});
+
+// ...
+-- js
+
+### return value
+
+description: An array containing the elements of this section.
 
 ## toString
 
