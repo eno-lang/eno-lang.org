@@ -8,7 +8,7 @@ const layout = require('../layout.js');
 const input = fs.readFileSync(path.join(__dirname, 'enojs.eno'), 'utf-8');
 const document = eno.parse(input, { reporter: 'terminal' });
 
-let main = '<h1>enojs documentation</h1>';
+let main = '<h1>enojs 0.4.5</h1>';
 let sidebar = '<h1>&nbsp;</h1>';
 
 for(let enoClass of document.sequential()) {
@@ -17,8 +17,9 @@ for(let enoClass of document.sequential()) {
     continue;
   }
 
+  main += `<a name="${enoClass.name}"></a>`
   main += `<h2 class="class">${enoClass.name}</h2>`
-  sidebar += `<div class="pad"><strong>${enoClass.name}</strong></div>`
+  sidebar += `<div class="pad"><strong>${enoClass.name} <a href="#${enoClass.name}">#</a></strong></div>`
 
   for(let method of enoClass.sequential()) {
     if(method.name === 'class description') {

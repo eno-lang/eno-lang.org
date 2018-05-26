@@ -1,10 +1,21 @@
 -- intro
-**Note**: This documentation is preliminary. (v0.4.4)
-
 Installation from npm:
 
 ```shell
 npm install enojs
+```
+
+## Getting started
+
+```js
+const eno = require('enojs');
+const fs = require('fs');
+
+const input = fs.readFileSync('[your-file].eno');
+
+const document = eno.parse(input);
+
+console.log( document.field('[your-field]') );  // prints '[your-value]'
 ```
 -- intro
 
@@ -292,14 +303,74 @@ description: The (optionally transformed/validated) items of this list as an arr
 
 ## lookup
 
-syntax: lookup TODO
+syntax:
+| lookup(index) → object or null
+| lookup(line, column) → object or null
+
+-- description
+Ask the document *Hey what's at column X in line Y in my eno file?*. The lookup **always** returns an element for valid indices
+(the document/section in case of an empty line/space), only indices outside the range of the document return `null`.
+-- description
+
+-- eno
+color: blue
+
+# notes
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+document.lookup(3);  // (= 'o') returns { element: [Object EnoValue], zone: 'name' }
+document.lookup(7);  // (= 'b') returns { element: [Object EnoValue], zone: 'value' }
+
+document.lookup(1, 3);  // (= 'o') returns { element: [Object EnoValue], zone: 'name' }
+document.lookup(1, 7);  // (= 'b') returns { element: [Object EnoValue], zone: 'value' }
+
+document.lookup(13);  // (= '#') returns { element: [Object EnoSection], zone: 'sectionOperator' }
+document.lookup(19);  // (= 's') returns { element: [Object EnoSection], zone: 'name' }
+
+document.lookup(3, 0);  // (= '#') returns { element: [Object EnoSection], zone: 'sectionOperator' }
+document.lookup(3, 6);  // (= 's') returns { element: [Object EnoSection], zone: 'name' }
+-- js
+
+### return value
+
+-- description
+For all valid indices within the document returns an object with two properties:  
+
+`element`: An `EnoSection`, `EnoDictionary`, `EnoValue`.. . For empty lines you get the containing section.
+
+`zone`: A string denoting the token at the index, here's the full list:  
+
+`'[empty-lines-and-spaces-between-tokens]'` => `element`  
+`'[inside-blocks]'` => `content`  
+`'[inside-comments]'` => `comment`  
+`'[name]'` => `name`  
+`'[template]'` => `value`  
+`'[value]'` => `value`  
+`':'` => `nameOperator`  
+`'-'` => `itemOperator`  
+`'='` => `entryOperator`  
+`'--'` => `blockOperator`  
+`'>'` => `commentOperator`  
+``'`'`` => `escapeBeginOperator`  
+``'`'`` => `escapeEndOperator`  
+`'|'` => `appendWithNewlineOperator`  
+`'\'` => `appendWithSpaceOperator`  
+`'#'` => `sectionOperator`  
+`'<'` => `copyOperator`  
+`'<<'` => `deepCopyOperator`  
+
+When an index outside the document is supplied, `null` is returned.
+-- description
 
 ## raw
 
 syntax: raw() → array
 
 -- description
-Retrieve a native javscript object representation of the section.
+Retrieve a native javascript object representation of the section.
 -- description
 
 -- eno
@@ -318,11 +389,79 @@ description: An array of elements (also returned in their raw representation).
 
 ## section
 
-syntax: section TODO
+syntax: 
+| section(name) → EnoSection or null
+| section(name, options) → EnoSection or null
+
+-- description
+Retrieve the subsection with the specified name from this current section.
+-- description
+
+-- eno
+# content
+title: A Manifest
+
+# notes
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+document.section('content');  // returns [Object EnoSection]
+document.section('notes');  // returns [Object EnoSection]
+document.section('metadata');  // throws an error
+
+document.section('metadata', { required: false });  // returns null
+document.section('notes', { enforcePresence: true });  // returns [Object EnoSection]
+document.section('metadata', { enforcePresence: true });  // throws an error
+-- js
+
+### parameters
+
+-- options
+An optional object of options:  
+`enforcePresence`: Whether the section must be present in the document (defaults to `false`)  
+`required`: Whether there must be a section of that name in the document (defaults to `true`)  
+
+Note: The two options are obviously redundant, here's why: `enforcePresence` affects all elements,
+therefore we need it here as well. `required` was added because it exists on other elements as
+well (where it does something different, namely, enforce the *value*) and it would be odd if
+it were missing here now suddenly, so that's why there are two options with the same purpose.
+-- options
+
+### return value
+
+description: An `EnoSection`, or `null`.
 
 ## sections
 
-syntax: sections TODO
+syntax: sections(name) → array
+
+-- description
+Retrieve subsections with the specified name from this current section.
+-- description
+
+-- eno
+# Article
+> ...
+
+# Article
+> ...
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+const sections = document.sections('Article');
+
+sections.forEach(section => {
+  // do something with each Article
+});
+-- js
+
+### return value
+
+description: An array of `EnoSection`s.
 
 ## sequential
 
@@ -393,6 +532,15 @@ document.section('notes').toString();  // returns '[Object EnoSection name="note
 description: An abstract debug representation of the section.
 
 # EnoValue
+
+-- class description
+All values in an eno document, such as the value of a field like `name: value`, the lines inside a block,
+the value of a list item, the value of a dictionary entry, and so on, map to an `EnoValue`. Usually you
+don't interact with this because you directly get the values from a section or dictionary in most cases.
+Only when you sequentially iterate a section (with `EnoSection`'s '`sequential` method) or explicitly ask
+for the `EnoValue` by using an accessor with the `{ withTrace: true }` option (for delayed error triggering)
+you will get to interact with this class.
+-- class description
 
 ## getError
 
@@ -541,6 +689,19 @@ description: The (optionally transformed/validated) value of this `EnoValue`.
 
 # EnoList
 
+-- class description
+Lists such as the one below are represented as an `EnoList`:
+
+```eno
+things:
+- toys
+- plants
+```
+
+Like `EnoValue`, you will seldom interact with this class, and instead use the `list`
+accessor on the document or its sections to directly obtain the values of a list.
+-- class description
+
 ## items
 
 syntax:
@@ -619,6 +780,18 @@ document.list('numbers').toString();  // returns '[Object EnoList name="numbers"
 description: An abstract debug representation of the list.
 
 # EnoDictionary
+
+-- class description
+Dictionaries are represented as an `EnoDictionary`:
+
+```eno
+rated things:
+toys = 5 stars
+plants = 3 stars
+```
+
+You will mostly obtain an instance of this through the `dictionary` accessor on a document/section.
+-- class description
 
 ## assertAllTouched
 
@@ -807,6 +980,10 @@ description: An abstract debug representation of the dictionary.
 
 # EnoEmpty
 
+-- class description
+This represents empty elements such as `color:`, where it is not clear if it is an empty field, list, or dictionary.
+-- class description
+
 ## getError
 
 syntax:
@@ -888,6 +1065,10 @@ elements[0].toString();  // returns '[Object EnoEmpty name="color"]'
 description: An abstract debug representation of the empty element.
 
 # EnoError
+
+-- class description
+The single generic error interface for all (user) errors that eno generates.
+-- class description
 
 ## cursor
 
@@ -1014,5 +1195,18 @@ try {
 
 description: A single sentence that describes the error in human language.
 
-# EnoParseError < EnoError
-# EnoValidationError < EnoError
+# EnoParseError
+
+-- class description
+When this is thrown, it indicates an error regarding syntax or grammatical semantics of the document.
+Functionally this behaves exactly like `EnoError`, therefore the interface methods are not repeated here and can
+be looked up on the `EnoError` documentation.
+-- class description
+
+# EnoValidationError
+
+-- class description
+When this is thrown, it indicates an error regarding application-specific requirements for the document.
+Functionally this behaves exactly like `EnoError`, therefore the interface methods are not repeated here and can
+be looked up on the `EnoError` documentation.
+-- class description
