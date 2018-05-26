@@ -1,5 +1,5 @@
 -- intro
-**Note**: This documentation is preliminary, incomplete and heavily in progress. (v0.4.3)
+**Note**: This documentation is preliminary. (v0.4.4)
 
 Installation from npm:
 
@@ -223,7 +223,72 @@ description: The value of the field, or `null` if empty.
 
 ## list
 
-syntax: list TODO
+syntax:
+| list() → array
+| list(loader) → array
+| list(options) → array
+| list(loader, options) → array
+
+-- description
+Retrieve the items of a list, optionally supplying a loader and options.
+-- description
+
+-- eno
+colors:
+- pink
+- peach
+-
+
+textures:
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+document.list('colors');  // returns ['pink', 'peach']
+document.list('textures');  // returns []
+document.list('sounds');  // returns []
+
+document.list('colors', { inludeEmpty: true });  // returns ['pink', 'peach', null]
+document.list('textures', { enforcePresence: true });   // returns []
+document.list('sounds', { enforcePresence: true });   // throws an error
+
+document.list('colors', ({ value }) => value.toUpperCase());   // returns ['PINK', 'PEACH']
+
+document.list('colors', ({ value }) => {   // throws an error
+  if(value === 'peach') {
+    throw 'Peach may not be on the list!';
+  }
+  return `I like ${value}`;
+});
+
+document.list('colors', { withTrace: true });   // returns [{ trace: [Object EnoValue], value: 'pink' },
+                                                //          { trace: [Object EnoValue], value: 'peach' }]
+-- js
+
+### parameters
+
+name: The name of the list to return as a string.
+
+loader:
+| A `function` returning the transformed/validated value or throwing an error.
+| (The function is applied to each list item on its own, being passed a single
+| object parameter with the keys `name` and `value`)
+
+-- options
+An optional object of options.
+
+`enforcePresence`: Whether the list must be present in the document (defaults to `false`)  
+`includeEmpty`: Whether to include list items with a value of `null` - represented by `-  ` in the document (defaults to `false`)  
+`exactCount`: Validate that there are exactly `n` items in the list (takes a number, defaults to `null`)  
+`minCount`: Validate that there are at least `n` items in the list (takes a number, defaults to `null`)  
+`maxCount`: Validate that there are at most `n` items in the list (takes a number, defaults to `null`)  
+`withTrace`: Whether to return a list of objects with both the element and the value (defaults to `false`)
+-- options
+
+### return value
+
+description: The (optionally transformed/validated) items of this list as an array.
 
 ## lookup
 
