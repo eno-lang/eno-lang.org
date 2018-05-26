@@ -466,8 +466,41 @@ description: An abstract debug representation of this `EnoValue`.
 
 ## value
 
-syntax: value TODO
+syntax:
+| value() → value or null
+| value(loader) → value or null
 
+-- description
+Retrieve the value of an `EnoValue`, optionally passing it through a loader function.
+-- description
+
+-- eno
+flag color: beige
+towel color:
+|
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+const flagColor = document.sequential()[0];
+const towelColor = document.sequential()[1];
+
+flagColor.value();  // returns beige
+towelColor.value();  // returns null
+
+flagColor.value(({ value }) => value.replace('eig', 'lu'));   // returns 'blue'
+-- js
+
+### parameters
+
+loader:
+| A function returning the transformed/validated value or throwing an error.  
+| The function is passed `name` and `value` inside a single object parameter.
+
+### return value
+
+description: The (optionally transformed/validated) value of this `EnoValue`.
 
 # EnoList
 
