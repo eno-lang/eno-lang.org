@@ -359,7 +359,38 @@ description: An abstract debug representation of the section.
 
 ## getError
 
-syntax: getError TODO
+syntax:
+| getError() → EnoValidationError
+| getError(message) → EnoValidationError
+
+-- description
+Generate an error in the context of the element. The error includes a generic message by default,
+or a custom one if you supply it (which is the recommended practice). This serves to create
+highly informative error messages that pin-point to the exact origin of the error, even when
+the initial reading of data is already past, e.g. when the error condition is only apparent
+later, when more processing has occurred or other data is available.
+-- description
+
+-- eno
+color: cozy
+-- eno
+
+-- js
+const document = eno.parse(input);
+const { trace, value } = document.field('color', { withTrace: true });
+
+// ...
+
+if(value === 'cozy') {
+  throw trace.getError('Postprocessing determined that "cozy" is not a color after all.');
+}
+-- js
+
+### return value
+
+description:
+| An `EnoValidationError` in the context of the element's value
+| (and with an optional custom message).
 
 ## isEmpty
 
@@ -738,7 +769,7 @@ if(value === null) {
 ### return value
 
 description:
-| An EnoValidationError in the context of the element's value
+| An `EnoValidationError` in the context of the element's value
 | (and with an optional custom message).
 
 ## raw
