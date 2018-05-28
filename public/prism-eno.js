@@ -6,32 +6,52 @@ Prism.languages.eno = {
   'block': {
     pattern: /(^|\n)[^\S\n]*(-{2,})[^\S\n]*(?!-)(\S[^\n]*)\n[\s\S]*?\n[^\S\n]*\2[^\S\n]*\3[^\S\n]*(?:\n|$)/,
     inside: {
-      'name': {
-        pattern: /((?:^|\n)[^\S\n]*(-{2,})[^\S\n]*)(?!-)(\S[^\n]*)\n/,
+      'block-content': {
+        pattern: /((-{2,}(?!-))[^\S\n]*(\S.*?)[^\S\n]*\n)[\S\s]*(?=[^\S\n]*\2[^\S\n]*\3[^\S\n]*)/,
         lookbehind: true
-      },
-      'punctuation': /(?:^|\n)[^\S\n]*-{2,}/
+      }
     },
+    lookbehind: true
+  },
+  'escaped-section-3rd-plus': {
+    pattern: /(^|\n)[^\S\n]*#{3,}(?!#)[^\S\n]*(`+)(?:(?!\2).)*\2/,
     lookbehind: true
   },
   'section-3rd-plus': {
     pattern: /(^|\n)[^\S\n]*#{3,}(?!#)[^\S\n]*[^\s<][^\n<]*/,
     lookbehind: true
   },
+  'escaped-section-2nd': {
+    pattern: /(^|\n)[^\S\n]*##(?!#)[^\S\n]*(`+)(?:(?!\2).)*\2/,
+    lookbehind: true
+  },
   'section-2nd': {
     pattern: /(^|\n)[^\S\n]*##(?!#)[^\S\n]*[^\s<][^\n<]*/,
+    lookbehind: true
+  },
+  'escaped-section-1st': {
+    pattern: /(^|\n)[^\S\n]*#(?!#)[^\S\n]*(`+)(?:(?!\2).)*\2/,
     lookbehind: true
   },
   'section-1st': {
     pattern: /(^|\n)[^\S\n]*#(?!#)[^\S\n]*[^\s<][^\n<]*/,
     lookbehind: true
   },
-  'escaped': {
-    pattern: /(^|\n)\s*(`+)(?:(?!\2).)*\2+/,
+  'escaped-name': {
+    pattern: /(^|\n)[^\S\n]*(`+)(?:(?!\2).)*\2[:<]/,
+    lookbehind: true,
     alias: 'name'
   },
   'name': {
-    pattern: /(^|\n)[^\S\n]*(?!-|\\#>)[^:=<\n]+/,
+    pattern: /(^|\n)[^\S\n]*[^:=<\n\s>|\-\\#][^:=<\n]*[:<]/,
+    lookbehind: true
+  },
+  'entry': {
+    pattern: /(^|\n)[^\S\n]*[^:=<\n\s>|\-\\#][^:=<\n]*[=]/,
+    lookbehind: true
+  },
+  'append': {
+    pattern: /(^|\n)[^\S\n]*[|\\]/,
     lookbehind: true
   },
   'template': {

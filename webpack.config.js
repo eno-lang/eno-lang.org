@@ -4,7 +4,7 @@ let path = require('path');
 
 module.exports = {
   entry: {
-    main: path.resolve('./src/main.js')
+    main: path.resolve('./src/demo/demo.js')
   },
   module: {
     rules: [
@@ -16,7 +16,7 @@ module.exports = {
     ]
   },
   output: {
-    filename: 'bundle.js',
-    path: path.resolve('./public')
+    filename: 'demo.js',
+    path: path.resolve('./public/demo/')
   }
 };

@@ -1,6 +1,9 @@
 /node_modules/
 
-/public/bundle.js
+/deploy.js
+
+/public/index.html
+/public/demo/demo.js
+/public/demo/index.html
 /public/js/index.html
 /public/learn/index.html
-/deploy.js

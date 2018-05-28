@@ -18,10 +18,8 @@
   "name": "eno-lang.org",
   "repository": "https://github.com/eno-lang/eno-lang.org",
   "scripts": {
-    "build": "npm run js && npm run learn && webpack",
+    "build": "node build && webpack",
     "deploy": "node deploy.js",
-    "js": "node src/enojs/generate.js",
-    "learn": "node src/learn/generate.js",
     "release": "npm run build && npm run deploy",
     "serve": "http-server -a localhost -c-1",
     "watch": "webpack -w"

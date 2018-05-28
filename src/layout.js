@@ -1,4 +1,4 @@
-module.exports = content => {
+module.exports = (content, title) => {
   const html = `
     <!doctype html>
     <html>
@@ -8,7 +8,7 @@ module.exports = content => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="The eno notation language">
 
-        <title>enojs - The JavaScript eno library</title>
+        <title>${title}</title>
 
         <link rel="stylesheet" href="/eno.css">
         <link rel="stylesheet" href="/styles.css">
