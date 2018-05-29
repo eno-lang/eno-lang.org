@@ -1,9 +1,10 @@
 const eno = require('enojs');
 const fs = require('fs');
 const path = require('path');
-const markdownIt = require('markdown-it')();
+
 
 const layout = require('../layout.js');
+const { markdown } = require('../../lib/loaders.js');
 
 module.exports = () => {
   const input = fs.readFileSync(path.join(__dirname, 'enojs.eno'), 'utf-8');
@@ -14,7 +15,7 @@ module.exports = () => {
 
   for(let enoClass of document.sequential()) {
     if(enoClass.name === 'intro') {
-      main += markdownIt.render(enoClass.value());
+      main += enoClass.value(markdown);
       continue;
     }
 
@@ -24,7 +25,7 @@ module.exports = () => {
 
     for(let method of enoClass.sequential()) {
       if(method.name === 'class description') {
-        main += markdownIt.render(method.value());
+        main += method.value(markdown);
         continue;
       }
 
@@ -36,9 +37,9 @@ module.exports = () => {
         main += `<h3 class="syntax">${syntax}</h3>`;
       }
 
-      const description = method.field('description');
+      const description = method.field('description', markdown);
       if(description) {
-        main += markdownIt.render(description);
+        main += description;
       }
 
       const notation = method.field('eno');
@@ -60,16 +61,16 @@ module.exports = () => {
         main += `<h4>Parameters</h4>`;
         for(let parameter of parameters.sequential()) {
           main += `<strong>${parameter.name}</strong>`;
-          main += markdownIt.render(parameter.value());
+          main += parameter.value(markdown);
         }
       }
 
       const returnValue = method.section('return value', { required: false })
       if(returnValue) {
-        const description = returnValue.field('description', { required: true });
+        const description = returnValue.field('description', markdown, { required: true });
 
         main += `<h4>Return value</h4>`;
-        main += markdownIt.render(description);
+        main += description;
       }
 
       const examples = method.section('Examples', { required: false })
