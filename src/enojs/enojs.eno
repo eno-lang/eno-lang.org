@@ -17,6 +17,9 @@ const document = eno.parse(input);
 
 console.log( document.field('[your-field]') );  // prints '[your-value]'
 ```
+
+An early preview of the enojs demo page, featuring interactive code examples, is now online at:
+<https://eno-lang.org/demo/>
 -- intro
 
 # eno
@@ -102,7 +105,7 @@ document.assertAllTouched(); // throws an error
 An optional object.
  
 `only` - An array of strings, e.g. `['name', 'email']`, which tells enojs to only check these elements for whether they've been touched.  
-`except` - An array of strings, e.g. `['phone number']`, which tells enojs to excude these elements from checking whether they've been touched.  
+`except` - An array of strings, e.g. `['phone number']`, which tells enojs to exclude these elements from checking whether they've been touched.  
 -- options
 
 ## dictionary
@@ -829,7 +832,7 @@ document.assertAllTouched(); // throws an error
 An optional object.
  
 `only` - An array of strings, e.g. `['name', 'email']`, which tells enojs to only check these entries for whether they've been touched.  
-`except` - An array of strings, e.g. `['phone number']`, which tells enojs to excude these entries from checking whether they've been touched.  
+`except` - An array of strings, e.g. `['phone number']`, which tells enojs to exclude these entries from checking whether they've been touched.  
 -- options
 
 ## entry

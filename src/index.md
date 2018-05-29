@@ -36,6 +36,7 @@ Language support in Sublime Text *in development* - <https://github.com/eno-lang
 
 ### enojs / JavaScript
 
+Interactive demos (early preview) - <https://eno-lang.org/demo/>  
 Complete documentation - <https://eno-lang.org/js/>  
 npm package - <https://www.npmjs.com/package/enojs>
 
