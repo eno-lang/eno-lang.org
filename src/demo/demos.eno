@@ -1,0 +1,104 @@
+# Demo 01: Hello World
+
+-- markdown
+This demo simply reads in a single (required) field from the document.
+Remove or rename the field to see the error output enojs produces!
+-- markdown
+
+-- eno
+Greeting: Hello World
+-- eno
+
+-- js
+const doc = eno.parse(input, { locale: 'de', reporter: 'html' });
+
+return doc.field('Greeting', { required: true });
+-- js
+
+# Demo 02: Sections and Fields
+
+-- markdown
+This demo reads in two fields located within a section
+-- markdown
+
+-- eno
+# City
+
+Name: Vienna
+Continent: Europe
+-- eno
+
+-- js
+const doc = eno.parse(input);
+
+const city = doc.section('City');
+
+const name = city.field('Name');
+const continent = city.field('Continent');
+
+return `The city ${name} is in ${continent}`;
+-- js
+
+# Demo 03: Loading a custom lat/lng type
+
+-- markdown
+This demo reads in coordinates by passing the items of a list through
+a custom loader that validates and transforms the input.
+-- markdown
+
+-- eno
+route_coordinates:
+- 48.205870, 16.413690
+- 48.219513, 16.405041
+- 48.229600, 16.371639
+- 48.225857, 16.355580
+- 48.220560, 16.364078
+- 48.211004, 16.356364
+-- eno
+
+-- js
+const latLngLoader = ({ value }) => {
+  const match = /(\d+\.\d+),\s*(\d+\.\d+)/.exec(value);
+
+  if(match) {
+    return { lat: parseFloat(match[1]), lng: parseFloat(match[2]) };
+  }
+
+  throw 'Coordinates must be formatted xx.xxxxxx, xx.xxxxxx';
+};
+
+const doc = eno.parse(input, { reporter: 'html' });
+
+return doc.list('route_coordinates', latLngLoader);
+-- js
+
+# Demo 04: Looking up elements in the document by line/column
+
+-- markdown
+This demo shows how to look up things in the source document by (for instance) cursor position.
+-- markdown
+
+-- eno
+route_coordinates:
+- 48.205870, 16.413690
+- 48.219513, 16.405041
+- 48.229600, 16.371639
+- 48.225857, 16.355580
+- 48.220560, 16.364078
+- 48.211004, 16.356364
+-- eno
+
+-- js
+const doc = eno.parse(input);
+
+// In this example the 'cursor' variable is provided by the demo
+// to contain the numerical index of the cursor inside the textarea
+// Click/move/type around in the eno textbox to update the result!
+const result = doc.lookup(cursor);
+
+return `
+  Cursor index #${cursor}
+  zone: ${result.zone}
+  element: ${result.element.name}
+`.trim();
+-- js

@@ -6,6 +6,7 @@ module.exports = {
   entry: {
     main: path.resolve('./src/demo/demo.js')
   },
+  mode: 'production',
   module: {
     rules: [
       {

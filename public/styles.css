@@ -69,12 +69,17 @@ pre {
   position: relative;
 }
 
-#editor {
-  height: 500px;
+#code {
+  height: 300px;
   width: 100%;
 }
 
-.input, .output {
+#editor {
+  height: 300px;
+  width: 100%;
+}
+
+.half {
   padding: 2em;
   width: 50%;
 }
