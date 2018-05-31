@@ -550,13 +550,17 @@ you will get to interact with this class.
 syntax:
 | getError() → EnoValidationError
 | getError(message) → EnoValidationError
+| getError(messageFunction) → EnoValidationError
 
 -- description
-Generate an error in the context of the element. The error includes a generic message by default,
-or a custom one if you supply it (which is the recommended practice). This serves to create
-highly informative error messages that pin-point to the exact origin of the error, even when
-the initial reading of data is already past, e.g. when the error condition is only apparent
-later, when more processing has occurred or other data is available.
+Generate an error in the context of the element. The error includes a generic
+message by default, or a custom one if you supply it (which is the recommended
+practice). You can also pass a message function which (like the loader functions
+too) gets the name and value as arguments and returns a message string. This
+serves to create highly informative error messages that pin-point to the exact
+origin of the error, even when the initial reading of data is already past, e.g.
+when the error condition is only apparent later, when more processing has
+occurred or other data is available.
 -- description
 
 -- eno
@@ -573,6 +577,14 @@ if(value === 'cozy') {
   throw trace.getError('Postprocessing determined that "cozy" is not a color after all.');
 }
 -- js
+
+### parameters
+
+message or messageFunction:
+| Highly recommended to provide one (but it's optional).
+|
+| Either directly pass a string, or alternatively a function returning a string.  
+| (The function is passed `name` and `value` inside a single object parameter.)
 
 ### return value
 
@@ -992,13 +1004,17 @@ This represents empty elements such as `color:`, where it is not clear if it is 
 syntax:
 | getError() → EnoValidationError
 | getError(message) → EnoValidationError
+| getError(messageFunction) → EnoValidationError
 
 -- description
-Generate an error in the context of the element. The error includes a generic message by default,
-or a custom one if you supply it (which is the recommended practice). This serves to create
-highly informative error messages that pin-point to the exact origin of the error, even when
-the initial reading of data is already past, e.g. when the error condition is only apparent
-later, when more processing has occurred or other data is available.
+Generate an error in the context of the element. The error includes a generic
+message by default, or a custom one if you supply it (which is the recommended
+practice). You can also pass a message function which (like the loader functions
+too) gets the name and value as arguments and returns a message string. This
+serves to create highly informative error messages that pin-point to the exact
+origin of the error, even when the initial reading of data is already past, e.g.
+when the error condition is only apparent later, when more processing has
+occurred or other data is available.
 -- description
 
 -- eno
@@ -1015,6 +1031,14 @@ if(value === null) {
   throw trace.getError('Postprocessing determined that this value needs to be provided.');
 }
 -- js
+
+### parameters
+
+message or messageFunction:
+| Highly recommended to provide one (but it's optional).
+|
+| Either directly pass a string, or alternatively a function returning a string.  
+| (The function is passed `name` and `value` inside a single object parameter.)
 
 ### return value
 

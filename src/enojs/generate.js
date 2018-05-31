@@ -10,7 +10,7 @@ module.exports = () => {
   const input = fs.readFileSync(path.join(__dirname, 'enojs.eno'), 'utf-8');
   const document = eno.parse(input, { reporter: 'terminal' });
 
-  let main = '<h1>enojs 0.4.5</h1>';
+  let main = '<h1>enojs 0.4.7</h1>';
   let sidebar = '<h1>&nbsp;</h1>';
 
   for(let enoClass of document.sequential()) {
