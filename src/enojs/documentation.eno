@@ -1,3 +1,7 @@
+# Global
+
+version: 0.5.0
+
 -- intro
 Installation from npm:
 
@@ -18,11 +22,20 @@ const document = eno.parse(input);
 console.log( document.field('[your-field]') );  // prints '[your-value]'
 ```
 
+## Interactive code demos
+
 An early preview of the enojs demo page, featuring interactive code examples, is now online at:
 <https://eno-lang.org/demo/>
+
+## Links
+
+Package on npm - <https://www.npmjs.com/package/enojs>  
+Repository on github - <https://github.com/eno-lang/enojs> 
 -- intro
 
-# eno
+# Modules
+
+## eno
 
 -- class description
 The main module. You'll be calling `parse` on this, and possibly supplying a custom
@@ -30,7 +43,7 @@ locale (such as `'de'`, `'es'`, ...), reporter type (`'text'`, `'html'`, `'termi
 or source label (usually to have filename appear in error messages) to that call.
 -- class description
 
-## parse
+### parse
 
 syntax:
 | parse(input) → EnoSection
@@ -53,16 +66,16 @@ eno.parse(input, { reporter: 'terminal' });  // Errors will be colored for termi
 eno.parse(input, { sourceLabel: 'my-file.eno' });  // Errors will include the label as context
 -- js
 
-### parameters
+#### parameters
 
 input: A string containing text in eno notation.
 options: An options object.
 
-### return value
+#### return value
 
 description: An `EnoSection` representing the document.
 
-# EnoSection
+## EnoSection
 
 -- class description
 Every section in an eno document, such as for instance `# notes` or `### Appendix`, maps to an `EnoSection`.
@@ -70,7 +83,7 @@ More prominently though **the document itself is represented as an `EnoSection`*
 consequently this is the interface you'll be utilizing most for many usecases.
 -- class description
 
-## assertAllTouched
+### assertAllTouched
 
 syntax:
 | assertAllTouched()
@@ -99,7 +112,7 @@ const dataA = document.field('Important data A');
 document.assertAllTouched(); // throws an error
 -- js
 
-### parameters
+#### parameters
 
 -- options
 An optional object.
@@ -108,7 +121,7 @@ An optional object.
 `except` - An array of strings, e.g. `['phone number']`, which tells enojs to exclude these elements from checking whether they've been touched.  
 -- options
 
-## dictionary
+### dictionary
 
 syntax:
 | dictionary(name) → EnoDictionary or null
@@ -133,7 +146,7 @@ section.dictionary('temperature ratings', { required: false });   // returns nul
 section.dictionary('temperature ratings', { enforcePresence: true });   // throws an error
 -- js
 
-### parameters
+#### parameters
 
 name: A string representing the name of the field to return.
 
@@ -149,11 +162,11 @@ well (where it does something different, namely, enforce the *value*) and it wou
 it were missing here now suddenly, so that's why there are two options with the same effect.
 -- options
 
-### return value
+#### return value
 
 description: An `EnoDictionary`, or `null`.
 
-## enforcePresence
+### enforcePresence
 
 syntax:
 | enforcePresence()
@@ -183,11 +196,11 @@ document.field('sound');  // throws an error
 document.field('sound', { enforcePresence: false });  // returns null
 -- js
 
-### parameters
+#### parameters
 
 enforce: An optional boolean indicating whether to enforce or not. (otherwise `true` is assumed)
 
-## field
+### field
 
 syntax:
 | field(name) → value or null
@@ -225,17 +238,17 @@ section.field('color', ({ value }) => {   // throws an error
 section.field('color', { withTrace: true });   // returns { trace: [Object EnoValue], value: 'blue' }
 -- js
 
-### parameters
+#### parameters
 
 name: A string representing the name of the field to return.
 loader: A function returning the transformed/validated value or throwing an error.
 options: An optional object of options.
 
-### return value
+#### return value
 
 description: The value of the field, or `null` if empty.
 
-## list
+### list
 
 syntax:
 | list() → array
@@ -280,7 +293,7 @@ document.list('colors', { withTrace: true });   // returns [{ trace: [Object Eno
                                                 //          { trace: [Object EnoValue], value: 'peach' }]
 -- js
 
-### parameters
+#### parameters
 
 name: The name of the list to return as a string.
 
@@ -300,11 +313,11 @@ An optional object of options.
 `withTrace`: Whether to return a list of objects with both the element and the value (defaults to `false`)
 -- options
 
-### return value
+#### return value
 
 description: The (optionally transformed/validated) items of this list as an array.
 
-## lookup
+### lookup
 
 syntax:
 | lookup(index) → object or null
@@ -337,7 +350,7 @@ document.lookup(3, 0);  // (= '#') returns { element: [Object EnoSection], zone:
 document.lookup(3, 6);  // (= 's') returns { element: [Object EnoSection], zone: 'name' }
 -- js
 
-### return value
+#### return value
 
 -- description
 For all valid indices within the document returns an object with two properties:  
@@ -368,7 +381,7 @@ For all valid indices within the document returns an object with two properties:
 When an index outside the document is supplied, `null` is returned.
 -- description
 
-## raw
+### raw
 
 syntax: raw() → array
 
@@ -386,11 +399,11 @@ const document = eno.parse(input);
 document.raw();  // returns [{ color: 'blue' }]
 -- js
 
-### return value
+#### return value
 
 description: An array of elements (also returned in their raw representation).
 
-## section
+### section
 
 syntax: 
 | section(name) → EnoSection or null
@@ -419,7 +432,7 @@ document.section('notes', { enforcePresence: true });  // returns [Object EnoSec
 document.section('metadata', { enforcePresence: true });  // throws an error
 -- js
 
-### parameters
+#### parameters
 
 -- options
 An optional object of options:  
@@ -432,11 +445,11 @@ well (where it does something different, namely, enforce the *value*) and it wou
 it were missing here now suddenly, so that's why there are two options with the same purpose.
 -- options
 
-### return value
+#### return value
 
 description: An `EnoSection`, or `null`.
 
-## sections
+### sections
 
 syntax: sections(name) → array
 
@@ -462,11 +475,11 @@ sections.forEach(section => {
 });
 -- js
 
-### return value
+#### return value
 
 description: An array of `EnoSection`s.
 
-## sequential
+### sequential
 
 syntax: sequential() → array
 
@@ -503,11 +516,11 @@ document.section('page').sequential().forEach(element => {
 // ...
 -- js
 
-### return value
+#### return value
 
 description: An array containing the elements of this section.
 
-## toString
+### toString
 
 syntax: toString() → string
 
@@ -530,11 +543,11 @@ document.toString();  // returns '[Object EnoDocument length="2"]'
 document.section('notes').toString();  // returns '[Object EnoSection name="notes" length="1"]'
 -- js
 
-### return value
+#### return value
 
 description: An abstract debug representation of the section.
 
-# EnoValue
+## EnoValue
 
 -- class description
 All values in an eno document, such as the value of a field like `name: value`, the lines inside a block,
@@ -545,7 +558,7 @@ for the `EnoValue` by using an accessor with the `{ withTrace: true }` option (f
 you will get to interact with this class.
 -- class description
 
-## getError
+### getError
 
 syntax:
 | getError() → EnoValidationError
@@ -578,7 +591,7 @@ if(value === 'cozy') {
 }
 -- js
 
-### parameters
+#### parameters
 
 message or messageFunction:
 | Highly recommended to provide one (but it's optional).
@@ -586,13 +599,13 @@ message or messageFunction:
 | Either directly pass a string, or alternatively a function returning a string.  
 | (The function is passed `name` and `value` inside a single object parameter.)
 
-### return value
+#### return value
 
 description:
 | An `EnoValidationError` in the context of the element's value
 | (and with an optional custom message).
 
-## isEmpty
+### isEmpty
 
 syntax: isEmpty() → boolean
 
@@ -600,11 +613,11 @@ syntax: isEmpty() → boolean
 Query whether the value is empty (e.g. `comment:  ` in an eno document), which in javascript terms is equivalent of `null`.
 -- description
 
-### return value
+#### return value
 
 description: `true` if empty, otherwise `false`.
 
-## raw
+### raw
 
 syntax: raw() → object or value
 
@@ -630,11 +643,11 @@ const list = document.list('numbers', { withTrace: true });
 list[0].trace.raw();  // returns '13'
 -- js
 
-### return value
+#### return value
 
 description: A native representation of the value element.
 
-## toString
+### toString
 
 syntax: toString() → string
 
@@ -660,11 +673,11 @@ const list = document.list('numbers', { withTrace: true });
 list[0].trace.toString();  // returns '[Object EnoValue value="13"]'
 -- js
 
-### return value
+#### return value
 
 description: An abstract debug representation of this `EnoValue`.
 
-## value
+### value
 
 syntax:
 | value() → value or null
@@ -692,17 +705,17 @@ towelColor.value();  // returns null
 flagColor.value(({ value }) => value.replace('eig', 'lu'));   // returns 'blue'
 -- js
 
-### parameters
+#### parameters
 
 loader:
 | A function returning the transformed/validated value or throwing an error.  
 | The function is passed `name` and `value` inside a single object parameter.
 
-### return value
+#### return value
 
 description: The (optionally transformed/validated) value of this `EnoValue`.
 
-# EnoList
+## EnoList
 
 -- class description
 Lists such as the one below are represented as an `EnoList`:
@@ -717,7 +730,7 @@ Like `EnoValue`, you will seldom interact with this class, and instead use the `
 accessor on the document or its sections to directly obtain the values of a list.
 -- class description
 
-## items
+### items
 
 syntax:
 | items() → array
@@ -742,11 +755,11 @@ list.items();  // returns ['pink', 'peach']
 list.items(({ value }) => `${value}!!`);  // returns ['pink!!', 'peach!!']
 -- js
 
-### return value
+#### return value
 
 description: The (optionally transformed/validated) items of this list as an array.
 
-## raw
+### raw
 
 syntax: raw() → object
 
@@ -766,11 +779,11 @@ const document = eno.parse(input);
 document.sequential()[0].raw();  // returns { colors: ['pink', 'peach'] }
 -- js
 
-### return value
+#### return value
 
 description: A native javascript representation of the list.
 
-## toString
+### toString
 
 syntax: toString() → string
 
@@ -790,11 +803,11 @@ const document = eno.parse(input);
 document.list('numbers').toString();  // returns '[Object EnoList name="numbers" length="2"]'
 -- js
 
-### return value
+#### return value
 
 description: An abstract debug representation of the list.
 
-# EnoDictionary
+## EnoDictionary
 
 -- class description
 Dictionaries are represented as an `EnoDictionary`:
@@ -808,7 +821,7 @@ plants = 3 stars
 You will mostly obtain an instance of this through the `dictionary` accessor on a document/section.
 -- class description
 
-## assertAllTouched
+### assertAllTouched
 
 syntax:
 | assertAllTouched()
@@ -838,7 +851,7 @@ const dataA = document.dictionary('Important data').entry('A');
 document.assertAllTouched(); // throws an error
 -- js
 
-### parameters
+#### parameters
 
 -- options
 An optional object.
@@ -847,7 +860,7 @@ An optional object.
 `except` - An array of strings, e.g. `['phone number']`, which tells enojs to exclude these entries from checking whether they've been touched.  
 -- options
 
-## entry
+### entry
 
 syntax:
 | entry(name) → value or null
@@ -890,7 +903,7 @@ qa.entry('Meaning', ({ value }) => {   // throws an error
 qa.entry('Meaning', { withTrace: true });   // returns { trace: [Object EnoValue], value: '42' }
 -- js
 
-### parameters
+#### parameters
 
 name: The name of the entry as a string.
 
@@ -905,11 +918,11 @@ An optional object of options:
 `withTrace`: Whether to return an object with both the element and the value (defaults to `false`)
 -- options
 
-### return value
+#### return value
 
 description: The entry's value, or `null` if empty.
 
-## enforcePresence
+### enforcePresence
 
 syntax:
 | enforcePresence()
@@ -941,11 +954,11 @@ conversions.entry('0011');  // throws an error
 conversions.entry('0011', { enforcePresence: false });  // returns null
 -- js
 
-### parameters
+#### parameters
 
 enforce: An optional boolean indicating whether to enforce or not. (otherwise `true` is assumed)
 
-## raw
+### raw
 
 syntax: raw() → object
 
@@ -965,11 +978,11 @@ const document = eno.parse(input);
 document.dictionary('weights').raw();  // returns { weights: { apple: '100g', pineapple: '800g' } }
 -- js
 
-### return value
+#### return value
 
 description: A native object representation of the dictionary.
 
-## toString
+### toString
 
 syntax: toString() → string
 
@@ -989,17 +1002,17 @@ const document = eno.parse(input);
 document.dictionary('numbers').toString();  // returns '[Object EnoDictionary name="numbers" length="2"]'
 -- js
 
-### return value
+#### return value
 
 description: An abstract debug representation of the dictionary.
 
-# EnoEmpty
+## EnoEmpty
 
 -- class description
 This represents empty elements such as `color:`, where it is not clear if it is an empty field, list, or dictionary.
 -- class description
 
-## getError
+### getError
 
 syntax:
 | getError() → EnoValidationError
@@ -1032,7 +1045,7 @@ if(value === null) {
 }
 -- js
 
-### parameters
+#### parameters
 
 message or messageFunction:
 | Highly recommended to provide one (but it's optional).
@@ -1040,13 +1053,13 @@ message or messageFunction:
 | Either directly pass a string, or alternatively a function returning a string.  
 | (The function is passed `name` and `value` inside a single object parameter.)
 
-### return value
+#### return value
 
 description:
 | An `EnoValidationError` in the context of the element's value
 | (and with an optional custom message).
 
-## raw
+### raw
 
 syntax: raw() → object
 
@@ -1064,11 +1077,11 @@ const document = eno.parse(input);
 document.sequential()[0].raw();  // returns { color: null }
 -- js
 
-### return value
+#### return value
 
 description: A native representation of the empty element.
 
-## toString
+### toString
 
 syntax: toString() → string
 
@@ -1087,17 +1100,42 @@ const elements = document.sequential();
 elements[0].toString();  // returns '[Object EnoEmpty name="color"]'
 -- js
 
-### return value
+#### return value
 
 description: An abstract debug representation of the empty element.
 
-# EnoError
+### value
+
+syntax:
+| value() → null
+
+-- description
+Retrieve the value (always returns `null`).
+-- description
+
+-- eno
+note:
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+const note = document.sequential()[0];
+
+note.value();  // returns null
+-- js
+
+#### return value
+
+description: Always `null`.
+
+## EnoError
 
 -- class description
 The single generic error interface for all (user) errors that eno generates.
 -- class description
 
-## cursor
+### cursor
 
 syntax: cursor → array
 
@@ -1116,11 +1154,11 @@ try {
 }
 -- js
 
-### return value
+#### return value
 
 description: An array, where [0] is the line number, and [1] is the column number.
 
-## selection
+### selection
 
 syntax: selection → array
 
@@ -1139,14 +1177,14 @@ try {
 }
 -- js
 
-### return value
+#### return value
 
 description:
 | An array, where [0] is the begin of the selection and [1] is the end,
 | and both begin and end are each again an array, where [0] is the
 | line number, and [1] is the column number.
 
-## message
+### message
 
 syntax: message → string
 
@@ -1165,11 +1203,11 @@ try {
 }
 -- js
 
-### return value
+#### return value
 
 description: Both the error text as well as the snippet.
 
-## snippet
+### snippet
 
 syntax: snippet → string
 
@@ -1196,11 +1234,11 @@ try {
 }
 -- js
 
-### return value
+#### return value
 
 description: A formatted excerpt of those passage(s) from the input where the error occurred.
 
-## text
+### text
 
 syntax: text → string
 
@@ -1218,11 +1256,11 @@ try {
 }
 -- js
 
-### return value
+#### return value
 
 description: A single sentence that describes the error in human language.
 
-# EnoParseError
+## EnoParseError
 
 -- class description
 When this is thrown, it indicates an error regarding syntax or grammatical semantics of the document.
@@ -1230,7 +1268,7 @@ Functionally this behaves exactly like `EnoError`, therefore the interface metho
 be looked up on the `EnoError` documentation.
 -- class description
 
-# EnoValidationError
+## EnoValidationError
 
 -- class description
 When this is thrown, it indicates an error regarding application-specific requirements for the document.

@@ -7,30 +7,31 @@ const layout = require('../layout.js');
 const { markdown } = require('../../lib/loaders.js');
 
 module.exports = () => {
-  const input = fs.readFileSync(path.join(__dirname, 'enojs.eno'), 'utf-8');
-  const document = eno.parse(input, { reporter: 'terminal' });
+  const input = fs.readFileSync(path.join(__dirname, 'documentation.eno'), 'utf-8');
+  const documentation = eno.parse(input, { reporter: 'terminal' });
 
-  let main = '<h1>enojs 0.4.7</h1>';
+  const global = documentation.section('Global');
+
+  let main = `<h1>enojs ${global.field('version')}</h1>`;
+  main += global.field('intro', markdown);
+
   let sidebar = '<h1>&nbsp;</h1>';
 
-  for(let enoClass of document.sequential()) {
-    if(enoClass.name === 'intro') {
-      main += enoClass.value(markdown);
-      continue;
-    }
+  const modules = documentation.section('Modules');
 
-    main += `<a name="${enoClass.name}"></a>`
-    main += `<h2 class="class">${enoClass.name}</h2>`
-    sidebar += `<div class="pad"><strong>${enoClass.name} <a href="#${enoClass.name}">#</a></strong></div>`
+  for(let _module of modules.sequential()) {
+    main += `<a name="${_module.name}"></a>`
+    main += `<h2 class="class">${_module.name}</h2>`
+    sidebar += `<div class="pad"><strong>${_module.name} <a href="#${_module.name}">#</a></strong></div>`
 
-    for(let method of enoClass.sequential()) {
+    for(let method of _module.sequential()) {
       if(method.name === 'class description') {
         main += method.value(markdown);
         continue;
       }
 
-      main += `<a name="${enoClass.name}-${method.name}"></a>`;
-      sidebar += `<a href="#${enoClass.name}-${method.name}">${method.name}</a><br/>`;
+      main += `<a name="${_module.name}-${method.name}"></a>`;
+      sidebar += `<a href="#${_module.name}-${method.name}">${method.name}</a><br/>`;
 
       const syntax = method.field('syntax')
       if(syntax) {
