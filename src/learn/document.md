@@ -245,4 +245,4 @@ Every field in eno follows the pattern `name: value`, but in this case our name 
 ```eno
 `` `hypothetical` ``: The word "hypothetical" inside backticks
 ```
-You might have wondered how an escape can be escaped, this is achieved by using two backticks around and the name that is itself wrapped in (single) backticks, and leaving a space so it does not look like three backticks.
+You might have wondered how an escape can be escaped, this is achieved by using two backticks around the name that is itself wrapped in (single) backticks, and leaving spaces so it does not look like three backticks. (these spaces on the outside are not included in the name though)

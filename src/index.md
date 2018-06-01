@@ -17,6 +17,8 @@ Los amantes del círculo polar:
 Rating = ⭐⭐⭐⭐⭐   
 ```
 
+For more information on eno's design philosophy and goals checkout this [README](https://github.com/eno-lang/eno/blob/master/README.md)
+
 ## Learn eno
 
 eno is very simple, in about 5 minutes you'll know everything there is to know!
