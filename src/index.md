@@ -21,7 +21,7 @@ For more information on eno's design philosophy and goals checkout this [README]
 
 ## Learn eno
 
-eno is very simple, in about 5 minutes you'll know everything there is to know!
+eno is very simple, in about 5 minutes you'll be ready to create any content you wish!
 
 <https://eno-lang.org/learn/>
 
