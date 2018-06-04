@@ -3,9 +3,60 @@
 version: 0.0.0
 
 -- intro
-Currently in development!
+This documentation is a continually evolving draft.
+enorb is still under development and not yet ready to use.
 
 Repository on github - <https://github.com/eno-lang/enorb> 
 -- intro
 
 # Modules
+
+## Eno::Value
+
+-- class description
+All values in an eno document, such as the value of a field like `name: value`,
+the lines inside a block, the value of a list item, the value of a dictionary
+entry, and so on, map to an `Eno::Value`. Usually you don't interact with this
+because you directly get the values from a section or dictionary in most cases.
+Only when you sequentially iterate a section (with `Eno::Section`'s
+'`#sequential` method) you will get to interact with this class.
+-- class description
+
+### #value
+
+syntax:
+| value() → value or null
+| value(loader) → value or null
+
+-- description
+Retrieve the value of an `Eno::Value`, optionally passing it through a loader function.
+-- description
+
+-- eno
+flag color: beige
+towel color:
+|
+-- eno
+
+-- js
+document = eno.parse(input)
+
+flag_color = document.sequential()[0]
+flag_color = document.sequential()[0]
+towel_color = document.sequential()[1]
+
+flag_color.value  # => 'beige'
+towel_color.value  # => nil
+
+flag_color.value { |name, value| value.gsub('eig', 'lu') }   # => 'blue'
+-- js
+
+#### parameters
+
+loader:
+| A function returning the transformed/validated value or throwing an error.  
+| The function is passed `name` and `value` inside a single object parameter.
+
+#### return value
+
+description: The (optionally transformed/validated) value of this `EnoValue`.

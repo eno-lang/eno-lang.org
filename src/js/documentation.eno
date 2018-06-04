@@ -699,7 +699,7 @@ const document = eno.parse(input);
 const flagColor = document.sequential()[0];
 const towelColor = document.sequential()[1];
 
-flagColor.value();  // returns beige
+flagColor.value();  // returns 'beige'
 towelColor.value();  // returns null
 
 flagColor.value(({ value }) => value.replace('eig', 'lu'));   // returns 'blue'
