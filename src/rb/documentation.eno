@@ -25,11 +25,11 @@ Only when you sequentially iterate a section (with `Eno::Section`'s
 ### #value
 
 syntax:
-| value() → value or null
-| value(loader) → value or null
+| value → value or nil
+| value { |name, value| block } → value or nil
 
 -- description
-Retrieve the value of an `Eno::Value`, optionally passing it through a loader function.
+Retrieve the value of an `Eno::Value`, optionally passing it through a loader block.
 -- description
 
 -- eno
@@ -38,7 +38,7 @@ towel color:
 |
 -- eno
 
--- js
+-- ruby
 document = eno.parse(input)
 
 flag_color = document.sequential()[0]
@@ -48,15 +48,15 @@ towel_color = document.sequential()[1]
 flag_color.value  # => 'beige'
 towel_color.value  # => nil
 
-flag_color.value { |name, value| value.gsub('eig', 'lu') }   # => 'blue'
--- js
+flag_color.value { |name, value| value.gsub('eig', 'lu') }   #=> 'blue'
+-- ruby
 
 #### parameters
 
 loader:
-| A function returning the transformed/validated value or throwing an error.  
-| The function is passed `name` and `value` inside a single object parameter.
+| A block returning the transformed/validated value or raising an error.  
+| The block is passed `name` and `value` as arguments.
 
 #### return value
 
-description: The (optionally transformed/validated) value of this `EnoValue`.
+description: The (optionally transformed/validated) value of this `Eno::Value`.

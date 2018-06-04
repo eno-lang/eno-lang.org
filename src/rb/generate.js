@@ -50,7 +50,7 @@ module.exports = () => {
         `;
       }
 
-      const code = method.field('rb');
+      const code = method.field('ruby');
       if(code) {
         main += `
           <pre><span class="extension">rb</span><code class="language-ruby">${code}</code></pre>
