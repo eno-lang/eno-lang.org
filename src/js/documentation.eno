@@ -1,6 +1,6 @@
 # Global
 
-version: 0.5.0
+version: 0.5.1
 
 -- intro
 Installation from npm:
@@ -235,7 +235,7 @@ section.field('color', ({ value }) => {   // throws an error
   return value;
 });
 
-section.field('color', { withTrace: true });   // returns { trace: [Object EnoValue], value: 'blue' }
+section.field('color', { withTrace: true });   // returns { trace: [object EnoValue], value: 'blue' }
 -- js
 
 #### parameters
@@ -289,8 +289,8 @@ document.list('colors', ({ value }) => {   // throws an error
   return `I like ${value}`;
 });
 
-document.list('colors', { withTrace: true });   // returns [{ trace: [Object EnoValue], value: 'pink' },
-                                                //          { trace: [Object EnoValue], value: 'peach' }]
+document.list('colors', { withTrace: true });   // returns [{ trace: [object EnoValue], value: 'pink' },
+                                                //          { trace: [object EnoValue], value: 'peach' }]
 -- js
 
 #### parameters
@@ -337,17 +337,17 @@ color: blue
 -- js
 const document = eno.parse(input);
 
-document.lookup(3);  // (= 'o') returns { element: [Object EnoValue], zone: 'name' }
-document.lookup(7);  // (= 'b') returns { element: [Object EnoValue], zone: 'value' }
+document.lookup(3);  // (= 'o') returns { element: [object EnoValue], zone: 'name' }
+document.lookup(7);  // (= 'b') returns { element: [object EnoValue], zone: 'value' }
 
-document.lookup(1, 3);  // (= 'o') returns { element: [Object EnoValue], zone: 'name' }
-document.lookup(1, 7);  // (= 'b') returns { element: [Object EnoValue], zone: 'value' }
+document.lookup(1, 3);  // (= 'o') returns { element: [object EnoValue], zone: 'name' }
+document.lookup(1, 7);  // (= 'b') returns { element: [object EnoValue], zone: 'value' }
 
-document.lookup(13);  // (= '#') returns { element: [Object EnoSection], zone: 'sectionOperator' }
-document.lookup(19);  // (= 's') returns { element: [Object EnoSection], zone: 'name' }
+document.lookup(13);  // (= '#') returns { element: [object EnoSection], zone: 'sectionOperator' }
+document.lookup(19);  // (= 's') returns { element: [object EnoSection], zone: 'name' }
 
-document.lookup(3, 0);  // (= '#') returns { element: [Object EnoSection], zone: 'sectionOperator' }
-document.lookup(3, 6);  // (= 's') returns { element: [Object EnoSection], zone: 'name' }
+document.lookup(3, 0);  // (= '#') returns { element: [object EnoSection], zone: 'sectionOperator' }
+document.lookup(3, 6);  // (= 's') returns { element: [object EnoSection], zone: 'name' }
 -- js
 
 #### return value
@@ -423,12 +423,12 @@ title: A Manifest
 -- js
 const document = eno.parse(input);
 
-document.section('content');  // returns [Object EnoSection]
-document.section('notes');  // returns [Object EnoSection]
+document.section('content');  // returns [object EnoSection]
+document.section('notes');  // returns [object EnoSection]
 document.section('metadata');  // throws an error
 
 document.section('metadata', { required: false });  // returns null
-document.section('notes', { enforcePresence: true });  // returns [Object EnoSection]
+document.section('notes', { enforcePresence: true });  // returns [object EnoSection]
 document.section('metadata', { enforcePresence: true });  // throws an error
 -- js
 
@@ -539,8 +539,8 @@ buy milk: important!
 -- js
 const document = eno.parse(input);
 
-document.toString();  // returns '[Object EnoDocument length="2"]'
-document.section('notes').toString();  // returns '[Object EnoSection name="notes" length="1"]'
+document.toString();  // returns '[object EnoDocument length="2"]'
+document.section('notes').toString();  // returns '[object EnoSection name="notes" length="1"]'
 -- js
 
 #### return value
@@ -667,10 +667,10 @@ numbers:
 -- js
 const document = eno.parse(input);
 
-document.sequential()[0].toString();  // returns '[Object EnoValue name="color" value="blue"]'
+document.sequential()[0].toString();  // returns '[object EnoValue name="color" value="blue"]'
 
 const list = document.list('numbers', { withTrace: true });
-list[0].trace.toString();  // returns '[Object EnoValue value="13"]'
+list[0].trace.toString();  // returns '[object EnoValue value="13"]'
 -- js
 
 #### return value
@@ -800,7 +800,7 @@ numbers:
 -- js
 const document = eno.parse(input);
 
-document.list('numbers').toString();  // returns '[Object EnoList name="numbers" length="2"]'
+document.list('numbers').toString();  // returns '[object EnoList name="numbers" length="2"]'
 -- js
 
 #### return value
@@ -900,7 +900,7 @@ qa.entry('Meaning', ({ value }) => {   // throws an error
   return value;
 });
 
-qa.entry('Meaning', { withTrace: true });   // returns { trace: [Object EnoValue], value: '42' }
+qa.entry('Meaning', { withTrace: true });   // returns { trace: [object EnoValue], value: '42' }
 -- js
 
 #### parameters
@@ -999,7 +999,7 @@ numbers:
 -- js
 const document = eno.parse(input);
 
-document.dictionary('numbers').toString();  // returns '[Object EnoDictionary name="numbers" length="2"]'
+document.dictionary('numbers').toString();  // returns '[object EnoDictionary name="numbers" length="2"]'
 -- js
 
 #### return value
@@ -1097,7 +1097,7 @@ color:
 const document = eno.parse(input);
 const elements = document.sequential();
 
-elements[0].toString();  // returns '[Object EnoEmpty name="color"]'
+elements[0].toString();  // returns '[object EnoEmpty name="color"]'
 -- js
 
 #### return value
