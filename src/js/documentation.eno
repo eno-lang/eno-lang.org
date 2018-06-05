@@ -1224,6 +1224,20 @@ description: Always `null`.
 
 -- class description
 The single generic error interface for all (user) errors that eno generates.
+Note that this is never thrown by itself, but only in one of it's subclassed
+variants (`EnoParseError` and `EnoValidationError`). However, you can still
+utilize this generic class in cases where you want to catch both parser and
+validation errors indiscriminately, like so:
+
+```js
+try {
+  // ...
+} catch(err) {
+  if(err instanceof EnoError) { // catches both EnoParseError and EnoValidationError
+    // ...
+  }
+}
+```
 -- class description
 
 ### cursor
