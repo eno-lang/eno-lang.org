@@ -26,7 +26,7 @@ Only when you sequentially iterate a section (with `Eno::Section`'s
 
 syntax:
 | value → value or nil
-| value { |name, value| block } → value or nil
+| value { |name, value| loader } → value or nil
 
 -- description
 Retrieve the value of an `Eno::Value`, optionally passing it through a loader block.
