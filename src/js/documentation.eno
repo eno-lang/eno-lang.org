@@ -1,6 +1,6 @@
 # Global
 
-version: 0.5.2
+version: 0.6.1
 
 -- intro
 Installation from npm:
@@ -1265,7 +1265,7 @@ try {
   // ...
 } catch(err) {
   if(err instanceof EnoError) {
-    err.selection;  // returns [[3, 14], [3, 23]];
+    err.selection;  // returns [[3, 14], [3, 23]]
   }
 }
 -- js
@@ -1291,7 +1291,7 @@ try {
   // ...
 } catch(err) {
   if(err instanceof EnoError) {
-    err.message;  // returns 'In line 4 'a' is copied into itself.\n\n   Line | Content\n ...';
+    err.message;  // returns 'In line 4 'a' is copied into itself.\n\n   Line | Content\n ...'
   }
 }
 -- js
@@ -1344,7 +1344,7 @@ try {
   // ...
 } catch(err) {
   if(err instanceof EnoError) {
-    err.message;  // returns 'In line 4 'a' is copied into itself.';
+    err.message;  // returns 'In line 4 'a' is copied into itself.'
   }
 }
 -- js
