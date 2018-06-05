@@ -1228,11 +1228,12 @@ The single generic error interface for all (user) errors that eno generates.
 
 ### cursor
 
-syntax: cursor → array
+syntax: cursor → [line, column]
 
 -- description
-Returns a cursor position as [line, column] that indicates where a cursor should be placed
-if an application wants to offer the user a way to move the cursor straight to the error location.
+Returns a cursor position as an array of the form [line, column], indicating
+where a cursor should be placed if an application wants to offer the user a way
+to move the cursor straight to the error location.
 -- description
 
 -- js
@@ -1251,11 +1252,12 @@ description: An array, where [0] is the line number, and [1] is the column numbe
 
 ### selection
 
-syntax: selection → array
+syntax: selection → [[line, column], [line, column]]
 
 -- description
-Returns a selection as [[line, column], [line, column]] that indicates a text range to select
-if an application wants to offer the user a way to get a selection for the error in the input.
+Returns a selection as an array of the form [[line, column], [line, column]],
+indicating a text range to select if an application wants to offer the user a
+way to get a selection for the error in the input.
 -- description
 
 -- js
