@@ -1,6 +1,6 @@
 # Global
 
-version: 0.6.1
+version: 0.7.0
 
 -- intro
 Installation from npm:
@@ -88,13 +88,16 @@ consequently this is the interface you'll be utilizing most for many usecases.
 syntax:
 | assertAllTouched()
 | assertAllTouched(options)
+| assertAllTouched(message or messageFunction)
+| assertAllTouched(message or messageFunction, options)
 
 -- description
-Assert that all elements of this section that were present in the parsed eno document were also queried
-(and therefore *touched*) by the application. This, combined with eno's query methods,
-serves to ensure a two-way guarantee for both users and developers: No data that the
-application requires can be left out, and no data that the application does not
-process can be supplied.
+Assert that all elements of this section (and also, recursively, all
+subsections) that were present in the parsed eno document were also queried (and
+therefore *touched*) by the application. This, combined with eno's query
+methods, serves to ensure a two-way guarantee for both users and developers: No
+data that the application requires can be left out, and no data that the
+application does not process can be supplied.
 -- description
 
 -- eno
@@ -113,6 +116,15 @@ document.assertAllTouched(); // throws an error
 -- js
 
 #### parameters
+
+-- message or messageFunction
+Optional, usually the default message (*An excess element named [NAME] was
+found, is it possibly a typo?*) will do fine. If you want to override it,
+provide either a static message as a string, or alternatively a function
+returning a string. (The function is passed `name` and `value` inside a single
+object parameter, although `value` can be `undefined` if the untouched element
+is a dictionary or section)
+-- message or messageFunction
 
 -- options
 An optional object.
@@ -653,8 +665,7 @@ you will get to interact with this class.
 
 syntax:
 | getError() → EnoValidationError
-| getError(message) → EnoValidationError
-| getError(messageFunction) → EnoValidationError
+| getError(message or messageFunction) → EnoValidationError
 
 -- description
 Generate an error in the context of the element. The error includes a generic
@@ -917,6 +928,8 @@ You will mostly obtain an instance of this through the `dictionary` accessor on 
 syntax:
 | assertAllTouched()
 | assertAllTouched(options)
+| assertAllTouched(message or messageFunction)
+| assertAllTouched(message or messageFunction, options)
 
 -- description
 Assert that all entries of this dictionary that were present in the parsed eno document
@@ -943,6 +956,14 @@ document.assertAllTouched(); // throws an error
 -- js
 
 #### parameters
+
+-- message or messageFunction
+Optional, usually the default message (*An excess element named [NAME] was
+found, is it possibly a typo?*) will do fine. If you want to override it,
+provide either a static message as a string, or alternatively a function
+returning a string. (The function is passed `name` and `value` inside a single
+object parameter.)
+-- message or messageFunction
 
 -- options
 An optional object.
@@ -1107,8 +1128,7 @@ This represents empty elements such as `color:`, where it is not clear if it is 
 
 syntax:
 | getError() → EnoValidationError
-| getError(message) → EnoValidationError
-| getError(messageFunction) → EnoValidationError
+| getError(message or messageFunction) → EnoValidationError
 
 -- description
 Generate an error in the context of the element. The error includes a generic

@@ -8,7 +8,7 @@
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
-    "enojs": "^0.6.3",
+    "enojs": "^0.7.0",
     "file-loader": "^1.1.11",
     "http-server": "^0.11.1",
     "markdown-it": "^8.4.1",
