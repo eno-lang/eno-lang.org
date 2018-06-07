@@ -29,7 +29,7 @@ An early preview of the enojs demo page, featuring interactive code examples, is
 
 ## Links
 
-Package on npm - <https://www.npmjs.com/package/enojs>  
+Package on npm - <https://npmjs.com/package/enojs>  
 Repository on github - <https://github.com/eno-lang/enojs> 
 -- intro
 
@@ -1325,7 +1325,7 @@ try {
   // ...
 } catch(err) {
   if(err instanceof EnoError) {
-    err.message;  // returns 'In line 4 'a' is copied into itself.\n\n   Line | Content\n ...'
+    err.message;  // returns "In line 4 'a' is copied into itself.\n\n   Line | Content\n ..."
   }
 }
 -- js

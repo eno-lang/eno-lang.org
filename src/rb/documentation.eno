@@ -1,15 +1,74 @@
 # Global
 
-version: 0.0.0
+version: 0.1.0 (Early Alpha)
 
 -- intro
-This documentation is a continually evolving draft.
-enorb is still under development and not yet ready to use.
+This documentation is a work in progress and partially documents features still in development.  
+enorb is still under development and not yet ready for production use.
 
+## Installation
+
+```shell
+gem install enorb
+```
+
+## Getting started
+
+```ruby
+require 'enorb'
+
+input = File.read('[your-file].eno')
+document = Eno.parse(input)
+
+puts document.field('[your-field]')  // prints '[your-value]'
+```
+## Links
+
+Gem on rubygems - <https://rubygems.org/gems/enorb>  
 Repository on github - <https://github.com/eno-lang/enorb> 
 -- intro
 
 # Modules
+
+## Eno
+
+-- class description
+The main module. You'll be calling `parse` on this, and possibly supplying a custom
+locale (such as `'de'`, `'es'`, ...), reporter type (`'text'`, `'html'`, `'terminal'` are available)
+or source label (usually to have filename appear in error messages) to that call.
+-- class description
+
+### parse
+
+syntax:
+| parse(input) → Eno::Section
+| parse(input, locale = 'en', reporter = 'html', source_label = nil) → Eno::Section
+
+-- description
+Parse a string in eno notation.
+-- description
+
+-- eno
+color: blue
+-- eno
+
+-- ruby
+eno.parse(input)  #=> <#Eno::Document length="1">
+
+eno.parse(input, locale: 'es')  # Any errors will be reported in spanish
+eno.parse(input, reporter: 'html')  # Errors will be html for e.g. web integration
+eno.parse(input, reporter: 'terminal')  # Errors will be colored for terminal output
+eno.parse(input, source_label: 'my-file.eno')  # Errors will include the label as context
+-- ruby
+
+#### parameters
+
+input: A string containing text in eno notation.
+options: Various options (see example above)
+
+#### return value
+
+description: An `Eno::Section` representing the document.
 
 ## Eno::Value
 
@@ -60,3 +119,179 @@ loader:
 #### return value
 
 description: The (optionally transformed/validated) value of this `Eno::Value`.
+
+## EnoEmpty
+
+### to_s
+
+syntax: to_s → string
+
+-- description
+Retrieve an abstract debug representation of the empty element.
+-- description
+
+-- eno
+color:
+-- eno
+
+-- js
+document = eno.parse(input)
+elements = document.sequential
+
+elements[0].to_s  #=> '<#Eno::Empty name="color">'
+-- js
+
+#### return value
+
+description: An abstract debug representation of the empty element.
+
+## Eno::GenericError
+
+-- class description
+The single generic error interface for all (user) errors that eno generates.
+Note that this is never raised by itself, but only in one of it's subclassed
+variants (`Eno::ParseError` and `Eno::ValidationError`). However, you can still
+utilize this generic class in cases where you want to catch both parser and
+validation errors indiscriminately, like so:
+
+```ruby
+begin
+  # ...
+rescue Eno::GenericError => e # catches both EnoParseError and EnoValidationError
+  # ...
+end
+```
+-- class description
+
+### cursor
+
+syntax: cursor → [line, column]
+
+-- description
+Returns a cursor position as an array of the form [line, column], indicating
+where a cursor should be placed if an application wants to offer the user a way
+to move the cursor straight to the error location.
+-- description
+
+-- ruby
+begin
+  # ...
+rescue Eno::GenericError => e
+  e.cursor  #=> [3, 14]
+end
+-- ruby
+
+#### return value
+
+description: An array, where [0] is the line number, and [1] is the column number.
+
+### selection
+
+syntax: selection → [[line, column], [line, column]]
+
+-- description
+Returns a selection as an array of the form [[line, column], [line, column]],
+indicating a text range to select if an application wants to offer the user a
+way to get a selection for the error in the input.
+-- description
+
+-- ruby
+begin
+  # ...
+rescue Eno::GenericError => e
+  e.cursor  #=> [[3, 14], [3, 23]]
+end
+-- ruby
+
+#### return value
+
+description:
+| An array, where [0] is the begin of the selection and [1] is the end,
+| and both begin and end are each again an array, where [0] is the
+| line number, and [1] is the column number.
+
+### message
+
+syntax: message → string
+
+-- description
+Contains both the error text as well as the snippet. This is also what you
+get in the console when you don't catch the error.
+-- description
+
+-- ruby
+begin
+  # ...
+rescue Eno::GenericError => e
+  e.message;  #=> "In line 4 'a' is copied into itself.\n\n   Line | Content\n ..."
+end
+-- ruby
+
+#### return value
+
+description: Both the error text as well as the snippet.
+
+### snippet
+
+syntax: snippet → string
+
+-- description
+Returns a formatted excerpt of those passage(s) from the input where the error occurred.
+-- description
+
+-- ruby
+begin
+  # ...
+rescue Eno::GenericError => e
+  e.snippet
+  
+  # returns something like ...
+  #
+  #   Line | Content
+  #      1 | 
+  # *    2 |     # a
+  # *    3 |     ## b
+  # >    4 |     ### c < a
+  #      5 |
+end
+-- ruby
+
+#### return value
+
+description: A formatted excerpt of those passage(s) from the input where the error occurred.
+
+### text
+
+syntax: text → string
+
+-- description
+Returns a one-liner that describes the error in human language.
+-- description
+
+-- ruby
+begin
+  # ...
+rescue Eno::GenericError => e
+  e.message  # returns "In line 4 'a' is copied into itself."
+end
+-- ruby
+
+#### return value
+
+description: A single sentence that describes the error in human language.
+
+## Eno::ParseError
+
+-- class description
+When this is raised, it indicates an error regarding syntax or grammatical semantics of the document.
+Functionally this behaves exactly like `Eno::GenericError`, therefore the interface methods are not repeated here and can
+be looked up on the `Eno::GenericError` documentation.
+-- class description
+
+## Eno::ValidationError
+
+-- class description
+When this is raised, it indicates an error regarding application-specific requirements for the document.
+Functionally this behaves exactly like `Eno::GenericError`, therefore the interface methods are not repeated here and can
+be looked up on the `Eno::GenericError` documentation.
+-- class description

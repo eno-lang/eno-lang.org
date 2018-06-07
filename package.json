@@ -13,7 +13,7 @@
     "http-server": "^0.11.1",
     "markdown-it": "^8.4.1",
     "webpack": "^4.11.1",
-    "webpack-cli": "^3.0.2"
+    "webpack-cli": "^3.0.3"
   },
   "description": "The eno-lang.org website",
   "name": "eno-lang.org",

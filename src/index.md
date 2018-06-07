@@ -38,24 +38,30 @@ Language support in Sublime Text *in development* - <https://github.com/eno-lang
 
 ### enojs / JavaScript
 
-Interactive demos (early preview) - <https://eno-lang.org/demo/>  
+**Mature Beta - Already being tested in a few select production settings**
+
+Interactive demos (work in progress) - <https://eno-lang.org/demo/>  
 Complete documentation - <https://eno-lang.org/js/>  
-npm package - <https://www.npmjs.com/package/enojs>
+npm package - <https://npmjs.com/package/enojs>
 
 Repository on github - <https://github.com/eno-lang/enojs>  
 
 ### enorb / Ruby
 
-In development!
+**Early Alpha - Not ready for production use**
+
+Documentation in progress - <https://eno-lang.org/rb/>   
+Gem on rubygems - <https://rubygems.org/gems/enorb>
 
 Repository on github - <https://github.com/eno-lang/enorb>  
-Documentation in progress - <https://eno-lang.org/rb/>  
 
 ### Roadmap for further implementations
 
-Python is already up as a fixed spot right after the ruby implementation
-reaches a mature beta status. What else follows will also depend on your
-feedback, so make yourself heard if you have suggestions or questions!
+[enopy](https://github.com/eno-lang/enopy), the Python implementation, is
+already up as a fixed spot right after the ruby implementation reaches a mature
+beta status (current projection is mid-summer 2018). What else follows will also
+depend on your feedback, so make yourself heard if you have suggestions or
+questions!
 
 ## Dive deeper
 
