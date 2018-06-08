@@ -53,12 +53,13 @@ color: blue
 -- eno
 
 -- ruby
-eno.parse(input)  #=> <#Eno::Document length="1">
+eno.parse(input)  #=> <#Eno::Section document length="1">
 
-eno.parse(input, locale: 'es')  # Any errors will be reported in spanish
-eno.parse(input, reporter: 'html')  # Errors will be html for e.g. web integration
-eno.parse(input, reporter: 'terminal')  # Errors will be colored for terminal output
-eno.parse(input, source_label: 'my-file.eno')  # Errors will include the label as context
+                                                      # Errors will be ...
+eno.parse(input, locale: 'es')                        # In spanish - ¡hola!
+eno.parse(input, reporter: Eno::Reporters::HTML)      # HTML for e.g. web integration
+eno.parse(input, reporter: Eno::Reporters::Terminal)  # Colored for terminal output
+eno.parse(input, source_label: 'my-file.eno')         # Annotated with a label as context
 -- ruby
 
 #### parameters
@@ -69,6 +70,585 @@ options: Various options (see example above)
 #### return value
 
 description: An `Eno::Section` representing the document.
+
+## Eno::Section
+
+-- class description
+Every section in an eno document, such as for instance `# notes` or `### Appendix`, maps to an `Eno::Section`.
+More prominently though **the document itself is represented as an `Eno::Section`**,
+consequently this is the interface you'll be utilizing most for many usecases.
+-- class description
+
+### #assert_all_touched
+
+syntax:
+| assert_all_touched
+| assert_all_touched(except: [])
+| assert_all_touched(only: [])
+| assert_all_touched(message_proc)
+| assert_all_touched { |name, value| message_block }
+
+-- description
+Assert that all elements of this section (and also, recursively, all
+subsections) that were present in the parsed eno document were also queried (and
+therefore *touched*) by the application. This, combined with eno's query
+methods, serves to ensure a two-way guarantee for both users and developers: No
+data that the application requires can be left out, and no data that the
+application does not process can be supplied.
+-- description
+
+-- eno
+Important data A: I need to be processed!
+Important data B: Me too!
+-- eno
+
+-- ruby
+document = eno.parse(input)
+
+data_a = document.field('Important data A')
+
+# ... processing happens only for data_a
+
+document.assert_all_touched  # raises an error
+-- ruby
+
+#### parameters
+
+-- message_proc or message_block
+Optional, usually the default message (*An excess element named [NAME] was
+found, is it possibly a typo?*) will do fine. If you want to override it,
+provide either a static message as a string, or alternatively a `Proc` or block
+returning a string. (The arguments passed are `name` and `value`, although
+`value` can be `nil` if the untouched element is a dictionary or section)
+-- message_proc or message_block
+
+-- options
+An optional object.
+ 
+`only` - An array of strings, e.g. `['name', 'email']`, which specifies to only check these elements for whether they've been touched.  
+`except` - An array of strings, e.g. `['phone number']`, which specifies to exclude these elements from checking whether they've been touched.  
+-- options
+
+### #dictionaries
+
+syntax: dictionaries(name) → array
+
+-- description
+Retrieve dictionaries with the specified name from this current section.
+-- description
+
+-- eno
+image:
+src = red-roses.jpg
+
+image:
+src = white-roses.jpg
+-- eno
+
+-- ruby
+document = eno.parse(input)
+
+images = document.dictionaries('image')
+
+images.each do |image|
+  puts image.entry('src')
+end
+-- ruby
+
+#### return value
+
+description: An array of `Eno::Dictionary`s.
+
+### #dictionary
+
+syntax:
+| dictionary(name) → Eno::Dictionary or nil
+| dictionary(name, options) → Eno::Dictionary or nil
+
+-- description
+Retrieve a dictionary from the section, optionally supplying an options.
+-- description
+
+-- eno
+color ratings:
+red = 5
+green = 7
+blue = 3
+-- eno
+
+-- ruby
+section.dictionary('color ratings')        #=> <#Eno::Dictionary name="color ratings" length="3">
+section.dictionary('temperature ratings')  # raises an error
+
+section.dictionary('temperature ratings', required: false)        #=> nil
+section.dictionary('temperature ratings', enforce_element: true)  # raises an error
+-- ruby
+
+#### parameters
+
+name: A string representing the name of the field to return.
+
+-- options
+An optional object of options.
+ 
+`required` - A boolean stating whether the dictionary must exist. (defaults to `true`)  
+`enforce_elements` - A boolean stating whether the dictionary must exist. (defaults to `false`)
+
+Note: The two options are obviously redundant, here's why: `enforce_elements` affects all elements,
+therefore we need it here as well. `required` was added because it exists on other elements as
+well (where it does something different, namely, enforce the *value*) and it would be odd if
+it were missing here now suddenly, so that's why there are two options with the same effect.
+-- options
+
+#### return value
+
+description: An `Eno::Dictionary`, or `nil`.
+
+### #enforce_elements
+
+syntax:
+| enforce_elements
+| enforce_elements(enforce)
+
+-- description
+Set the default for all following queries on this section of whether the
+presence of elements in the eno input text should be enforced (by default it is
+not). This can be used to prevent "template decay" - with presence enforcement
+enabled elements may be empty, but they (at least their declaration) must be
+there in the eno text and consequently they can not disappear from a template
+over time without triggering an error.
+-- description
+
+-- eno
+color: blue
+-- eno
+
+-- ruby
+document = eno.parse(input)
+
+document.field('sound')  #=> nil
+
+document.enforce_elements(true)
+
+document.field('sound')  # raises an error
+document.field('sound', enforce_element: false)  #=> nil
+-- ruby
+
+#### parameters
+
+enforce: An optional boolean indicating whether to enforce or not. (otherwise `true` is assumed)
+
+### #field
+
+syntax:
+| field(name) → value or nil
+| field(name, loader) → value or nil
+| field(name, options) → object/value or nil
+| field(name, loader, options) → object/value or nil
+
+-- description
+Retrieve a field's value from the section, optionally supplying a loader to
+validate and/or transform the value, and/or an options object.
+-- description
+
+-- eno
+color: blue
+sound:
+-- eno
+
+-- ruby
+section.field('color')  #=> 'blue'
+section.field('sound')  #=> nil
+
+section.field('sound', required: true)           # raises an error
+section.field('sound', enforce_element: true)    #=> nil
+section.field('texture', enforce_element: true)  # raises an error
+
+section.field('color') { |name, value| value.upcase }  #=> 'BLUE'
+
+section.field('color') do |name, value|
+  raise 'Only green is allowed!' if value != 'green'  # raises an error
+  value
+end
+
+section.field('color', with_element: true)
+  #=> [ <#Eno::Value name="color" value="blue">, 'blue' ]
+-- ruby
+
+#### parameters
+
+name: A string representing the name of the field to return.
+loader: A `Proc` returning the transformed/validated value or raising an error.
+options:
+| `required`
+| `enforce_element`
+
+#### return value
+
+description:
+\ The value of the field, or `nil` if empty, or an array of the form `[element, value]`
+\ when the option `with_element` is specified.
+
+### #fields
+
+syntax: fields(name) → array
+
+-- description
+Retrieve fields with the specified name from this current section.
+-- description
+
+-- eno
+color: blue
+color: red
+color: orange
+-- eno
+
+-- ruby
+document = eno.parse(input)
+
+colors = document.fields('color')
+
+colors.each do |color|
+  puts color.value
+end
+-- ruby
+
+#### return value
+
+description: An array of `Eno::Value`s.
+
+### #list
+
+syntax:
+| list(name) → array
+| list(name, options) → array
+| list(name, loader_proc, options) → array
+| list(name, options) { |name, value| loader_block } → array
+
+-- description
+Retrieve the items of a list, optionally supplying a loader block or `Proc` and options.
+-- description
+
+-- eno
+colors:
+- pink
+- peach
+-
+
+textures:
+-- eno
+
+-- ruby
+document = eno.parse(input)
+
+document.list('colors')     #=> ['pink', 'peach']
+document.list('textures')   #=> []
+document.list('sounds')     #=> []
+
+document.list('colors', inlude_empty: true)       #=> ['pink', 'peach', nil]
+document.list('textures', enforce_elements: true)  #=> []
+document.list('sounds', enforce_elements: true)    # raises an error
+
+document.list('colors') { |name, value| value.upcase }  #=> ['PINK', 'PEACH']
+
+document.list('colors') do |name, value|
+  raise 'Peach may not be on the list!' if value == 'peach'  # raises an error
+  return `I like ${value}`
+end
+
+document.list('colors', with_elements: true)  #=> [[<#Eno::Value value="pink">, 'pink'],
+                                              #    [<#Eno::Value value="peach">, 'peach']]
+-- ruby
+
+#### parameters
+
+name: The name of the list to return as a string.
+
+loader:
+| A `Proc` or block returning the transformed/validated value or raising an error.
+| (The `Proc` or block is applied to each list item on its own, being passed the arguments `name` and `value`)
+
+-- options
+Optional keyword arguments:  
+`enforce_elements`: Whether the list must be present in the document (defaults to `false`)  
+`include_empty`: Whether to include list items with a value of `nil` - represented by `-  ` in the document (defaults to `false`)  
+`exact_count`: Validate that there are exactly `n` items in the list (takes a number, defaults to `nil`)  
+`min_count`: Validate that there are at least `n` items in the list (takes a number, defaults to `nil`)  
+`max_count`: Validate that there are at most `n` items in the list (takes a number, defaults to `nil`)  
+`with_elements`: Whether to return a list of objects with both the element and the value (defaults to `false`)
+-- options
+
+#### return value
+
+description: The (optionally transformed/validated) items of this list as an array.
+
+### #lists
+
+syntax: lists(name) → array
+
+-- description
+Retrieve lists with the specified name from this current section.
+-- description
+
+-- eno
+route:
+- vienna
+- paris
+- rome
+
+route:
+- moscow
+- riga
+-- eno
+
+-- ruby
+document = eno.parse(input)
+
+routes = document.lists('route')
+
+routes.forEach(route => {
+  puts route.items )
+})
+-- ruby
+
+#### return value
+
+description: An array of `Eno::List`s.
+
+### #lookup
+
+syntax:
+| lookup(index) → object or nil
+| lookup(line, column) → object or nil
+
+-- description
+Ask the document *Hey what's at column X in line Y in my eno file?*. The lookup **always** returns an element for valid indices
+(the document/section in case of an empty line/space), only indices outside the range of the document return `nil`.
+-- description
+
+-- eno
+color: blue
+
+# notes
+-- eno
+
+-- ruby
+document = eno.parse(input)
+
+document.lookup(3)  # 'o'
+  #=> { element: <#Eno::Value name="color" value="blue">, zone: 'name' }
+document.lookup(7)  # 'b'
+  #=> { element: <#Eno::Value name="color" value="blue">, zone: 'value' }
+document.lookup(1, 3)  # 'o'  
+  #=> { element: <#Eno::Value name="color" value="blue">, zone: 'name' }
+document.lookup(1, 7)  # 'b'  
+  #=> { element: <#Eno::Value name="color" value="blue">, zone: 'value' }
+document.lookup(13)  # '#' 
+  #=> { element: <#Eno::Section name="notes" length="0">, zone: 'sectionOperator' }
+document.lookup(19)  # 's' 
+  #=> { element: <#Eno::Section name="notes" length="0">, zone: 'name' }
+document.lookup(3, 0)  # '#'   
+  #=> { element: <#Eno::Section name="notes" length="0">, zone: 'sectionOperator' }
+document.lookup(3, 6)  # 's'   
+  #=> { element: <#Eno::Section name="notes" length="0">, zone: 'name' }
+-- ruby
+
+#### return value
+
+-- description
+For all valid indices within the document returns an object with two properties:  
+
+`element`: An `Eno::Section`, `Eno::Dictionary`, `Eno::Value`.. . For empty lines you get the containing section.
+
+`zone`: A string denoting the token at the index, here's the full list:  
+
+`'[empty-lines-and-spaces-between-tokens]'` => `element`  
+`'[inside-blocks]'` => `content`  
+`'[inside-comments]'` => `comment`  
+`'[name]'` => `name`  
+`'[template]'` => `value`  
+`'[value]'` => `value`  
+`':'` => `nameOperator`  
+`'-'` => `itemOperator`  
+`'='` => `entryOperator`  
+`'--'` => `blockOperator`  
+`'>'` => `commentOperator`  
+``'`'`` => `escapeBeginOperator`  
+``'`'`` => `escapeEndOperator`  
+`'|'` => `appendWithNewlineOperator`  
+`'\'` => `appendWithSpaceOperator`  
+`'#'` => `sectionOperator`  
+`'<'` => `copyOperator`  
+`'<<'` => `deepCopyOperator`  
+
+When an index outside the document is supplied, `nil` is returned.
+-- description
+
+### #raw
+
+syntax: raw → array
+
+-- description
+Retrieve a ruby native representation of the section.
+-- description
+
+-- eno
+color: blue
+-- eno
+
+-- ruby
+document = eno.parse(input)
+
+document.raw  #=> [{ 'color' => 'blue' }]
+-- ruby
+
+#### return value
+
+description: An array of elements (also returned in their raw representation).
+
+### #section
+
+syntax: 
+| section(name) → Eno::Section or nil
+| section(name, options) → Eno::Section or nil
+
+-- description
+Retrieve the subsection with the specified name from this current section.
+-- description
+
+-- eno
+# content
+title: A Manifest
+
+# notes
+-- eno
+
+-- ruby
+document = eno.parse(input)
+
+document.section('content')  #=> <#Eno::Section name="content" length="1">
+document.section('notes')  #=> <#Eno::Section name="notes" length="0">
+document.section('metadata')  # raises an error
+
+document.section('metadata', required: false)        #=> nil
+document.section('notes', enforce_element: true)     #=> <#Eno::Section name="notes" length="0">
+document.section('metadata', enforce_element: true)  # raises an error
+-- ruby
+
+#### parameters
+
+-- options
+An optional object of options:  
+`enforce_elements`: Whether the section must be present in the document (defaults to `false`)  
+`required`: Whether there must be a section of that name in the document (defaults to `true`)  
+
+Note: The two options are obviously redundant, here's why: `enforce_elements` affects all elements,
+therefore we need it here as well. `required` was added because it exists on other elements as
+well (where it does something different, namely, enforce the *value*) and it would be odd if
+it were missing here now suddenly, so that's why there are two options with the same purpose.
+-- options
+
+#### return value
+
+description: An `Eno::Section`, or `nil`.
+
+### #sections
+
+syntax: sections(name) → array
+
+-- description
+Retrieve subsections with the specified name from this current section.
+-- description
+
+-- eno
+# Article
+> ...
+
+# Article
+> ...
+-- eno
+
+-- ruby
+document = eno.parse(input)
+
+sections = document.sections('Article')
+
+sections.each do |section|
+  # do something with each Article
+end
+-- ruby
+
+#### return value
+
+description: An array of `Eno::Section`s.
+
+### #sequential
+
+syntax: sequential → array
+
+-- description
+Retrieve the elements of this section in sequential order. This seamlessly lets you switch from
+associative readout to sequential readout, allowing sections within, or the whole document, to
+represent document-like structures (think generic markup) instead of just associative data stores.
+-- description
+
+-- eno
+date: 2018-03-01
+title: 'My blog post'
+
+# page
+
+h1: Hello world
+p: This is my first post, I'm so happy!
+-- eno
+
+-- ruby
+document = eno.parse(input)
+
+metadata = {
+  date: document.field('date', my_date_loader_proc),
+  title: document.field('title')
+}
+
+html = ''
+
+document.section('page').sequential.each do |element|
+  html += "<#{element.name}>#{element.value}&lt;/#{element.name}>"
+end
+
+# ...
+-- ruby
+
+#### return value
+
+description: An array containing the elements of this section.
+
+### #to_s
+
+syntax: to_s → string
+
+-- description
+Retrieve an abstract debug representation of the section.
+-- description
+
+-- eno
+color: blue
+
+# notes
+
+buy milk: important!
+-- eno
+
+-- ruby
+document = eno.parse(input)
+
+document.to_s  #=> '<#Eno::Section document length="2">'
+document.section('notes').to_s  #=> '<#Eno::Section name="notes" length="1">'
+-- ruby
+
+#### return value
+
+description: An debug representation of the section.
 
 ## Eno::Value
 
@@ -85,12 +665,14 @@ Only when you sequentially iterate a section (with `Eno::Section`'s
 
 syntax:
 | error → Eno::ValidationError
-| error(message or messageFunction) → Eno::ValidationError
+| error(message) → Eno::ValidationError
+| error(message_proc) → Eno::ValidationError
+| error { |name, value| message_block } → Eno::ValidationError
 
 -- description
 Generate an error in the context of the element. The error includes a generic
 message by default, or a custom one if you supply it (which is the recommended
-practice). You can also pass a message function which (like the loader functions
+practice). You can also pass a message `Proc` or block which (like loaders
 too) gets the name and value as arguments and returns a message string. This
 serves to create highly informative error messages that pin-point to the exact
 origin of the error, even when the initial reading of data is already past, e.g.
@@ -115,11 +697,12 @@ end
 
 #### parameters
 
-message or messageFunction:
+message, message_block or message_proc:
 | Highly recommended to provide one (but it's optional).
 |
-| Either directly pass a string, or alternatively a function returning a string.  
-| (The function is passed `name` and `value` inside a single object parameter.)
+| Either directly pass a string, or alternatively a `Proc` or block returning a string.  
+| (The `Proc` or block is passed `name` and `value` as arguments, and if both a `Proc` and block
+| are supplied the block has higher precedence.)
 
 #### return value
 
@@ -197,7 +780,7 @@ list.first[0].to_s  #=> '<#Eno::Value value="13">'
 
 #### return value
 
-description: An abstract debug representation of this `Eno::Value`.
+description: An debug representation of this `Eno::Value`.
 
 ### #value
 
@@ -337,7 +920,7 @@ document.list('numbers').to_s  #=> '<#Eno::List name="numbers" length="2">'
 
 #### return value
 
-description: An abstract debug representation of the list.
+description: An debug representation of the list.
 
 ## Eno::Dictionary
 
@@ -388,13 +971,12 @@ document.assert_all_touched  # raises an error
 
 #### parameters
 
--- message or messageFunction
+-- message or message_proc or message_block
 Optional, usually the default message (*An excess element named [NAME] was
 found, is it possibly a typo?*) will do fine. If you want to override it,
 provide either a static message as a string, or alternatively a block or proc
-returning a string. (The function is passed `name` and `value` inside a single
-object parameter.)
--- message or messageFunction
+returning a string. (`name` and `value` are provided as arguments)
+-- message or message_proc or message_block
 
 -- options
 `only` - An array of strings, e.g. `['name', 'email']`, which specifies to only check these entries for whether they've been touched.  
@@ -427,14 +1009,14 @@ qa = document.dictionary('Q&A')
 qa.entry('Meaning')   #=> '42'
 qa.entry('Purpose')   #=> nil
 
-qa.entry('Purpose', required: true)   # throws an error
+qa.entry('Purpose', required: true)   # raises an error
 qa.entry('Purpose', enforce_element: true)   #=> nil
-qa.entry('Beige', enforce_element: true)   # throws an error
+qa.entry('Beige', enforce_element: true)   # raises an error
 
 qa.entry('Green', ->(name, value) { value.upcase })   #=> 'YES'
 
-qa.entry('Meaning') do |name, value|  # throws an error
-  raise "That one's getting old!" if value === '42'
+qa.entry('Meaning') do |name, value|  # raises an error
+  raise "That one's getting old!" if value == '42'
   value
 end
 
@@ -446,8 +1028,8 @@ qa.entry('Meaning', with_element: true)   #=> [ <#Eno::Value name="Meaning" valu
 name: The name of the entry as a string.
 
 loader:
-| A function returning the transformed/validated value or throwing an error.  
-| The function is passed `name` and `value` inside a single object parameter.
+| A `Proc` returning the transformed/validated value or raising an error.  
+| The `Proc` is passed `name` and `value` as arguments.
 
 -- options
 `enforce_element`: Whether the entry must be present in the document (defaults to `false`)  
@@ -537,7 +1119,7 @@ document.dictionary('numbers').to_s  #=> '<#Eno::Dictionary name="numbers" lengt
 
 #### return value
 
-description: An abstract debug representation of the dictionary.
+description: An debug representation of the dictionary.
 
 ## Eno::Empty
 
@@ -633,12 +1215,12 @@ color:
 document = eno.parse(input)
 elements = document.sequential
 
-elements[0].to_s  #=> '<#Eno::Empty name="color">'
+elements[0].to_s  #=> '<#Eno::Empty name="color" value=nil>'
 -- ruby
 
 #### return value
 
-description: An abstract debug representation of the empty element.
+description: An debug representation of the empty element.
 
 ### #value
 
