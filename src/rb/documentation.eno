@@ -3,7 +3,7 @@
 version: 0.1.0 (Early Alpha)
 
 -- intro
-This documentation is a work in progress and partially documents features still in development.  
+This documentation is an early work in progress and the API is partially unstable.  
 enorb is still under development and not yet ready for production use.
 
 ## Installation
@@ -81,6 +81,124 @@ Only when you sequentially iterate a section (with `Eno::Section`'s
 '`#sequential` method) you will get to interact with this class.
 -- class description
 
+### #error
+
+syntax:
+| error → Eno::ValidationError
+| error(message or messageFunction) → Eno::ValidationError
+
+-- description
+Generate an error in the context of the element. The error includes a generic
+message by default, or a custom one if you supply it (which is the recommended
+practice). You can also pass a message function which (like the loader functions
+too) gets the name and value as arguments and returns a message string. This
+serves to create highly informative error messages that pin-point to the exact
+origin of the error, even when the initial reading of data is already past, e.g.
+when the error condition is only apparent later, when more processing has
+occurred or other data is available.
+-- description
+
+-- eno
+color: cozy
+-- eno
+
+-- ruby
+document = eno.parse(input)
+element, value = document.field('color', with_element: true)
+
+# ...
+
+if value == 'cozy'
+  raise element.error('Postprocessing determined that "cozy" is not a color after all.')
+end
+-- ruby
+
+#### parameters
+
+message or messageFunction:
+| Highly recommended to provide one (but it's optional).
+|
+| Either directly pass a string, or alternatively a function returning a string.  
+| (The function is passed `name` and `value` inside a single object parameter.)
+
+#### return value
+
+description:
+| An `Eno::ValidationError` in the context of the element's value
+| (and with an optional custom message).
+
+### #empty?
+
+syntax: empty? → boolean
+
+-- description
+Query whether the value is empty (e.g. `comment:  ` in an eno document), which in ruby terms is equivalent of `nil`.
+-- description
+
+#### return value
+
+description: `true` if empty, otherwise `false`.
+
+### #raw
+
+syntax: raw → object or value
+
+-- description
+Retrieve a native object representation of the value.
+The representation differs depending on whether there is a name (e.g. for a field value),
+or not (applies only to list item values).
+-- description
+
+-- eno
+color: blue
+numbers:
+- 13
+- 42
+-- eno
+
+-- ruby
+document = eno.parse(input)
+
+document.sequential[0].raw  #=> { 'color' => 'blue' }
+
+list = document.list('numbers', with_element: true)
+list.first[0].raw  #=> '13'
+-- ruby
+
+#### return value
+
+description: A native representation of the value element.
+
+### #to_s
+
+syntax: to_s → string
+
+-- description
+Retrieve an abstract debug representation of of this `Eno::Value`.
+The representation differs depending on whether there is a name (e.g. for a field value)
+or not (applies only to list item values).
+-- description
+
+-- eno
+color: blue
+numbers:
+- 13
+- 42
+-- eno
+
+-- ruby
+document = eno.parse(input)
+
+document.sequential[0].to_s  #=> '<#Eno::Value name="color" value="blue">'
+
+list = document.list('numbers', with_element: true)
+list.first[0].to_s  #=> '<#Eno::Value value="13">'
+-- ruby
+
+#### return value
+
+description: An abstract debug representation of this `Eno::Value`.
+
 ### #value
 
 syntax:
@@ -107,7 +225,12 @@ towel_color = document.sequential()[1]
 flag_color.value  # => 'beige'
 towel_color.value  # => nil
 
-flag_color.value { |name, value| value.gsub('eig', 'lu') }   #=> 'blue'
+flag_color.value(->(name, value) { value.gsub('eig', 'lu') }   #=> 'blue'
+
+flag_color.value do |name, value|
+  value.gsub('eig', 'lu')
+end  #=> 'blue'
+  
 -- ruby
 
 #### parameters
