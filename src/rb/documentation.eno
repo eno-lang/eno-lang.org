@@ -20,7 +20,7 @@ require 'enorb'
 input = File.read('[your-file].eno')
 document = Eno.parse(input)
 
-puts document.field('[your-field]')  // prints '[your-value]'
+puts document.field('[your-field]')  # prints '[your-value]'
 ```
 ## Links
 
@@ -34,11 +34,11 @@ Repository on github - <https://github.com/eno-lang/enorb>
 
 -- class description
 The main module. You'll be calling `parse` on this, and possibly supplying a custom
-locale (such as `'de'`, `'es'`, ...), reporter type (`'text'`, `'html'`, `'terminal'` are available)
+locale (such as `'de'`, `'es'`, ...), reporter type (`Eno::Reporters::Text`, `Eno::Reporters::HTML`, `Eno::Reporters::Terminal` are available)
 or source label (usually to have filename appear in error messages) to that call.
 -- class description
 
-### parse
+### ::parse
 
 syntax:
 | parse(input) → Eno::Section
@@ -120,9 +120,381 @@ loader:
 
 description: The (optionally transformed/validated) value of this `Eno::Value`.
 
-## EnoEmpty
+## Eno::List
 
-### to_s
+-- class description
+Lists such as the one below are represented as an `Eno::List`:
+
+```eno
+things:
+- toys
+- plants
+```
+
+Like `Eno::Value`, you will seldom interact with this class, and instead use the `list`
+method on the document or its sections to directly obtain the values of a list.
+-- class description
+
+### #items
+
+syntax:
+| items → array
+| items(loader) → array
+| items { |name, value| loader } → array
+
+-- description
+Retrieve the items of the list, optionally passing them through a loader block or Proc.
+Note that when you provide both a block and a Proc the block takes precedence.
+-- description
+
+-- eno
+colors:
+- pink
+- peach
+-- eno
+
+-- ruby
+document = eno.parse(input)
+list = document.sequential[0]
+
+list.items()  #=> ['pink', 'peach']
+
+list.items(->(name, value) { "#{value}!!" })  #=> ['pink!!', 'peach!!']
+
+list.items { |name, value| { "#{value}!!" }  #=> ['pink!!', 'peach!!']
+-- ruby
+
+#### return value
+
+description: The (optionally transformed/validated) items of this list as an array.
+
+### #raw
+
+syntax: raw → object
+
+-- description
+Retrieve a native representation of the list.
+-- description
+
+-- eno
+colors:
+- pink
+- peach
+-- eno
+
+-- ruby
+document = eno.parse(input)
+
+document.sequential[0].raw  #=> { 'colors' => ['pink', 'peach'] }
+-- ruby
+
+#### return value
+
+description: A native representation of the list.
+
+### #to_s
+
+syntax: to_s → string
+
+-- description
+Retrieve an abstract debug representation of the list.
+-- description
+
+-- eno
+numbers:
+- 13
+- 42
+-- eno
+
+-- ruby
+document = eno.parse(input)
+
+document.list('numbers').to_s  #=> '<#Eno::List name="numbers" length="2">'
+-- ruby
+
+#### return value
+
+description: An abstract debug representation of the list.
+
+## Eno::Dictionary
+
+-- class description
+Dictionaries are represented as an `Eno::Dictionary`:
+
+```eno
+rated things:
+toys = 5 stars
+plants = 3 stars
+```
+
+You will mostly obtain an instance of this through the `#dictionary` method on a document/section.
+-- class description
+
+### #assert_all_touched
+
+syntax:
+| assert_all_touched
+| assert_all_touched(except: [])
+| assert_all_touched(only: [])
+| assert_all_touched(message or message_proc)
+| assert_all_touched { |name, value| message_block }
+
+-- description
+Assert that all entries of this dictionary that were present in the parsed eno document
+were also queried (and therefore *touched*) by the application. This, combined with eno's
+query methods, serves to ensure a two-way guarantee for both users and developers:
+No data that the application requires can be left out, and no data that the application
+does not process can be supplied.
+-- description
+
+-- eno
+Important data:
+A = I need to be processed!
+B = Me too!
+-- eno
+
+-- ruby
+document = eno.parse(input)
+
+data_a = document.dictionary('Important data').entry('A')
+
+# ... processing happens only for data_a
+
+document.assert_all_touched  # raises an error
+-- ruby
+
+#### parameters
+
+-- message or messageFunction
+Optional, usually the default message (*An excess element named [NAME] was
+found, is it possibly a typo?*) will do fine. If you want to override it,
+provide either a static message as a string, or alternatively a block or proc
+returning a string. (The function is passed `name` and `value` inside a single
+object parameter.)
+-- message or messageFunction
+
+-- options
+`only` - An array of strings, e.g. `['name', 'email']`, which specifies to only check these entries for whether they've been touched.  
+`except` - An array of strings, e.g. `['phone number']`, which specifies to exclude these entries from checking whether they've been touched.  
+-- options
+
+### #entry
+
+syntax:
+| entry(name) → value or nil
+| entry(name, loader) → value or nil
+| entry(name, enforce_element: false, required: false, with_element: false) → object/value or nil
+
+-- description
+Retrieve an entry's value from the dictionary, optionally supplying a loader to
+validate and/or transform the value, and/or an options object.
+-- description
+
+-- eno
+Q&A:
+Meaning = 42
+Green = Yes
+Purpose =
+-- eno
+
+-- ruby
+document = eno.parse(input)
+qa = document.dictionary('Q&A')
+
+qa.entry('Meaning')   #=> '42'
+qa.entry('Purpose')   #=> nil
+
+qa.entry('Purpose', required: true)   # throws an error
+qa.entry('Purpose', enforce_element: true)   #=> nil
+qa.entry('Beige', enforce_element: true)   # throws an error
+
+qa.entry('Green', ->(name, value) { value.upcase })   #=> 'YES'
+
+qa.entry('Meaning') do |name, value|  # throws an error
+  raise "That one's getting old!" if value === '42'
+  value
+end
+
+qa.entry('Meaning', with_element: true)   #=> [ <#Eno::Value name="Meaning" value="42"> , '42' ]
+-- ruby
+
+#### parameters
+
+name: The name of the entry as a string.
+
+loader:
+| A function returning the transformed/validated value or throwing an error.  
+| The function is passed `name` and `value` inside a single object parameter.
+
+-- options
+`enforce_element`: Whether the entry must be present in the document (defaults to `false`)  
+`required`: Whether there must be a value for this entry (defaults to `false`)  
+`with_element`: Whether to return an object with both the element and the value (defaults to `false`)
+-- options
+
+#### return value
+
+description: The entry's value, or `nil` if empty.
+
+### #enforce_element
+
+syntax:
+| enforce_element = true or false
+
+-- description
+Set the default for all following queries on this dictionary of whether the
+presence of elements in the eno input text should be enforced (by default it is
+not). This can be used to prevent "template decay" - with presence enforcement
+enabled entries may be empty, but they (at least their declaration) must be
+there in the eno document and consequently they can not disappear from a
+template at any point without triggering an error.
+-- description
+
+-- eno
+conversions:
+0001 = 1
+0010 = 2
+-- eno
+
+-- ruby
+document = eno.parse(input)
+
+conversions = document.dictionary('conversions')
+
+conversions.enforce_element = true
+
+conversions.entry('0011')  # raises an error
+conversions.entry('0011', enforce_element: false)  #=> nil
+-- ruby
+
+### #raw
+
+syntax: raw → object
+
+-- description
+Retrieve a native representation of the dictionary.
+-- description
+
+-- eno
+weights:
+apple = 100g
+pineapple = 800g
+-- eno
+
+-- ruby
+document = eno.parse(input)
+
+document.dictionary('weights').raw 
+  #=> { 'weights' => { 'apple' => '100g', 'pineapple' => '800g' } }
+-- ruby
+
+#### return value
+
+description: A native object representation of the dictionary.
+
+### #to_s
+
+syntax: to_s → string
+
+-- description
+Retrieve an abstract debug representation of the dictionary.
+-- description
+
+-- eno
+numbers:
+13 = thirteen
+23 = twentythree
+-- eno
+
+-- ruby
+document = eno.parse(input)
+
+document.dictionary('numbers').to_s  #=> '<#Eno::Dictionary name="numbers" length="2">'
+-- ruby
+
+#### return value
+
+description: An abstract debug representation of the dictionary.
+
+## Eno::Empty
+
+-- class description
+This represents empty elements such as `color:`, where it is not clear if it is an empty field, list, or dictionary.
+-- class description
+
+### #error
+
+syntax:
+| error → Eno::ValidationError
+| error(message or message_proc) → Eno::ValidationError
+| error { |name, value| message_block } → Eno::ValidationError
+
+-- description
+Generate an error in the context of the element. The error includes a generic
+message by default, or a custom one if you supply it (which is the recommended
+practice). You can also pass a message block or Proc which (like loaders too)
+gets the name and value as arguments and returns a message string. This serves
+to create highly informative error messages that pin-point to the exact origin
+of the error, even when the initial reading of data is already past, e.g. when
+the error condition is only apparent later, when more processing has occurred or
+other data is available.
+-- description
+
+-- eno
+color:
+-- eno
+
+-- ruby
+document = eno.parse(input)
+
+element, value = document.field('color', with_element: true)
+
+# ...
+
+if value.nil?
+  raise element.error('Postprocessing determined that this value needs to be provided.')
+end
+-- ruby
+
+#### parameters
+
+message or message_proc:
+| Highly recommended to provide one (but it's optional).
+|
+| Either directly pass a string, or alternatively a Proc returning a string.  
+| (The Proc is passed `name` and `value` as arguments)
+
+message_block: Same as message_proc, takes precedence if both are specified!
+
+#### return value
+
+description:
+| An `Eno::ValidationError` in the context of the element's value
+| (and with an optional custom message).
+
+### #raw
+
+syntax: raw → object
+
+-- description
+Retrieve a native representation of the empty element.
+-- description
+
+-- eno
+color:
+-- eno
+
+-- ruby
+document = eno.parse(input)
+
+document.sequential[0].raw  #=> { 'color' => nil }
+-- ruby
+
+#### return value
+
+description: A native representation of the empty element.
+
+### #to_s
 
 syntax: to_s → string
 
@@ -134,16 +506,41 @@ Retrieve an abstract debug representation of the empty element.
 color:
 -- eno
 
--- js
+-- ruby
 document = eno.parse(input)
 elements = document.sequential
 
 elements[0].to_s  #=> '<#Eno::Empty name="color">'
--- js
+-- ruby
 
 #### return value
 
 description: An abstract debug representation of the empty element.
+
+### #value
+
+syntax:
+| value → nil
+
+-- description
+Retrieve the value (always returns `nil`).
+-- description
+
+-- eno
+note:
+-- eno
+
+-- ruby
+document = eno.parse(input)
+
+note = document.sequential[0]
+
+note.value  #=> nil
+-- ruby
+
+#### return value
+
+description: Always `nil`.
 
 ## Eno::GenericError
 
@@ -157,13 +554,13 @@ validation errors indiscriminately, like so:
 ```ruby
 begin
   # ...
-rescue Eno::GenericError => e # catches both EnoParseError and EnoValidationError
+rescue Eno::GenericError => e # catches both Eno::ParseError and Eno::ValidationError
   # ...
 end
 ```
 -- class description
 
-### cursor
+### #cursor
 
 syntax: cursor → [line, column]
 
@@ -185,7 +582,7 @@ end
 
 description: An array, where [0] is the line number, and [1] is the column number.
 
-### selection
+### #selection
 
 syntax: selection → [[line, column], [line, column]]
 
@@ -210,7 +607,7 @@ description:
 | and both begin and end are each again an array, where [0] is the
 | line number, and [1] is the column number.
 
-### message
+### #message
 
 syntax: message → string
 
@@ -223,7 +620,7 @@ get in the console when you don't catch the error.
 begin
   # ...
 rescue Eno::GenericError => e
-  e.message;  #=> "In line 4 'a' is copied into itself.\n\n   Line | Content\n ..."
+  e.message  #=> "In line 4 'a' is copied into itself.\n\n   Line | Content\n ..."
 end
 -- ruby
 
@@ -231,7 +628,7 @@ end
 
 description: Both the error text as well as the snippet.
 
-### snippet
+### #snippet
 
 syntax: snippet → string
 
@@ -260,7 +657,7 @@ end
 
 description: A formatted excerpt of those passage(s) from the input where the error occurred.
 
-### text
+### #text
 
 syntax: text → string
 
@@ -272,7 +669,7 @@ Returns a one-liner that describes the error in human language.
 begin
   # ...
 rescue Eno::GenericError => e
-  e.message  # returns "In line 4 'a' is copied into itself."
+  e.message  #=> "In line 4 'a' is copied into itself."
 end
 -- ruby
 
