@@ -192,9 +192,9 @@ name: A string representing the name of the field to return.
 An optional object of options.
  
 `required` - A boolean stating whether the dictionary must exist. (defaults to `true`)  
-`enforce_elements` - A boolean stating whether the dictionary must exist. (defaults to `false`)
+`enforce_element` - A boolean stating whether the dictionary must exist. (defaults to `false`)
 
-Note: The two options are obviously redundant, here's why: `enforce_elements` affects all elements,
+Note: The two options are obviously redundant, here's why: `enforce_element` affects all elements,
 therefore we need it here as well. `required` was added because it exists on other elements as
 well (where it does something different, namely, enforce the *value*) and it would be odd if
 it were missing here now suddenly, so that's why there are two options with the same effect.
@@ -204,11 +204,10 @@ it were missing here now suddenly, so that's why there are two options with the 
 
 description: An `Eno::Dictionary`, or `nil`.
 
-### #enforce_elements
+### #enforce_elements=
 
 syntax:
-| enforce_elements
-| enforce_elements(enforce)
+| enforce_elements = true or false
 
 -- description
 Set the default for all following queries on this section of whether the
@@ -228,7 +227,7 @@ document = eno.parse(input)
 
 document.field('sound')  #=> nil
 
-document.enforce_elements(true)
+document.enforce_elements = true
 
 document.field('sound')  # raises an error
 document.field('sound', enforce_element: false)  #=> nil
@@ -346,8 +345,8 @@ document.list('textures')   #=> []
 document.list('sounds')     #=> []
 
 document.list('colors', inlude_empty: true)       #=> ['pink', 'peach', nil]
-document.list('textures', enforce_elements: true)  #=> []
-document.list('sounds', enforce_elements: true)    # raises an error
+document.list('textures', enforce_element: true)  #=> []
+document.list('sounds', enforce_element: true)    # raises an error
 
 document.list('colors') { |name, value| value.upcase }  #=> ['PINK', 'PEACH']
 
@@ -370,7 +369,7 @@ loader:
 
 -- options
 Optional keyword arguments:  
-`enforce_elements`: Whether the list must be present in the document (defaults to `false`)  
+`enforce_element`: Whether the list must be present in the document (defaults to `false`)  
 `include_empty`: Whether to include list items with a value of `nil` - represented by `-  ` in the document (defaults to `false`)  
 `exact_count`: Validate that there are exactly `n` items in the list (takes a number, defaults to `nil`)  
 `min_count`: Validate that there are at least `n` items in the list (takes a number, defaults to `nil`)  
@@ -539,10 +538,10 @@ document.section('metadata', enforce_element: true)  # raises an error
 
 -- options
 An optional object of options:  
-`enforce_elements`: Whether the section must be present in the document (defaults to `false`)  
+`enforce_element`: Whether the section must be present in the document (defaults to `false`)  
 `required`: Whether there must be a section of that name in the document (defaults to `true`)  
 
-Note: The two options are obviously redundant, here's why: `enforce_elements` affects all elements,
+Note: The two options are obviously redundant, here's why: `enforce_element` affects all elements,
 therefore we need it here as well. `required` was added because it exists on other elements as
 well (where it does something different, namely, enforce the *value*) and it would be odd if
 it were missing here now suddenly, so that's why there are two options with the same purpose.
@@ -1041,10 +1040,10 @@ loader:
 
 description: The entry's value, or `nil` if empty.
 
-### #enforce_element
+### #enforce_elements=
 
 syntax:
-| enforce_element = true or false
+| enforce_elements = true or false
 
 -- description
 Set the default for all following queries on this dictionary of whether the
@@ -1066,7 +1065,7 @@ document = eno.parse(input)
 
 conversions = document.dictionary('conversions')
 
-conversions.enforce_element = true
+conversions.enforce_elements = true
 
 conversions.entry('0011')  # raises an error
 conversions.entry('0011', enforce_element: false)  #=> nil
