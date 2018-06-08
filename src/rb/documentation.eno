@@ -355,8 +355,8 @@ document.list('colors') do |name, value|
   return `I like ${value}`
 end
 
-document.list('colors', with_elements: true)  #=> [[<#Eno::Value value="pink">, 'pink'],
-                                              #    [<#Eno::Value value="peach">, 'peach']]
+document.list('colors', with_elements: true)  #=> [[ <#Eno::Value value="pink">, 'pink' ],
+                                              #    [ <#Eno::Value value="peach">, 'peach' ]]
 -- ruby
 
 #### parameters
@@ -374,7 +374,7 @@ Optional keyword arguments:
 `exact_count`: Validate that there are exactly `n` items in the list (takes a number, defaults to `nil`)  
 `min_count`: Validate that there are at least `n` items in the list (takes a number, defaults to `nil`)  
 `max_count`: Validate that there are at most `n` items in the list (takes a number, defaults to `nil`)  
-`with_elements`: Whether to return a list of objects with both the element and the value (defaults to `false`)
+`with_elements`: Whether to return a list of arrays of the form [element, value] instead of just the values (defaults to `false`)
 -- options
 
 #### return value
@@ -743,7 +743,7 @@ document = eno.parse(input)
 
 document.sequential[0].raw  #=> { 'color' => 'blue' }
 
-list = document.list('numbers', with_element: true)
+list = document.list('numbers', with_elements: true)
 list.first[0].raw  #=> '13'
 -- ruby
 
@@ -773,7 +773,7 @@ document = eno.parse(input)
 
 document.sequential[0].to_s  #=> '<#Eno::Value name="color" value="blue">'
 
-list = document.list('numbers', with_element: true)
+list = document.list('numbers', with_elements: true)
 list.first[0].to_s  #=> '<#Eno::Value value="13">'
 -- ruby
 
@@ -1033,7 +1033,7 @@ loader:
 -- options
 `enforce_element`: Whether the entry must be present in the document (defaults to `false`)  
 `required`: Whether there must be a value for this entry (defaults to `false`)  
-`with_element`: Whether to return an object with both the element and the value (defaults to `false`)
+`with_element`: Whether to return an array with both the element and the value (defaults to `false`)
 -- options
 
 #### return value
