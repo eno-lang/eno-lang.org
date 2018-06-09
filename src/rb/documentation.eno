@@ -1,10 +1,11 @@
 # Global
 
-version: 0.2.1 Alpha
+version: 0.2.2 Alpha
 
 -- intro
-This documentation is a work in progress and some API details are not yet stable.  
-enorb is still under development and not yet ready for production use.
+This documentation already covers the full featureset, it is however still undergoing correction and refinement.  
+
+**enorb is currently available as an alpha test release and not yet ready for production use.**
 
 ## Installation
 
