@@ -444,8 +444,8 @@ description: An array of `Eno::List`s.
 ### #lookup
 
 syntax:
-| lookup(index) → object or nil
-| lookup(line, column) → object or nil
+| lookup(index) → Hash or nil
+| lookup(line, column) → Hash or nil
 
 -- description
 Ask the document *Hey what's at column X in line Y in my eno file?*. The lookup **always** returns an element for valid indices
@@ -462,50 +462,50 @@ color: blue
 document = eno.parse(input)
 
 document.lookup(3)  # 'o'
-  #=> { element: <#Eno::Value name="color" value="blue">, zone: 'name' }
+  #=> { element: <#Eno::Value name="color" value="blue">, zone: :name }
 document.lookup(7)  # 'b'
-  #=> { element: <#Eno::Value name="color" value="blue">, zone: 'value' }
+  #=> { element: <#Eno::Value name="color" value="blue">, zone: :value }
 document.lookup(1, 3)  # 'o'  
-  #=> { element: <#Eno::Value name="color" value="blue">, zone: 'name' }
+  #=> { element: <#Eno::Value name="color" value="blue">, zone: :name }
 document.lookup(1, 7)  # 'b'  
-  #=> { element: <#Eno::Value name="color" value="blue">, zone: 'value' }
+  #=> { element: <#Eno::Value name="color" value="blue">, zone: :value }
 document.lookup(13)  # '#' 
-  #=> { element: <#Eno::Section name="notes" length="0">, zone: 'sectionOperator' }
+  #=> { element: <#Eno::Section name="notes" length="0">, zone: :section_operator }
 document.lookup(19)  # 's' 
-  #=> { element: <#Eno::Section name="notes" length="0">, zone: 'name' }
+  #=> { element: <#Eno::Section name="notes" length="0">, zone: :name }
 document.lookup(3, 0)  # '#'   
-  #=> { element: <#Eno::Section name="notes" length="0">, zone: 'sectionOperator' }
+  #=> { element: <#Eno::Section name="notes" length="0">, zone: :section_operator }
 document.lookup(3, 6)  # 's'   
-  #=> { element: <#Eno::Section name="notes" length="0">, zone: 'name' }
+  #=> { element: <#Eno::Section name="notes" length="0">, zone: :name }
 -- ruby
 
 #### return value
 
 -- description
-For all valid indices within the document returns an object with two properties:  
+For all valid indices within the document returns a Hash with two keys:  
 
 `element`: An `Eno::Section`, `Eno::Dictionary`, `Eno::Value`.. . For empty lines you get the containing section.
 
-`zone`: A string denoting the token at the index, here's the full list:  
+`zone`: A symbol denoting the token at the specified position, here's the full list:  
 
-`'[empty-lines-and-spaces-between-tokens]'` => `element`  
-`'[inside-blocks]'` => `content`  
-`'[inside-comments]'` => `comment`  
-`'[name]'` => `name`  
-`'[template]'` => `value`  
-`'[value]'` => `value`  
-`':'` => `nameOperator`  
-`'-'` => `itemOperator`  
-`'='` => `entryOperator`  
-`'--'` => `blockOperator`  
-`'>'` => `commentOperator`  
-``'`'`` => `escapeBeginOperator`  
-``'`'`` => `escapeEndOperator`  
-`'|'` => `appendWithNewlineOperator`  
-`'\'` => `appendWithSpaceOperator`  
-`'#'` => `sectionOperator`  
-`'<'` => `copyOperator`  
-`'<<'` => `deepCopyOperator`  
+`'[empty-lines-and-spaces-between-tokens]'` => `:element`  
+`'[inside-blocks]'` => `:content`  
+`'[inside-comments]'` => `:comment`  
+`'[name]'` => `:name`  
+`'[template]'` => `:value`  
+`'[value]'` => `:value`  
+`':'` => `:name_operator`  
+`'-'` => `:item_operator`  
+`'='` => `:entry_operator`  
+`'--'` => `:block_operator`  
+`'>'` => `:comment_operator`  
+``'`'`` => `:escape_begin_operator`  
+``'`'`` => `:escape_end_operator`  
+`'|'` => `:append_with_newline_operator`  
+`'\'` => `:append_with_space_operator`  
+`'#'` => `:section_operator`  
+`'<'` => `:copy_operator`  
+`'<<'` => `:deep_copy_operator`  
 
 When an index outside the document is supplied, `nil` is returned.
 -- description
