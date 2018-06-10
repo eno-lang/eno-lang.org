@@ -5,6 +5,42 @@ eno documents! However, dedicated eno plugins for text editors make editing more
 fun and productive by highlighting the elements in a document in different
 colors, improving our visual grasp on our content.
 
-[Language support in Atom](https://atom.io/packages/language-eno)  
-[Language support in Sublime Text](https://github.com/eno-lang/sublime-eno)  
-Language support in VSCode - `2018 Roadmap`  
+## Atom
+
+The [language-eno](https://atom.io/packages/language-eno) package provides first
+class support for eno documents in Atom. It not only provides beautiful custom syntax
+highlighting for eno itself, but also for user-definable embedded languages
+within multiline blocks in eno documents (e.g. markdown).
+
+Visit the [language-eno](https://atom.io/packages/language-eno) package on atom.io.
+
+## Sublime Text 3
+
+The [sublime-eno](https://github.com/eno-lang/sublime-eno) package is already feature-complete,
+although not yet packaged and wrapped up for distribution through packagecontrol.io For the time
+being you can download and manually install the package from the github repository.
+
+Visit the [sublime-eno](https://github.com/eno-lang/sublime-eno) repository on github.
+
+## Prism
+
+This is not a plugin for writing eno documents per se, but a plugin that aids in writing
+and blogging *about* eno. All sample eno documents that you see on eno-lang.org get their syntax
+highlighting from [prism-eno](https://github.com/eno-lang/prism-eno), which utilizes the [prism.js](https://prismjs.com/) syntax
+highlighting engine for websites. At a future date the plugin will be officially submitted to the
+prism.js repository, but for the time being you can simply pull and use the plugin files from its
+own repository.
+
+Visit the [prism-eno](https://github.com/eno-lang/prism-eno) repository on github.
+
+## VSCode `[Roadmap 2018]`
+
+This is on the roadmap for late summer 2018. Let me know that you are looking forward to this, and it will likely
+go in the making earlier.
+
+## GtkSourceView `[Roadmap Candidate]`
+
+This is in consideration for the roadmap, because it would add syntax highlighting for all applications
+in the wider linux ecosystem that rely on GtkSourceView for their syntax highlighting, for instance *gedit*.
+If you're maintaining software that relies on this technology stack and would love to see it included,
+ping me, happy to hear from you.

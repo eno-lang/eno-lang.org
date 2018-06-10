@@ -1,26 +1,13 @@
 # Introduction
 
-eno is very simple, in about 5 minutes you'll be ready to create any content you
-wish!
+eno is very simple, in a few minutes you'll be ready to create any content you wish.
 
-This introduction shows you five important types of lines you will find in eno
-documents that you absolutely should know about, all in about 5 minutes. You can either
-watch the video or read the text version below, they both explain the same things.
-
-Optionally, there's another page called *Advanced features*, that describes five
-additional types of lines that you should get to know if you use eno a lot,
-edit very complex documents, use it for very technical usecases, or for
-completeness sake, if you just want to know all there is to know about the eno
-format - reading time about 5-15 minutes, depending on prior experience with the
-concepts explained.
-
-These two pages combined cover everything there is to know about the eno
-notation language, and will empower you to understand and edit any eno document
-you will ever encounter, in merely 10-20 minutes reading time.
+You can either watch the video or read the text below, they both cover the same
+essentials, pick whichever you prefer.
 
 <video controls src="essentials.mp4"></video>
 
-## The essential features
+## The Essentials (Text Version)
 
 ### Comments
 

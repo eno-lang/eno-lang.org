@@ -17,7 +17,14 @@ Los amantes del círculo polar:
 Rating = ⭐⭐⭐⭐⭐   
 ```
 
-&nbsp;
+## Want to learn more about how eno works? 
+
+The two-part video guide (or alternatively also as text) at
+[eno-lang.org/write](https://eno-lang.org/write) covers everything there is to
+know about the eno notation language, and you'll be able to author any content
+you can think of within a few minutes.
+
+Visit [eno-lang.org/write](https://eno-lang.org/write) for an introduction.
 
 ```eno
 > A more technical usecase
@@ -37,7 +44,15 @@ command:
 -- json payload
 ```
 
-&nbsp;
+## Interested in developing your application or website with eno?
+
+The eno libraries (for JavaScript, Ruby, and soon Python and more) offer fast, robust,
+dependency-free, internationalized (!) and thoroughly documented parser implementations
+in popular languages. At negligible cost you get type-safety (even for arbitrary types you can define),
+full schema validation (without ever writing a schema) and carefully designed, translated
+user errors with rich metadata for easy and seamless integration into apps, websites, plugins, you name it.
+
+Visit [eno-lang.org/develop](https://eno-lang.org/develop) for an overview.
 
 ```eno
 # default

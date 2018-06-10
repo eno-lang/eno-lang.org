@@ -123,6 +123,7 @@ video {
   color: #ccc;
   font-size: 0.85em;
   margin: 3em 0;
+  text-align: center;
 }
 
 #code {

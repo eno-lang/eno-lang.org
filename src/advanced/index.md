@@ -1,10 +1,13 @@
 # Advanced Features
 
-This page describes five additional types of lines that you should get to know
-if you use eno a lot, edit very complex documents, use it for very technical
-usecases, or for completeness sake, if you just want to know all there is to
-know about the eno format - you can either watch the video (about 11 minutes) or read the written version in about 5-15 minutes, depending on prior
-experience with the concepts explained, they both cover the same topics.
+Complementary to the introduction, this page describes the remaining, more advanced features of eno. You should get to know them if you ...
+
+- are curious, but afraid it might be too technical - go for it, it was written and recorded especially for you!
+- work with very complex, very technical or high volume content - these features will save you time.
+- are potentially interested in, or planning to, develop an application or website with eno.
+
+Again, either watch the video (~11 min) or read the written version below in about 5-15 minutes, depending on prior
+experience with the concepts explained.
 
 <video controls src="advanced.mp4"></video>
 
