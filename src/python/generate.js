@@ -12,7 +12,7 @@ module.exports = () => {
 
   const global = documentation.section('Global');
 
-  let main = `<h1>enorb ${global.field('version')}</h1>`;
+  let main = `<h1>enopy / ${global.field('version')}</h1>`;
   main += global.field('intro', markdown);
 
   let sidebar = '<h1>&nbsp;</h1>';
@@ -50,10 +50,10 @@ module.exports = () => {
         `;
       }
 
-      const code = method.field('ruby');
+      const code = method.field('js');
       if(code) {
         main += `
-          <pre><span class="extension">rb</span><code class="language-ruby">${code}</code></pre>
+          <pre><span class="extension">js</span><code class="language-js">${code}</code></pre>
         `;
       }
 
@@ -97,7 +97,7 @@ module.exports = () => {
     </div>
   `;
 
-  const html = layout(content, 'enorb - The Ruby eno library');
+  const html = layout(content, 'enopy - The Python eno library', 'develop');
 
-  fs.writeFileSync(path.join(__dirname, '../../public/rb/index.html'), html);
+  fs.writeFileSync(path.join(__dirname, '../../public/python/index.html'), html);
 };

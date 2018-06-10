@@ -61,12 +61,68 @@ code {
   font-size: 0.8em;
 }
 
-header {
-  padding: 2em 2em 0 2em;
-}
-
 pre {
   position: relative;
+}
+
+.boundary {
+  margin: 0 auto;
+  max-width: 1280px;
+}
+
+.brand {
+  color: #fff;
+  font-weight: 700;
+}
+
+.menu {
+  display: flex;
+}
+
+.menu > * {
+  padding: 0.5em;
+}
+
+.menu__text {
+  color: #999;
+}
+
+@media (max-width: 690px) {
+  .menu__text {
+    display: none;
+  }
+}
+
+video {
+  max-width: 100%;
+}
+
+.header__primary {
+  background: linear-gradient(to right, #ff5a00, #f09);
+  font-size: 1.2em;
+}
+
+.header__primary .menu__link {
+  color: #fff;
+}
+
+.header__secondary {
+  background-color: #ececec;
+  /* font-size:  */
+}
+
+.header__secondary .menu__link {
+  color: #484848;
+}
+
+.spacer {
+  flex-grow: 1;
+}
+
+.footer {
+  color: #ccc;
+  font-size: 0.85em;
+  margin: 3em 0;
 }
 
 #code {

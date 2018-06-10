@@ -97,7 +97,7 @@ module.exports = () => {
     </div>
   `;
 
-  const html = layout(content, 'enojs - The JavaScript eno library');
+  const html = layout(content, 'enojs - The JavaScript eno library', 'develop');
 
-  fs.writeFileSync(path.join(__dirname, '../../public/js/index.html'), html);
+  fs.writeFileSync(path.join(__dirname, '../../public/javascript/index.html'), html);
 };

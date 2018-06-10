@@ -1,11 +1,21 @@
+const generateAdvanced = require('./src/advanced/generate.js');
 const generateDemo = require('./src/demo/generate.js');
+const generateDevelop = require('./src/develop/generate.js');
 const generateIndex = require('./src/generate.js');
-const generateJs = require('./src/js/generate.js');
-const generateLearn = require('./src/learn/generate.js');
-const generateRb = require('./src/rb/generate.js');
+const generateJs = require('./src/javascript/generate.js');
+const generatePlugins = require('./src/plugins/generate.js');
+const generatePy = require('./src/python/generate.js');
+const generateRb = require('./src/ruby/generate.js');
+const generateSiteNotFound = require('./src/site-not-found/generate.js');
+const generateWrite = require('./src/write/generate.js');
 
+generateAdvanced();
 generateDemo();
+generateDevelop();
 generateIndex();
 generateJs();
-generateLearn();
+generatePlugins();
+generatePy();
 generateRb();
+generateSiteNotFound();
+generateWrite();

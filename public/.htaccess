@@ -1,0 +1,8 @@
+Redirect 301 /js/ /javascript/
+Redirect 301 /js /javascript/
+Redirect 301 /py/ /python/
+Redirect 301 /py /python/
+Redirect 301 /rb/ /ruby/
+Redirect 301 /rb /ruby/
+
+ErrorDocument 404 /site-not-found/index.html

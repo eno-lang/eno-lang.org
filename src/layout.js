@@ -1,4 +1,7 @@
-module.exports = (content, title) => {
+const footer = require('./footer.js');
+const header = require('./header.js');
+
+module.exports = (content, title, active = null) => {
   const html = `
     <!doctype html>
     <html>
@@ -20,7 +23,13 @@ module.exports = (content, title) => {
       </head>
 
       <body>
-        ${content}
+        ${header(active)}
+
+        <div class="boundary">
+          ${content}
+        </div>
+
+        ${footer()}
       </body>
     </html>
   `;
