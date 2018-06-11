@@ -19,13 +19,16 @@
 
 ## Python (*enopy*)
 
-In development!
+**Alpha Test Release coming this week**
+
+Functionally complete for parsing valid documents; error implementations pending.  
+A first alpha test release on PyPI is planned for this week around June 14th.
 
 [Repository on github](https://github.com/eno-lang/enopy/)
 
 ## Roadmap for further implementations
 
-Rust and PHP are likely candidates for late 2018, but what lands on the definite roadmap will also
+Go, Rust and PHP are likely candidates for late 2018, but what lands on the definite roadmap will also
 depend on your feedback, so make yourself heard if you have suggestions or questions!
 
 ## Dive deeper
