@@ -1,0 +1,34 @@
+# menu
+
+## write
+
+label: Write
+tagline: Write your content with eno
+
+### pages
+
+write: Introduction
+advanced: Advanced
+plugins: Plugins
+
+## develop
+
+label: Develop
+tagline: Develop applications and websites with eno
+
+### pages
+
+develop: Overview
+javascript: JavaScript
+python: Python
+ruby: Ruby
+
+## more
+
+label: More
+tagline: More information
+
+### pages
+
+more: About
+support: Support

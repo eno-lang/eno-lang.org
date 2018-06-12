@@ -6,7 +6,7 @@ const { markdown } = require('../../lib/loaders.js');
 
 const layout = require('../layout.js');
 
-module.exports = () => {
+module.exports = (menu) => {
   const input = fs.readFileSync(path.join(__dirname, 'demos.eno'), 'utf-8');
   const demos = eno.parse(input, { reporter: 'terminal' });
 
@@ -64,7 +64,8 @@ module.exports = () => {
   <script src="demo.js"></script>
   `;
 
-  const html = layout(content, 'Interactive enojs demos');
+  const html = layout(content, 'Interactive enojs demos', 'demo', menu);
 
+  fs.mkdirSync(path.join(__dirname, '../../public/demo'));
   fs.writeFileSync(path.join(__dirname, '../../public/demo/index.html'), html);
 };

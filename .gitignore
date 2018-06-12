@@ -1,19 +1,6 @@
 /node_modules/
+/public/
 
 /deploy.js
-
-/public/index.html
-/public/advanced/advanced.mp4
-/public/advanced/index.html
-/public/demo/3d5db56f85f87901eee891946a7efb2c.js
-/public/demo/demo.js
-/public/demo/index.html
-/public/develop/index.html
-/public/javascript/index.html
-/public/learn/index.html
-/public/plugins/index.html
-/public/python/index.html
-/public/ruby/index.html
-/public/site-not-found/index.html
-/public/write/index.html
-/public/write/essentials.mp4
+/static/advanced.mp4
+/static/introduction.mp4

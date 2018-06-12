@@ -1,5 +1,8 @@
+title: enorb - The Ruby eno library
+
 # Global
 
+library: enorb
 version: 0.2.3 Alpha
 
 -- intro

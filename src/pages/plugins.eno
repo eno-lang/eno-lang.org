@@ -1,3 +1,6 @@
+title: Plugins
+
+-- markdown
 # Plugins
 
 Every operating system comes with a text editor - that's all you need to edit
@@ -44,3 +47,4 @@ This is in consideration for the roadmap, because it would add syntax highlighti
 in the wider linux ecosystem that rely on GtkSourceView for their syntax highlighting, for instance *gedit*.
 If you're maintaining software that relies on this technology stack and would love to see it included,
 ping me, happy to hear from you.
+-- markdown

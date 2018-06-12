@@ -1,47 +1,48 @@
-module.exports = (active = null) => `
-  <header>
-    <div class="header__primary">
-      <div class="boundary">
-        <div class="menu">
+// TODO: Consider menu.sections() API for getting a list of sections without specifying a name
+//       assertAllTouched takes care to make sure there weren't other items as well that should
+//       have been picked up sequentially.
 
-          <a class="brand" href="/">eno</a>
+// TODO: Sequential accessor for dictionaries (see below usecase for secondary header)
 
-          <div class="spacer"></div>
+module.exports = (active = null, menu) => {
+  const sections = menu.sequential();
+  const currentSection = sections.find(section => {
+    return section.section('pages').field(active) !== null;
+  });
 
-          <a class="menu__link ${active === 'write' ? 'active' : ''}" href="/write/">Write</a>
-          <a class="menu__link ${active === 'develop' ? 'active' : ''}" href="/develop/">Develop</a>
+  return `
+    <header>
+      <div class="header__primary">
+        <div class="boundary">
+          <div class="menu">
 
-        </div>
-      </div>
-    </div>
-
-    <div class="header__secondary">
-      <div class="boundary">
-        <div class="menu">
-
-          ${active === 'write' ? `
-            <span class="menu__text">Write your content with eno</span>
+            <a class="brand" href="/">eno</a>
 
             <div class="spacer"></div>
 
-            <a class="menu__link" href="/write/">Introduction</a>
-            <a class="menu__link" href="/advanced/">Advanced</a>
-            <a class="menu__link" href="/plugins/">Plugins</a>
-          `:''}
+            ${sections.map(section => `
+              <a class="menu__link ${section === currentSection ? 'active' : ''}" href="/${section.name}/">${section.field('label')}</a>
+            `).join('')}
 
-          ${active === 'develop' ? `
-            <span class="menu__text">Develop applications and websites with eno</span>
-
-            <div class="spacer"></div>
-
-            <a class="menu__link" href="/develop/">Overview</a>
-            <a class="menu__link" href="/javascript/">JavaScript</a>
-            <a class="menu__link" href="/python/">Python</a>
-            <a class="menu__link" href="/ruby/">Ruby</a>
-          `:''}
-
+          </div>
         </div>
       </div>
-    </div>
-  </header>
-`;
+
+      ${currentSection ? `
+        <div class="header__secondary">
+          <div class="boundary">
+            <div class="menu">
+              <span class="menu__text">${currentSection.field('tagline')}</span>
+
+              <div class="spacer"></div>
+
+              ${currentSection.section('pages').sequential().map(page => `
+                <a class="menu__link" href="/${page.name}/">${page.value()}</a>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `:''}
+    </header>
+  `;
+}

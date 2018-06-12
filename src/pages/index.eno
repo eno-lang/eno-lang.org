@@ -1,3 +1,6 @@
+title: eno &nbsp;-&nbsp;  A notation language for everyone
+
+-- markdown
 # eno
 
 **eno** is a structured data notation language for everyone.
@@ -70,3 +73,5 @@ ultraservice: enabled
 ```
 
 For more information on eno's design philosophy and goals checkout this [README](https://github.com/eno-lang/eno/blob/master/README.md)
+
+-- markdown

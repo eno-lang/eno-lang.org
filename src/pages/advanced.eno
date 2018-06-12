@@ -1,3 +1,6 @@
+title: Advanced Features
+
+-- markdown
 # Advanced Features
 
 Complementary to the introduction, this page describes the remaining, more advanced features of eno. You should get to know them if you ...
@@ -9,7 +12,7 @@ Complementary to the introduction, this page describes the remaining, more advan
 Again, either watch the video (~11 min) or read the written version below in about 5-15 minutes, depending on prior
 experience with the concepts explained.
 
-<video controls src="advanced.mp4"></video>
+<video controls src="/advanced.mp4"></video>
 
 ## Copying
 
@@ -116,3 +119,4 @@ Every field in eno follows the pattern `name: value`, but in this case our name 
 `` `hypothetical` ``: The word "hypothetical" inside backticks
 ```
 You might have wondered how an escape can be escaped, this is achieved by using two backticks around the name that is itself wrapped in (single) backticks, and leaving spaces so it does not look like three backticks. (these spaces on the outside are not included in the name though)
+-- markdown

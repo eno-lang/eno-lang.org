@@ -1,0 +1,26 @@
+.eno-report {
+  border: 1px solid #888;
+  white-space: pre;
+}
+
+.eno-report-line {
+  display: flex;
+}
+
+.eno-report-line-emphasized {
+  background-color: rgba(255, 0, 0, 0.4);
+}
+
+.eno-report-line-marked {
+  background-color: rgba(255, 181, 0, 0.4);
+}
+
+.eno-report-gutter {
+  background-color: rgba(128, 128, 128, 0.1);
+  border-right: 1px solid #888;
+  padding-right: 1em;
+}
+
+.eno-report-content {
+  padding-left: 1em;
+}
