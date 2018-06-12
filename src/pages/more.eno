@@ -3,19 +3,6 @@ title: About eno
 -- markdown
 # About
 
-## eno is ...
-
-As fast to write and edit as it probably gets.  
-An excellent format for authoring content for the web.  
-A go-to content format especially for static site generation.  
-And for all kinds of generative documents and documentation actually.  
-Developer's bliss for quickly creating rich, safe user experiences around structured text.
-
-## eno isn't ...
-
-Arbitrary automatic data de/serialization - yaml, toml are made for it and excellent at that.
-Human-readable inter-application/process communication - json is there and working great.
-
 ## Overview
 
 - eno is a **structured, plain-text notation** language, related in many ways to its ancestors and relatives *JSON*, *YAML*, *TOML*, *ArchieML*, and others
