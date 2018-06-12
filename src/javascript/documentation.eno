@@ -11,15 +11,23 @@ npm install enojs
 
 ## Getting started
 
+Create an eno document, for instance `intro.eno`:
+
+```eno
+Greeting: Hello World!
+```
+
+A minimal example to read this file with `enojs`:
+
 ```js
 const eno = require('enojs');
 const fs = require('fs');
 
-const input = fs.readFileSync('[your-file].eno');
+const input = fs.readFileSync('intro.eno');
 
 const document = eno.parse(input);
 
-console.log( document.field('[your-field]') );  // prints '[your-value]'
+console.log( document.field('Greeting') );  // prints 'Hello World!'
 ```
 
 ## Interactive code demos
@@ -30,7 +38,7 @@ An early preview of the enojs demo page, featuring interactive code examples, is
 ## Links
 
 Package on npm - <https://npmjs.com/package/enojs>  
-Repository on github - <https://github.com/eno-lang/enojs> 
+Repository on github - <https://github.com/eno-lang/enojs/> 
 -- intro
 
 # Modules
@@ -58,7 +66,7 @@ color: blue
 -- eno
 
 -- js
-eno.parse(input);  // returns [object EnoSection]
+eno.parse(input);  // returns [object EnoSection document elements=1]
 
 eno.parse(input, { locale: 'es' });  // Any errors will be reported in spanish
 eno.parse(input, { reporter: 'html' });  // Errors will be html for e.g. web integration
@@ -181,7 +189,7 @@ blue = 3
 -- eno
 
 -- js
-section.dictionary('color ratings');   // returns [object EnoDictionary]
+section.dictionary('color ratings');   // returns [object EnoDictionary name="color ratings" entries=3]
 section.dictionary('temperature ratings');   // throws an error
 
 section.dictionary('temperature ratings', { required: false });   // returns null
@@ -277,7 +285,7 @@ section.field('color', ({ value }) => {   // throws an error
   return value;
 });
 
-section.field('color', { withTrace: true });   // returns { trace: [object EnoValue], value: 'blue' }
+section.field('color', { withTrace: true });   // returns { trace: [object EnoValue name="blue" value="blue"], value: 'blue' }
 -- js
 
 #### parameters
@@ -359,8 +367,8 @@ document.list('colors', ({ value }) => {   // throws an error
   return `I like ${value}`;
 });
 
-document.list('colors', { withTrace: true });   // returns [{ trace: [object EnoValue], value: 'pink' },
-                                                //          { trace: [object EnoValue], value: 'peach' }]
+document.list('colors', { withTrace: true });   // returns [{ trace: [object EnoValue value="pink"], value: 'pink' },
+                                                //          { trace: [object EnoValue value="pink"], value: 'peach' }]
 -- js
 
 #### parameters
@@ -440,17 +448,17 @@ color: blue
 -- js
 const document = eno.parse(input);
 
-document.lookup(3);  // (= 'o') returns { element: [object EnoValue], zone: 'name' }
-document.lookup(7);  // (= 'b') returns { element: [object EnoValue], zone: 'value' }
+document.lookup(3);  // (= 'o') returns { element: [object EnoValue name="color" value="blue"], zone: 'name' }
+document.lookup(7);  // (= 'b') returns { element: [object EnoValue name="color" value="blue"], zone: 'value' }
 
-document.lookup(1, 3);  // (= 'o') returns { element: [object EnoValue], zone: 'name' }
-document.lookup(1, 7);  // (= 'b') returns { element: [object EnoValue], zone: 'value' }
+document.lookup(1, 3);  // (= 'o') returns { element: [object EnoValue name="color" value="blue"], zone: 'name' }
+document.lookup(1, 7);  // (= 'b') returns { element: [object EnoValue name="color" value="blue"], zone: 'value' }
 
-document.lookup(13);  // (= '#') returns { element: [object EnoSection], zone: 'sectionOperator' }
-document.lookup(19);  // (= 's') returns { element: [object EnoSection], zone: 'name' }
+document.lookup(13);  // (= '#') returns { element: [object EnoSection name="notes" elements=0], zone: 'sectionOperator' }
+document.lookup(19);  // (= 's') returns { element: [object EnoSection name="notes" elements=0], zone: 'name' }
 
-document.lookup(3, 0);  // (= '#') returns { element: [object EnoSection], zone: 'sectionOperator' }
-document.lookup(3, 6);  // (= 's') returns { element: [object EnoSection], zone: 'name' }
+document.lookup(3, 0);  // (= '#') returns { element: [object EnoSection name="notes" elements=0], zone: 'sectionOperator' }
+document.lookup(3, 6);  // (= 's') returns { element: [object EnoSection name="notes" elements=0], zone: 'name' }
 -- js
 
 #### return value
@@ -526,12 +534,12 @@ title: A Manifest
 -- js
 const document = eno.parse(input);
 
-document.section('content');  // returns [object EnoSection]
-document.section('notes');  // returns [object EnoSection]
+document.section('content');  // returns [object EnoSection name="content" elements=1]
+document.section('notes');  // returns [object EnoSection name="notes" elements=0]
 document.section('metadata');  // throws an error
 
 document.section('metadata', { required: false });  // returns null
-document.section('notes', { enforcePresence: true });  // returns [object EnoSection]
+document.section('notes', { enforcePresence: true });  // returns [object EnoSection name="notes" elements=0]
 document.section('metadata', { enforcePresence: true });  // throws an error
 -- js
 
@@ -642,8 +650,8 @@ buy milk: important!
 -- js
 const document = eno.parse(input);
 
-document.toString();  // returns '[object EnoDocument length="2"]'
-document.section('notes').toString();  // returns '[object EnoSection name="notes" length="1"]'
+document.toString();  // returns '[object EnoSection document elements="2"]'
+document.section('notes').toString();  // returns '[object EnoSection name="notes" elements="1"]'
 -- js
 
 #### return value
@@ -902,7 +910,7 @@ numbers:
 -- js
 const document = eno.parse(input);
 
-document.list('numbers').toString();  // returns '[object EnoList name="numbers" length="2"]'
+document.list('numbers').toString();  // returns '[object EnoList name="numbers" items=2]'
 -- js
 
 #### return value
@@ -1012,7 +1020,7 @@ qa.entry('Meaning', ({ value }) => {   // throws an error
   return value;
 });
 
-qa.entry('Meaning', { withTrace: true });   // returns { trace: [object EnoValue], value: '42' }
+qa.entry('Meaning', { withTrace: true });   // returns { trace: [object EnoValue name="Meaning" value="42"], value: '42' }
 -- js
 
 #### parameters
@@ -1111,7 +1119,7 @@ numbers:
 -- js
 const document = eno.parse(input);
 
-document.dictionary('numbers').toString();  // returns '[object EnoDictionary name="numbers" length="2"]'
+document.dictionary('numbers').toString();  // returns '[object EnoDictionary name="numbers" entries=2]'
 -- js
 
 #### return value

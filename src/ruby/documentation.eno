@@ -81,7 +81,7 @@ color: blue
 -- eno
 
 -- ruby
-eno.parse(input)  #=> <#Eno::Section document length="1">
+eno.parse(input)  #=> <#Eno::Section document elements=1>
 
                                                       # Errors will be ...
 eno.parse(input, locale: 'es')                        # In spanish - ¡hola!
@@ -205,7 +205,7 @@ blue = 3
 -- eno
 
 -- ruby
-section.dictionary('color ratings')        #=> <#Eno::Dictionary name="color ratings" length="3">
+section.dictionary('color ratings')        #=> <#Eno::Dictionary name="color ratings" entries=3>
 section.dictionary('temperature ratings')  # raises an error
 
 section.dictionary('temperature ratings', required: false)        #=> nil
@@ -471,13 +471,13 @@ document.lookup(1, 3)  # 'o'
 document.lookup(1, 7)  # 'b'  
   #=> { element: <#Eno::Value name="color" value="blue">, zone: :value }
 document.lookup(13)  # '#' 
-  #=> { element: <#Eno::Section name="notes" length="0">, zone: :section_operator }
+  #=> { element: <#Eno::Section name="notes" elements=0>, zone: :section_operator }
 document.lookup(19)  # 's' 
-  #=> { element: <#Eno::Section name="notes" length="0">, zone: :name }
+  #=> { element: <#Eno::Section name="notes" elements=0>, zone: :name }
 document.lookup(3, 0)  # '#'   
-  #=> { element: <#Eno::Section name="notes" length="0">, zone: :section_operator }
+  #=> { element: <#Eno::Section name="notes" elements=0>, zone: :section_operator }
 document.lookup(3, 6)  # 's'   
-  #=> { element: <#Eno::Section name="notes" length="0">, zone: :name }
+  #=> { element: <#Eno::Section name="notes" elements=0>, zone: :name }
 -- ruby
 
 #### return value
@@ -553,12 +553,12 @@ title: A Manifest
 -- ruby
 document = eno.parse(input)
 
-document.section('content')  #=> <#Eno::Section name="content" length="1">
-document.section('notes')  #=> <#Eno::Section name="notes" length="0">
+document.section('content')  #=> <#Eno::Section name="content" elements=1>
+document.section('notes')  #=> <#Eno::Section name="notes" elements=0>
 document.section('metadata')  # raises an error
 
 document.section('metadata', required: false)        #=> nil
-document.section('notes', enforce_element: true)     #=> <#Eno::Section name="notes" length="0">
+document.section('notes', enforce_element: true)     #=> <#Eno::Section name="notes" elements=0>
 document.section('metadata', enforce_element: true)  # raises an error
 -- ruby
 
@@ -669,8 +669,8 @@ buy milk: important!
 -- ruby
 document = eno.parse(input)
 
-document.to_s  #=> '<#Eno::Section document length="2">'
-document.section('notes').to_s  #=> '<#Eno::Section name="notes" length="1">'
+document.to_s  #=> '<#Eno::Section document elements=2>'
+document.section('notes').to_s  #=> '<#Eno::Section name="notes" elements=1>'
 -- ruby
 
 #### return value
@@ -942,7 +942,7 @@ numbers:
 -- ruby
 document = eno.parse(input)
 
-document.list('numbers').to_s  #=> '<#Eno::List name="numbers" length="2">'
+document.list('numbers').to_s  #=> '<#Eno::List name="numbers" items=2>'
 -- ruby
 
 #### return value
@@ -1141,7 +1141,7 @@ numbers:
 -- ruby
 document = eno.parse(input)
 
-document.dictionary('numbers').to_s  #=> '<#Eno::Dictionary name="numbers" length="2">'
+document.dictionary('numbers').to_s  #=> '<#Eno::Dictionary name="numbers" entries=2>'
 -- ruby
 
 #### return value

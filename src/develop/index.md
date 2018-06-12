@@ -2,7 +2,13 @@
 
 ## JavaScript (*enojs*)
 
-**Mature Beta Release - Already being tested in a few select production settings**
+**Mature Beta Release**
+
+enojs is already being used in a few select production settings, e.g. for
+generating the whole eno-lang.org website, building the message catalogs that
+power all eno implementations in the [eno-locales](https://github.com/eno-lang/eno-locales)
+repository, and at an institute for urban research, where it powers the validation, processing and
+editing process for thousands of articles in a completely (eno) file-based database.
 
 [Interactive demos (work in progress)](https://eno-lang.org/demo/)  
 [Complete documentation and API reference](https://eno-lang.org/javascript/)  
