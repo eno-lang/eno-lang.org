@@ -1,11 +1,39 @@
 # Global
 
-version: In Development
+version: 0.1.1 Alpha
 
 -- intro
-`enopy` is currently in development.
+**enopy is currently available as an alpha test release and not yet ready for production use.**
 
-Check back regularly to follow progress!
+**enopy was just freshly released, this documentation is still in progress.**
+
+In the meantime you can look things up in the *enojs* and *enorb* API documentation,
+which has 90% identical method signatures with only lanugage specific details you
+will need to think over into the pythonic equivalent.
+
+## Installation
+
+``` shell
+pip install enopy
+```
+
+## Getting started
+
+Create an eno document, for instance `intro.eno`:
+
+```eno
+Greeting: Hello World!
+```
+
+A minimal example to read this file with `enopy`:
+
+```python
+>>> from enopy import parse
+>>> with open('intro.eno', 'r') as file:
+...   document = parse(file.read())
+>>> document.field('Greeting')
+'Hello World!'
+```
 
 ## Links
 
@@ -13,3 +41,45 @@ Repository on github - <https://github.com/eno-lang/enopy/>
 -- intro
 
 # Modules
+
+## enopy
+
+-- class description
+The main module. You'll be using `parse` from this, and possibly supplying a custom
+locale (such as `'de'`, `'es'`, ...), reporter type (`eno.reporters.Text`, `eno.reporters.HTML`, `eno.reporters.Terminal` are available)
+or source label (usually to have filename appear in error messages) to that call.
+-- class description
+
+### ::parse
+
+syntax:
+| parse(input) → Section
+| parse(input, locale='en', reporter=eno.reporters.Text, source_label=None) → Section
+
+-- description
+Parse a string in eno notation.
+-- description
+
+-- eno
+color: blue
+-- eno
+
+-- python
+>>> enopy.parse(input)
+&lt;class Section document length="1"&gt;
+
+                                                       # Errors will be ...
+enopy.parse(input, locale='es')                        # In spanish - ¡hola!
+enopy.parse(input, reporter=eno.reporters.HTML)        # HTML for e.g. web integration
+enopy.parse(input, reporter=eno.reporters.Terminal)    # Colored for terminal output
+enopy.parse(input, source_label='my-file.eno')         # Annotated with a label as context
+-- python
+
+#### parameters
+
+input: A string containing text in eno notation.
+options: Various options (see example above)
+
+#### return value
+
+description: A `Section` representing the document.

@@ -36,8 +36,8 @@ module.exports = (active = null) => `
 
             <a class="menu__link" href="/develop/">Overview</a>
             <a class="menu__link" href="/javascript/">JavaScript</a>
-            <a class="menu__link" href="/ruby/">Ruby</a>
             <a class="menu__link" href="/python/">Python</a>
+            <a class="menu__link" href="/ruby/">Ruby</a>
           `:''}
 
         </div>

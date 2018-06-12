@@ -12,7 +12,7 @@ module.exports = () => {
 
   const global = documentation.section('Global');
 
-  let main = `<h1>enopy / ${global.field('version')}</h1>`;
+  let main = `<h1>enopy ${global.field('version')}</h1>`;
   main += global.field('intro', markdown);
 
   let sidebar = '<h1>&nbsp;</h1>';
@@ -50,10 +50,10 @@ module.exports = () => {
         `;
       }
 
-      const code = method.field('js');
+      const code = method.field('python');
       if(code) {
         main += `
-          <pre><span class="extension">js</span><code class="language-js">${code}</code></pre>
+          <pre><span class="extension">py</span><code class="language-python">${code}</code></pre>
         `;
       }
 

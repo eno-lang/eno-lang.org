@@ -46,11 +46,14 @@ command:
 
 ## Interested in developing your application or website with eno?
 
-The eno libraries (for JavaScript, Ruby, soon also Python and more) offer fast, robust,
-dependency-free, internationalized (!) and thoroughly documented parser implementations
-in popular languages. At negligible cost you get type-safety (even for arbitrary types you can define),
-full schema validation (without ever writing a schema) and carefully designed, translated
-user errors with rich metadata for easy and seamless integration into apps, websites, plugins, you name it.
+The eno libraries for [JavaScript](https://eno-lang.org/javascript/),
+[Python](https://eno-lang.org/python/) and [Ruby](https://eno-lang.org/ruby/)
+(more on the roadmap) offer fast, robust, dependency-free, and
+thoroughly documented parser implementations in popular languages. By using the
+eno API you get structural and type safety for all your data - programmatically
+and on the fly, without ever writing a schema - as well as carefully designed,
+fully localized user errors with rich metadata for easy and seamless
+integration into apps, websites, plugins, editors, IDEs, you name it.
 
 Visit [eno-lang.org/develop](https://eno-lang.org/develop/) for an overview.
 

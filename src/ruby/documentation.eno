@@ -70,7 +70,7 @@ or source label (usually to have filename appear in error messages) to that call
 
 syntax:
 | parse(input) → Eno::Section
-| parse(input, locale = 'en', reporter = 'html', source_label = nil) → Eno::Section
+| parse(input, locale = 'en', reporter = Eno::Reporters::Text, source_label = nil) → Eno::Section
 
 -- description
 Parse a string in eno notation.
