@@ -20,7 +20,7 @@ editing process for thousands of articles in a completely (eno) file-based datab
 
 ## Python (*enopy*)
 
-**Alpha Test Release - Not ready for production use**
+**Alpha Test Release - Not ready for production use, documentation in progress**
 
 [Complete documentation and API reference](https://eno-lang.org/python/)  
 [Package on PyPI](https://pypi.org/project/enopy/)  
