@@ -1,7 +1,7 @@
 title: eno &nbsp;-&nbsp;  A notation language for everyone
 
 -- markdown
-# eno
+# A structured data notation language for everyone.
 
 **eno** is a structured data notation language for everyone.
 
@@ -20,6 +20,19 @@ Los amantes del círculo polar:
 Rating = ⭐⭐⭐⭐⭐   
 ```
 
+**eno** is ...
+
+As fast to write and edit as it probably gets.  
+An excellent format for authoring content for the web.  
+A go-to content format especially for static site generation.  
+And for all kinds of generative documents and documentation actually.  
+Developer's bliss for quickly creating rich, safe user experiences around structured text.
+
+**eno** isn't ...
+
+Arbitrary automatic data de/serialization - yaml, toml are made for, and excellent, at that.  
+Human-readable inter-application/process communication - json is there and working great.
+
 ## Want to learn more about how eno works? 
 
 The two-part video guide (or alternatively also as text) at
@@ -30,8 +43,6 @@ you can think of within a few minutes.
 Visit [eno-lang.org/write](https://eno-lang.org/write/) for an introduction.
 
 ```eno
-> A more technical usecase
-
 command:
 | ./configure -foo
 \             --format bar
