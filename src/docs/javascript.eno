@@ -624,7 +624,7 @@ const metadata = {
 let html = '';
 
 document.section('page').sequential().forEach(element => {
-  html += `<${element.name}>${element.value()}&lt;/${element.name}>`
+  html += `<${element.name}>${element.value()}</${element.name}>`
 });
 
 // ...

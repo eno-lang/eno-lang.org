@@ -8,6 +8,7 @@ const markdownIt = require('markdown-it')({ html: true });
 const generateDemo = require('./src/demo/generate.js');
 const layout = require('./src/layout.js');
 const { markdown } = require('./lib/loaders.js');
+const { htmlEscape } = require('./lib/escape.js');
 
 const configFile = fs.readFileSync(path.join(__dirname, 'src/configuration.eno'), 'utf-8');
 const config = eno.parse(configFile);
@@ -85,21 +86,21 @@ glob('src/docs/*.eno', (err, files) => {
         const js = method.field('js');
         if(js) {
           main += `
-            <pre><span class="extension">js</span><code class="language-js">${js}</code></pre>
+            <pre><span class="extension">js</span><code class="language-js">${htmlEscape(js)}</code></pre>
           `;
         }
 
         const python = method.field('python');
         if(python) {
           main += `
-            <pre><span class="extension">py</span><code class="language-python">${python}</code></pre>
+            <pre><span class="extension">py</span><code class="language-python">${htmlEscape(python)}</code></pre>
           `;
         }
 
         const ruby = method.field('ruby');
         if(ruby) {
           main += `
-            <pre><span class="extension">rb</span><code class="language-ruby">${ruby}</code></pre>
+            <pre><span class="extension">rb</span><code class="language-ruby">${htmlEscape(ruby)}</code></pre>
           `;
         }
 

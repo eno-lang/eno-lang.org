@@ -69,7 +69,7 @@ color: blue
 
 -- python
 >>> enopy.parse(input)
-&lt;class Section document length="1"&gt;
+<class Section document length="1">
 
                                                        # Errors will be ...
 enopy.parse(input, locale='es')                        # In spanish - ¡hola!
