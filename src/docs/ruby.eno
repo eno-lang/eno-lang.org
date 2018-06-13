@@ -3,7 +3,7 @@ title: enorb - The Ruby eno library
 # Global
 
 library: enorb
-version: 0.2.3 Alpha
+version: 0.3.0 Alpha
 
 -- intro
 This documentation already covers the full featureset, it is however still undergoing correction and refinement.  
@@ -55,8 +55,8 @@ puts document.field('Greeting')  #=> 'Hello World!'
 
 ## Links
 
-Gem on rubygems - <https://rubygems.org/gems/enorb>  
-Repository on github - <https://github.com/eno-lang/enorb> 
+Gem on rubygems - <https://rubygems.org/gems/enorb/>  
+Repository on github - <https://github.com/eno-lang/enorb/> 
 -- intro
 
 # Modules
@@ -84,7 +84,7 @@ color: blue
 -- eno
 
 -- ruby
-eno.parse(input)  #=> <#Eno::Section document elements=1>
+eno.parse(input)  #=> #<Eno::Section document elements=1>
 
                                                       # Errors will be ...
 eno.parse(input, locale: 'es')                        # In spanish - ¡hola!
@@ -208,7 +208,7 @@ blue = 3
 -- eno
 
 -- ruby
-section.dictionary('color ratings')        #=> <#Eno::Dictionary name="color ratings" entries=3>
+section.dictionary('color ratings')        #=> #<Eno::Dictionary name="color ratings" entries=3>
 section.dictionary('temperature ratings')  # raises an error
 
 section.dictionary('temperature ratings', required: false)        #=> nil
@@ -234,6 +234,89 @@ it were missing here now suddenly, so that's why there are two options with the 
 #### return value
 
 description: An `Eno::Dictionary`, or `nil`.
+
+### #element
+
+syntax:
+| element(name) → element or nil
+| element(name, enforce_element: false) → element or nil
+
+-- description
+Retrieve a single element of any allowed type from the section by its name.
+Optionally specify whether it's optional or mandatory for the element to be
+present in the eno document (by default it's optional).
+-- description
+
+-- eno
+title: Artfest 2018
+tags:
+- art
+- code
+
+# content
+> ...
+-- eno
+
+-- ruby
+document = eno.parse(input)
+
+document.element('title')  #=> #<Eno::Value name="title" value="Artfest 2018">
+document.element('tags')  #=> #<Eno::List name="tags" items=2>
+document.element('content')  #=> #<Eno::Section name="content" items=14>
+
+document.element('fantasy')  #=> nil
+document.element('fantasy', enforce_element: true)  #=> raises an error
+-- ruby
+
+#### parameters
+
+name: The name of the element to fetch from the section as a string.
+enforce_presence: Whether the element must be present in the document (true or false, defaults to `false`)  
+
+#### return value
+
+description: An element (e.g. `Eno::List`, `Eno::Value`, etc.) or nil.
+
+### #elements
+
+syntax: elements → array
+
+-- description
+Retrieve the elements of this section in sequential order. This seamlessly lets you switch from
+associative readout to sequential readout, allowing sections within, or the whole document, to
+represent document-like structures (think generic markup) instead of just associative data stores.
+-- description
+
+-- eno
+date: 2018-03-01
+title: 'My blog post'
+
+# page
+
+h1: Hello world
+p: This is my first post, I'm so happy!
+-- eno
+
+-- ruby
+document = eno.parse(input)
+
+metadata = {
+  date: document.field('date', my_date_loader_proc),
+  title: document.field('title')
+}
+
+html = ''
+
+document.section('page').elements.each do |element|
+  html += "<#{element.name}>#{element.value}</#{element.name}>"
+end
+
+File.write('index.html', html)
+-- ruby
+
+#### return value
+
+description: An array containing the elements of this section.
 
 ### #enforce_elements=
 
@@ -302,7 +385,7 @@ section.field('color') do |name, value|
 end
 
 section.field('color', with_element: true)
-  #=> [ <#Eno::Value name="color" value="blue">, 'blue' ]
+  #=> [ #<Eno::Value name="color" value="blue">, 'blue' ]
 -- ruby
 
 #### parameters
@@ -386,8 +469,8 @@ document.list('colors') do |name, value|
   return `I like ${value}`
 end
 
-document.list('colors', with_elements: true)  #=> [[ <#Eno::Value value="pink">, 'pink' ],
-                                              #    [ <#Eno::Value value="peach">, 'peach' ]]
+document.list('colors', with_elements: true)  #=> [[ #<Eno::Value value="pink">, 'pink' ],
+                                              #    [ #<Eno::Value value="peach">, 'peach' ]]
 -- ruby
 
 #### parameters
@@ -466,21 +549,21 @@ color: blue
 document = eno.parse(input)
 
 document.lookup(3)  # 'o'
-  #=> { element: <#Eno::Value name="color" value="blue">, zone: :name }
+  #=> { element: #<Eno::Value name="color" value="blue">, zone: :name }
 document.lookup(7)  # 'b'
-  #=> { element: <#Eno::Value name="color" value="blue">, zone: :value }
+  #=> { element: #<Eno::Value name="color" value="blue">, zone: :value }
 document.lookup(1, 3)  # 'o'  
-  #=> { element: <#Eno::Value name="color" value="blue">, zone: :name }
+  #=> { element: #<Eno::Value name="color" value="blue">, zone: :name }
 document.lookup(1, 7)  # 'b'  
-  #=> { element: <#Eno::Value name="color" value="blue">, zone: :value }
+  #=> { element: #<Eno::Value name="color" value="blue">, zone: :value }
 document.lookup(13)  # '#' 
-  #=> { element: <#Eno::Section name="notes" elements=0>, zone: :section_operator }
+  #=> { element: #<Eno::Section name="notes" elements=0>, zone: :section_operator }
 document.lookup(19)  # 's' 
-  #=> { element: <#Eno::Section name="notes" elements=0>, zone: :name }
+  #=> { element: #<Eno::Section name="notes" elements=0>, zone: :name }
 document.lookup(3, 0)  # '#'   
-  #=> { element: <#Eno::Section name="notes" elements=0>, zone: :section_operator }
+  #=> { element: #<Eno::Section name="notes" elements=0>, zone: :section_operator }
 document.lookup(3, 6)  # 's'   
-  #=> { element: <#Eno::Section name="notes" elements=0>, zone: :name }
+  #=> { element: #<Eno::Section name="notes" elements=0>, zone: :name }
 -- ruby
 
 #### return value
@@ -556,12 +639,12 @@ title: A Manifest
 -- ruby
 document = eno.parse(input)
 
-document.section('content')  #=> <#Eno::Section name="content" elements=1>
-document.section('notes')  #=> <#Eno::Section name="notes" elements=0>
+document.section('content')  #=> #<Eno::Section name="content" elements=1>
+document.section('notes')  #=> #<Eno::Section name="notes" elements=0>
 document.section('metadata')  # raises an error
 
 document.section('metadata', required: false)        #=> nil
-document.section('notes', enforce_element: true)     #=> <#Eno::Section name="notes" elements=0>
+document.section('notes', enforce_element: true)     #=> #<Eno::Section name="notes" elements=0>
 document.section('metadata', enforce_element: true)  # raises an error
 -- ruby
 
@@ -612,47 +695,6 @@ end
 
 description: An array of `Eno::Section`s.
 
-### #sequential
-
-syntax: sequential → array
-
--- description
-Retrieve the elements of this section in sequential order. This seamlessly lets you switch from
-associative readout to sequential readout, allowing sections within, or the whole document, to
-represent document-like structures (think generic markup) instead of just associative data stores.
--- description
-
--- eno
-date: 2018-03-01
-title: 'My blog post'
-
-# page
-
-h1: Hello world
-p: This is my first post, I'm so happy!
--- eno
-
--- ruby
-document = eno.parse(input)
-
-metadata = {
-  date: document.field('date', my_date_loader_proc),
-  title: document.field('title')
-}
-
-html = ''
-
-document.section('page').sequential.each do |element|
-  html += "<#{element.name}>#{element.value}&lt;/#{element.name}>"
-end
-
-# ...
--- ruby
-
-#### return value
-
-description: An array containing the elements of this section.
-
 ### #to_s
 
 syntax: to_s → string
@@ -672,8 +714,8 @@ buy milk: important!
 -- ruby
 document = eno.parse(input)
 
-document.to_s  #=> '<#Eno::Section document elements=2>'
-document.section('notes').to_s  #=> '<#Eno::Section name="notes" elements=1>'
+document.to_s  #=> '#<Eno::Section document elements=2>'
+document.section('notes').to_s  #=> '#<Eno::Section name="notes" elements=1>'
 -- ruby
 
 #### return value
@@ -802,10 +844,10 @@ numbers:
 -- ruby
 document = eno.parse(input)
 
-document.sequential[0].to_s  #=> '<#Eno::Value name="color" value="blue">'
+document.sequential[0].to_s  #=> '#<Eno::Value name="color" value="blue">'
 
 list = document.list('numbers', with_elements: true)
-list.first[0].to_s  #=> '<#Eno::Value value="13">'
+list.first[0].to_s  #=> '#<Eno::Value value="13">'
 -- ruby
 
 #### return value
@@ -945,7 +987,7 @@ numbers:
 -- ruby
 document = eno.parse(input)
 
-document.list('numbers').to_s  #=> '<#Eno::List name="numbers" items=2>'
+document.list('numbers').to_s  #=> '#<Eno::List name="numbers" items=2>'
 -- ruby
 
 #### return value
@@ -1013,6 +1055,79 @@ returning a string. (`name` and `value` are provided as arguments)
 `except` - An array of strings, e.g. `['phone number']`, which specifies to exclude these entries from checking whether they've been touched.  
 -- options
 
+### #element
+
+syntax:
+| element(name) → element or nil
+| element(name, enforce_element: false) → element or nil
+
+-- description
+Retrieve a single entry as `Eno::Value` (instead of
+its direct value) from the dictionary by its name.
+Optionally specify whether it's optional or mandatory for the entry to be
+present in the eno document (by default it's optional).
+-- description
+
+-- eno
+years:
+2007 = Year of the gooseberry
+2010 = Year of the awesome beanstalk
+2011 = Year of yearning
+-- eno
+
+-- ruby
+dictionary = eno.parse(input).dictionary('years')
+
+dictionary.element('2010')  #=> #<Eno::Value name="2010" value="Year of the awesome beanstalk">
+dictionary.element('2020')  #=> nil
+dictionary.element('2020', enforce_element: true)  #=> raises an error
+-- ruby
+
+#### parameters
+
+name: The name of the entry to fetch from the dictionary as a string.
+enforce_presence: Whether the element must be present in the document (true or false, defaults to `false`)  
+
+#### return value
+
+description: An element (`Eno::Value`) or nil.
+
+### #elements
+
+syntax: elements → array
+
+-- description
+Retrieve the entries of this dictionary as `Eno::Value` elements (instead of
+their direct values) in sequential order. This seamlessly lets you switch from
+associative readout to sequential readout, allowing dictionaries to also represent
+document-like structures instead of just associative data.
+-- description
+
+-- eno
+dialogue:
+alice = hi
+bob = hey
+alice = sup?
+bob = nothin'
+-- eno
+
+-- ruby
+document = eno.parse(input)
+dialogue = document.dictionary('dialogue')
+
+html = '<h1>Observe this fascinating dialogue, presented in html!</h1>'
+
+dialogue.elements.each do |element|
+  html += "<strong>#{element.name}</strong>: \"#{element.value}\""
+end
+
+File.write('index.html', html)
+-- ruby
+
+#### return value
+
+description: An array containing the elements of this dictionary.
+
 ### #entry
 
 syntax:
@@ -1050,7 +1165,7 @@ qa.entry('Meaning') do |name, value|  # raises an error
   value
 end
 
-qa.entry('Meaning', with_element: true)   #=> [ <#Eno::Value name="Meaning" value="42"> , '42' ]
+qa.entry('Meaning', with_element: true)   #=> [ #<Eno::Value name="Meaning" value="42"> , '42' ]
 -- ruby
 
 #### parameters
@@ -1144,7 +1259,7 @@ numbers:
 -- ruby
 document = eno.parse(input)
 
-document.dictionary('numbers').to_s  #=> '<#Eno::Dictionary name="numbers" entries=2>'
+document.dictionary('numbers').to_s  #=> '#<Eno::Dictionary name="numbers" entries=2>'
 -- ruby
 
 #### return value
@@ -1245,7 +1360,7 @@ color:
 document = eno.parse(input)
 elements = document.sequential
 
-elements[0].to_s  #=> '<#Eno::Empty name="color" value=nil>'
+elements[0].to_s  #=> '#<Eno::Empty name="color" value=nil>'
 -- ruby
 
 #### return value
