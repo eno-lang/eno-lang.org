@@ -3,7 +3,7 @@ title: enojs - The JavaScript eno library
 # Global
 
 library: enojs
-version: 0.7.0
+version: 0.8.0
 
 -- intro
 Installation from npm:
@@ -196,7 +196,7 @@ section.dictionary('color ratings');   // returns [object EnoDictionary name="co
 section.dictionary('temperature ratings');   // throws an error
 
 section.dictionary('temperature ratings', { required: false });   // returns null
-section.dictionary('temperature ratings', { enforcePresence: true });   // throws an error
+section.dictionary('temperature ratings', { enforceElement: true });  // throws an error
 -- js
 
 #### parameters
@@ -207,9 +207,9 @@ name: A string representing the name of the field to return.
 An optional object of options.
  
 `required` - A boolean stating whether the dictionary must exist. (defaults to `true`)  
-`enforcePresence` - A boolean stating whether the dictionary must exist. (defaults to `false`)
+`enforceElement` - A boolean stating whether the dictionary must exist in the document. (defaults to `false`)
 
-Note: The two options are obviously redundant, here's why: `enforcePresence` affects all elements,
+Note: The two options are obviously redundant, here's why: `enforceElement` affects all elements,
 therefore we need it here as well. `required` was added because it exists on other elements as
 well (where it does something different, namely, enforce the *value*) and it would be odd if
 it were missing here now suddenly, so that's why there are two options with the same effect.
@@ -219,11 +219,11 @@ it were missing here now suddenly, so that's why there are two options with the 
 
 description: An `EnoDictionary`, or `null`.
 
-### enforcePresence
+### enforceElements
 
 syntax:
-| enforcePresence()
-| enforcePresence(enforce)
+| enforceElements()
+| enforceElements(enforce = true)
 
 -- description
 Set the default for all following queries on this section of whether the
@@ -243,15 +243,15 @@ const document = eno.parse(input);
 
 document.field('sound');  // returns null
 
-document.enforcePresence(true);
+document.enforceElements();
 
 document.field('sound');  // throws an error
-document.field('sound', { enforcePresence: false });  // returns null
+document.field('sound', { enforceElement: false });  // returns null
 -- js
 
 #### parameters
 
-enforce: An optional boolean indicating whether to enforce or not. (otherwise `true` is assumed)
+enforce: An optional boolean indicating whether to enforce or not. (`true` is the default if left out)
 
 ### field
 
@@ -276,8 +276,8 @@ section.field('color');   // returns 'blue'
 section.field('sound');   // returns null
 
 section.field('sound', { required: true });   // throws an error
-section.field('sound', { enforcePresence: true });   // returns null
-section.field('texture', { enforcePresence: true });   // throws an error
+section.field('sound', { enforceElement: true });   // returns null
+section.field('texture', { enforceElement: true });   // throws an error
 
 section.field('color', ({ value }) => value.toUpperCase());   // returns 'BLUE'
 
@@ -288,7 +288,7 @@ section.field('color', ({ value }) => {   // throws an error
   return value;
 });
 
-section.field('color', { withTrace: true });   // returns { trace: [object EnoValue name="blue" value="blue"], value: 'blue' }
+section.field('color', { withElement: true });   // returns { element: [object EnoValue name="blue" value="blue"], value: 'blue' }
 -- js
 
 #### parameters
@@ -358,8 +358,8 @@ document.list('textures');  // returns []
 document.list('sounds');  // returns []
 
 document.list('colors', { inludeEmpty: true });  // returns ['pink', 'peach', null]
-document.list('textures', { enforcePresence: true });   // returns []
-document.list('sounds', { enforcePresence: true });   // throws an error
+document.list('textures', { enforceElement: true });   // returns []
+document.list('sounds', { enforceElement: true });   // throws an error
 
 document.list('colors', ({ value }) => value.toUpperCase());   // returns ['PINK', 'PEACH']
 
@@ -370,8 +370,9 @@ document.list('colors', ({ value }) => {   // throws an error
   return `I like ${value}`;
 });
 
-document.list('colors', { withTrace: true });   // returns [{ trace: [object EnoValue value="pink"], value: 'pink' },
-                                                //          { trace: [object EnoValue value="pink"], value: 'peach' }]
+document.list('colors', { withElements: true });  
+  // returns [{ element: [object EnoValue value="pink"], value: 'pink' },
+  //          { element: [object EnoValue value="pink"], value: 'peach' }]
 -- js
 
 #### parameters
@@ -386,12 +387,11 @@ loader:
 -- options
 An optional object of options.
 
-`enforcePresence`: Whether the list must be present in the document (defaults to `false`)  
-`includeEmpty`: Whether to include list items with a value of `null` - represented by `-  ` in the document (defaults to `false`)  
+`enforceElement`: Whether the list must be present in the document (defaults to `false`)  
 `exactCount`: Validate that there are exactly `n` items in the list (takes a number, defaults to `null`)  
 `minCount`: Validate that there are at least `n` items in the list (takes a number, defaults to `null`)  
 `maxCount`: Validate that there are at most `n` items in the list (takes a number, defaults to `null`)  
-`withTrace`: Whether to return a list of objects with both the element and the value (defaults to `false`)
+`withElements`: Whether to return a list of objects with both the element and the value (defaults to `false`)
 -- options
 
 #### return value
@@ -542,18 +542,18 @@ document.section('notes');  // returns [object EnoSection name="notes" elements=
 document.section('metadata');  // throws an error
 
 document.section('metadata', { required: false });  // returns null
-document.section('notes', { enforcePresence: true });  // returns [object EnoSection name="notes" elements=0]
-document.section('metadata', { enforcePresence: true });  // throws an error
+document.section('notes', { enforceElement: true });  // returns [object EnoSection name="notes" elements=0]
+document.section('metadata', { enforceElement: true });  // throws an error
 -- js
 
 #### parameters
 
 -- options
 An optional object of options:  
-`enforcePresence`: Whether the section must be present in the document (defaults to `false`)  
+`enforceElement`: Whether the section must be present in the document (defaults to `false`)  
 `required`: Whether there must be a section of that name in the document (defaults to `true`)  
 
-Note: The two options are obviously redundant, here's why: `enforcePresence` affects all elements,
+Note: The two options are obviously redundant, here's why: `enforceElement` affects all elements,
 therefore we need it here as well. `required` was added because it exists on other elements as
 well (where it does something different, namely, enforce the *value*) and it would be odd if
 it were missing here now suddenly, so that's why there are two options with the same purpose.
@@ -593,9 +593,9 @@ sections.forEach(section => {
 
 description: An array of `EnoSection`s.
 
-### sequential
+### elements
 
-syntax: sequential() → array
+syntax: elements() → array
 
 -- description
 Retrieve the elements of this section in sequential order. This seamlessly lets you switch from
@@ -623,7 +623,7 @@ const metadata = {
 
 let html = '';
 
-document.section('page').sequential().forEach(element => {
+document.section('page').elements().forEach(element => {
   html += `<${element.name}>${element.value()}</${element.name}>`
 });
 
@@ -667,16 +667,16 @@ description: An abstract debug representation of the section.
 All values in an eno document, such as the value of a field like `name: value`, the lines inside a block,
 the value of a list item, the value of a dictionary entry, and so on, map to an `EnoValue`. Usually you
 don't interact with this because you directly get the values from a section or dictionary in most cases.
-Only when you sequentially iterate a section (with `EnoSection`'s '`sequential` method) or explicitly ask
-for the `EnoValue` by using an accessor with the `{ withTrace: true }` option (for delayed error triggering)
+When you, for instance, sequentially iterate a section (with `EnoSection`'s '`elements` method) or explicitly ask
+for the `EnoValue` by using an accessor with the `{ withElement: true }` option (for delayed error triggering)
 you will get to interact with this class.
 -- class description
 
-### getError
+### error
 
 syntax:
-| getError() → EnoValidationError
-| getError(message or messageFunction) → EnoValidationError
+| error() → EnoValidationError
+| error(message or messageFunction) → EnoValidationError
 
 -- description
 Generate an error in the context of the element. The error includes a generic
@@ -695,12 +695,12 @@ color: cozy
 
 -- js
 const document = eno.parse(input);
-const { trace, value } = document.field('color', { withTrace: true });
+const { element, value } = document.field('color', { withElement: true });
 
 // ...
 
 if(value === 'cozy') {
-  throw trace.getError('Postprocessing determined that "cozy" is not a color after all.');
+  throw element.error('Postprocessing determined that "cozy" is not a color after all.');
 }
 -- js
 
@@ -750,10 +750,10 @@ numbers:
 -- js
 const document = eno.parse(input);
 
-document.sequential()[0].raw();  // returns { color: 'blue' }
+document.element('color').raw();  // returns { color: 'blue' }
 
-const list = document.list('numbers', { withTrace: true });
-list[0].trace.raw();  // returns '13'
+const listItems = document.element('numbers').elements();
+listItems[0].raw();  // returns '13'
 -- js
 
 #### return value
@@ -780,10 +780,10 @@ numbers:
 -- js
 const document = eno.parse(input);
 
-document.sequential()[0].toString();  // returns '[object EnoValue name="color" value="blue"]'
+document.element('color').toString();  // returns '[object EnoValue name="color" value="blue"]'
 
-const list = document.list('numbers', { withTrace: true });
-list[0].trace.toString();  // returns '[object EnoValue value="13"]'
+const listItems = document.element('numbers').elements();
+listItems[0].toString();  // returns '[object EnoValue value="13"]'
 -- js
 
 #### return value
@@ -809,13 +809,13 @@ towel color:
 -- js
 const document = eno.parse(input);
 
-const flagColor = document.sequential()[0];
-const towelColor = document.sequential()[1];
+const flagColor = document.element('flag color');
+const towelColor = document.element('towel color');
 
 flagColor.value();  // returns 'beige'
 towelColor.value();  // returns null
 
-flagColor.value(({ value }) => value.replace('eig', 'lu'));   // returns 'blue'
+flagColor.value(({ value }) => value.replace('eig', 'lu'));  // returns 'blue'
 -- js
 
 #### parameters
@@ -860,11 +860,9 @@ colors:
 -- eno
 
 -- js
-const document = eno.parse(input);
-const list = document.sequential()[0]
+const list = eno.parse(input).element('colors');
 
 list.items();  // returns ['pink', 'peach']
-
 list.items(({ value }) => `${value}!!`);  // returns ['pink!!', 'peach!!']
 -- js
 
@@ -887,9 +885,9 @@ colors:
 -- eno
 
 -- js
-const document = eno.parse(input);
+const list = eno.parse(input).element('colors');
 
-document.sequential()[0].raw();  // returns { colors: ['pink', 'peach'] }
+list.raw();  // returns { colors: ['pink', 'peach'] }
 -- js
 
 #### return value
@@ -1011,8 +1009,8 @@ qa.entry('Meaning');   // returns '42'
 qa.entry('Purpose');   // returns null
 
 qa.entry('Purpose', { required: true });   // throws an error
-qa.entry('Purpose', { enforcePresence: true });   // returns null
-qa.entry('Beige', { enforcePresence: true });   // throws an error
+qa.entry('Purpose', { enforceElement: true });   // returns null
+qa.entry('Beige', { enforceElement: true });   // throws an error
 
 qa.entry('Green', ({ value }) => value.toUpperCase());   // returns 'YES'
 
@@ -1023,7 +1021,8 @@ qa.entry('Meaning', ({ value }) => {   // throws an error
   return value;
 });
 
-qa.entry('Meaning', { withTrace: true });   // returns { trace: [object EnoValue name="Meaning" value="42"], value: '42' }
+qa.entry('Meaning', { withElement: true });
+  // returns { element: [object EnoValue name="Meaning" value="42"], value: '42' }
 -- js
 
 #### parameters
@@ -1036,20 +1035,20 @@ loader:
 
 -- options
 An optional object of options:  
-`enforcePresence`: Whether the entry must be present in the document (defaults to `false`)  
+`enforceElement`: Whether the entry must be present in the document (defaults to `false`)  
 `required`: Whether there must be a value for this entry (defaults to `false`)  
-`withTrace`: Whether to return an object with both the element and the value (defaults to `false`)
+`withElement`: Whether to return an object with both the element and the value (defaults to `false`)
 -- options
 
 #### return value
 
 description: The entry's value, or `null` if empty.
 
-### enforcePresence
+### enforceElements
 
 syntax:
-| enforcePresence()
-| enforcePresence(enforce)
+| enforceElements()
+| enforceElements(enforce = true)
 
 -- description
 Set the default for all following queries on this dictionary of whether the
@@ -1071,10 +1070,10 @@ const document = eno.parse(input);
 
 const conversions = document.dictionary('conversions');
 
-conversions.enforcePresence(true);
+conversions.enforceElements();
 
 conversions.entry('0011');  // throws an error
-conversions.entry('0011', { enforcePresence: false });  // returns null
+conversions.entry('0011', { enforceElement: false });  // returns null
 -- js
 
 #### parameters
@@ -1135,11 +1134,11 @@ description: An abstract debug representation of the dictionary.
 This represents empty elements such as `color:`, where it is not clear if it is an empty field, list, or dictionary.
 -- class description
 
-### getError
+### error
 
 syntax:
-| getError() → EnoValidationError
-| getError(message or messageFunction) → EnoValidationError
+| error() → EnoValidationError
+| error(message or messageFunction) → EnoValidationError
 
 -- description
 Generate an error in the context of the element. The error includes a generic
@@ -1158,12 +1157,12 @@ color:
 
 -- js
 const document = eno.parse(input);
-const { trace, value } = document.field('color', { withTrace: true });
+const { element, value } = document.field('color', { withElement: true });
 
 // ...
 
 if(value === null) {
-  throw trace.getError('Postprocessing determined that this value needs to be provided.');
+  throw element.error('Postprocessing determined that this value needs to be provided.');
 }
 -- js
 
@@ -1194,9 +1193,9 @@ color:
 -- eno
 
 -- js
-const document = eno.parse(input);
+const empty = eno.parse(input).element('color');
 
-document.sequential()[0].raw();  // returns { color: null }
+empty.raw();  // returns { color: null }
 -- js
 
 #### return value
@@ -1216,10 +1215,9 @@ color:
 -- eno
 
 -- js
-const document = eno.parse(input);
-const elements = document.sequential();
+const empty = eno.parse(input).element('color');
 
-elements[0].toString();  // returns '[object EnoEmpty name="color"]'
+empty.toString();  // returns '[object EnoEmpty name="color"]'
 -- js
 
 #### return value
@@ -1240,11 +1238,9 @@ note:
 -- eno
 
 -- js
-const document = eno.parse(input);
+const empty = eno.parse(input).element('note');
 
-const note = document.sequential()[0];
-
-note.value();  // returns null
+empty.value();  // returns null
 -- js
 
 #### return value
