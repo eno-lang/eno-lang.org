@@ -13,7 +13,7 @@ module.exports = (menu) => {
   let options = '';
   let first = null;
 
-  for(let demo of demos.sequential()) {
+  for(let demo of demos.elements()) {
     const title = demo.name;
     const eno = demo.field('eno', { required: true });
     const js = demo.field('js', { required: true });

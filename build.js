@@ -51,12 +51,12 @@ glob('src/docs/*.eno', (err, files) => {
 
     const modules = documentation.section('Modules');
 
-    for(let _module of modules.sequential()) {
+    for(let _module of modules.elements()) {
       main += `<a name="${_module.name}"></a>`
       main += `<h2 class="class">${_module.name}</h2>`
       sidebar += `<div class="pad"><strong>${_module.name} <a href="#${_module.name}">#</a></strong></div>`
 
-      for(let method of _module.sequential()) {
+      for(let method of _module.elements()) {
         if(method.name === 'class description') {
           main += method.value(markdown);
           continue;
@@ -106,7 +106,7 @@ glob('src/docs/*.eno', (err, files) => {
         const parameters = method.section('parameters', { required: false })
         if(parameters) {
           main += `<h4>Parameters</h4>`;
-          for(let parameter of parameters.sequential()) {
+          for(let parameter of parameters.elements()) {
             main += `<strong>${parameter.name}</strong>`;
             main += parameter.value(markdown);
           }
