@@ -11,7 +11,7 @@ const { markdown } = require('./lib/loaders.js');
 const { htmlEscape } = require('./lib/escape.js');
 
 const configFile = fs.readFileSync(path.join(__dirname, 'src/configuration.eno'), 'utf-8');
-const config = eno.parse(configFile);
+const config = eno.parse(configFile, { reporter: 'terminal', sourceLabel: 'src/configuration.eno' });
 const menu = config.section('menu');
 
 fsExtra.emptyDirSync(path.join(__dirname, 'public'));
@@ -22,7 +22,7 @@ generateDemo(menu);
 glob('src/pages/*.eno', (err, files) => {
   for(let file of files) {
     const input = fs.readFileSync(file, 'utf-8');
-    const page = eno.parse(input);
+    const page = eno.parse(input, { reporter: 'terminal', sourceLabel: file });
     const content = markdownIt.render(page.field('markdown'));
 
     const fileName = path.basename(file, '.eno');
@@ -35,13 +35,15 @@ glob('src/pages/*.eno', (err, files) => {
       fs.mkdirSync(path.join(__dirname, `public/${fileName}`));
       fs.writeFileSync(path.join(__dirname, `public/${fileName}/index.html`), html);
     }
+
+    page.assertAllTouched();
   }
 });
 
 glob('src/docs/*.eno', (err, files) => {
   for(let file of files) {
     const input = fs.readFileSync(file, 'utf-8');
-    const documentation = eno.parse(input, { reporter: 'terminal' });
+    const documentation = eno.parse(input, { reporter: 'terminal', sourceLabel: file });
 
     const global = documentation.section('Global');
 
@@ -128,9 +130,6 @@ glob('src/docs/*.eno', (err, files) => {
       }
     }
 
-    // TODO: There is an open issue with touching sections for this
-    // document.assertAllTouched();
-
     main += '<br/><br/>';
 
     const content = `
@@ -150,5 +149,9 @@ glob('src/docs/*.eno', (err, files) => {
 
     fs.mkdirSync(path.join(__dirname, `public/${fileName}`));
     fs.writeFileSync(path.join(__dirname, `public/${fileName}/index.html`), html);
+
+    documentation.assertAllTouched();
   }
+
+  menu.assertAllTouched();
 });
