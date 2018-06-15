@@ -13,6 +13,7 @@ module.exports = (content, title, active = null, menu) => {
 
         <title>${title}</title>
 
+        <link rel="stylesheet" href="/devicon.css">
         <link rel="stylesheet" href="/eno.css">
         <link rel="stylesheet" href="/styles.css">
         <link rel="stylesheet" href="/prism.css">

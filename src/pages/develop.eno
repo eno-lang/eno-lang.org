@@ -3,36 +3,52 @@ title: Develop applications and websites with eno
 -- markdown
 # Overview
 
-## JavaScript (*enojs*)
+## <i class="devicon-javascript-plain"></i> JavaScript
 
-**Beta Release**
-
-enojs is already being used in a few select production settings, e.g. for
-generating the whole eno-lang.org website, building the message catalogs that
-power all eno implementations in the [eno-locales](https://github.com/eno-lang/eno-locales)
-repository, and at an institute for urban research, where it powers the validation, processing and
-editing process for thousands of articles in a completely (eno) file-based database.
-
-[Interactive demos (work in progress)](https://eno-lang.org/demo/)  
+**enojs v0.10.0 Beta**  
 [Complete documentation and API reference](https://eno-lang.org/javascript/)  
-[Package on npm](https://npmjs.com/package/enojs/)  
-[Repository on github](https://github.com/eno-lang/enojs/)
 
-## Python (*enopy*)
+enojs is already being used in a few select production settings, e.g. at a
+vienna-based institute for urban research, where it powers the validation,
+processing and editing process for thousands of articles in a completely (eno)
+file-based database, for building the message catalogs that power all eno
+implementations in the [eno-locales](https://github.com/eno-lang/eno-locales)
+repository, as well as, of course, generating the whole eno-lang.org website.
 
-**Alpha Test Release - Not ready for production use, documentation in progress**
+[<i class="devicon-nodejs-plain"></i> Package on npm](https://npmjs.com/package/enojs/)  
+[<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enojs/)
 
+##  <i class="devicon-python-plain"></i> Python
+
+**enopy v0.2.0 Alpha - Not yet recommended for production use**  
 [Complete documentation and API reference](https://eno-lang.org/python/)  
-[Package on PyPI](https://pypi.org/project/enopy/)  
-[Repository on github](https://github.com/eno-lang/enopy/)
 
-## Ruby (*enorb*)
+enopy is the most recent library release (first published on PyPI on June 12th),
+it has no automated test suite yet, therefore you should expect to run into issues,
+potentially also with core functionality.
 
-**Alpha Test Release - Not ready for production use**
+[<i class="devicon-python-plain"></i> Package on PyPI](https://pypi.org/project/enopy/)  
+[<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enopy/)
 
+## <i class="devicon-ruby-plain"></i> Ruby
+
+**enorb v0.4.0 Alpha - Not yet recommended for production use**  
 [Complete documentation and API reference](https://eno-lang.org/ruby/)  
-[Gem on rubygems](https://rubygems.org/gems/enorb/)  
-[Repository on github](https://github.com/eno-lang/enorb/)
+
+enorb already has an extensive test suite, all basic functionality should reliably work.
+Pending full test coverage and/or a production case study out in the wild it is however not yet
+recommended for use in production scenarios.
+
+[<i class="devicon-ruby-plain"></i> Gem on rubygems](https://rubygems.org/gems/enorb/)  
+[<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enorb/)
+
+## Interactive Demos
+
+This is a work in progress effort to showcase different usecases for eno and the eno libraries
+as interactive demos in the browser. Right now there is only a limited selection of early demos,
+a preliminary layout and no support to switch to the python and ruby examples yet.
+
+[<i class="devicon-html5-plain"></i> Interactive Demos](https://eno-lang.org/demo/)  
 
 ## Roadmap for further implementations
 
@@ -43,5 +59,5 @@ depend on your feedback, so make yourself heard if you have suggestions or quest
 
 Explore all repositories where the development work is currently happening at the eno umbrella organization on github.
 
-Visit [github.com/eno-lang](https://github.com/eno-lang/)
+[<i class="devicon-github-plain"></i> github.com/eno-lang](https://github.com/eno-lang/)
 -- markdown
