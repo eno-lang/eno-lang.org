@@ -142,7 +142,7 @@ data_a = document.field('Important data A')
 
 # ... processing happens only for data_a
 
-document.assert_all_touched  # raises an error
+document.assert_all_touched  # raises an error with the default message
 
 document.assert_all_touched(only: ['Important data A'])  # passes
 document.assert_all_touched(except: ['Important data B'])  # passes
@@ -276,7 +276,7 @@ document.element('fantasy', required: true)  #=> raises an error
 name: The name of the element to fetch from the section as a string.
 
 options:
-enforce_presence = Whether the element must be present in the document (true or false, defaults to `false`)  
+enforce_element = Whether the element must be present in the document (`true` or `false`, defaults to `false`)  
 required = Alias for `enforce_element` (this exists on many methods and depending on context refers to either element or value)
 
 #### return value
@@ -401,7 +401,7 @@ section.field('color', with_element: true)
 name: A string representing the name of the field to return.
 loader_block or loader_proc: A block or `Proc` returning the transformed/validated value or raising an error.
 options:
-enforce_element = Whether the field must be present in the document (true or false, defaults to `false`)  
+enforce_element = Whether the field must be present in the document (`true` or `false`, defaults to `false`)  
 enforce_value = Whether there must be a value or the field is allowed to be empty (defaults to `false`)
 required = Alias for `enforce_value` (this exists on many methods and depending on context refers to either element or value)
 with_element = Whether to return an array of the form `[element, value]` instead of just the value (default `false`)
@@ -460,31 +460,35 @@ Retrieve the items of a list, optionally supplying a loader block or `Proc` and 
 colors:
 - pink
 - peach
--
 
 textures:
+-
 -- eno
 
 -- ruby
 document = eno.parse(input)
 
-document.list('colors')     #=> ['pink', 'peach']
-document.list('textures')   #=> []
-document.list('sounds')     #=> []
+document.list('colors')  #=> [ 'pink', 'peach' ]
+document.list('sounds')  #=> []
 
-document.list('colors', inlude_empty: true)       #=> ['pink', 'peach', nil]
-document.list('textures', enforce_element: true)  #=> []
-document.list('sounds', enforce_element: true)    # raises an error
+document.list('textures')                         # raises an error
+document.list('textures', enforce_values: false)  #=> [ nil ]
 
-document.list('colors') { |name, value| value.upcase }  #=> ['PINK', 'PEACH']
+document.list('sounds', required: true)         # raises an error
+document.list('sounds', enforce_element: true)  # raises an error
+
+document.list('colors') { |name, value| value.upcase }  #=> [ 'PINK', 'PEACH' ]
 
 document.list('colors') do |name, value|
   raise 'Peach may not be on the list!' if value == 'peach'  # raises an error
   return `I like ${value}`
 end
 
-document.list('colors', with_elements: true)  #=> [[ #<Eno::Value value="pink">, 'pink' ],
-                                              #    [ #<Eno::Value value="peach">, 'peach' ]]
+document.list('colors', with_elements: true)
+  #=> [[ #<Eno::Value value="pink">, 'pink' ],
+  #    [ #<Eno::Value value="peach">, 'peach' ]]
+  
+document.list('colors', minCount: 3);  # raises an error
 -- ruby
 
 #### parameters
@@ -492,8 +496,8 @@ document.list('colors', with_elements: true)  #=> [[ #<Eno::Value value="pink">,
 name: The name of the list to return as a string.
 
 loader_block or loader_proc:
-| A `Proc` or block returning the transformed/validated value or raising an error.
-| (The `Proc` or block is applied to each list item on its own, being passed the arguments `name` and `value`)
+| A block or `Proc` returning the transformed/validated value or raising an error.
+| (The block or `Proc` is applied to each list item on its own, being passed the arguments `name` and `value`)
 
 options:
 enforce_element = Whether the list must be present in the document (defaults to `false`)  
@@ -534,9 +538,13 @@ document = eno.parse(input)
 
 routes = document.lists('route')
 
-routes.forEach(route => {
-  puts route.items )
-})
+routes.each do |route|
+  puts route.items
+end
+
+# prints ...
+# [ 'vienna', 'paris', 'rome']
+# [ 'moscow', 'riga' ]
 -- ruby
 
 #### parameters
@@ -664,8 +672,8 @@ title: A Manifest
 -- ruby
 document = eno.parse(input)
 
-document.section('content')  #=> #<Eno::Section name="content" elements=1>
-document.section('notes')  #=> #<Eno::Section name="notes" elements=0>
+document.section('content')   #=> #<Eno::Section name="content" elements=1>
+document.section('notes')     #=> #<Eno::Section name="notes" elements=0>
 document.section('metadata')  # raises an error
 
 document.section('metadata', required: false)        #=> nil
@@ -876,7 +884,7 @@ list_items.first.to_s  #=> '#<Eno::Value value="13">'
 
 #### return value
 
-description: An debug representation of this `Eno::Value`.
+description: A debug representation of this `Eno::Value`.
 
 ### #value
 
@@ -887,7 +895,8 @@ syntax:
 | value(options) { |name, value| loader } → value or nil
 
 -- description
-Retrieve the value of an `Eno::Value`, optionally passing it through a loader block or `Proc`.
+Retrieve the value of an `Eno::Value`, optionally passing it through a loader
+block or `Proc` and/or supplying options.
 -- description
 
 -- eno
@@ -962,7 +971,7 @@ numbers:
 list = eno.parse(input).element('numbers')
 
 list.elements
-  #=> [ [#<Eno::Value value="6"], [#<Eno::Value value="8"], [#<Eno::Value value="19"] ]
+  #=> [ #<Eno::Value value="6">, #<Eno::Value value="8">, #<Eno::Value value="19"> ]
 -- ruby
 
 #### return value
@@ -1179,8 +1188,8 @@ dictionary = eno.parse(input).dictionary('years')
 
 dictionary.element('2010')  #=> #<Eno::Value name="2010" value="Year of the awesome beanstalk">
 dictionary.element('2020')  #=> nil
-dictionary.element('2020', enforce_element: true)  #=> raises an error
-dictionary.element('2020', required: true)  #=> raises an error
+dictionary.element('2020', enforce_element: true)  # raises an error
+dictionary.element('2020', required: true)  # raises an error
 -- ruby
 
 #### parameters
@@ -1188,7 +1197,7 @@ dictionary.element('2020', required: true)  #=> raises an error
 name: The name of the entry to fetch from the dictionary as a string.
 
 options:
-enforce_element = Whether the element must be present in the document (true or false, defaults to `false`)  
+enforce_element = Whether the element must be present in the document (`true` or `false`, defaults to `false`)  
 required = Alias for `enforce_element` (this exists on many methods and depending on context refers to either element or value)
 
 #### return value
@@ -1311,7 +1320,7 @@ loader:
 | A `Proc` returning the transformed/validated value or raising an error.  
 | The `Proc` is passed `name` and `value` as arguments.
 options:
-enforce_element = Whether the entry must be present in the document (true or false, defaults to `false`)  
+enforce_element = Whether the entry must be present in the document (`true` or `false`, defaults to `false`)  
 enforce_value = Whether there must be a value or the entry is allowed to be empty (default to `false`)
 required = Alias for `enforce_value` (this exists on many methods and depending on context refers to either element or value)
 with_element = Whether to return an array with both the element and the value (defaults to `false`)
@@ -1461,7 +1470,7 @@ color:
 -- ruby
 empty = eno.parse(input).element('color')
 
-empty.to_s  #=> '#<Eno::Empty name="color" value=nil>'
+empty.to_s  #=> '#<Eno::Empty name="color">'
 -- ruby
 
 #### return value
