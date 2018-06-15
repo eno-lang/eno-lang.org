@@ -1,4 +1,5 @@
 const eno = require('enojs');
+const { EnoDictionary } = require('enojs');
 const fs = require('fs');
 const fsExtra = require('fs-extra');
 const glob = require('glob');
@@ -111,7 +112,14 @@ glob('src/docs/*.eno', (err, files) => {
           main += `<h4>Parameters</h4>`;
           for(let parameter of parameters.elements()) {
             main += `<strong>${parameter.name}</strong>`;
-            main += parameter.value(markdown);
+            if(parameter instanceof EnoDictionary) {
+              for(let option of parameter.entries()) {
+                main += `<p><i>${option.name}</i></p>`;
+                main += option.value(markdown);
+              }
+            } else {
+              main += parameter.value(markdown);
+            }
           }
         }
 
