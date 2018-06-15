@@ -481,14 +481,14 @@ document.list('colors') { |name, value| value.upcase }  #=> [ 'PINK', 'PEACH' ]
 
 document.list('colors') do |name, value|
   raise 'Peach may not be on the list!' if value == 'peach'  # raises an error
-  return `I like ${value}`
+  return "I like #{value}"
 end
 
 document.list('colors', with_elements: true)
   #=> [[ #<Eno::Value value="pink">, 'pink' ],
   #    [ #<Eno::Value value="peach">, 'peach' ]]
   
-document.list('colors', minCount: 3);  # raises an error
+document.list('colors', min_count: 3)  # raises an error
 -- ruby
 
 #### parameters
@@ -1266,7 +1266,7 @@ document = eno.parse(input)
 
 conversions = document.dictionary('conversions')
 
-conversions.enforce_all_elements = true
+conversions.enforce_all_elements
 
 conversions.entry('0011')  # raises an error
 conversions.entry('0011', enforce_element: false)  #=> nil
@@ -1554,7 +1554,7 @@ way to get a selection for the error in the input.
 begin
   # ...
 rescue Eno::GenericError => e
-  e.cursor  #=> [[3, 14], [3, 23]]
+  e.selection  #=> [[3, 14], [3, 23]]
 end
 -- ruby
 
