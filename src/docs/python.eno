@@ -3,16 +3,10 @@ title: enopy - The Python eno library
 # Global
 
 library: enopy
-version: 0.1.1 Alpha
+version: 0.2.0 Alpha
 
 -- intro
 **enopy is currently available as an alpha test release and not yet ready for production use.**
-
-**enopy was just freshly released, this documentation is still in progress.**
-
-In the meantime you can look things up in the *enojs* and *enorb* API documentation,
-which has 90% identical method signatures with only lanugage specific details you
-will need to think over into the pythonic equivalent.
 
 ## Installation
 
@@ -40,6 +34,7 @@ A minimal example to read this file with `enopy`:
 
 ## Links
 
+Package on PyPI - <https://pypi.org/project/enopy/>   
 Repository on github - <https://github.com/eno-lang/enopy/> 
 -- intro
 
@@ -53,11 +48,11 @@ locale (such as `'de'`, `'es'`, ...), reporter type (`eno.reporters.Text`, `eno.
 or source label (usually to have filename appear in error messages) to that call.
 -- class description
 
-### ::parse
+### parse
 
 syntax:
 | parse(input) → Section
-| parse(input, locale='en', reporter=eno.reporters.Text, source_label=None) → Section
+| parse(input, options) → Section
 
 -- description
 Parse a string in eno notation.
@@ -71,18 +66,1588 @@ color: blue
 >>> enopy.parse(input)
 <class Section document length="1">
 
-                                                       # Errors will be ...
-enopy.parse(input, locale='es')                        # In spanish - ¡hola!
-enopy.parse(input, reporter=eno.reporters.HTML)        # HTML for e.g. web integration
-enopy.parse(input, reporter=eno.reporters.Terminal)    # Colored for terminal output
-enopy.parse(input, source_label='my-file.eno')         # Annotated with a label as context
+                                                           # Errors will be ...
+>>> enopy.parse(input, locale='es')                        # In spanish - ¡hola!
+>>> enopy.parse(input, reporter=eno.reporters.HTML)        # HTML for e.g. web integration
+>>> enopy.parse(input, reporter=eno.reporters.Terminal)    # Colored for terminal output
+>>> enopy.parse(input, source_label='my-file.eno')         # Annotated with a label as context
 -- python
 
 #### parameters
 
 input: A string containing text in eno notation.
-options: Various options (see example above)
+options:
+locale = A string specifying the code of the locale to use for error messages (e.g. `'de'`, `'es'`), by default `'en'`.
+reporter = One of `enopy.reporters.Text`, `enopy.reporters.HTML`, `enopy.reporters.Terminal`.
+source_label = A string that labels where the input comes from (e.g. a filename), this is included with error messages to help the user located the file.
 
 #### return value
 
 description: A `Section` representing the document.
+
+## Section
+
+-- class description
+Every section in an eno document, such as for instance `# notes` or `### Appendix`, maps to an `Section`.
+More prominently though **the document itself is represented as an `Section`**,
+consequently this is the interface you'll be utilizing most for many usecases.
+-- class description
+
+### __str__
+
+syntax: str(section) → string
+
+-- description
+Retrieve a debug representation of the section.
+-- description
+
+-- eno
+color: blue
+
+# notes
+
+buy milk: important!
+-- eno
+
+-- python
+>>> document = enopy.parse(input)
+
+>>> str(document)
+'<class Section document elements=2>'
+>>> str(document.section('notes'))
+'<class Section name="notes" elements=1>'
+-- python
+
+#### return value
+
+description: An debug representation of the section.
+
+### assert_all_touched
+
+syntax:
+| assert_all_touched
+| assert_all_touched(options)
+| assert_all_touched(message, options)
+| assert_all_touched(message_function, options)
+
+-- description
+Assert that all elements of this section (and also, recursively, all
+subsections) that were present in the parsed eno document were also queried (and
+therefore *touched*) by the application. This, combined with eno's query
+methods, serves to ensure a two-way guarantee for both users and developers: No
+data that the application requires can be left out, and no data that the
+application does not process can be supplied.
+-- description
+
+-- eno
+Important data A: I need to be processed!
+Important data B: Me too!
+-- eno
+
+-- python
+>>> document = enopy.parse(input)
+
+>>> data_a = document.field('Important data A')
+
+# ... processing happens only for data_a
+
+>>> document.assert_all_touched()  # raises an error with the default message
+
+>>> document.assert_all_touched(only=['Important data A'])  # passes
+>>> document.assert_all_touched(except=['Important data B'])  # passes
+
+>>> custom_message = lambda name, value: f"{name} is not supported by the application, please contact support if you think it should be"
+>>> document.assert_all_touched(custom_message)  # raises an error "Important data B is not ..."
+-- python
+
+#### parameters
+
+-- message or message_function
+Optional, usually the default message (*An excess element named [NAME] was
+found, is it possibly a typo?*) will do fine. If you want to override it,
+provide either a static message as a string, or alternatively a function
+returning a string. (The arguments passed are `name` and `value`, although
+`value` can be `None` if the untouched element is a dictionary or section)
+-- message or message_function
+
+options:
+only = An array of strings, e.g. `['name', 'email']`, which specifies to only check these elements for whether they've been touched.  
+except = An array of strings, e.g. `['phone number']`, which specifies to exclude these elements from checking whether they've been touched.  
+
+### dictionaries
+
+syntax: dictionaries(name) → array
+
+-- description
+Retrieve dictionaries with the specified name from this current section.
+-- description
+
+-- eno
+image:
+src = red-roses.jpg
+
+image:
+src = white-roses.jpg
+-- eno
+
+-- python
+>>> document = enopy.parse(input)
+>>> images = document.dictionaries('image')
+
+>>> for image in images:
+...   print(image.entry('src'))
+-- python
+
+#### parameters
+
+name: A string specifying the name of the dictionaries to retrieve.
+
+#### return value
+
+description: An array of `Dictionary`s.
+
+### dictionary
+
+syntax:
+| dictionary(name) → Dictionary or None
+| dictionary(name, options) → Dictionary or None
+
+-- description
+Retrieve a dictionary from the section, optionally supplying an options.
+-- description
+
+-- eno
+color ratings:
+red = 5
+green = 7
+blue = 3
+-- eno
+
+-- python
+>>> document = enopy.parse(input)
+
+>>> document.dictionary('color ratings')
+<class Dictionary name="color ratings" entries=3>
+>>> document.dictionary('temperature ratings')
+ValidationError: ...
+>>> document.dictionary('temperature ratings', required=False)
+None
+>>> document.dictionary('temperature ratings', enforce_element=True)
+ValidationError: ...
+-- python
+
+#### parameters
+
+name: A string representing the name of the field to return.
+
+options:
+enforce_element = A boolean stating whether the dictionary must exist in the document. (defaults to `False`)
+required = Alias for `enforce_element` (this exists on many methods and depending on context refers to either element or value)
+
+#### return value
+
+description: An `Dictionary`, or `None`.
+
+### element
+
+syntax:
+| element(name) → element or None
+| element(name, options) → element or None
+
+-- description
+Retrieve a single element of any allowed type from the section by its name.
+Optionally specify whether it's optional or mandatory for the element to be
+present in the eno document (by default it's optional).
+-- description
+
+-- eno
+title: Artfest 2018
+tags:
+- art
+- code
+
+# content
+> ...
+-- eno
+
+-- python
+>>> document = enopy.parse(input)
+
+>>> document.element('title')
+<class Value name="title" value="Artfest 2018">
+>>> document.element('tags')
+<class List name="tags" items=2>
+>>> document.element('content')
+<class Section name="content" items=14>
+>>> document.element('fantasy')
+None
+>>> document.element('fantasy', enforce_element=True)
+ValidationError: ...
+>>> document.element('fantasy', required=True)
+ValidationError: ...
+-- python
+
+#### parameters
+
+name: The name of the element to fetch from the section as a string.
+
+options:
+enforce_element = Whether the element must be present in the document (`True` or `False`, defaults to `False`)  
+required = Alias for `enforce_element` (this exists on many methods and depending on context refers to either element or value)
+
+#### return value
+
+description: An element (e.g. `List`, `Value`, etc.) or `None`.
+
+### elements
+
+syntax: elements → array
+
+-- description
+Retrieve the elements of this section in sequential order. This seamlessly lets you switch from
+associative readout to sequential readout, allowing sections within, or the whole document, to
+represent document-like structures (think generic markup) instead of just associative data stores.
+-- description
+
+-- eno
+date: 2018-03-01
+title: 'My blog post'
+
+# page
+
+h1: Hello world
+p: This is my first post, I'm so happy!
+-- eno
+
+-- python
+>>> document = enopy.parse(input)
+
+>>> metadata = {
+...   'date': document.field('date', my_date_loader_function),
+...   'title': document.field('title')
+... }
+
+>>> html = ''
+
+>>> for element in document.section('page').elements():
+...   html += f"<{element.name}>{element.value}</{element.name}>"
+
+>>> with open('index.html', 'w') as file:
+...   file.write(html)
+-- python
+
+#### return value
+
+description: An array containing the elements of this section.
+
+### enforce_all_elements
+
+syntax:
+| enforce_all_elements
+| enforce_all_elements(enforce)
+
+-- description
+Set the default for all following queries on this section of whether the
+presence of elements in the eno input text should be enforced (by default it is
+not). This can be used to prevent "template decay" - with presence enforcement
+enabled elements may be empty, but they (at least their declaration) must be
+there in the eno text and consequently they can not disappear from a template
+over time without triggering an error.
+-- description
+
+-- eno
+color: blue
+-- eno
+
+-- python
+>>> document = enopy.parse(input)
+>>> document.field('sound')
+None
+
+>>> document.enforce_all_elements()
+
+>>> document.field('sound')
+ValidationError: ...
+>>> document.field('sound', enforce_element=False)
+None
+-- python
+
+#### parameters
+
+enforce: An optional boolean indicating whether to enforce or not. (otherwise `True` is assumed)
+
+### field
+
+syntax:
+| field(name) → value or None
+| field(name, options) → object/value or None
+| field(name, loader, options) → value or None
+
+-- description
+Retrieve a field's value from the section, optionally supplying a loader to
+validate and/or transform the value, and/or an options object.
+-- description
+
+-- eno
+color: blue
+sound:
+-- eno
+
+-- python
+>>> document = enopy.parse(input)
+
+>>> document.field('color')
+'blue'
+>>> document.field('sound')
+None
+>>> document.field('sound', required=True)
+ValidationError: ...
+>>> document.field('sound', enforce_value=True)    
+ValidationError: ...
+>>> document.field('sound', enforce_element=True)    
+None
+>>> document.field('texture', enforce_element=True)
+ValidationError: ...
+>>> document.field('color', lambda name, value=value.upper())  
+'BLUE'
+
+>>> def color_validator(name, value):
+...   if value != 'green':
+...     raise ValueError('Only green is allowed!')
+...   return value
+>>> document.field('color', color_validator)
+ValidationError: Only green is allowed!
+
+>>> document.field('color', with_element=True)
+[ <class Value name="color" value="blue">, 'blue' ]
+-- python
+
+#### parameters
+
+name: A string representing the name of the field to return.
+loader: A function returning the transformed/validated value or raising an error.
+options:
+enforce_element = Whether the field must be present in the document (`True` or `False`, defaults to `False`)  
+enforce_value = Whether there must be a value or the field is allowed to be empty (defaults to `False`)
+required = Alias for `enforce_value` (this exists on many methods and depending on context refers to either element or value)
+with_element = Whether to return an array of the form `[element, value]` instead of just the value (default `False`)
+
+#### return value
+
+description:
+| The value of the field, or `None` if empty, or an array of the form `[element, value]`
+| when the option `with_element` is specified.
+
+### fields
+
+syntax: fields(name) → array
+
+-- description
+Retrieve fields with the specified name from this current section.
+-- description
+
+-- eno
+color: blue
+color: red
+color: orange
+-- eno
+
+-- python
+>>> document = enopy.parse(input)
+>>> colors = document.fields('color')
+
+>>> for color in colors:
+...   print(color.value())
+-- python
+
+#### parameters
+
+name: A string specifying the name of the fields to retrieve.
+
+#### return value
+
+description: An array of `Value`s.
+
+### list
+
+syntax:
+| list(name) → array
+| list(name, options) → array
+| list(name, loader, options) → array
+
+-- description
+Retrieve the items of a list, optionally supplying a loader and options.
+-- description
+
+-- eno
+colors:
+- pink
+- peach
+
+textures:
+-
+-- eno
+
+-- python
+>>> document = enopy.parse(input)
+
+>>> document.list('colors')
+[ 'pink', 'peach' ]
+>>> document.list('sounds')
+[]
+>>> document.list('textures')                         
+ValidationError: ...
+>>> document.list('textures', enforce_values=False)
+[ None ]
+>>> document.list('sounds', required=True)         
+ValidationError: ...
+>>> document.list('sounds', enforce_element=True)  
+ValidationError: ...
+>>> document.list('colors', lambda: name, value: value.upper())
+[ 'PINK', 'PEACH' ]
+
+>>> def color_validator(name, value):
+...   if value == 'peach':
+...     raise ValueError('Peach may not be on the list!')
+...   return f"I like {value}"
+>>> document.list('colors', color_validator)
+ValidationError: Peach may not be on the list!
+
+>>> document.list('colors', with_elements=True)
+[[ <class Value value="pink">, 'pink' ],
+ [ <class Value value="peach">, 'peach' ]]
+  
+>>> document.list('colors', min_count=3)
+ValidationError: ...
+-- python
+
+#### parameters
+
+name: The name of the list to return as a string.
+
+loader:
+| A function returning the transformed/validated value or raising an error.
+| (The function is applied to each list item on its own, being passed the arguments `name` and `value`)
+
+options:
+enforce_element = Whether the list must be present in the document (defaults to `False`)  
+enforce_values = Whether empty list items (`- ` in the document, mapping to `None`) are disallowed (defaults to `True`)  
+exact_count = Validate that there are exactly `n` items in the list (takes a number, defaults to `None`)  
+min_count = Validate that there are at least `n` items in the list (takes a number, defaults to `None`)  
+max_count = Validate that there are at most `n` items in the list (takes a number, defaults to `None`)  
+required = Alias for `enforce_element` (this exists on many methods and depending on context refers to either element or value)
+with_elements = Whether to return an array of arrays of the form `[element, value]` instead of just the values (defaults to `False`)
+
+#### return value
+
+description:
+| The (optionally transformed/validated) values of the items of this list as an array.
+| With `with_elements` set to `True` it returns an array of arrays of the form `[element, value]` instead.
+
+### lists
+
+syntax: lists(name) → array
+
+-- description
+Retrieve lists with the specified name from this current section.
+-- description
+
+-- eno
+route:
+- vienna
+- paris
+- rome
+
+route:
+- moscow
+- riga
+-- eno
+
+-- python
+>>>document = enopy.parse(input)
+>>>routes = document.lists('route')
+
+>>> for route in routes:
+...   print(route.items())
+
+[ 'vienna', 'paris', 'rome']
+[ 'moscow', 'riga' ]
+-- python
+
+#### parameters
+
+name: A string specifying the name of the lists to retrieve.
+
+#### return value
+
+description: An array of `List`s.
+
+### lookup
+
+syntax:
+| lookup(index) → Hash or None
+| lookup(line, column) → Hash or None
+
+-- description
+Ask the document *Hey what's at column X in line Y in my eno file?*. The lookup **always** returns an element for valid indices
+(the document/section in case of an empty line/space), only indices outside the range of the document return `None`.
+-- description
+
+-- eno
+color: blue
+
+# notes
+-- eno
+
+-- python
+>>> document = enopy.parse(input)
+
+>>> document.lookup(3)  # 'o'
+{ 'element': <class Value name="color" value="blue">, 'zone': 'name' }
+>>> document.lookup(7)  # 'b'
+{ 'element': <class Value name="color" value="blue">, 'zone': 'value' }
+>>> document.lookup(1, 3)  # 'o'  
+{ 'element': <class Value name="color" value="blue">, 'zone': 'name' }
+>>> document.lookup(1, 7)  # 'b'  
+{ 'element': <class Value name="color" value="blue">, 'zone': 'value' }
+>>> document.lookup(13)  # '#' 
+{ 'element': <class Section name="notes" elements=0>, 'zone': 'section_operator' }
+>>> document.lookup(19)  # 's' 
+{ 'element': <class Section name="notes" elements=0>, 'zone': 'name' }
+>>> document.lookup(3, 0)  # '#'   
+{ 'element': <class Section name="notes" elements=0>, 'zone': 'section_operator' }
+>>> document.lookup(3, 6)  # 's'   
+{ 'element': <class Section name="notes" elements=0>, 'zone': 'name' }
+-- python
+
+#### parameters
+
+index: A one-dimensional index to look up in the input string - only applies when it's the single only given argument.
+line: The line to look up (1-indexed, i.e. the first line is 1, not 0) - only applies when you supply a `column` as well.
+column: The column to look up (0-indexed, i.e. the first column is 0, not 1) - only applies when you supply a `line` as well.
+
+#### return value
+
+-- description
+For all valid indices within the document returns a Hash with two keys:  
+
+`element`: An `Section`, `Dictionary`, `Value`.. . For empty lines you get the containing section.
+
+`zone`: A string denoting the token at the specified position, here's the full list:  
+
+`'[empty-lines-and-spaces-between-tokens]'` => `element`  
+`'[inside-blocks]'` => `content`  
+`'[inside-comments]'` => `comment`  
+`'[name]'` => `name`  
+`'[template]'` => `value`  
+`'[value]'` => `value`  
+`':'` => `name_operator`  
+`'-'` => `item_operator`  
+`'='` => `entry_operator`  
+`'--'` => `block_operator`  
+`'>'` => `comment_operator`  
+``'`'`` => `escape_begin_operator`  
+``'`'`` => `escape_end_operator`  
+`'|'` => `append_with_newline_operator`  
+`'\'` => `append_with_space_operator`  
+`'#'` => `section_operator`  
+`'<'` => `copy_operator`  
+`'<<'` => `deep_copy_operator`  
+
+When an index outside the document is supplied, `None` is returned.
+-- description
+
+### raw
+
+syntax: raw → array
+
+-- description
+Retrieve a python native representation of the section.
+-- description
+
+-- eno
+color: blue
+-- eno
+
+-- python
+>>> document = enopy.parse(input)
+>>> document.raw()
+[{ 'color': 'blue' }]
+-- python
+
+#### return value
+
+description: An array of elements (also returned in their raw representation).
+
+### section
+
+syntax: 
+| section(name) → Section or None
+| section(name, options) → Section or None
+
+-- description
+Retrieve the subsection with the specified name from this current section.
+-- description
+
+-- eno
+# content
+title: A Manifest
+
+# notes
+-- eno
+
+-- python
+>>> document = enopy.parse(input)
+
+>>> document.section('content')
+<class Section name="content" elements=1>
+>>> document.section('notes')
+<class Section name="notes" elements=0>
+>>> document.section('metadata')
+ValidationError: ...
+>>> document.section('metadata', required=False) 
+None
+>>> document.section('notes', enforce_element=True) 
+<class Section name="notes" elements=0>
+>>> document.section('metadata', enforce_element=True)
+ValidationError: ...
+-- python
+
+#### parameters
+
+name: A string specifying the name of the section to retrieve.
+
+options:
+enforce_element = Whether the section must be present in the document (defaults to `False`)  
+required = Alias for `enforce_element` (this exists on many methods and depending on context refers to either element or value)
+
+#### return value
+
+description: An `Section`, or `None`.
+
+### sections
+
+syntax: sections(name) → array
+
+-- description
+Retrieve subsections with the specified name from this current section.
+-- description
+
+-- eno
+# Article
+> ...
+
+# Article
+> ...
+-- eno
+
+-- python
+>>> document = enopy.parse(input)
+>>> sections = document.sections('Article')
+>>> for section in sections:
+...  # do something with each Article
+-- python
+
+#### parameters
+
+name: A string specifying the name of the sections to retrieve.
+
+#### return value
+
+description: An array of `Section`s.
+
+## Value
+
+-- class description
+All values in an eno document, such as the value of a field like `name: value`,
+the lines inside a block, the value of a list item, the value of a dictionary
+entry, and so on, map to an `Value`. Usually you don't interact with this
+because you directly get the values from a section or dictionary in most cases.
+When you sequentially iterate a section (with `Section`'s
+'`#elements` method) you will get to interact with this class.
+-- class description
+
+### __str__
+
+syntax: str(value) → string
+
+-- description
+Retrieve a debug representation of of this `Value`.
+The representation differs depending on whether there is a name (e.g. for a field value)
+or not (applies only to list item values).
+-- description
+
+-- eno
+color: blue
+numbers:
+- 13
+- 42
+-- eno
+
+-- python
+>>> document = enopy.parse(input)
+
+>>> str(document.element('color'))
+'<class Value name="color" value="blue">'
+
+>>> list_items = document.element('numbers').elements()
+>>> str(list_items.first) 
+'<class Value value="13">'
+-- python
+
+#### return value
+
+description: A debug representation of this `Value`.
+
+### is_empty
+
+syntax: is_empty() → boolean
+
+-- description
+Query whether the value is empty (e.g. `comment:  ` in an eno document), which in python terms is equivalent of `None`.
+-- description
+
+#### return value
+
+description: `True` if empty, otherwise `False`.
+
+### error
+
+syntax:
+| error → ValidationError
+| error(message) → ValidationError
+| error(message_function) → ValidationError
+
+-- description
+Generate an error in the context of the element. The error includes a generic
+message by default, or a custom one if you supply it (which is the recommended
+practice). You can also pass a message function which (like loaders
+too) gets the name and value as arguments and returns a message string. This
+serves to create highly informative error messages that pin-point to the exact
+origin of the error, even when the initial reading of data is already past, e.g.
+when the error condition is only apparent later, when more processing has
+occurred or other data is available.
+-- description
+
+-- eno
+color: cozy
+-- eno
+
+-- python
+>>> document = enopy.parse(input)
+>>> element, value = document.field('color', with_element=True)
+
+# ...
+
+>>> if value == 'cozy'
+...   raise element.error('Postprocessing determined that "cozy" is not a color after all.')
+ValidationError: Postprocessing determined that "cozy" is not a color after all.
+-- python
+
+#### parameters
+
+message or message_function:
+| Highly recommended to provide one (but it's optional).
+|
+| Either directly pass a string, or alternatively a function returning a string.  
+| (The function is passed `name` and `value` as arguments.)
+
+#### return value
+
+description:
+| A `ValidationError` in the context of the element's value
+| (and with an optional custom message).
+
+### raw
+
+syntax: raw → object or value
+
+-- description
+Retrieve a native object representation of the value.
+The representation differs depending on whether there is a name (e.g. for a field value),
+or not (applies only to list item values).
+-- description
+
+-- eno
+color: blue
+numbers:
+- 13
+- 42
+-- eno
+
+-- python
+>>> document = enopy.parse(input)
+
+>>> document.element('color').raw()
+{ 'color': 'blue' }
+
+>>> list_items = document.element('numbers').elements()
+>>> list_items.first.raw()
+'13'
+-- python
+
+#### return value
+
+description: A native representation of the value element.
+
+### value
+
+syntax:
+| value → value or None
+| value(options) → value or None
+| value(loader, options) → value or None
+
+-- description
+Retrieve the value of an `Value`, optionally passing it through a loader and/or supplying options.
+-- description
+
+-- eno
+flag color: beige
+towel color:
+|
+-- eno
+
+-- python
+>>> document = enopy.parse(input)
+>>> flag_color = document.element('flag color')
+>>> towel_color = document.element('towel color')
+
+>>> flag_color.value()
+'beige'
+>>> towel_color.value()
+None
+>>> flag_color.value(lambda name, value: value.replace('eig', 'lu'))
+'blue'
+-- python
+
+#### parameters
+
+loader:
+| A function returning the transformed/validated value or raising an error.  
+| The function is passed `name` and `value` as arguments.
+
+options:
+enforce_value = Whether there must be a value or the field is allowed to be empty (default to `False`)
+required = Alias for `enforce_value` (this exists on many methods and depending on context refers to either element or value)
+
+#### return value
+
+description: The (optionally transformed/validated) value of this `Value`.
+
+## List
+
+-- class description
+Lists such as the one below are represented as an `List`:
+
+```eno
+things:
+- toys
+- plants
+```
+
+Like `Value`, you will seldom interact with this class, and instead use the `list`
+method on the document or its sections to directly obtain the values of a list.
+-- class description
+
+### __str__
+
+syntax: str(list) → string
+
+-- description
+Retrieve a debug representation of the list.
+-- description
+
+-- eno
+numbers:
+- 13
+- 42
+-- eno
+
+-- python
+>>> document = enopy.parse(input)
+>>> str(document.list('numbers'))
+'<class List name="numbers" items=2>'
+-- python
+
+#### return value
+
+description: A debug representation of the list.
+
+### elements
+
+syntax: elements → array
+
+-- description
+Retrieve the items of this list as `Value` elements (instead of
+their direct values) in sequential order.
+-- description
+
+-- eno
+numbers:
+- 6
+- 8
+- 19
+-- eno
+
+-- python
+>>> list = enopy.parse(input).element('numbers')
+>>> list.elements()
+[ <class Value value="6">, <class Value value="8">, <class Value value="19"> ]
+-- python
+
+#### return value
+
+description: An array containing the items of this list as `Value` elements.
+
+### items
+
+syntax:
+| items → array
+| items(options) → array
+| items(loader, options) → array
+
+-- description
+Retrieve the items of the list, optionally passing them through a loader.
+-- description
+
+-- eno
+colors:
+- pink
+- peach
+-- eno
+
+-- python
+>>> document = enopy.parse(input)
+>>> list = document.element('colors')
+
+>>> list.items()
+['pink', 'peach']
+
+>>> list.items(lambda name, value: f"{value}!!")
+['pink!!', 'peach!!']
+-- python
+
+#### parameters
+
+loader:
+| A function returning the transformed/validated value or raising an error.
+| (The function is applied to each list item on its own, being passed the arguments `name` and `value`)
+
+options:
+elements = Whether to return the elements (as `Value`) instead of the values of the list items. (defaults to `False`)  
+enforce_values = Whether empty list items (`- ` in the document, mapping to `None`) are disallowed (defaults to `True`)  
+with_elements = Whether to return an array of arrays of the form `[element, value]` instead of just the values (defaults to `False`)
+
+#### return value
+
+description: The (optionally transformed/validated) items of this list as an array.
+
+### length
+
+syntax: length → number
+
+-- description
+Returns the count of items in the list.
+-- description
+
+-- eno
+colors:
+- pink
+- peach
+-- eno
+
+-- python
+>>> list = enopy.parse(input).element('colors')
+>>> list.length()
+2
+-- python
+
+#### return value
+
+description: The number of items in the list as a number.
+
+### raw
+
+syntax: raw → object
+
+-- description
+Retrieve a native representation of the list.
+-- description
+
+-- eno
+colors:
+- pink
+- peach
+-- eno
+
+-- python
+>>> list = enopy.parse(input).element('colors')
+>>> list.first.raw()
+{ 'colors': ['pink', 'peach'] }
+-- python
+
+#### return value
+
+description: A native representation of the list.
+
+## Dictionary
+
+-- class description
+Dictionaries are represented as an `Dictionary`:
+
+```eno
+rated things:
+toys = 5 stars
+plants = 3 stars
+```
+
+You will mostly obtain an instance of this through the `#dictionary` method on a document/section.
+-- class description
+
+### __str__
+
+syntax: str(dictionary) → string
+
+-- description
+Retrieve a debug representation of the dictionary.
+-- description
+
+-- eno
+numbers:
+13 = thirteen
+23 = twentythree
+-- eno
+
+-- python
+>>> document = enopy.parse(input)
+>>> str(document.dictionary('numbers'))
+'<class Dictionary name="numbers" entries=2>'
+-- python
+
+#### return value
+
+description: An debug representation of the dictionary.
+
+### assert_all_touched
+
+syntax:
+| assert_all_touched
+| assert_all_touched(options)
+| assert_all_touched(message, options)
+| assert_all_touched(message_function, options)
+
+-- description
+Assert that all entries of this dictionary that were present in the parsed eno document
+were also queried (and therefore *touched*) by the application. This, combined with eno's
+query methods, serves to ensure a two-way guarantee for both users and developers:
+No data that the application requires can be left out, and no data that the application
+does not process can be supplied.
+-- description
+
+-- eno
+Important data:
+A = I need to be processed!
+B = Me too!
+-- eno
+
+-- python
+>>> document = enopy.parse(input)
+>>> dictionary = document.dictionary('Important data')
+>>> data_a = dictionary.entry('A')
+
+# ... processing happens only for data_a
+
+>>> dictionary.assert_all_touched()
+ValidationError: An excess element named 'B' was found, is it possibly a typo?
+
+>>> dictionary.assert_all_touched(only=['A'])  # passes
+>>> dictionary.assert_all_touched(except=['B'])  # passes
+
+>>> custom_message = lambda name, value: f"{name} is not supported by the application, please contact support if you think it should be"
+>>> dictionary.assert_all_touched(custom_message)
+ValidationError: B is not supported by the application, please contact support if you think it should be
+-- python
+
+#### parameters
+
+-- message or message_function
+Optional, usually the default message (*An excess element named [NAME] was
+found, is it possibly a typo?*) will do fine. If you want to override it,
+provide either a static message as a string, or alternatively a function
+returning a string. (`name` and `value` are provided as arguments)
+-- message or message_function
+
+options:
+only = An array of strings, e.g. `['name', 'email']`, which specifies to only check these elements for whether they've been touched.  
+except = An array of strings, e.g. `['phone number']`, which specifies to exclude these elements from checking whether they've been touched.  
+
+### element
+
+syntax:
+| element(name) → element or None
+| element(name, options) → element or None
+
+-- description
+Retrieve a single entry as `Value` (instead of
+its direct value) from the dictionary by its name.
+Optionally specify whether it's optional or mandatory for the entry to be
+present in the eno document (by default it's optional).
+-- description
+
+-- eno
+years:
+2007 = Year of the gooseberry
+2010 = Year of the awesome beanstalk
+2011 = Year of yearning
+-- eno
+
+-- python
+>>> dictionary = enopy.parse(input).dictionary('years')
+
+>>> dictionary.element('2010')
+<class Value name="2010" value="Year of the awesome beanstalk">
+>>> dictionary.element('2020')
+None
+>>> dictionary.element('2020', enforce_element=True)
+ValidationError: ...
+>>> dictionary.element('2020', required=True)
+ValidationError: ...
+-- python
+
+#### parameters
+
+name: The name of the entry to fetch from the dictionary as a string.
+
+options:
+enforce_element = Whether the element must be present in the document (`True` or `False`, defaults to `False`)  
+required = Alias for `enforce_element` (this exists on many methods and depending on context refers to either element or value)
+
+#### return value
+
+description: An element (`Value`) or `None`.
+
+### elements
+
+syntax: elements → array
+
+-- description
+Retrieve the entries of this dictionary as `Value` elements (instead of
+their direct values) in sequential order. This seamlessly lets you switch from
+associative readout to sequential readout, allowing dictionaries to also represent
+document-like structures instead of just associative data.
+-- description
+
+-- eno
+dialogue:
+alice = hi
+bob = hey
+alice = sup?
+bob = nothin'
+-- eno
+
+-- python
+>>> document = enopy.parse(input)
+>>> dialogue = document.dictionary('dialogue')
+
+>>> html = '<h1>Observe this fascinating dialogue, presented in html!</h1>'
+
+>>> for element in dialogue.elements():
+...  html += f"<strong>{element.name}</strong>: \"{element.value}\""
+
+>>> with open('index.html', 'w') as file:
+...   file.write(html)
+-- python
+
+#### return value
+
+description: An array containing the elements of this dictionary.
+
+### enforce_all_elements
+
+syntax:
+| enforce_all_elements
+| enforce_all_elements(enforce)
+
+-- description
+Set the default for all following queries on this dictionary of whether the
+presence of elements in the eno input text should be enforced (by default it is
+not). This can be used to prevent "template decay" - with presence enforcement
+enabled entries may be empty, but they (at least their declaration) must be
+there in the eno document and consequently they can not disappear from a
+template at any point without triggering an error.
+-- description
+
+-- eno
+conversions:
+0001 = 1
+0010 = 2
+-- eno
+
+-- python
+>>> document = enopy.parse(input)
+>>> conversions = document.dictionary('conversions')
+
+>>> conversions.enforce_all_elements()
+
+>>> conversions.entry('0011')
+ValidationError: ...
+>>> conversions.entry('0011', enforce_element=False)
+None
+-- python
+
+### entry
+
+syntax:
+| entry(name) → value or None
+| entry(name, loader) → value or None
+| entry(name, enforce_element: False, required: False, with_element: False) → object/value or None
+
+-- description
+Retrieve an entry's value from the dictionary, optionally supplying a loader to
+validate and/or transform the value, and/or an options object.
+-- description
+
+-- eno
+Q&A:
+Meaning = 42
+Green = Yes
+Purpose =
+-- eno
+
+-- python
+>>> document = enopy.parse(input)
+>>> qa = document.dictionary('Q&A')
+
+>>> qa.entry('Meaning')
+'42'
+>>> qa.entry('Purpose')
+None
+>>> qa.entry('Purpose', required=True)
+ValidationError: ...
+>>> qa.entry('Purpose', enforce_element=True)
+None
+>>> qa.entry('Beige', enforce_element=True)
+ValidationError: ...
+>>> qa.entry('Green', lambda name, value: value.upper())
+'YES'
+
+>>> def check_meaning(name, value):
+...   if value == '42':
+...     raise ValueError("That one's getting old!")
+...   return value
+
+>>> qa.entry('Meaning', check_meaning)
+ValidationError: That one's getting old!
+
+>>> qa.entry('Meaning', with_element=True)
+[ <class Value name="Meaning" value="42"> , '42' ]
+-- python
+
+#### parameters
+
+name: The name of the entry as a string.
+
+loader:
+| A function returning the transformed/validated value or raising an error.  
+| The function is passed `name` and `value` as arguments.
+
+options:
+enforce_element = Whether the entry must be present in the document (`True` or `False`, defaults to `False`)  
+enforce_value = Whether there must be a value or the entry is allowed to be empty (default to `False`)
+required = Alias for `enforce_value` (this exists on many methods and depending on context refers to either element or value)
+with_element = Whether to return an array with both the element and the value (defaults to `False`)
+
+#### return value
+
+description: The entry's value, or `None` if empty.
+
+### raw
+
+syntax: raw → object
+
+-- description
+Retrieve a native representation of the dictionary.
+-- description
+
+-- eno
+weights:
+apple = 100g
+pineapple = 800g
+-- eno
+
+-- python
+>>> document = enopy.parse(input)
+>>> document.dictionary('weights').raw()
+{ 'weights': [{ 'apple': '100g' }, { 'pineapple': '800g' }] }
+-- python
+
+#### return value
+
+description: A native object representation of the dictionary.
+
+## Empty
+
+-- class description
+This represents empty elements such as `color:`, where it is not clear if it is an empty field, list, or dictionary.
+-- class description
+
+### __str__
+
+syntax: str(empty) → string
+
+-- description
+Retrieve a debug representation of the empty element.
+-- description
+
+-- eno
+color:
+-- eno
+
+-- python
+>>> empty = enopy.parse(input).element('color')
+>>> str(empty)
+'<class Empty name="color">'
+-- python
+
+#### return value
+
+description: An debug representation of the empty element.
+
+### error
+
+syntax:
+| error → ValidationError
+| error(message) → ValidationError
+| error(message_function) → ValidationError
+
+-- description
+Generate an error in the context of the element. The error includes a generic
+message by default, or a custom one if you supply it (which is the recommended
+practice). You can also pass a message function which (like loaders too)
+gets the name and value as arguments and returns a message string. This serves
+to create highly informative error messages that pin-point to the exact origin
+of the error, even when the initial reading of data is already past, e.g. when
+the error condition is only apparent later, when more processing has occurred or
+other data is available.
+-- description
+
+-- eno
+color:
+-- eno
+
+-- python
+>>> document = enopy.parse(input)
+>>> element, value = document.field('color', with_element=True)
+
+# ...
+
+>>> if value in None:
+...   raise element.error('Postprocessing determined that this value needs to be provided.')
+ValidationError: Postprocessing determined that this value needs to be provided.
+-- python
+
+#### parameters
+
+message or message_function:
+| Highly recommended to provide one (but it's optional).
+|
+| Either directly pass a string, or alternatively a function returning a string.  
+| (The function is passed `name` and `value` as arguments)
+
+#### return value
+
+description:
+| A `ValidationError` in the context of the element's value
+| (and with an optional custom message).
+
+### raw
+
+syntax: raw → object
+
+-- description
+Retrieve a native representation of the empty element.
+-- description
+
+-- eno
+color:
+-- eno
+
+-- python
+>>> empty = enopy.parse(input).element('color')
+>>> empty.raw()
+{ 'color': None }
+-- python
+
+#### return value
+
+description: A native representation of the empty element.
+
+### value
+
+syntax:
+| value → None
+
+-- description
+Retrieve the value (always returns `None`).
+-- description
+
+-- eno
+note:
+-- eno
+
+-- python
+>>> empty = enopy.parse(input).element('note')
+>>> empty.value()
+None
+-- python
+
+#### return value
+
+description: Always `None`.
+
+## GenericError
+
+-- class description
+The single generic error interface for all (user) errors that eno generates.
+Note that this is never raised by itself, but only in one of it's subclassed
+variants (`ParseError` and `ValidationError`). However, you can still
+utilize this generic class in cases where you want to catch both parser and
+validation errors indiscriminately, like so:
+
+```python
+>>> try:
+...    # ...
+... except GenericError as e: # catches both ParseError and ValidationError
+...   # ...
+```
+-- class description
+
+### cursor
+
+syntax: cursor → [line, column]
+
+-- description
+Returns a cursor position as an array of the form [line, column], indicating
+where a cursor should be placed if an application wants to offer the user a way
+to move the cursor straight to the error location.
+-- description
+
+-- python
+>>> try:
+...   # ...
+... except GenericError as e:
+...   return e.cursor
+[3, 14]
+-- python
+
+#### return value
+
+description: An array, where [0] is the line number, and [1] is the column number.
+
+### selection
+
+syntax: selection → [[line, column], [line, column]]
+
+-- description
+Returns a selection as an array of the form [[line, column], [line, column]],
+indicating a text range to select if an application wants to offer the user a
+way to get a selection for the error in the input.
+-- description
+
+-- python
+>>> try:
+...   # ...
+... except GenericError as e:
+...   return e.selection
+[[3, 14], [3, 23]]
+
+-- python
+
+#### return value
+
+description:
+| An array, where [0] is the begin of the selection and [1] is the end,
+| and both begin and end are each again an array, where [0] is the
+| line number, and [1] is the column number.
+
+### message
+
+syntax: message → string
+
+-- description
+Contains both the error text as well as the snippet. This is also what you
+get in the console when you don't catch the error.
+-- description
+
+-- python
+>>> try:
+...   # ...
+... except GenericError as e:
+...   return e.message
+"In line 4 'a' is copied into itself.\n\n   Line | Content\n ..."
+-- python
+
+#### return value
+
+description: Both the error text as well as the snippet.
+
+### snippet
+
+syntax: snippet → string
+
+-- description
+Returns a formatted excerpt of those passage(s) from the input where the error occurred.
+-- description
+
+-- python
+>>> try:
+...   # ...
+... except GenericError as e:
+...   return e.snippet
+   Line | Content
+      1 | 
+ *    2 |     # a
+ *    3 |     ## b
+ >    4 |     ### c < a
+      5 |
+-- python
+
+#### return value
+
+description: A formatted excerpt of those passage(s) from the input where the error occurred.
+
+### text
+
+syntax: text → string
+
+-- description
+Returns a one-liner that describes the error in human language.
+-- description
+
+-- python
+>>> try:
+...   # ...
+... except GenericError as e:
+...   return e.message
+"In line 4 'a' is copied into itself."
+-- python
+
+#### return value
+
+description: A single sentence that describes the error in human language.
+
+## ParseError
+
+-- class description
+When this is raised, it indicates an error regarding syntax or grammatical semantics of the document.
+Functionally this behaves exactly like `GenericError`, therefore the interface methods are not repeated here and can
+be looked up on the `GenericError` documentation.
+-- class description
+
+## ValidationError
+
+-- class description
+When this is raised, it indicates an error regarding application-specific requirements for the document.
+Functionally this behaves exactly like `GenericError`, therefore the interface methods are not repeated here and can
+be looked up on the `GenericError` documentation.
+-- class description
