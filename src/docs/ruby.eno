@@ -3,11 +3,9 @@ title: enorb - The Ruby eno library
 # Global
 
 library: enorb
-version: 0.3.0 Alpha
+version: 0.4.0 Alpha
 
 -- intro
-This documentation already covers the full featureset, it is however still undergoing correction and refinement.  
-
 **enorb is currently available as an alpha test release and not yet ready for production use.**
 
 ## Installation
@@ -56,7 +54,7 @@ puts document.field('Greeting')  #=> 'Hello World!'
 ## Links
 
 Gem on rubygems - <https://rubygems.org/gems/enorb/>  
-Repository on github - <https://github.com/eno-lang/enorb/> 
+Repository on github - <https://github.com/eno-lang/enorb/>
 -- intro
 
 # Modules
@@ -73,7 +71,7 @@ or source label (usually to have filename appear in error messages) to that call
 
 syntax:
 | parse(input) → Eno::Section
-| parse(input, locale = 'en', reporter = Eno::Reporters::Text, source_label = nil) → Eno::Section
+| parse(input, options) → Eno::Section
 
 -- description
 Parse a string in eno notation.
@@ -96,7 +94,11 @@ eno.parse(input, source_label: 'my-file.eno')         # Annotated with a label a
 #### parameters
 
 input: A string containing text in eno notation.
-options: Various options (see example above)
+
+options:
+locale = A string specifying the code of the locale to use for error messages (e.g. `'de'`, `'es'`), by default `'en'`.
+reporter = One of `Eno::Reporters::Text`, `Eno::Reporters::HTML`, `Eno::Reporters::Terminal`.
+source_label = A string that labels where the input comes from (e.g. a filename), this is included with error messages to help the user located the file.
 
 #### return value
 
@@ -114,10 +116,10 @@ consequently this is the interface you'll be utilizing most for many usecases.
 
 syntax:
 | assert_all_touched
-| assert_all_touched(except: [])
-| assert_all_touched(only: [])
-| assert_all_touched(message_proc)
-| assert_all_touched { |name, value| message_block }
+| assert_all_touched(options)
+| assert_all_touched(message, options)
+| assert_all_touched(message_proc, options)
+| assert_all_touched(options) { |name, value| message_block }
 
 -- description
 Assert that all elements of this section (and also, recursively, all
@@ -141,24 +143,28 @@ data_a = document.field('Important data A')
 # ... processing happens only for data_a
 
 document.assert_all_touched  # raises an error
+
+document.assert_all_touched(only: ['Important data A'])  # passes
+document.assert_all_touched(except: ['Important data B'])  # passes
+
+document.assert_all_touched do |name, value|  # raises an error "Important data B is not ..."
+  "#{name} is not supported by the application, please contact support if you think it should be"
+end  
 -- ruby
 
 #### parameters
 
--- message_proc or message_block
+-- message, message_proc or message_block
 Optional, usually the default message (*An excess element named [NAME] was
 found, is it possibly a typo?*) will do fine. If you want to override it,
 provide either a static message as a string, or alternatively a `Proc` or block
 returning a string. (The arguments passed are `name` and `value`, although
 `value` can be `nil` if the untouched element is a dictionary or section)
--- message_proc or message_block
+-- message, message_proc or message_block
 
--- options
-An optional object.
- 
-`only` - An array of strings, e.g. `['name', 'email']`, which specifies to only check these elements for whether they've been touched.  
-`except` - An array of strings, e.g. `['phone number']`, which specifies to exclude these elements from checking whether they've been touched.  
--- options
+options:
+only = An array of strings, e.g. `['name', 'email']`, which specifies to only check these elements for whether they've been touched.  
+except = An array of strings, e.g. `['phone number']`, which specifies to exclude these elements from checking whether they've been touched.  
 
 ### #dictionaries
 
@@ -185,6 +191,10 @@ images.each do |image|
   puts image.entry('src')
 end
 -- ruby
+
+#### parameters
+
+name: A string specifying the name of the dictionaries to retrieve.
 
 #### return value
 
@@ -219,17 +229,9 @@ section.dictionary('temperature ratings', enforce_element: true)  # raises an er
 
 name: A string representing the name of the field to return.
 
--- options
-An optional object of options.
- 
-`required` - A boolean stating whether the dictionary must exist. (defaults to `true`)  
-`enforce_element` - A boolean stating whether the dictionary must exist. (defaults to `false`)
-
-Note: The two options are obviously redundant, here's why: `enforce_element` affects all elements,
-therefore we need it here as well. `required` was added because it exists on other elements as
-well (where it does something different, namely, enforce the *value*) and it would be odd if
-it were missing here now suddenly, so that's why there are two options with the same effect.
--- options
+options:
+enforce_element = A boolean stating whether the dictionary must exist in the document. (defaults to `false`)
+required = Alias for `enforce_element` (this exists on many methods and depending on context refers to either element or value)
 
 #### return value
 
@@ -239,7 +241,7 @@ description: An `Eno::Dictionary`, or `nil`.
 
 syntax:
 | element(name) → element or nil
-| element(name, enforce_element: false) → element or nil
+| element(name, options) → element or nil
 
 -- description
 Retrieve a single element of any allowed type from the section by its name.
@@ -266,16 +268,20 @@ document.element('content')  #=> #<Eno::Section name="content" items=14>
 
 document.element('fantasy')  #=> nil
 document.element('fantasy', enforce_element: true)  #=> raises an error
+document.element('fantasy', required: true)  #=> raises an error
 -- ruby
 
 #### parameters
 
 name: The name of the element to fetch from the section as a string.
-enforce_presence: Whether the element must be present in the document (true or false, defaults to `false`)  
+
+options:
+enforce_presence = Whether the element must be present in the document (true or false, defaults to `false`)  
+required = Alias for `enforce_element` (this exists on many methods and depending on context refers to either element or value)
 
 #### return value
 
-description: An element (e.g. `Eno::List`, `Eno::Value`, etc.) or nil.
+description: An element (e.g. `Eno::List`, `Eno::Value`, etc.) or `nil`.
 
 ### #elements
 
@@ -318,10 +324,11 @@ File.write('index.html', html)
 
 description: An array containing the elements of this section.
 
-### #enforce_elements=
+### #enforce_all_elements
 
 syntax:
-| enforce_elements = true or false
+| enforce_all_elements
+| enforce_all_elements(enforce)
 
 -- description
 Set the default for all following queries on this section of whether the
@@ -341,7 +348,7 @@ document = eno.parse(input)
 
 document.field('sound')  #=> nil
 
-document.enforce_elements = true
+document.enforce_all_elements
 
 document.field('sound')  # raises an error
 document.field('sound', enforce_element: false)  #=> nil
@@ -355,9 +362,9 @@ enforce: An optional boolean indicating whether to enforce or not. (otherwise `t
 
 syntax:
 | field(name) → value or nil
-| field(name, loader) → value or nil
 | field(name, options) → object/value or nil
-| field(name, loader, options) → object/value or nil
+| field(name, loader_proc, options) → value or nil
+| field(name, options) { |name, value| loader_block } → object/value or nil
 
 -- description
 Retrieve a field's value from the section, optionally supplying a loader to
@@ -374,6 +381,7 @@ section.field('color')  #=> 'blue'
 section.field('sound')  #=> nil
 
 section.field('sound', required: true)           # raises an error
+section.field('sound', enforce_value: true)      # raises an error
 section.field('sound', enforce_element: true)    #=> nil
 section.field('texture', enforce_element: true)  # raises an error
 
@@ -391,16 +399,18 @@ section.field('color', with_element: true)
 #### parameters
 
 name: A string representing the name of the field to return.
-loader: A `Proc` returning the transformed/validated value or raising an error.
+loader_block or loader_proc: A block or `Proc` returning the transformed/validated value or raising an error.
 options:
-| `required`
-| `enforce_element`
+enforce_element = Whether the field must be present in the document (true or false, defaults to `false`)  
+enforce_value = Whether there must be a value or the field is allowed to be empty (defaults to `false`)
+required = Alias for `enforce_value` (this exists on many methods and depending on context refers to either element or value)
+with_element = Whether to return an array of the form `[element, value]` instead of just the value (default `false`)
 
 #### return value
 
 description:
-\ The value of the field, or `nil` if empty, or an array of the form `[element, value]`
-\ when the option `with_element` is specified.
+| The value of the field, or `nil` if empty, or an array of the form `[element, value]`
+| when the option `with_element` is specified.
 
 ### #fields
 
@@ -425,6 +435,10 @@ colors.each do |color|
   puts color.value
 end
 -- ruby
+
+#### parameters
+
+name: A string specifying the name of the fields to retrieve.
 
 #### return value
 
@@ -477,23 +491,24 @@ document.list('colors', with_elements: true)  #=> [[ #<Eno::Value value="pink">,
 
 name: The name of the list to return as a string.
 
-loader:
+loader_block or loader_proc:
 | A `Proc` or block returning the transformed/validated value or raising an error.
 | (The `Proc` or block is applied to each list item on its own, being passed the arguments `name` and `value`)
 
--- options
-Optional keyword arguments:  
-`enforce_element`: Whether the list must be present in the document (defaults to `false`)  
-`include_empty`: Whether to include list items with a value of `nil` - represented by `-  ` in the document (defaults to `false`)  
-`exact_count`: Validate that there are exactly `n` items in the list (takes a number, defaults to `nil`)  
-`min_count`: Validate that there are at least `n` items in the list (takes a number, defaults to `nil`)  
-`max_count`: Validate that there are at most `n` items in the list (takes a number, defaults to `nil`)  
-`with_elements`: Whether to return a list of arrays of the form [element, value] instead of just the values (defaults to `false`)
--- options
+options:
+enforce_element = Whether the list must be present in the document (defaults to `false`)  
+enforce_values = Whether empty list items (`- ` in the document, mapping to `nil`) are disallowed (defaults to `true`)  
+exact_count = Validate that there are exactly `n` items in the list (takes a number, defaults to `nil`)  
+min_count = Validate that there are at least `n` items in the list (takes a number, defaults to `nil`)  
+max_count = Validate that there are at most `n` items in the list (takes a number, defaults to `nil`)  
+required = Alias for `enforce_element` (this exists on many methods and depending on context refers to either element or value)
+with_elements = Whether to return an array of arrays of the form `[element, value]` instead of just the values (defaults to `false`)
 
 #### return value
 
-description: The (optionally transformed/validated) items of this list as an array.
+description:
+| The (optionally transformed/validated) values of the items of this list as an array.
+| With `with_elements` set to `true` it returns an array of arrays of the form `[element, value]` instead.
 
 ### #lists
 
@@ -523,6 +538,10 @@ routes.forEach(route => {
   puts route.items )
 })
 -- ruby
+
+#### parameters
+
+name: A string specifying the name of the lists to retrieve.
 
 #### return value
 
@@ -565,6 +584,12 @@ document.lookup(3, 0)  # '#'
 document.lookup(3, 6)  # 's'   
   #=> { element: #<Eno::Section name="notes" elements=0>, zone: :name }
 -- ruby
+
+#### parameters
+
+index: A one-dimensional index to look up in the input string - only applies when it's the single only given argument.
+line: The line to look up (1-indexed, i.e. the first line is 1, not 0) - only applies when you supply a `column` as well.
+column: The column to look up (0-indexed, i.e. the first column is 0, not 1) - only applies when you supply a `line` as well.
 
 #### return value
 
@@ -650,16 +675,11 @@ document.section('metadata', enforce_element: true)  # raises an error
 
 #### parameters
 
--- options
-An optional object of options:  
-`enforce_element`: Whether the section must be present in the document (defaults to `false`)  
-`required`: Whether there must be a section of that name in the document (defaults to `true`)  
+name: A string specifying the name of the section to retrieve.
 
-Note: The two options are obviously redundant, here's why: `enforce_element` affects all elements,
-therefore we need it here as well. `required` was added because it exists on other elements as
-well (where it does something different, namely, enforce the *value*) and it would be odd if
-it were missing here now suddenly, so that's why there are two options with the same purpose.
--- options
+options:
+enforce_element = Whether the section must be present in the document (defaults to `false`)  
+required = Alias for `enforce_element` (this exists on many methods and depending on context refers to either element or value)
 
 #### return value
 
@@ -691,6 +711,10 @@ sections.each do |section|
 end
 -- ruby
 
+#### parameters
+
+name: A string specifying the name of the sections to retrieve.
+
 #### return value
 
 description: An array of `Eno::Section`s.
@@ -700,7 +724,7 @@ description: An array of `Eno::Section`s.
 syntax: to_s → string
 
 -- description
-Retrieve an abstract debug representation of the section.
+Retrieve a debug representation of the section.
 -- description
 
 -- eno
@@ -729,9 +753,21 @@ All values in an eno document, such as the value of a field like `name: value`,
 the lines inside a block, the value of a list item, the value of a dictionary
 entry, and so on, map to an `Eno::Value`. Usually you don't interact with this
 because you directly get the values from a section or dictionary in most cases.
-Only when you sequentially iterate a section (with `Eno::Section`'s
-'`#sequential` method) you will get to interact with this class.
+When you sequentially iterate a section (with `Eno::Section`'s
+'`#elements` method) you will get to interact with this class.
 -- class description
+
+### #empty?
+
+syntax: empty? → boolean
+
+-- description
+Query whether the value is empty (e.g. `comment:  ` in an eno document), which in ruby terms is equivalent of `nil`.
+-- description
+
+#### return value
+
+description: `true` if empty, otherwise `false`.
 
 ### #error
 
@@ -782,18 +818,6 @@ description:
 | An `Eno::ValidationError` in the context of the element's value
 | (and with an optional custom message).
 
-### #empty?
-
-syntax: empty? → boolean
-
--- description
-Query whether the value is empty (e.g. `comment:  ` in an eno document), which in ruby terms is equivalent of `nil`.
--- description
-
-#### return value
-
-description: `true` if empty, otherwise `false`.
-
 ### #raw
 
 syntax: raw → object or value
@@ -814,10 +838,10 @@ numbers:
 -- ruby
 document = eno.parse(input)
 
-document.sequential[0].raw  #=> { 'color' => 'blue' }
+document.element('color').raw  #=> { 'color' => 'blue' }
 
-list = document.list('numbers', with_elements: true)
-list.first[0].raw  #=> '13'
+list_items = document.element('numbers').elements
+list_items.first.raw  #=> '13'
 -- ruby
 
 #### return value
@@ -829,7 +853,7 @@ description: A native representation of the value element.
 syntax: to_s → string
 
 -- description
-Retrieve an abstract debug representation of of this `Eno::Value`.
+Retrieve a debug representation of of this `Eno::Value`.
 The representation differs depending on whether there is a name (e.g. for a field value)
 or not (applies only to list item values).
 -- description
@@ -844,10 +868,10 @@ numbers:
 -- ruby
 document = eno.parse(input)
 
-document.sequential[0].to_s  #=> '#<Eno::Value name="color" value="blue">'
+document.element('color').to_s  #=> '#<Eno::Value name="color" value="blue">'
 
-list = document.list('numbers', with_elements: true)
-list.first[0].to_s  #=> '#<Eno::Value value="13">'
+list_items = document.element('numbers').elements
+list_items.first.to_s  #=> '#<Eno::Value value="13">'
 -- ruby
 
 #### return value
@@ -858,10 +882,12 @@ description: An debug representation of this `Eno::Value`.
 
 syntax:
 | value → value or nil
-| value { |name, value| loader } → value or nil
+| value(options) → value or nil
+| value(loader_proc, options) → value or nil
+| value(options) { |name, value| loader } → value or nil
 
 -- description
-Retrieve the value of an `Eno::Value`, optionally passing it through a loader block.
+Retrieve the value of an `Eno::Value`, optionally passing it through a loader block or `Proc`.
 -- description
 
 -- eno
@@ -873,9 +899,8 @@ towel color:
 -- ruby
 document = eno.parse(input)
 
-flag_color = document.sequential()[0]
-flag_color = document.sequential()[0]
-towel_color = document.sequential()[1]
+flag_color = document.element('flag color')
+towel_color = document.element('towel color')
 
 flag_color.value  # => 'beige'
 towel_color.value  # => nil
@@ -890,9 +915,13 @@ end  #=> 'blue'
 
 #### parameters
 
-loader:
+loader_block or loader_proc:
 | A block returning the transformed/validated value or raising an error.  
 | The block is passed `name` and `value` as arguments.
+
+options:
+enforce_value = Whether there must be a value or the field is allowed to be empty (default to `false`)
+required = Alias for `enforce_value` (this exists on many methods and depending on context refers to either element or value)
 
 #### return value
 
@@ -913,12 +942,40 @@ Like `Eno::Value`, you will seldom interact with this class, and instead use the
 method on the document or its sections to directly obtain the values of a list.
 -- class description
 
+### #elements
+
+syntax: elements → array
+
+-- description
+Retrieve the items of this list as `Eno::Value` elements (instead of
+their direct values) in sequential order.
+-- description
+
+-- eno
+numbers:
+- 6
+- 8
+- 19
+-- eno
+
+-- ruby
+list = eno.parse(input).element('numbers')
+
+list.elements
+  #=> [ [#<Eno::Value value="6"], [#<Eno::Value value="8"], [#<Eno::Value value="19"] ]
+-- ruby
+
+#### return value
+
+description: An array containing the items of this list as `Eno::Value` elements.
+
 ### #items
 
 syntax:
 | items → array
-| items(loader) → array
-| items { |name, value| loader } → array
+| items(options) → array
+| items(loader_proc, options) → array
+| items(options) { |name, value| loader_block } → array
 
 -- description
 Retrieve the items of the list, optionally passing them through a loader block or Proc.
@@ -933,7 +990,7 @@ colors:
 
 -- ruby
 document = eno.parse(input)
-list = document.sequential[0]
+list = document.element('colors')
 
 list.items()  #=> ['pink', 'peach']
 
@@ -942,9 +999,44 @@ list.items(->(name, value) { "#{value}!!" })  #=> ['pink!!', 'peach!!']
 list.items { |name, value| { "#{value}!!" }  #=> ['pink!!', 'peach!!']
 -- ruby
 
+#### parameters
+
+loader_block or loader_proc:
+| A `Proc` or block returning the transformed/validated value or raising an error.
+| (The `Proc` or block is applied to each list item on its own, being passed the arguments `name` and `value`)
+
+options:
+elements = Whether to return the elements (as `Eno::Value`) instead of the values of the list items. (defaults to `false`)  
+enforce_values = Whether empty list items (`- ` in the document, mapping to `nil`) are disallowed (defaults to `true`)  
+with_elements = Whether to return an array of arrays of the form `[element, value]` instead of just the values (defaults to `false`)
+
 #### return value
 
 description: The (optionally transformed/validated) items of this list as an array.
+
+### #length
+
+syntax: length → number
+
+-- description
+Returns the count of items in the list.
+-- description
+
+-- eno
+colors:
+- pink
+- peach
+-- eno
+
+-- ruby
+list = eno.parse(input).element('colors')
+
+list.length  #=> 2
+-- ruby
+
+#### return value
+
+description: The number of items in the list as a number.
 
 ### #raw
 
@@ -961,9 +1053,9 @@ colors:
 -- eno
 
 -- ruby
-document = eno.parse(input)
+list = eno.parse(input).element('colors')
 
-document.sequential[0].raw  #=> { 'colors' => ['pink', 'peach'] }
+list.first.raw  #=> { 'colors' => ['pink', 'peach'] }
 -- ruby
 
 #### return value
@@ -975,7 +1067,7 @@ description: A native representation of the list.
 syntax: to_s → string
 
 -- description
-Retrieve an abstract debug representation of the list.
+Retrieve a debug representation of the list.
 -- description
 
 -- eno
@@ -992,7 +1084,7 @@ document.list('numbers').to_s  #=> '#<Eno::List name="numbers" items=2>'
 
 #### return value
 
-description: An debug representation of the list.
+description: A debug representation of the list.
 
 ## Eno::Dictionary
 
@@ -1012,10 +1104,10 @@ You will mostly obtain an instance of this through the `#dictionary` method on a
 
 syntax:
 | assert_all_touched
-| assert_all_touched(except: [])
-| assert_all_touched(only: [])
-| assert_all_touched(message or message_proc)
-| assert_all_touched { |name, value| message_block }
+| assert_all_touched(options)
+| assert_all_touched(message, options)
+| assert_all_touched(message_proc, options)
+| assert_all_touched(options) { |name, value| message_block }
 
 -- description
 Assert that all entries of this dictionary that were present in the parsed eno document
@@ -1033,33 +1125,40 @@ B = Me too!
 
 -- ruby
 document = eno.parse(input)
+dictionary = document.dictionary('Important data')
 
-data_a = document.dictionary('Important data').entry('A')
+data_a = dictionary.entry('A')
 
 # ... processing happens only for data_a
 
-document.assert_all_touched  # raises an error
+dictionary.assert_all_touched  # raises an error
+
+dictionary.assert_all_touched(only: ['A'])  # passes
+dictionary.assert_all_touched(except: ['B'])  # passes
+
+dictionary.assert_all_touched do |name, value|  # raises an error "B is not ..."
+  "#{name} is not supported by the application, please contact support if you think it should be"
+end  
 -- ruby
 
 #### parameters
 
--- message or message_proc or message_block
+-- message, message_proc or message_block
 Optional, usually the default message (*An excess element named [NAME] was
 found, is it possibly a typo?*) will do fine. If you want to override it,
-provide either a static message as a string, or alternatively a block or proc
+provide either a static message as a string, or alternatively a block or 'Proc'
 returning a string. (`name` and `value` are provided as arguments)
--- message or message_proc or message_block
+-- message, message_proc or message_block
 
--- options
-`only` - An array of strings, e.g. `['name', 'email']`, which specifies to only check these entries for whether they've been touched.  
-`except` - An array of strings, e.g. `['phone number']`, which specifies to exclude these entries from checking whether they've been touched.  
--- options
+options:
+only = An array of strings, e.g. `['name', 'email']`, which specifies to only check these elements for whether they've been touched.  
+except = An array of strings, e.g. `['phone number']`, which specifies to exclude these elements from checking whether they've been touched.  
 
 ### #element
 
 syntax:
 | element(name) → element or nil
-| element(name, enforce_element: false) → element or nil
+| element(name, options) → element or nil
 
 -- description
 Retrieve a single entry as `Eno::Value` (instead of
@@ -1081,16 +1180,20 @@ dictionary = eno.parse(input).dictionary('years')
 dictionary.element('2010')  #=> #<Eno::Value name="2010" value="Year of the awesome beanstalk">
 dictionary.element('2020')  #=> nil
 dictionary.element('2020', enforce_element: true)  #=> raises an error
+dictionary.element('2020', required: true)  #=> raises an error
 -- ruby
 
 #### parameters
 
 name: The name of the entry to fetch from the dictionary as a string.
-enforce_presence: Whether the element must be present in the document (true or false, defaults to `false`)  
+
+options:
+enforce_element = Whether the element must be present in the document (true or false, defaults to `false`)  
+required = Alias for `enforce_element` (this exists on many methods and depending on context refers to either element or value)
 
 #### return value
 
-description: An element (`Eno::Value`) or nil.
+description: An element (`Eno::Value`) or `nil`.
 
 ### #elements
 
@@ -1127,6 +1230,38 @@ File.write('index.html', html)
 #### return value
 
 description: An array containing the elements of this dictionary.
+
+### #enforce_all_elements
+
+syntax:
+| enforce_all_elements
+| enforce_all_elements(enforce)
+
+-- description
+Set the default for all following queries on this dictionary of whether the
+presence of elements in the eno input text should be enforced (by default it is
+not). This can be used to prevent "template decay" - with presence enforcement
+enabled entries may be empty, but they (at least their declaration) must be
+there in the eno document and consequently they can not disappear from a
+template at any point without triggering an error.
+-- description
+
+-- eno
+conversions:
+0001 = 1
+0010 = 2
+-- eno
+
+-- ruby
+document = eno.parse(input)
+
+conversions = document.dictionary('conversions')
+
+conversions.enforce_all_elements = true
+
+conversions.entry('0011')  # raises an error
+conversions.entry('0011', enforce_element: false)  #=> nil
+-- ruby
 
 ### #entry
 
@@ -1175,47 +1310,15 @@ name: The name of the entry as a string.
 loader:
 | A `Proc` returning the transformed/validated value or raising an error.  
 | The `Proc` is passed `name` and `value` as arguments.
-
--- options
-`enforce_element`: Whether the entry must be present in the document (defaults to `false`)  
-`required`: Whether there must be a value for this entry (defaults to `false`)  
-`with_element`: Whether to return an array with both the element and the value (defaults to `false`)
--- options
+options:
+enforce_element = Whether the entry must be present in the document (true or false, defaults to `false`)  
+enforce_value = Whether there must be a value or the entry is allowed to be empty (default to `false`)
+required = Alias for `enforce_value` (this exists on many methods and depending on context refers to either element or value)
+with_element = Whether to return an array with both the element and the value (defaults to `false`)
 
 #### return value
 
 description: The entry's value, or `nil` if empty.
-
-### #enforce_elements=
-
-syntax:
-| enforce_elements = true or false
-
--- description
-Set the default for all following queries on this dictionary of whether the
-presence of elements in the eno input text should be enforced (by default it is
-not). This can be used to prevent "template decay" - with presence enforcement
-enabled entries may be empty, but they (at least their declaration) must be
-there in the eno document and consequently they can not disappear from a
-template at any point without triggering an error.
--- description
-
--- eno
-conversions:
-0001 = 1
-0010 = 2
--- eno
-
--- ruby
-document = eno.parse(input)
-
-conversions = document.dictionary('conversions')
-
-conversions.enforce_elements = true
-
-conversions.entry('0011')  # raises an error
-conversions.entry('0011', enforce_element: false)  #=> nil
--- ruby
 
 ### #raw
 
@@ -1235,7 +1338,7 @@ pineapple = 800g
 document = eno.parse(input)
 
 document.dictionary('weights').raw 
-  #=> { 'weights' => { 'apple' => '100g', 'pineapple' => '800g' } }
+  #=> { 'weights' => [{ 'apple' => '100g' }, { 'pineapple' => '800g' }] }
 -- ruby
 
 #### return value
@@ -1247,7 +1350,7 @@ description: A native object representation of the dictionary.
 syntax: to_s → string
 
 -- description
-Retrieve an abstract debug representation of the dictionary.
+Retrieve a debug representation of the dictionary.
 -- description
 
 -- eno
@@ -1276,7 +1379,8 @@ This represents empty elements such as `color:`, where it is not clear if it is 
 
 syntax:
 | error → Eno::ValidationError
-| error(message or message_proc) → Eno::ValidationError
+| error(message) → Eno::ValidationError
+| error(message_proc) → Eno::ValidationError
 | error { |name, value| message_block } → Eno::ValidationError
 
 -- description
@@ -1308,13 +1412,11 @@ end
 
 #### parameters
 
-message or message_proc:
+message, message_block or message_proc:
 | Highly recommended to provide one (but it's optional).
 |
-| Either directly pass a string, or alternatively a Proc returning a string.  
-| (The Proc is passed `name` and `value` as arguments)
-
-message_block: Same as message_proc, takes precedence if both are specified!
+| Either directly pass a string, or alternatively a block or `Proc` returning a string.  
+| (The block or `Proc` is passed `name` and `value` as arguments)
 
 #### return value
 
@@ -1335,9 +1437,9 @@ color:
 -- eno
 
 -- ruby
-document = eno.parse(input)
+empty = eno.parse(input).element('color')
 
-document.sequential[0].raw  #=> { 'color' => nil }
+empty.raw  #=> { 'color' => nil }
 -- ruby
 
 #### return value
@@ -1349,7 +1451,7 @@ description: A native representation of the empty element.
 syntax: to_s → string
 
 -- description
-Retrieve an abstract debug representation of the empty element.
+Retrieve a debug representation of the empty element.
 -- description
 
 -- eno
@@ -1357,10 +1459,9 @@ color:
 -- eno
 
 -- ruby
-document = eno.parse(input)
-elements = document.sequential
+empty = eno.parse(input).element('color')
 
-elements[0].to_s  #=> '#<Eno::Empty name="color" value=nil>'
+empty.to_s  #=> '#<Eno::Empty name="color" value=nil>'
 -- ruby
 
 #### return value
@@ -1381,9 +1482,7 @@ note:
 -- eno
 
 -- ruby
-document = eno.parse(input)
-
-note = document.sequential[0]
+empty = eno.parse(input).element('note')
 
 note.value  #=> nil
 -- ruby
