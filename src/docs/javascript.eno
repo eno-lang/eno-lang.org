@@ -3,7 +3,7 @@ title: enojs - The JavaScript eno library
 # Global
 
 library: enojs
-version: 0.8.0
+version: 0.10.0 Beta
 
 -- intro
 Installation from npm:
@@ -35,12 +35,12 @@ console.log( document.field('Greeting') );  // prints 'Hello World!'
 
 ## Interactive code demos
 
-An early preview of the enojs demo page, featuring interactive code examples, is now online at:
+A preview of the enojs demo page, featuring interactive code examples (soon also for all other languages supported by the eno libraries) is online at:
 <https://eno-lang.org/demo/>
 
 ## Links
 
-Package on npm - <https://npmjs.com/package/enojs>  
+Package on npm - <https://npmjs.com/package/enojs/>  
 Repository on github - <https://github.com/eno-lang/enojs/> 
 -- intro
 
@@ -71,16 +71,20 @@ color: blue
 -- js
 eno.parse(input);  // returns [object EnoSection document elements=1]
 
-eno.parse(input, { locale: 'es' });  // Any errors will be reported in spanish
-eno.parse(input, { reporter: 'html' });  // Errors will be html for e.g. web integration
-eno.parse(input, { reporter: 'terminal' });  // Errors will be colored for terminal output
-eno.parse(input, { sourceLabel: 'my-file.eno' });  // Errors will include the label as context
+                                                   // Errors will be ...
+eno.parse(input, { locale: 'es' });                // In spanish - ¡hola!
+eno.parse(input, { reporter: 'html' });            // HTML for e.g. web integration
+eno.parse(input, { reporter: 'terminal' });        // Colored for terminal output
+eno.parse(input, { sourceLabel: 'my-file.eno' });  // Annotated with a label as context
 -- js
 
 #### parameters
 
 input: A string containing text in eno notation.
-options: An options object.
+options:
+locale = A string specifying the code of the locale to use for error messages (e.g. `'de'`, `'es'`), by default `'en'`.
+reporter = One of `'text'`, `'html'`, `'terminal'`.
+source_label = A string that labels where the input comes from (e.g. a filename), this is included with error messages to help the user located the file.
 
 #### return value
 
@@ -99,8 +103,8 @@ consequently this is the interface you'll be utilizing most for many usecases.
 syntax:
 | assertAllTouched()
 | assertAllTouched(options)
-| assertAllTouched(message or messageFunction)
-| assertAllTouched(message or messageFunction, options)
+| assertAllTouched(message, options)
+| assertAllTouched(messageFunction, options)
 
 -- description
 Assert that all elements of this section (and also, recursively, all
@@ -123,7 +127,14 @@ const dataA = document.field('Important data A');
 
 // ... processing happens only for dataA
 
-document.assertAllTouched(); // throws an error
+document.assertAllTouched(); // throws an error with the default message
+
+document.assertAllTouched({ only: ['Important data A'] });  // passes
+document.assertAllTouched({ except: ['Important data B'] });  // passes
+
+document.assertAllTouched(({ name, value }) =>  // throws an error "Important data B is not ..."
+  `${name} is not supported by the application, please contact support if you think it should be`
+);
 -- js
 
 #### parameters
@@ -137,12 +148,9 @@ object parameter, although `value` can be `undefined` if the untouched element
 is a dictionary or section)
 -- message or messageFunction
 
--- options
-An optional object.
- 
-`only` - An array of strings, e.g. `['name', 'email']`, which tells enojs to only check these elements for whether they've been touched.  
-`except` - An array of strings, e.g. `['phone number']`, which tells enojs to exclude these elements from checking whether they've been touched.  
--- options
+options:
+only = An array of strings, e.g. `['name', 'email']`, which specifies to only check these elements for whether they've been touched.  
+except = An array of strings, e.g. `['phone number']`, which specifies to exclude these elements from checking whether they've been touched.  
 
 ### dictionaries
 
@@ -169,6 +177,10 @@ images.forEach(image => {
   console.log( image.entry('src') );
 });
 -- js
+
+#### parameters
+
+name: A string specifying the name of the dictionaries to retrieve.
 
 #### return value
 
@@ -203,27 +215,106 @@ section.dictionary('temperature ratings', { enforceElement: true });  // throws 
 
 name: A string representing the name of the field to return.
 
--- options
-An optional object of options.
- 
-`required` - A boolean stating whether the dictionary must exist. (defaults to `true`)  
-`enforceElement` - A boolean stating whether the dictionary must exist in the document. (defaults to `false`)
-
-Note: The two options are obviously redundant, here's why: `enforceElement` affects all elements,
-therefore we need it here as well. `required` was added because it exists on other elements as
-well (where it does something different, namely, enforce the *value*) and it would be odd if
-it were missing here now suddenly, so that's why there are two options with the same effect.
--- options
+options:
+enforceElement = A boolean stating whether the dictionary must exist in the document. (defaults to `false`)
+required = Alias for `enforceElement` (this exists on many methods and depending on context refers to either element or value)
 
 #### return value
 
 description: An `EnoDictionary`, or `null`.
 
-### enforceElements
+### element
 
 syntax:
-| enforceElements()
-| enforceElements(enforce = true)
+| element(name) → element or null
+| element(name, options) → element or null
+
+-- description
+Retrieve a single element of any allowed type from the section by its name.
+Optionally specify whether it's optional or mandatory for the element to be
+present in the eno document (by default it's optional).
+-- description
+
+-- eno
+title: Artfest 2018
+tags:
+- art
+- code
+
+# content
+> ...
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+document.element('title');  // returns [object EnoValue name="title" value="Artfest 2018"]
+document.element('tags');  // returns [object EnoList name="tags" items=2]
+document.element('content');  // returns [object EnoSection name="content" items=14]
+
+document.element('fantasy');  // returns null
+document.element('fantasy', { enforceElement: true });  // throws an error
+document.element('fantasy', { required: true });  // throws an error
+-- js
+
+#### parameters
+
+name: The name of the element to fetch from the section as a string.
+
+options:
+enforceElement = Whether the element must be present in the document (`true` or `false`, defaults to `false`)  
+required = Alias for `enforceElement` (this exists on many methods and depending on context refers to either element or value)
+
+#### return value
+
+description: An element (e.g. `EnoList`, `EnoValue`, etc.) or `null`.
+
+### elements
+
+syntax: elements → array
+
+-- description
+Retrieve the elements of this section in sequential order. This seamlessly lets you switch from
+associative readout to sequential readout, allowing sections within, or the whole document, to
+represent document-like structures (think generic markup) instead of just associative data stores.
+-- description
+
+-- eno
+date: 2018-03-01
+title: 'My blog post'
+
+# page
+
+h1: Hello world
+p: This is my first post, I'm so happy!
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+const metadata = {
+  date: document.field('date', myDateLoaderFunction),
+  title: document.field('title')
+};
+
+const html = '';
+
+for(let element of document.section('page').elements()) {
+  html += "<#{element.name}>#{element.value()}</#{element.name}>";
+}
+
+fs.writeFileSync('index.html', html);
+-- js
+
+#### return value
+
+description: An array containing the elements of this section.
+
+### enforceAllElements
+
+syntax:
+| enforceAllElements()
+| enforceAllElements(enforce)
 
 -- description
 Set the default for all following queries on this section of whether the
@@ -243,7 +334,7 @@ const document = eno.parse(input);
 
 document.field('sound');  // returns null
 
-document.enforceElements();
+document.enforceAllElements();
 
 document.field('sound');  // throws an error
 document.field('sound', { enforceElement: false });  // returns null
@@ -257,8 +348,8 @@ enforce: An optional boolean indicating whether to enforce or not. (`true` is th
 
 syntax:
 | field(name) → value or null
-| field(name, loader) → value or null
 | field(name, options) → object/value or null
+| field(name, loader) → value or null
 | field(name, loader, options) → object/value or null
 
 -- description
@@ -288,18 +379,25 @@ section.field('color', ({ value }) => {   // throws an error
   return value;
 });
 
-section.field('color', { withElement: true });   // returns { element: [object EnoValue name="blue" value="blue"], value: 'blue' }
+section.field('color', { withElement: true });  
+  // returns { element: [object EnoValue name="blue" value="blue"], value: 'blue' }
 -- js
 
 #### parameters
 
 name: A string representing the name of the field to return.
 loader: A function returning the transformed/validated value or throwing an error.
-options: An optional object of options.
+options:
+enforceElement = Whether the field must be present in the document (`true` or `false`, defaults to `false`)  
+enforceValue = Whether there must be a value or the field is allowed to be empty (defaults to `false`)
+required = Alias for `enforceValue` (this exists on many methods and depending on context refers to either element or value)
+withElement = Whether to return an object of the form `{ element: ..., value: ... }` instead of just the value (default `false`)
 
 #### return value
 
-description: The value of the field, or `null` if empty.
+description:
+\ The value of the field, or `null` if empty, or an array of the form
+\ `{ element: ..., value: ... }` when the option `withElement` is specified.
 
 ### fields
 
@@ -320,10 +418,14 @@ const document = eno.parse(input);
 
 const colors = document.fields('color');
 
-colors.forEach(color => {
+for(let color of colors) {
   console.log( color.value() );
-});
+}
 -- js
+
+#### parameters
+
+name: A string specifying the name of the fields to retrieve.
 
 #### return value
 
@@ -333,8 +435,8 @@ description: An array of `EnoValue`s.
 
 syntax:
 | list() → array
-| list(loader) → array
 | list(options) → array
+| list(loader) → array
 | list(loader, options) → array
 
 -- description
@@ -345,23 +447,24 @@ Retrieve the items of a list, optionally supplying a loader and options.
 colors:
 - pink
 - peach
--
 
 textures:
+-
 -- eno
 
 -- js
 const document = eno.parse(input);
 
-document.list('colors');  // returns ['pink', 'peach']
-document.list('textures');  // returns []
+document.list('colors');  // returns [ 'pink', 'peach' ]
 document.list('sounds');  // returns []
 
-document.list('colors', { inludeEmpty: true });  // returns ['pink', 'peach', null]
-document.list('textures', { enforceElement: true });   // returns []
-document.list('sounds', { enforceElement: true });   // throws an error
+document.list('textures');                            // throws an error
+document.list('textures', { enforceValues: false });  // returns [ null ]
 
-document.list('colors', ({ value }) => value.toUpperCase());   // returns ['PINK', 'PEACH']
+document.list('sounds', { required: true });        // throws an error
+document.list('sounds', { enforceElement: true });  // throws an error
+
+document.list('colors', ({ value }) => value.toUpperCase());   // returns [ 'PINK', 'PEACH' ]
 
 document.list('colors', ({ value }) => {   // throws an error
   if(value === 'peach') {
@@ -373,6 +476,8 @@ document.list('colors', ({ value }) => {   // throws an error
 document.list('colors', { withElements: true });  
   // returns [{ element: [object EnoValue value="pink"], value: 'pink' },
   //          { element: [object EnoValue value="pink"], value: 'peach' }]
+  
+document.list('colors', { minCount: 3 });  // throws an error
 -- js
 
 #### parameters
@@ -384,19 +489,20 @@ loader:
 | (The function is applied to each list item on its own, being passed a single
 | object parameter with the keys `name` and `value`)
 
--- options
-An optional object of options.
-
-`enforceElement`: Whether the list must be present in the document (defaults to `false`)  
-`exactCount`: Validate that there are exactly `n` items in the list (takes a number, defaults to `null`)  
-`minCount`: Validate that there are at least `n` items in the list (takes a number, defaults to `null`)  
-`maxCount`: Validate that there are at most `n` items in the list (takes a number, defaults to `null`)  
-`withElements`: Whether to return a list of objects with both the element and the value (defaults to `false`)
--- options
+options:
+enforceElement = Whether the list must be present in the document (defaults to `false`)  
+enforceValues = Whether empty list items (`- ` in the document, mapping to `null`) are disallowed (defaults to `true`)  
+exact_count = Validate that there are exactly `n` items in the list (takes a number, defaults to `null`)  
+min_count = Validate that there are at least `n` items in the list (takes a number, defaults to `null`)  
+max_count = Validate that there are at most `n` items in the list (takes a number, defaults to `null`)  
+required = Alias for `enforceElement` (this exists on many methods and depending on context refers to either element or value)
+withElements = Whether to return an array of objects of the form `{ element: ..., value: ... }` instead of just the values (defaults to `false`)
 
 #### return value
 
-description: The (optionally transformed/validated) items of this list as an array.
+description:
+| The (optionally transformed/validated) values of the items of this list as an array.
+| With `withElements` set to `true` it returns an array of objects of the form `{ element: ..., value: ... }` instead.
 
 ### lists
 
@@ -422,10 +528,18 @@ const document = eno.parse(input);
 
 const routes = document.lists('route');
 
-routes.forEach(route => {
+for(let route of routes) {
   console.log( route.items() );
-});
+}
+
+// prints ...
+// [ 'vienna', 'paris', 'rome']
+// [ 'moscow', 'riga' ]
 -- js
+
+#### parameters
+
+name: A string specifying the name of the lists to retrieve.
 
 #### return value
 
@@ -451,18 +565,29 @@ color: blue
 -- js
 const document = eno.parse(input);
 
-document.lookup(3);  // (= 'o') returns { element: [object EnoValue name="color" value="blue"], zone: 'name' }
-document.lookup(7);  // (= 'b') returns { element: [object EnoValue name="color" value="blue"], zone: 'value' }
-
-document.lookup(1, 3);  // (= 'o') returns { element: [object EnoValue name="color" value="blue"], zone: 'name' }
-document.lookup(1, 7);  // (= 'b') returns { element: [object EnoValue name="color" value="blue"], zone: 'value' }
-
-document.lookup(13);  // (= '#') returns { element: [object EnoSection name="notes" elements=0], zone: 'sectionOperator' }
-document.lookup(19);  // (= 's') returns { element: [object EnoSection name="notes" elements=0], zone: 'name' }
-
-document.lookup(3, 0);  // (= '#') returns { element: [object EnoSection name="notes" elements=0], zone: 'sectionOperator' }
-document.lookup(3, 6);  // (= 's') returns { element: [object EnoSection name="notes" elements=0], zone: 'name' }
+document.lookup(3);  // 'o'
+  // returns { element: [object EnoValue name="color" value="blue"], zone: 'name' }
+document.lookup(7);  // 'b'
+  // returns { element: [object EnoValue name="color" value="blue"], zone: 'value' }
+document.lookup(1, 3);  // 'o'
+  // returns { element: [object EnoValue name="color" value="blue"], zone: 'name' }
+document.lookup(1, 7);  // 'b'
+  // returns { element: [object EnoValue name="color" value="blue"], zone: 'value' }
+document.lookup(13);  // '#'
+  // returns { element: [object EnoSection name="notes" elements=0], zone: 'sectionOperator' }
+document.lookup(19);  // 's'
+  // returns { element: [object EnoSection name="notes" elements=0], zone: 'name' }
+document.lookup(3, 0);  // '#'
+  // returns { element: [object EnoSection name="notes" elements=0], zone: 'sectionOperator' }
+document.lookup(3, 6);  // 's'
+  // returns { element: [object EnoSection name="notes" elements=0], zone: 'name' }
 -- js
+
+#### parameters
+
+index: A one-dimensional index to look up in the input string - only applies when it's the single only given argument.
+line: The line to look up (1-indexed, i.e. the first line is 1, not 0) - only applies when you supply a `column` as well.
+column: The column to look up (0-indexed, i.e. the first column is 0, not 1) - only applies when you supply a `line` as well.
 
 #### return value
 
@@ -537,27 +662,23 @@ title: A Manifest
 -- js
 const document = eno.parse(input);
 
-document.section('content');  // returns [object EnoSection name="content" elements=1]
-document.section('notes');  // returns [object EnoSection name="notes" elements=0]
+document.section('content');   // returns [object EnoSection name="content" elements=1]
+document.section('notes');     // returns [object EnoSection name="notes" elements=0]
 document.section('metadata');  // throws an error
 
-document.section('metadata', { required: false });  // returns null
-document.section('notes', { enforceElement: true });  // returns [object EnoSection name="notes" elements=0]
+document.section('metadata', { required: false });       // returns null
+document.section('notes', { enforceElement: true });     // returns [object EnoSection name="notes" elements=0]
 document.section('metadata', { enforceElement: true });  // throws an error
 -- js
 
 #### parameters
 
--- options
-An optional object of options:  
-`enforceElement`: Whether the section must be present in the document (defaults to `false`)  
-`required`: Whether there must be a section of that name in the document (defaults to `true`)  
+name: A string specifying the name of the section to retrieve.
 
-Note: The two options are obviously redundant, here's why: `enforceElement` affects all elements,
-therefore we need it here as well. `required` was added because it exists on other elements as
-well (where it does something different, namely, enforce the *value*) and it would be odd if
-it were missing here now suddenly, so that's why there are two options with the same purpose.
--- options
+options:
+enforceElement = Whether the section must be present in the document (defaults to `false`)  
+required = Alias for `enforceElement` (this exists on many methods and depending on context refers to either element or value)
+
 
 #### return value
 
@@ -584,62 +705,25 @@ const document = eno.parse(input);
 
 const sections = document.sections('Article');
 
-sections.forEach(section => {
+for(let section of sections) {
   // do something with each Article
-});
+}
 -- js
+
+#### parameters
+
+name: A string specifying the name of the sections to retrieve.
 
 #### return value
 
 description: An array of `EnoSection`s.
-
-### elements
-
-syntax: elements() → array
-
--- description
-Retrieve the elements of this section in sequential order. This seamlessly lets you switch from
-associative readout to sequential readout, allowing sections within, or the whole document, to
-represent document-like structures (think generic markup) instead of just associative data stores.
--- description
-
--- eno
-date: 2018-03-01
-title: 'My blog post'
-
-# page
-
-h1: Hello world
-p: This is my first post, I'm so happy!
--- eno
-
--- js
-const document = eno.parse(input);
-
-const metadata = {
-  date: document.field('date', myDateLoader),
-  title: document.field('title')
-};
-
-let html = '';
-
-document.section('page').elements().forEach(element => {
-  html += `<${element.name}>${element.value()}</${element.name}>`
-});
-
-// ...
--- js
-
-#### return value
-
-description: An array containing the elements of this section.
 
 ### toString
 
 syntax: toString() → string
 
 -- description
-Retrieve an abstract debug representation of the section.
+Retrieve a debug representation of the section.
 -- description
 
 -- eno
@@ -659,7 +743,7 @@ document.section('notes').toString();  // returns '[object EnoSection name="note
 
 #### return value
 
-description: An abstract debug representation of the section.
+description: A debug representation of the section.
 
 ## EnoValue
 
@@ -676,7 +760,8 @@ you will get to interact with this class.
 
 syntax:
 | error() → EnoValidationError
-| error(message or messageFunction) → EnoValidationError
+| error(message) → EnoValidationError
+| error(messageFunction) → EnoValidationError
 
 -- description
 Generate an error in the context of the element. The error includes a generic
@@ -765,7 +850,7 @@ description: A native representation of the value element.
 syntax: toString() → string
 
 -- description
-Retrieve an abstract debug representation of of this `EnoValue`.
+Retrieve a debug representation of of this `EnoValue`.
 The representation differs depending on whether there is a name (e.g. for a field value)
 or not (applies only to list item values).
 -- description
@@ -788,16 +873,19 @@ listItems[0].toString();  // returns '[object EnoValue value="13"]'
 
 #### return value
 
-description: An abstract debug representation of this `EnoValue`.
+description: A debug representation of this `EnoValue`.
 
 ### value
 
 syntax:
 | value() → value or null
+| value(options) → value or null
 | value(loader) → value or null
+| value(loader, options) → value or null
 
 -- description
-Retrieve the value of an `EnoValue`, optionally passing it through a loader function.
+Retrieve the value of an `EnoValue`, optionally passing it through a loader
+function and/or supplying options.
 -- description
 
 -- eno
@@ -824,6 +912,10 @@ loader:
 | A function returning the transformed/validated value or throwing an error.  
 | The function is passed `name` and `value` inside a single object parameter.
 
+options:
+enforceValue = Whether there must be a value or the field is allowed to be empty (default to `false`)
+required = Alias for `enforceValue` (this exists on many methods and depending on context refers to either element or value)
+
 #### return value
 
 description: The (optionally transformed/validated) value of this `EnoValue`.
@@ -843,11 +935,40 @@ Like `EnoValue`, you will seldom interact with this class, and instead use the `
 accessor on the document or its sections to directly obtain the values of a list.
 -- class description
 
+### elements
+
+syntax: elements → array
+
+-- description
+Retrieve the items of this list as `EnoValue` elements (instead of
+their direct values) in sequential order.
+-- description
+
+-- eno
+numbers:
+- 6
+- 8
+- 19
+-- eno
+
+-- js
+const list = eno.parse(input).element('numbers');
+
+list.elements();
+  // returns [ [object EnoValue value="6"], [object EnoValue value="8"], [object EnoValue value="19"] ]
+-- js
+
+#### return value
+
+description: An array containing the items of this list as `EnoValue` elements.
+
 ### items
 
 syntax:
 | items() → array
+| items(options) → array
 | items(loader) → array
+| items(loader, options) → array
 
 -- description
 Retrieve the items of the list, optionally passing them through a loader function.
@@ -866,9 +987,45 @@ list.items();  // returns ['pink', 'peach']
 list.items(({ value }) => `${value}!!`);  // returns ['pink!!', 'peach!!']
 -- js
 
+#### parameters
+
+loader:
+| A function returning the transformed/validated value or throwing an error.
+| (The `Proc` or block is applied to each list item on its own, being passed the arguments `name` and `value`)
+
+options:
+elements = Whether to return the elements (as `Eno::Value`) instead of the values of the list items. (defaults to `false`)  
+enforceValues = Whether empty list items (`- ` in the document, mapping to `null`) are disallowed (defaults to `true`)  
+withElements = Whether to return an array of objects of the form `{ element: ..., value: ... }` instead of just the values (defaults to `false`)
+
+
 #### return value
 
 description: The (optionally transformed/validated) items of this list as an array.
+
+### length
+
+syntax: length() → number
+
+-- description
+Returns the count of items in the list.
+-- description
+
+-- eno
+colors:
+- pink
+- peach
+-- eno
+
+-- js
+const list = eno.parse(input).element('colors');
+
+list.length();  // returns 2
+-- js
+
+#### return value
+
+description: The number of items in the list as a number.
 
 ### raw
 
@@ -899,7 +1056,7 @@ description: A native javascript representation of the list.
 syntax: toString() → string
 
 -- description
-Retrieve an abstract debug representation of the list.
+Retrieve a debug representation of the list.
 -- description
 
 -- eno
@@ -916,7 +1073,7 @@ document.list('numbers').toString();  // returns '[object EnoList name="numbers"
 
 #### return value
 
-description: An abstract debug representation of the list.
+description: A debug representation of the list.
 
 ## EnoDictionary
 
@@ -937,8 +1094,8 @@ You will mostly obtain an instance of this through the `dictionary` accessor on 
 syntax:
 | assertAllTouched()
 | assertAllTouched(options)
-| assertAllTouched(message or messageFunction)
-| assertAllTouched(message or messageFunction, options)
+| assertAllTouched(message, options)
+| assertAllTouched(messageFunction, options)
 
 -- description
 Assert that all entries of this dictionary that were present in the parsed eno document
@@ -956,12 +1113,20 @@ B = Me too!
 
 -- js
 const document = eno.parse(input);
+const dictionary = document.dictionary('Important data');
 
-const dataA = document.dictionary('Important data').entry('A');
+const dataA = dictionary.entry('A');
 
 // ... processing happens only for dataA
 
-document.assertAllTouched(); // throws an error
+dictionary.assertAllTouched(); // throws an error
+
+dictionary.assertAllTouched({ only: ['A'] })  // passes
+dictionary.assertAllTouched({ except: ['B'] })  // passes
+
+dictionary.assertAllTouched(({ name, value }) =>  // throws an error "B is not ..."
+  `${name} is not supported by the application, please contact support if you think it should be`
+);
 -- js
 
 #### parameters
@@ -974,19 +1139,134 @@ returning a string. (The function is passed `name` and `value` inside a single
 object parameter.)
 -- message or messageFunction
 
--- options
-An optional object.
- 
-`only` - An array of strings, e.g. `['name', 'email']`, which tells enojs to only check these entries for whether they've been touched.  
-`except` - An array of strings, e.g. `['phone number']`, which tells enojs to exclude these entries from checking whether they've been touched.  
--- options
+options:
+only = An array of strings, e.g. `['name', 'email']`, which specifies to only check these elements for whether they've been touched.  
+except = An array of strings, e.g. `['phone number']`, which specifies to exclude these elements from checking whether they've been touched.  
+
+### element
+
+syntax:
+| element(name) → element or null
+| element(name, options) → element or null
+
+-- description
+Retrieve a single entry as `EnoValue` (instead of
+its direct value) from the dictionary by its name.
+Optionally specify whether it's optional or mandatory for the entry to be
+present in the eno document (by default it's optional).
+-- description
+
+-- eno
+years:
+2007 = Year of the gooseberry
+2010 = Year of the awesome beanstalk
+2011 = Year of yearning
+-- eno
+
+-- js
+const dictionary = eno.parse(input).dictionary('years');
+
+dictionary.element('2010');  // returns [object EnoValue name="2010" value="Year of the awesome beanstalk"]
+dictionary.element('2020');  // returns null
+dictionary.element('2020', enforceElement: true);  // raises an error
+dictionary.element('2020', required: true);  // raises an error
+-- js
+
+#### parameters
+
+name: The name of the entry to fetch from the dictionary as a string.
+
+options:
+enforceElement = Whether the element must be present in the document (`true` or `false`, defaults to `false`)  
+required = Alias for `enforceElement` (this exists on many methods and depending on context refers to either element or value)
+
+#### return value
+
+description: An element (e.g. `EnoValue`, `EnoList`, etc.) or `null`.
+
+### elements
+
+syntax: elements → array
+
+-- description
+Retrieve the elements of this section in sequential order. This seamlessly lets you switch from
+associative readout to sequential readout, allowing sections within, or the whole document, to
+represent document-like structures (think generic markup) instead of just associative data stores.
+-- description
+
+-- eno
+date: 2018-03-01
+title: 'My blog post'
+
+# page
+
+h1: Hello world
+p: This is my first post, I'm so happy!
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+metadata = {
+  date: document.field('date', myDateLoaderFunction),
+  title: document.field('title')
+};
+
+html = '';
+
+for(let element of document.section('page').elements) {
+  html += "<#{element.name}>#{element.value}</#{element.name}>";
+}
+
+fs.writeFileSync('index.html', html);
+-- js
+
+#### return value
+
+description: An array containing the elements of this section.
+
+### enforceAllElements
+
+syntax:
+| enforceAllElements()
+| enforceAllElements(enforce)
+
+-- description
+Set the default for all following queries on this dictionary of whether the
+presence of elements in the eno input text should be enforced (by default it is
+not). This can be used to prevent "template decay" - with presence enforcement
+enabled entries may be empty, but they (at least their declaration) must be
+there in the eno document and consequently they can not disappear from a
+template at any point without triggering an error.
+-- description
+
+-- eno
+conversions:
+0001 = 1
+0010 = 2
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+const conversions = document.dictionary('conversions');
+
+conversions.enforceAllElements();
+
+conversions.entry('0011');  // throws an error
+conversions.entry('0011', { enforceElement: false });  // returns null
+-- js
+
+#### parameters
+
+enforce: An optional boolean indicating whether to enforce or not. (otherwise `true` is assumed)
 
 ### entry
 
 syntax:
 | entry(name) → value or null
-| entry(name, loader) → value or null
 | entry(name, options) → object/value or null
+| entry(name, loader) → value or null
 | entry(name, loader, options) → object/value or null
 
 -- description
@@ -1033,52 +1313,15 @@ loader:
 | A function returning the transformed/validated value or throwing an error.  
 | The function is passed `name` and `value` inside a single object parameter.
 
--- options
-An optional object of options:  
-`enforceElement`: Whether the entry must be present in the document (defaults to `false`)  
-`required`: Whether there must be a value for this entry (defaults to `false`)  
-`withElement`: Whether to return an object with both the element and the value (defaults to `false`)
--- options
+options:
+enforceElement = Whether the entry must be present in the document (`true` or `false`, defaults to `false`)  
+enforceValue = Whether there must be a value or the entry is allowed to be empty (default to `false`)
+required = Alias for `enforceValue` (this exists on many methods and depending on context refers to either element or value)
+withElement = Whether to return an array with both the element and the value (defaults to `false`)
 
 #### return value
 
 description: The entry's value, or `null` if empty.
-
-### enforceElements
-
-syntax:
-| enforceElements()
-| enforceElements(enforce = true)
-
--- description
-Set the default for all following queries on this dictionary of whether the
-presence of elements in the eno input text should be enforced (by default it is
-not). This can be used to prevent "template decay" - with presence enforcement
-enabled entries may be empty, but they (at least their declaration) must be
-there in the eno document and consequently they can not disappear from a
-template at any point without triggering an error.
--- description
-
--- eno
-conversions:
-0001 = 1
-0010 = 2
--- eno
-
--- js
-const document = eno.parse(input);
-
-const conversions = document.dictionary('conversions');
-
-conversions.enforceElements();
-
-conversions.entry('0011');  // throws an error
-conversions.entry('0011', { enforceElement: false });  // returns null
--- js
-
-#### parameters
-
-enforce: An optional boolean indicating whether to enforce or not. (otherwise `true` is assumed)
 
 ### raw
 
@@ -1097,7 +1340,8 @@ pineapple = 800g
 -- js
 const document = eno.parse(input);
 
-document.dictionary('weights').raw();  // returns { weights: { apple: '100g', pineapple: '800g' } }
+document.dictionary('weights').raw();
+  // returns { weights: [{ apple: '100g' }, { pineapple: '800g' }] }
 -- js
 
 #### return value
@@ -1109,7 +1353,7 @@ description: A native object representation of the dictionary.
 syntax: toString() → string
 
 -- description
-Retrieve an abstract debug representation of the dictionary.
+Retrieve a debug representation of the dictionary.
 -- description
 
 -- eno
@@ -1121,12 +1365,13 @@ numbers:
 -- js
 const document = eno.parse(input);
 
-document.dictionary('numbers').toString();  // returns '[object EnoDictionary name="numbers" entries=2]'
+document.dictionary('numbers').toString();
+  // returns '[object EnoDictionary name="numbers" entries=2]'
 -- js
 
 #### return value
 
-description: An abstract debug representation of the dictionary.
+description: A debug representation of the dictionary.
 
 ## EnoEmpty
 
@@ -1138,7 +1383,8 @@ This represents empty elements such as `color:`, where it is not clear if it is 
 
 syntax:
 | error() → EnoValidationError
-| error(message or messageFunction) → EnoValidationError
+| error(message) → EnoValidationError
+| error(messageFunction) → EnoValidationError
 
 -- description
 Generate an error in the context of the element. The error includes a generic
@@ -1207,7 +1453,7 @@ description: A native representation of the empty element.
 syntax: toString() → string
 
 -- description
-Retrieve an abstract debug representation of the empty element.
+Retrieve a debug representation of the empty element.
 -- description
 
 -- eno
@@ -1222,7 +1468,7 @@ empty.toString();  // returns '[object EnoEmpty name="color"]'
 
 #### return value
 
-description: An abstract debug representation of the empty element.
+description: A debug representation of the empty element.
 
 ### value
 
