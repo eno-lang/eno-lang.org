@@ -89,7 +89,7 @@ eno.parse(input, locale: 'es')                        # In spanish - ¡hola!
 eno.parse(input, reporter: Eno::Reporters::HTML)      # HTML for e.g. web integration
 eno.parse(input, reporter: Eno::Reporters::Terminal)  # Colored for terminal output
 eno.parse(input, source_label: 'my-file.eno')         # Annotated with a label as context
-eno.parse(input, indexing: 0)                         # Displaying 0-based line and column indices
+eno.parse(input, zero_indexing: true)                 # Counting line and column numbers from 0
 -- ruby
 
 #### parameters
@@ -97,10 +97,10 @@ eno.parse(input, indexing: 0)                         # Displaying 0-based line 
 input: A string containing text in eno notation.
 
 options:
-indexing = Either `0` or `1` (default), specifying whether to display zero or one based line and column indices in all error messages.
 locale = A string specifying the code of the locale to use for error messages (e.g. `'de'`, `'es'`), by default `'en'`.
 reporter = One of `Eno::Reporters::Text`, `Eno::Reporters::HTML`, `Eno::Reporters::Terminal`.
 source_label = A string that labels where the input comes from (e.g. a filename), this is included with error messages to help the user located the file.
+zero_indexing = `true` or `false` (default), set `true` to display `0,1,2,..` line and column numbers in all error messages instead of the default `1,2,3,..` indexing.
 
 #### return value
 
