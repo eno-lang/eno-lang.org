@@ -3,7 +3,7 @@ title: enorb - The Ruby eno library
 # Global
 
 library: enorb
-version: 0.4.0 Alpha
+version: 0.4.1 Alpha
 
 -- intro
 **enorb is currently available as an alpha test release and not yet ready for production use.**
@@ -89,6 +89,7 @@ eno.parse(input, locale: 'es')                        # In spanish - ¡hola!
 eno.parse(input, reporter: Eno::Reporters::HTML)      # HTML for e.g. web integration
 eno.parse(input, reporter: Eno::Reporters::Terminal)  # Colored for terminal output
 eno.parse(input, source_label: 'my-file.eno')         # Annotated with a label as context
+eno.parse(input, indexing: 0)                         # Displaying 0-based line and column indices
 -- ruby
 
 #### parameters
@@ -96,6 +97,7 @@ eno.parse(input, source_label: 'my-file.eno')         # Annotated with a label a
 input: A string containing text in eno notation.
 
 options:
+indexing = Either `0` or `1` (default), specifying whether to display zero or one based line and column indices in all error messages.
 locale = A string specifying the code of the locale to use for error messages (e.g. `'de'`, `'es'`), by default `'en'`.
 reporter = One of `Eno::Reporters::Text`, `Eno::Reporters::HTML`, `Eno::Reporters::Terminal`.
 source_label = A string that labels where the input comes from (e.g. a filename), this is included with error messages to help the user located the file.
@@ -579,24 +581,24 @@ document.lookup(3)  # 'o'
   #=> { element: #<Eno::Value name="color" value="blue">, zone: :name }
 document.lookup(7)  # 'b'
   #=> { element: #<Eno::Value name="color" value="blue">, zone: :value }
-document.lookup(1, 3)  # 'o'  
+document.lookup(0, 3)  # 'o'
   #=> { element: #<Eno::Value name="color" value="blue">, zone: :name }
-document.lookup(1, 7)  # 'b'  
+document.lookup(0, 7)  # 'b'
   #=> { element: #<Eno::Value name="color" value="blue">, zone: :value }
-document.lookup(13)  # '#' 
+document.lookup(13)  # '#'
   #=> { element: #<Eno::Section name="notes" elements=0>, zone: :section_operator }
-document.lookup(19)  # 's' 
+document.lookup(19)  # 's'
   #=> { element: #<Eno::Section name="notes" elements=0>, zone: :name }
-document.lookup(3, 0)  # '#'   
+document.lookup(2, 0)  # '#'
   #=> { element: #<Eno::Section name="notes" elements=0>, zone: :section_operator }
-document.lookup(3, 6)  # 's'   
+document.lookup(2, 6)  # 's'
   #=> { element: #<Eno::Section name="notes" elements=0>, zone: :name }
 -- ruby
 
 #### parameters
 
-index: A one-dimensional index to look up in the input string - only applies when it's the single only given argument.
-line: The line to look up (1-indexed, i.e. the first line is 1, not 0) - only applies when you supply a `column` as well.
+index: A one-dimensional index to look up (0-indexed, i.e. the position is 0, not 1)- only applies when it's the only given argument.
+line: The line to look up (0-indexed, i.e. the first line is 0, not 1) - only applies when you supply a `column` as well.
 column: The column to look up (0-indexed, i.e. the first column is 0, not 1) - only applies when you supply a `line` as well.
 
 #### return value
