@@ -718,33 +718,6 @@ name: A string specifying the name of the sections to retrieve.
 
 description: An array of `EnoSection`s.
 
-### toString
-
-syntax: toString() → string
-
--- description
-Retrieve a debug representation of the section.
--- description
-
--- eno
-color: blue
-
-# notes
-
-buy milk: important!
--- eno
-
--- js
-const document = eno.parse(input);
-
-document.toString();  // returns '[object EnoSection document elements="2"]'
-document.section('notes').toString();  // returns '[object EnoSection name="notes" elements="1"]'
--- js
-
-#### return value
-
-description: A debug representation of the section.
-
 ## EnoValue
 
 -- class description
@@ -844,36 +817,6 @@ listItems[0].raw();  // returns '13'
 #### return value
 
 description: A native representation of the value element.
-
-### toString
-
-syntax: toString() → string
-
--- description
-Retrieve a debug representation of of this `EnoValue`.
-The representation differs depending on whether there is a name (e.g. for a field value)
-or not (applies only to list item values).
--- description
-
--- eno
-color: blue
-numbers:
-- 13
-- 42
--- eno
-
--- js
-const document = eno.parse(input);
-
-document.element('color').toString();  // returns '[object EnoValue name="color" value="blue"]'
-
-const listItems = document.element('numbers').elements();
-listItems[0].toString();  // returns '[object EnoValue value="13"]'
--- js
-
-#### return value
-
-description: A debug representation of this `EnoValue`.
 
 ### value
 
@@ -1050,30 +993,6 @@ list.raw();  // returns { colors: ['pink', 'peach'] }
 #### return value
 
 description: A native javascript representation of the list.
-
-### toString
-
-syntax: toString() → string
-
--- description
-Retrieve a debug representation of the list.
--- description
-
--- eno
-numbers:
-- 13
-- 42
--- eno
-
--- js
-const document = eno.parse(input);
-
-document.list('numbers').toString();  // returns '[object EnoList name="numbers" items=2]'
--- js
-
-#### return value
-
-description: A debug representation of the list.
 
 ## EnoDictionary
 
@@ -1348,31 +1267,6 @@ document.dictionary('weights').raw();
 
 description: A native object representation of the dictionary.
 
-### toString
-
-syntax: toString() → string
-
--- description
-Retrieve a debug representation of the dictionary.
--- description
-
--- eno
-numbers:
-13 = thirteen
-23 = twentythree
--- eno
-
--- js
-const document = eno.parse(input);
-
-document.dictionary('numbers').toString();
-  // returns '[object EnoDictionary name="numbers" entries=2]'
--- js
-
-#### return value
-
-description: A debug representation of the dictionary.
-
 ## EnoEmpty
 
 -- class description
@@ -1447,28 +1341,6 @@ empty.raw();  // returns { color: null }
 #### return value
 
 description: A native representation of the empty element.
-
-### toString
-
-syntax: toString() → string
-
--- description
-Retrieve a debug representation of the empty element.
--- description
-
--- eno
-color:
--- eno
-
--- js
-const empty = eno.parse(input).element('color');
-
-empty.toString();  // returns '[object EnoEmpty name="color"]'
--- js
-
-#### return value
-
-description: A debug representation of the empty element.
 
 ### value
 

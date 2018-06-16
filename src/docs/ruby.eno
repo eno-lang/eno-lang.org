@@ -729,33 +729,6 @@ name: A string specifying the name of the sections to retrieve.
 
 description: An array of `Eno::Section`s.
 
-### #to_s
-
-syntax: to_s → string
-
--- description
-Retrieve a debug representation of the section.
--- description
-
--- eno
-color: blue
-
-# notes
-
-buy milk: important!
--- eno
-
--- ruby
-document = eno.parse(input)
-
-document.to_s  #=> '#<Eno::Section document elements=2>'
-document.section('notes').to_s  #=> '#<Eno::Section name="notes" elements=1>'
--- ruby
-
-#### return value
-
-description: An debug representation of the section.
-
 ## Eno::Value
 
 -- class description
@@ -857,36 +830,6 @@ list_items.first.raw  #=> '13'
 #### return value
 
 description: A native representation of the value element.
-
-### #to_s
-
-syntax: to_s → string
-
--- description
-Retrieve a debug representation of of this `Eno::Value`.
-The representation differs depending on whether there is a name (e.g. for a field value)
-or not (applies only to list item values).
--- description
-
--- eno
-color: blue
-numbers:
-- 13
-- 42
--- eno
-
--- ruby
-document = eno.parse(input)
-
-document.element('color').to_s  #=> '#<Eno::Value name="color" value="blue">'
-
-list_items = document.element('numbers').elements
-list_items.first.to_s  #=> '#<Eno::Value value="13">'
--- ruby
-
-#### return value
-
-description: A debug representation of this `Eno::Value`.
 
 ### #value
 
@@ -1072,30 +1015,6 @@ list.first.raw  #=> { 'colors' => ['pink', 'peach'] }
 #### return value
 
 description: A native representation of the list.
-
-### #to_s
-
-syntax: to_s → string
-
--- description
-Retrieve a debug representation of the list.
--- description
-
--- eno
-numbers:
-- 13
-- 42
--- eno
-
--- ruby
-document = eno.parse(input)
-
-document.list('numbers').to_s  #=> '#<Eno::List name="numbers" items=2>'
--- ruby
-
-#### return value
-
-description: A debug representation of the list.
 
 ## Eno::Dictionary
 
@@ -1356,30 +1275,6 @@ document.dictionary('weights').raw
 
 description: A native object representation of the dictionary.
 
-### #to_s
-
-syntax: to_s → string
-
--- description
-Retrieve a debug representation of the dictionary.
--- description
-
--- eno
-numbers:
-13 = thirteen
-23 = twentythree
--- eno
-
--- ruby
-document = eno.parse(input)
-
-document.dictionary('numbers').to_s  #=> '#<Eno::Dictionary name="numbers" entries=2>'
--- ruby
-
-#### return value
-
-description: An debug representation of the dictionary.
-
 ## Eno::Empty
 
 -- class description
@@ -1456,28 +1351,6 @@ empty.raw  #=> { 'color' => nil }
 #### return value
 
 description: A native representation of the empty element.
-
-### #to_s
-
-syntax: to_s → string
-
--- description
-Retrieve a debug representation of the empty element.
--- description
-
--- eno
-color:
--- eno
-
--- ruby
-empty = eno.parse(input).element('color')
-
-empty.to_s  #=> '#<Eno::Empty name="color">'
--- ruby
-
-#### return value
-
-description: An debug representation of the empty element.
 
 ### #value
 

@@ -95,35 +95,6 @@ More prominently though **the document itself is represented as an `Section`**,
 consequently this is the interface you'll be utilizing most for many usecases.
 -- class description
 
-### __str__
-
-syntax: str(section) → string
-
--- description
-Retrieve a debug representation of the section.
--- description
-
--- eno
-color: blue
-
-# notes
-
-buy milk: important!
--- eno
-
--- python
->>> document = enopy.parse(input)
-
->>> str(document)
-'<class Section document elements=2>'
->>> str(document.section('notes'))
-'<class Section name="notes" elements=1>'
--- python
-
-#### return value
-
-description: An debug representation of the section.
-
 ### assert_all_touched
 
 syntax:
@@ -769,38 +740,6 @@ When you sequentially iterate a section (with `Section`'s
 '`#elements` method) you will get to interact with this class.
 -- class description
 
-### __str__
-
-syntax: str(value) → string
-
--- description
-Retrieve a debug representation of of this `Value`.
-The representation differs depending on whether there is a name (e.g. for a field value)
-or not (applies only to list item values).
--- description
-
--- eno
-color: blue
-numbers:
-- 13
-- 42
--- eno
-
--- python
->>> document = enopy.parse(input)
-
->>> str(document.element('color'))
-'<class Value name="color" value="blue">'
-
->>> list_items = document.element('numbers').elements()
->>> str(list_items.first) 
-'<class Value value="13">'
--- python
-
-#### return value
-
-description: A debug representation of this `Value`.
-
 ### is_empty
 
 syntax: is_empty() → boolean
@@ -951,30 +890,6 @@ Like `Value`, you will seldom interact with this class, and instead use the `lis
 method on the document or its sections to directly obtain the values of a list.
 -- class description
 
-### __str__
-
-syntax: str(list) → string
-
--- description
-Retrieve a debug representation of the list.
--- description
-
--- eno
-numbers:
-- 13
-- 42
--- eno
-
--- python
->>> document = enopy.parse(input)
->>> str(document.list('numbers'))
-'<class List name="numbers" items=2>'
--- python
-
-#### return value
-
-description: A debug representation of the list.
-
 ### elements
 
 syntax: elements → array
@@ -1105,30 +1020,6 @@ plants = 3 stars
 
 You will mostly obtain an instance of this through the `#dictionary` method on a document/section.
 -- class description
-
-### __str__
-
-syntax: str(dictionary) → string
-
--- description
-Retrieve a debug representation of the dictionary.
--- description
-
--- eno
-numbers:
-13 = thirteen
-23 = twentythree
--- eno
-
--- python
->>> document = enopy.parse(input)
->>> str(document.dictionary('numbers'))
-'<class Dictionary name="numbers" entries=2>'
--- python
-
-#### return value
-
-description: An debug representation of the dictionary.
 
 ### assert_all_touched
 
@@ -1392,28 +1283,6 @@ description: A native object representation of the dictionary.
 -- class description
 This represents empty elements such as `color:`, where it is not clear if it is an empty field, list, or dictionary.
 -- class description
-
-### __str__
-
-syntax: str(empty) → string
-
--- description
-Retrieve a debug representation of the empty element.
--- description
-
--- eno
-color:
--- eno
-
--- python
->>> empty = enopy.parse(input).element('color')
->>> str(empty)
-'<class Empty name="color">'
--- python
-
-#### return value
-
-description: An debug representation of the empty element.
 
 ### error
 
