@@ -71,6 +71,7 @@ color: blue
 >>> enopy.parse(input, reporter=eno.reporters.HTML)        # HTML for e.g. web integration
 >>> enopy.parse(input, reporter=eno.reporters.Terminal)    # Colored for terminal output
 >>> enopy.parse(input, source_label='my-file.eno')         # Annotated with a label as context
+>>> enopy.parse(input, zero_indexing=True)                 # Counting line and column numbers from 0
 -- python
 
 #### parameters
@@ -80,6 +81,7 @@ options:
 locale = A string specifying the code of the locale to use for error messages (e.g. `'de'`, `'es'`), by default `'en'`.
 reporter = One of `enopy.reporters.Text`, `enopy.reporters.HTML`, `enopy.reporters.Terminal`.
 source_label = A string that labels where the input comes from (e.g. a filename), this is included with error messages to help the user located the file.
+zero_indexing = `True` or `False` (default), set `True` to display `0,1,2,..` line and column numbers in all error messages instead of the default `1,2,3,..` indexing.
 
 #### return value
 
@@ -606,24 +608,24 @@ color: blue
 { 'element': <class Value name="color" value="blue">, 'zone': 'name' }
 >>> document.lookup(7)  # 'b'
 { 'element': <class Value name="color" value="blue">, 'zone': 'value' }
->>> document.lookup(1, 3)  # 'o'  
+>>> document.lookup(0, 3)  # 'o'  
 { 'element': <class Value name="color" value="blue">, 'zone': 'name' }
->>> document.lookup(1, 7)  # 'b'  
+>>> document.lookup(0, 7)  # 'b'  
 { 'element': <class Value name="color" value="blue">, 'zone': 'value' }
 >>> document.lookup(13)  # '#' 
 { 'element': <class Section name="notes" elements=0>, 'zone': 'section_operator' }
 >>> document.lookup(19)  # 's' 
 { 'element': <class Section name="notes" elements=0>, 'zone': 'name' }
->>> document.lookup(3, 0)  # '#'   
+>>> document.lookup(2, 0)  # '#'   
 { 'element': <class Section name="notes" elements=0>, 'zone': 'section_operator' }
->>> document.lookup(3, 6)  # 's'   
+>>> document.lookup(2, 6)  # 's'   
 { 'element': <class Section name="notes" elements=0>, 'zone': 'name' }
 -- python
 
 #### parameters
 
-index: A one-dimensional index to look up in the input string - only applies when it's the single only given argument.
-line: The line to look up (1-indexed, i.e. the first line is 1, not 0) - only applies when you supply a `column` as well.
+index: A one-dimensional index to look up (0-indexed, i.e. the first position is 0, not 1) - only applies when it's the single only given argument.
+line: The line to look up (0-indexed, i.e. the first line is 0, not 1) - only applies when you supply a `column` as well.
 column: The column to look up (0-indexed, i.e. the first column is 0, not 1) - only applies when you supply a `line` as well.
 
 #### return value

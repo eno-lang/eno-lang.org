@@ -3,7 +3,7 @@ title: enorb - The Ruby eno library
 # Global
 
 library: enorb
-version: 0.4.1 Alpha
+version: 0.4.2 Alpha
 
 -- intro
 **enorb is currently available as an alpha test release and not yet ready for production use.**
@@ -597,7 +597,7 @@ document.lookup(2, 6)  # 's'
 
 #### parameters
 
-index: A one-dimensional index to look up (0-indexed, i.e. the position is 0, not 1)- only applies when it's the only given argument.
+index: A one-dimensional index to look up (0-indexed, i.e. the first position is 0, not 1)- only applies when it's the only given argument.
 line: The line to look up (0-indexed, i.e. the first line is 0, not 1) - only applies when you supply a `column` as well.
 column: The column to look up (0-indexed, i.e. the first column is 0, not 1) - only applies when you supply a `line` as well.
 
