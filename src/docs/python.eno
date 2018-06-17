@@ -563,7 +563,8 @@ syntax:
 
 -- description
 Ask the document *Hey what's at column X in line Y in my eno file?*. The lookup **always** returns an element for valid indices
-(the document/section in case of an empty line/space), only indices outside the range of the document return `None`.
+(the document/section in case of an empty line/space), only indices outside the range of the document return `None`. Note that
+all arguments are zero-indexed, i.e. the first lines and columns are numbered `0`, not `1`.
 -- description
 
 -- eno

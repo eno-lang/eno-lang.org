@@ -3,7 +3,7 @@ title: enojs - The JavaScript eno library
 # Global
 
 library: enojs
-version: 0.10.0 Beta
+version: 0.10.1 Beta
 
 -- intro
 Installation from npm:
@@ -76,6 +76,7 @@ eno.parse(input, { locale: 'es' });                // In spanish - ¡hola!
 eno.parse(input, { reporter: 'html' });            // HTML for e.g. web integration
 eno.parse(input, { reporter: 'terminal' });        // Colored for terminal output
 eno.parse(input, { sourceLabel: 'my-file.eno' });  // Annotated with a label as context
+eno.parse(input, { zeroIndexing: true });          // Counting line and column numbers from 0
 -- js
 
 #### parameters
@@ -85,6 +86,7 @@ options:
 locale = A string specifying the code of the locale to use for error messages (e.g. `'de'`, `'es'`), by default `'en'`.
 reporter = One of `'text'`, `'html'`, `'terminal'`.
 source_label = A string that labels where the input comes from (e.g. a filename), this is included with error messages to help the user located the file.
+zeroIndexing = `true` or `false` (default), set `true` to display `0,1,2,..` line and column numbers in all error messages instead of the default `1,2,3,..` indexing.
 
 #### return value
 
@@ -553,7 +555,8 @@ syntax:
 
 -- description
 Ask the document *Hey what's at column X in line Y in my eno file?*. The lookup **always** returns an element for valid indices
-(the document/section in case of an empty line/space), only indices outside the range of the document return `null`.
+(the document/section in case of an empty line/space), only indices outside the range of the document return `null`. Note that
+all arguments are zero-indexed, i.e. the first lines and columns are numbered `0`, not `1`.
 -- description
 
 -- eno
@@ -569,24 +572,24 @@ document.lookup(3);  // 'o'
   // returns { element: [object EnoValue name="color" value="blue"], zone: 'name' }
 document.lookup(7);  // 'b'
   // returns { element: [object EnoValue name="color" value="blue"], zone: 'value' }
-document.lookup(1, 3);  // 'o'
+document.lookup(0, 3);  // 'o'
   // returns { element: [object EnoValue name="color" value="blue"], zone: 'name' }
-document.lookup(1, 7);  // 'b'
+document.lookup(0, 7);  // 'b'
   // returns { element: [object EnoValue name="color" value="blue"], zone: 'value' }
 document.lookup(13);  // '#'
   // returns { element: [object EnoSection name="notes" elements=0], zone: 'sectionOperator' }
 document.lookup(19);  // 's'
   // returns { element: [object EnoSection name="notes" elements=0], zone: 'name' }
-document.lookup(3, 0);  // '#'
+document.lookup(2, 0);  // '#'
   // returns { element: [object EnoSection name="notes" elements=0], zone: 'sectionOperator' }
-document.lookup(3, 6);  // 's'
+document.lookup(2, 6);  // 's'
   // returns { element: [object EnoSection name="notes" elements=0], zone: 'name' }
 -- js
 
 #### parameters
 
-index: A one-dimensional index to look up in the input string - only applies when it's the single only given argument.
-line: The line to look up (1-indexed, i.e. the first line is 1, not 0) - only applies when you supply a `column` as well.
+index: A one-dimensional index to look up (0-indexed, i.e. the first position is 0, not 1)- only applies when it's the only given argument.
+line: The line to look up (0-indexed, i.e. the first line is 0, not 1) - only applies when you supply a `column` as well.
 column: The column to look up (0-indexed, i.e. the first column is 0, not 1) - only applies when you supply a `line` as well.
 
 #### return value
