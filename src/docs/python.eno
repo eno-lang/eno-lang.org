@@ -127,7 +127,7 @@ Important data B: Me too!
 >>> document.assert_all_touched()  # raises an error with the default message
 
 >>> document.assert_all_touched(only=['Important data A'])  # passes
->>> document.assert_all_touched(except=['Important data B'])  # passes
+>>> document.assert_all_touched(skip=['Important data B'])  # passes
 
 >>> custom_message = lambda name, value: f"{name} is not supported by the application, please contact support if you think it should be"
 >>> document.assert_all_touched(custom_message)  # raises an error "Important data B is not ..."
@@ -145,7 +145,7 @@ returning a string. (The arguments passed are `name` and `value`, although
 
 options:
 only = An array of strings, e.g. `['name', 'email']`, which specifies to only check these elements for whether they've been touched.  
-except = An array of strings, e.g. `['phone number']`, which specifies to exclude these elements from checking whether they've been touched.  
+skip = An array of strings, e.g. `['phone number']`, which specifies to exclude these elements from checking whether they've been touched.  
 
 ### dictionaries
 
@@ -1055,7 +1055,7 @@ B = Me too!
 ValidationError: An excess element named 'B' was found, is it possibly a typo?
 
 >>> dictionary.assert_all_touched(only=['A'])  # passes
->>> dictionary.assert_all_touched(except=['B'])  # passes
+>>> dictionary.assert_all_touched(skip=['B'])  # passes
 
 >>> custom_message = lambda name, value: f"{name} is not supported by the application, please contact support if you think it should be"
 >>> dictionary.assert_all_touched(custom_message)
@@ -1073,7 +1073,7 @@ returning a string. (`name` and `value` are provided as arguments)
 
 options:
 only = An array of strings, e.g. `['name', 'email']`, which specifies to only check these elements for whether they've been touched.  
-except = An array of strings, e.g. `['phone number']`, which specifies to exclude these elements from checking whether they've been touched.  
+skip = An array of strings, e.g. `['phone number']`, which specifies to exclude these elements from checking whether they've been touched.  
 
 ### element
 
