@@ -10,6 +10,7 @@ title: Dev Blog
  - enojs now only bundles runtime files
  - The interactive demos at [eno-lang.org/demo](https://eno-lang.org/demo/) now offer emulated, interactive python and ruby code examples as well
  - The benchmark suite at [github.com/eno-lang/benchmarks](https://github.com/eno-lang/benchmarks/) has been expanded from 2 to 5 scenarios, visual fidelity of the full report has been increased
+ - The [experimental enojs loaders](https://www.npmjs.com/package/enojs-exploaders/) package now features `color`, `json` and `url` loaders.
  
  **Thursday, June 21 2018**
  
