@@ -1,0 +1,47 @@
+title: About eno
+
+-- markdown
+# About
+
+## Overview
+
+- eno is a **structured, plain-text notation** language, related in many ways to its ancestors and relatives *JSON*, *YAML*, *TOML*, *ArchieML*, and others
+- Through its **simple syntax and versatile nature** it targets a wide audience, both in regards to cultural background as well as technical ability
+- Documents authored as eno comprise of *elements* that map to **ubiquitous structural types** in all programing languages
+- On a syntactic level there are no types in eno, **only textual representations**
+- eno provides a high-grade **API to validate and obtain fully customizable types** on the application level instead
+- All eno implementations feature **100% internationalized, hand written, human language error messages**
+- eno allows **sequential and associative reading**, you can seamlessly blend between configuration/metadata and content in a single document
+- There is no indentation and **all whitespace is optional**, as are empty lines
+
+## Current Status
+
+eno has been designed in a 2-3 month focused period of applied research and
+development in early spring 2018. It's currently undergoing eager preparation
+for its public announcement. Already there are official [learning
+resources](https://eno-lang.org/write/) for the language itself, library
+implementations for [Javascript](https://eno-lang.org/javascript/),
+[Python](https://eno-lang.org/python/) and [Ruby](https://eno-lang.org/ruby/)
+(with more on the roadmap), syntax highlighting support for
+[Atom](https://atom.io/packages/language-eno/) and [Sublime
+Text](https://github.org/eno-lang/sublime-eno/) and much more in the making.
+
+## Team
+
+Designed and developed with great enthusiasm and painstaking dedication by [Simon Repp](https://simonrepp.com). My pleasure!
+
+## Contact
+
+For concrete technical issues, questions and proposals feel free to open issues on github in the respective repositories.
+If you just want to get in touch directly, you can write a mail to <simon@fdpl.io> or send a message on twitter to
+[@simonrepp](https://twitter.com/simonrepp).
+
+## Support the project
+
+Give it a try, tell your colleagues, tweet it, share it, blog about it, report
+bugs, star your favorite repository on [github](https://github.com/eno-lang/),
+present it at your tech meetup, make proposals for improvements, every
+contribution is valueable.
+
+Grateful for any help you can provide!
+-- markdown

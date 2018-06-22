@@ -3,7 +3,7 @@ title: Develop applications and websites with eno
 -- markdown
 # Overview
 
-## <i class="devicon-javascript-plain colored"></i> JavaScript
+## <i class="devicon-javascript-plain javascript-yellow"></i> JavaScript
 
 **enojs v0.10.5 Beta**  
 [Complete documentation and API reference](https://eno-lang.org/javascript/)  
@@ -15,10 +15,10 @@ file-based database, for building the message catalogs that power all eno
 implementations in the [eno-locales](https://github.com/eno-lang/eno-locales)
 repository, as well as, of course, generating the whole eno-lang.org website.
 
-[<i class="devicon-nodejs-plain colored"></i> Package on npm](https://npmjs.com/package/enojs/)  
-[<i class="devicon-github-plain colored"></i> Repository on github](https://github.com/eno-lang/enojs/)
+[<i class="devicon-javascript-plain"></i> Package on npm](https://npmjs.com/package/enojs/)  
+[<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enojs/)
 
-##  <i class="devicon-python-plain colored"></i> Python
+##  <i class="devicon-python-plain python-blue"></i> Python
 
 **enopy v0.2.3 Alpha - Not yet recommended for production use**  
 [Complete documentation and API reference](https://eno-lang.org/python/)  
@@ -27,20 +27,20 @@ enopy is the most recent library release (first published on PyPI on June 12th),
 it has no automated test suite yet, therefore you should expect to run into issues,
 potentially also with core functionality.
 
-[<i class="devicon-python-plain colored"></i> Package on PyPI](https://pypi.org/project/enopy/)  
-[<i class="devicon-github-plain colored"></i> Repository on github](https://github.com/eno-lang/enopy/)
+[<i class="devicon-python-plain"></i> Package on PyPI](https://pypi.org/project/enopy/)  
+[<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enopy/)
 
-## <i class="devicon-ruby-plain colored"></i> Ruby
+## <i class="devicon-ruby-plain ruby-red"></i> Ruby
 
-**enorb v0.4.2 Alpha - Not yet recommended for production use**  
+**enorb v0.4.3 Alpha - Not yet recommended for production use**  
 [Complete documentation and API reference](https://eno-lang.org/ruby/)  
 
 enorb already has an extensive test suite, all basic functionality should reliably work.
 Pending full test coverage and/or a production case study out in the wild it is however not yet
 recommended for use in production scenarios.
 
-[<i class="devicon-ruby-plain colored"></i> Gem on rubygems](https://rubygems.org/gems/enorb/)  
-[<i class="devicon-github-plain colored"></i> Repository on github](https://github.com/eno-lang/enorb/)
+[<i class="devicon-ruby-plain"></i> Gem on rubygems](https://rubygems.org/gems/enorb/)  
+[<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enorb/)
 
 ## Interactive Demos
 
@@ -48,16 +48,23 @@ This is a work in progress effort to showcase different usecases for eno and the
 as interactive demos in the browser. Right now there is only a limited selection of early demos,
 a preliminary layout and no support to switch to the python and ruby examples yet.
 
-[<i class="devicon-html5-plain colored"></i> Interactive Demos](https://eno-lang.org/demo/)  
+[Interactive Demos](https://eno-lang.org/demo/)  
 
 ## Roadmap for further implementations
 
 Go, Rust and PHP are likely followups for 2018, but what lands on the definite roadmap will also
 depend on your feedback, so make yourself heard if you have suggestions or questions!
 
+## Benchmarks
+
+There is now a benchmark suite that evaluates the performance of all eno libraries, also in comparism
+against other popular libraries for parsing yaml and toml.
+
+Visit [github.com/eno-lang/benchmarks](https://github.com/eno-lang/benchmarks/) to study these.
+
 ## Dive deeper
 
 Explore all repositories where the development work is currently happening at the eno umbrella organization on github.
 
-[<i class="devicon-github-plain colored"></i> github.com/eno-lang](https://github.com/eno-lang/)
+[<i class="devicon-github-plain"></i> github.com/eno-lang](https://github.com/eno-lang/)
 -- markdown

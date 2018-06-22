@@ -62,8 +62,8 @@ command:
 
 The eno libraries for [JavaScript](https://eno-lang.org/javascript/),
 [Python](https://eno-lang.org/python/) and [Ruby](https://eno-lang.org/ruby/)
-(more on the roadmap) offer fast, robust, dependency-free, and
-thoroughly documented parser implementations in popular languages. By using the
+(more on the roadmap) offer [fast](https://github.com/eno-lang/benchmarks/), robust, dependency-free, and
+[thoroughly documented](https://eno-lang.org/develop/) parser implementations in popular languages. By using the
 eno API you get structural and type safety for all your data - programmatically
 and on the fly, without ever writing a schema - as well as carefully designed,
 fully localized user errors with rich metadata for easy and seamless

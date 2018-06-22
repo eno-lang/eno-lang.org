@@ -192,3 +192,8 @@ video {
 .sidebar, .main {
   padding: 0 1em;
 }
+
+.npm-red { color: #cb3837 }
+.ruby-red { color: #d91404 }
+.python-blue { color: #3673a5 }
+.javascript-yellow { color: #ffde00 }
