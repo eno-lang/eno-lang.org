@@ -15,6 +15,18 @@ const doc = eno.parse(input, { locale: 'de', reporter: 'html' });
 return doc.field('Greeting', { required: true });
 -- js
 
+-- python
+doc = enopy.parse(input, locale='de', reporter=enopy.reporters.HTML)
+
+return doc.field('Greeting', required=True)
+-- python
+
+-- ruby
+doc = eno.parse(input, locale: 'de', reporter: Eno::Reporters::HTML)
+
+return doc.field('Greeting', required: true)
+-- ruby
+
 # Demo 02: Sections and Fields
 
 -- markdown
@@ -38,6 +50,28 @@ const continent = city.field('Continent');
 
 return `The city ${name} is in ${continent}`;
 -- js
+
+-- python
+doc = enopy.parse(input)
+
+city = doc.section('City')
+
+name = city.field('Name')
+continent = city.field('Continent')
+
+return f"The city {name} is in {continent}"
+-- python
+
+-- ruby
+doc = eno.parse(input)
+
+city = doc.section('City')
+
+name = city.field('Name')
+continent = city.field('Continent')
+
+return "The city #{name} is in #{continent}"
+-- ruby
 
 # Demo 03: Loading a custom lat/lng type
 
@@ -72,6 +106,33 @@ const doc = eno.parse(input, { reporter: 'html' });
 return doc.list('route_coordinates', latLngLoader);
 -- js
 
+-- python
+import re
+
+def lan_lng_loader(name, value):
+  match = re.search('(\d+\.\d+),\s*(\d+\.\d+)', value)
+  if not match:
+    raise ValueError('Coordinates must be formatted xx.xxxxxx, xx.xxxxxx')
+  return { lat: float(match.group(1)), lng: float(match.group(2)) }
+
+doc = enopy.parse(input, reporter=eno.reporters.HTML)
+
+return doc.list('route_coordinates', lan_lng_loader)
+-- python
+
+-- ruby
+lat_lng_loader = Proc.new do |name, value|
+  match = value.match(/(\d+\.\d+),\s*(\d+\.\d+)/)
+  raise 'Coordinates must be formatted xx.xxxxxx, xx.xxxxxx' unless match
+  
+  { lat: match[1].to_f, lng: match[2].to_f }
+end
+
+doc = Eno.parse(input, reporter: Eno::Reporters::HTML)
+
+return doc.list('route_coordinates', lat_lng_loader)
+-- ruby
+
 # Demo 04: Looking up elements in the document by line/column
 
 -- markdown
@@ -79,13 +140,18 @@ This demo shows how to look up things in the source document by (for instance) c
 -- markdown
 
 -- eno
-route_coordinates:
-- 48.205870, 16.413690
-- 48.219513, 16.405041
-- 48.229600, 16.371639
-- 48.225857, 16.355580
-- 48.220560, 16.364078
-- 48.211004, 16.356364
+# Le Demo
+
+Un saludo en español: Hola
+A greeting in english: Hello
+
+## Films
+
+魔女の宅急便:
+Rating = 5 Stars
+
+Los amantes del círculo polar:
+Rating = ⭐⭐⭐⭐⭐   
 -- eno
 
 -- js
@@ -99,6 +165,36 @@ const result = doc.lookup(cursor);
 return `
   Cursor index #${cursor}
   zone: ${result.zone}
-  element: ${result.element.name}
+  element: ${result.element}
 `.trim();
 -- js
+
+-- python
+doc = eno.parse(input)
+
+# In this example the 'cursor' variable is provided by the demo
+# to contain the numerical index of the cursor inside the textarea
+# Click/move/type around in the eno textbox to update the result!
+result = doc.lookup(cursor)
+
+return f"""
+  Cursor index #{cursor}
+  zone: {result['zone']}
+  element: {result['element']}
+"""
+-- python
+
+-- ruby
+doc = eno.parse(input)
+
+# In this example the 'cursor' variable is provided by the demo
+# to contain the numerical index of the cursor inside the textarea
+# Click/move/type around in the eno textbox to update the result!
+result = doc.lookup(cursor)
+
+return <<~DOC
+  Cursor index ##{cursor}
+  zone: #{result[:zone]}
+  element: #{result[:element]}
+DOC
+-- ruby

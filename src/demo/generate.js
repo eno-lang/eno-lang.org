@@ -17,11 +17,15 @@ module.exports = (menu) => {
     const title = demo.name;
     const eno = demo.field('eno', { required: true });
     const js = demo.field('js', { required: true });
+    const python = demo.field('python', { required: true });
+    const ruby = demo.field('ruby', { required: true });
     const text = demo.field('markdown', markdown, { required: true });
 
     options += `
       <option data-eno="${attrEscape(eno)}"
               data-js="${attrEscape(js)}"
+              data-python="${attrEscape(python)}"
+              data-ruby="${attrEscape(ruby)}"
               data-text="${attrEscape(text)}">
         ${title}
       </option>
@@ -31,6 +35,8 @@ module.exports = (menu) => {
       first = {
         eno: eno,
         js: js,
+        python: python,
+        ruby: ruby,
         text: text
       };
     }
@@ -45,6 +51,16 @@ module.exports = (menu) => {
     <div class="half">
       <select class="demo" style="width: 100%;">
       ${options}
+      </select>
+
+      <br/>
+      <br/>
+
+      <select class="language" style="width: 100%;">
+        <option value="">Switch language (in development)</option>
+        <option value="javascript">JavaScript</option>
+        <option value="python">Python</option>
+        <option value="ruby">Ruby</option>
       </select>
 
       <div id="text">
