@@ -100,7 +100,7 @@ route_coordinates:
 
 -- js
 const latLngLoader = ({ value }) => {
-  const match = /(\d+\.\d+),\s*(\d+\.\d+)/.exec(value);
+  const match = /^(\d+\.\d+),\s*(\d+\.\d+)$/.exec(value);
 
   if(match) {
     return { lat: parseFloat(match[1]), lng: parseFloat(match[2]) };
@@ -120,7 +120,7 @@ return doc.list('route_coordinates', latLngLoader);
 import re
 
 def lan_lng_loader(name, value):
-  match = re.search('(\d+\.\d+),\s*(\d+\.\d+)', value)
+  match = re.search('^(\d+\.\d+),\s*(\d+\.\d+)$', value)
   if not match:
     raise ValueError('Coordinates must be formatted xx.xxxxxx, xx.xxxxxx')
   return { lat: float(match.group(1)), lng: float(match.group(2)) }
@@ -134,7 +134,7 @@ return doc.list('route_coordinates', lan_lng_loader)
 # Emulated mode - code is read-only
 
 lat_lng_loader = Proc.new do |name, value|
-  match = value.match(/(\d+\.\d+),\s*(\d+\.\d+)/)
+  match = value.match(/^(\d+\.\d+),\s*(\d+\.\d+)$/)
   raise 'Coordinates must be formatted xx.xxxxxx, xx.xxxxxx' unless match
   
   { lat: match[1].to_f, lng: match[2].to_f }
