@@ -1,5 +1,7 @@
 import ace from 'ace-builds';
 import 'ace-builds/src-noconflict/mode-javascript';
+import 'ace-builds/src-noconflict/mode-python';
+import 'ace-builds/src-noconflict/mode-ruby';
 import 'ace-builds/src-noconflict/theme-tomorrow';
 import jsWorkerUrl from 'file-loader!ace-builds/src-noconflict/worker-javascript';
 ace.config.setModuleUrl('ace/mode/javascript_worker', jsWorkerUrl)
@@ -9,12 +11,12 @@ import eno from 'enojs';
 
 import { attrUnescape, htmlEscape } from '../../lib/escape.js';
 
-let doc = null;
 const code = document.querySelector('#code');
 const editor = document.querySelector('#editor');
 const lookupLog = document.querySelector('#lookup');
 const output = document.querySelector('#output');
 const select = document.querySelector('.demo');
+const selectLanguage = document.querySelector('.language');
 
 const aceEditor = ace.edit('code', {
   fontFamily: 'Cousine',
@@ -24,37 +26,21 @@ const aceEditor = ace.edit('code', {
   theme: 'ace/theme/tomorrow'
 });
 
-// const lookup = () => {
-//   if(!doc) { return; }
-//
-//   try {
-//     const lookup = doc.lookup(editor.selectionStart);
-//
-//     if(lookup) {
-//       lookupLog.innerHTML = `<b>lookup(${editor.selectionStart})</b><br/><br/>Token: ${lookup.zone}<br/>Element: ${escape(lookup.element.toString())}`;
-//     }
-//   } catch(err) {
-//     if(err instanceof EnoParseError) {
-//       lookupLog.innerHTML = err;
-//     } else {
-//       lookupLog.innerHTML = err;
-//     }
-//   }
-// };
-//
-// editor.addEventListener('click', lookup);
-// editor.addEventListener('focus', lookup);
-// editor.addEventListener('keyup', event => {
-//   if(['ArrowLeft', 'ArrowRight', 'ArrowDown', 'ArrowUp'].includes(event.key)) {
-//     lookup();
-//   }
-// });
-
 const refresh = () => {
   const input = editor.value;
 
   try {
-    const evaluate = new Function('input', 'eno', 'cursor', aceEditor.getValue());
+    const demoOption = select.selectedOptions[0];
+    const languageOption = selectLanguage.selectedOptions[0].value;
+
+    let js;
+    if(languageOption === 'javascript') {
+      js = aceEditor.getValue();
+    } else {
+      js = attrUnescape(demoOption.dataset.js);
+    }
+
+    const evaluate = new Function('input', 'eno', 'cursor', js);
 
     const result = evaluate(input, eno, editor.selectionStart);
 
@@ -72,26 +58,36 @@ const refresh = () => {
   }
 };
 
-select.addEventListener('change', event => {
-  const option = event.target.selectedOptions[0];
+const updateDemo = changed => {
+  const demoOption = select.selectedOptions[0];
+  const languageOption = selectLanguage.selectedOptions[0].value;
 
-  const eno = attrUnescape(option.dataset.eno);
-  const js = attrUnescape(option.dataset.js);
-  const text = attrUnescape(option.dataset.text);
+  if(changed === 'demo') {
+    editor.value = attrUnescape(demoOption.dataset.eno);
+    document.querySelector('#text').innerHTML = attrUnescape(demoOption.dataset.text);
+  }
 
+  if(languageOption === 'javascript') {
+    aceEditor.setValue(attrUnescape(demoOption.dataset.js));
+    aceEditor.session.setMode('ace/mode/javascript');
+    aceEditor.setReadOnly(false);
+  } else if(languageOption === 'python') {
+    aceEditor.setValue(attrUnescape(demoOption.dataset.python));
+    aceEditor.session.setMode('ace/mode/python');
+    aceEditor.setReadOnly(true);
+  } else if(languageOption === 'ruby') {
+    aceEditor.setValue(attrUnescape(demoOption.dataset.ruby));
+    aceEditor.session.setMode('ace/mode/ruby');
+    aceEditor.setReadOnly(true);
+  }
 
-  document.querySelector('#text').innerHTML = text;
-  aceEditor.setValue(js);
   aceEditor.gotoLine(1);
-  editor.value = eno;
 
   refresh();
-});
+};
 
-window.addEventListener('hashchange', () => {
-  locale = location.hash.length > 0 ? location.hash.substr(1) : 'en';
-  refresh();
-});
+select.addEventListener('change', () => updateDemo('demo'));
+selectLanguage.addEventListener('change', () => updateDemo('language'));
 
 editor.addEventListener('click', refresh);
 editor.addEventListener('focus', refresh);
@@ -101,5 +97,7 @@ editor.addEventListener('keyup', event => {
     refresh();
   }
 });
+
+aceEditor.on('change', refresh);
 
 refresh();

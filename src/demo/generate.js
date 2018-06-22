@@ -44,7 +44,7 @@ module.exports = (menu) => {
 
   const content = `
   <header>
-    <h1>Interactive enojs demos</h1>
+    <h1>Interactive eno library demos</h1>
   </header>
 
   <div class="split">
@@ -57,10 +57,9 @@ module.exports = (menu) => {
       <br/>
 
       <select class="language" style="width: 100%;">
-        <option value="">Switch language (in development)</option>
-        <option value="javascript">JavaScript</option>
-        <option value="python">Python</option>
-        <option value="ruby">Ruby</option>
+        <option value="javascript">JavaScript - interactive enojs code and demo</option>
+        <option value="python">Python - emulated enopy code, interactive demo</option>
+        <option value="ruby">Ruby - emulated enorb code, interactive demo</option>
       </select>
 
       <div id="text">

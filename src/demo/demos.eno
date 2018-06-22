@@ -16,12 +16,16 @@ return doc.field('Greeting', { required: true });
 -- js
 
 -- python
+# Emulated mode - code is read-only
+
 doc = enopy.parse(input, locale='de', reporter=enopy.reporters.HTML)
 
 return doc.field('Greeting', required=True)
 -- python
 
 -- ruby
+# Emulated mode - code is read-only
+
 doc = eno.parse(input, locale: 'de', reporter: Eno::Reporters::HTML)
 
 return doc.field('Greeting', required: true)
@@ -52,6 +56,8 @@ return `The city ${name} is in ${continent}`;
 -- js
 
 -- python
+# Emulated mode - code is read-only
+
 doc = enopy.parse(input)
 
 city = doc.section('City')
@@ -63,6 +69,8 @@ return f"The city {name} is in {continent}"
 -- python
 
 -- ruby
+# Emulated mode - code is read-only
+
 doc = eno.parse(input)
 
 city = doc.section('City')
@@ -107,6 +115,8 @@ return doc.list('route_coordinates', latLngLoader);
 -- js
 
 -- python
+# Emulated mode - code is read-only
+
 import re
 
 def lan_lng_loader(name, value):
@@ -121,6 +131,8 @@ return doc.list('route_coordinates', lan_lng_loader)
 -- python
 
 -- ruby
+# Emulated mode - code is read-only
+
 lat_lng_loader = Proc.new do |name, value|
   match = value.match(/(\d+\.\d+),\s*(\d+\.\d+)/)
   raise 'Coordinates must be formatted xx.xxxxxx, xx.xxxxxx' unless match
@@ -170,6 +182,8 @@ return `
 -- js
 
 -- python
+# Emulated mode - code is read-only
+
 doc = eno.parse(input)
 
 # In this example the 'cursor' variable is provided by the demo
@@ -185,6 +199,8 @@ return f"""
 -- python
 
 -- ruby
+# Emulated mode - code is read-only
+
 doc = eno.parse(input)
 
 # In this example the 'cursor' variable is provided by the demo

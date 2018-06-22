@@ -44,9 +44,9 @@ recommended for use in production scenarios.
 
 ## Interactive Demos
 
-This is a work in progress effort to showcase different usecases for eno and the eno libraries
-as interactive demos in the browser. Right now there is only a limited selection of early demos,
-a preliminary layout and no support to switch to the python and ruby examples yet.
+This is a work in progress effort to showcase different usecases for eno and the
+eno libraries as interactive demos in the browser. Right now there is only a
+limited selection of early demos and a draft page layout.
 
 [Interactive Demos](https://eno-lang.org/demo/)  
 
