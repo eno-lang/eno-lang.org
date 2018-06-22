@@ -24,8 +24,8 @@ repository, as well as, of course, generating the whole eno-lang.org website.
 [Complete documentation and API reference](https://eno-lang.org/python/)  
 
 enopy is the most recent library release (first published on PyPI on June 12th),
-it has no automated test suite yet, therefore you should expect to run into issues,
-potentially also with core functionality.
+currently there is only very rudimentary automated test coverage, therefore you
+should expect to run into issues, potentially also with core functionality.
 
 [<i class="devicon-python-plain"></i> Package on PyPI](https://pypi.org/project/enopy/)  
 [<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enopy/)

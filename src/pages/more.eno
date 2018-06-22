@@ -5,8 +5,13 @@ title: Dev Blog
 
  **Friday, June 22 2018**
  
- - Two enojs core error implementations (invalid/missing value)
- have been greatly overhauled and additional tests were added. (0.10.5)
- - enojs now only bundles runtime files
  - **The website now has a dev blog and more contact options. ヽ(^o^)ノ**
+ - Two enojs core error implementations (invalid/missing value) have been greatly overhauled and additional tests were added. (0.10.5)
+ - enojs now only bundles runtime files
+ - The interactive demos at [eno-lang.org/demo](https://eno-lang.org/demo/) now offer emulated, interactive python and ruby code examples as well
+ - The benchmark suite at [github.com/eno-lang/benchmarks](https://github.com/eno-lang/benchmarks/) has been expanded from 2 to 5 scenarios, visual fidelity of the full report has been increased
+ 
+ **Thursday, June 21 2018**
+ 
+ - An extensive benchmark suite is now available at [github.com/eno-lang/benchmarks](https://github.com/eno-lang/benchmarks/), it evaluates eno library performance across all supported languages, also in relation to popular yaml and toml parsers
 -- markdown
