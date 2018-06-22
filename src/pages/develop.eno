@@ -18,6 +18,14 @@ repository, as well as, of course, generating the whole eno-lang.org website.
 [<i class="devicon-javascript-plain"></i> Package on npm](https://npmjs.com/package/enojs/)  
 [<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enojs/)
 
+**enojs-exploaders v0.1.3**
+
+A collection of loaders for use with the enojs library, providing out of the box type validation and conversion
+for a diverse range of types like `number`, `color`, `boolean`, `float`, `latLng`, `json` and so on.
+
+[<i class="devicon-javascript-plain"></i> Package and documentation on npm](https://www.npmjs.com/package/enojs-exploaders/)  
+[<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enojs-exploaders/)
+
 ##  <i class="devicon-python-plain python-blue"></i> Python
 
 **enopy v0.2.3 Alpha - Not yet recommended for production use**  
