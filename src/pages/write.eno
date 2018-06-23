@@ -17,7 +17,7 @@ essentials, pick whichever you prefer.
 Every line starting with `>` marks a comment line, in which any text may appear. The computer discards these lines when reading the file, so they are there for us to make notes and leave hints for others that might read the document.
 
 ```eno
-> This is a comment !@#$%^&* :)
+> This is a comment!
 ```
 
 ### Assigning values
