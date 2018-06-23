@@ -38,6 +38,14 @@ should expect to run into issues, potentially also with core functionality.
 [<i class="devicon-python-plain"></i> Package on PyPI](https://pypi.org/project/enopy/)  
 [<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enopy/)
 
+**enopy-exploaders v0.1.0**
+
+A collection of loaders for use with the enopy library, providing out of the box type validation and conversion
+for a diverse range of types like `number`, `color`, `boolean`, `email`, `lat_lng`, `url` and so on.
+
+[<i class="devicon-python-plain"></i> Package and documentation on PyPI](https://pypi.org/project/enopy-exploaders/)  
+[<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enopy-exploaders/)
+
 ## <i class="devicon-ruby-plain ruby-red"></i> Ruby
 
 **enorb v0.4.3 Alpha - Not yet recommended for production use**  

@@ -123,7 +123,7 @@ def lan_lng_loader(name, value):
   match = re.search('^(\d+\.\d+),\s*(\d+\.\d+)$', value)
   if not match:
     raise ValueError('Coordinates must be formatted xx.xxxxxx, xx.xxxxxx')
-  return { lat: float(match.group(1)), lng: float(match.group(2)) }
+  return { 'lat': float(match.group(1)), 'lng': float(match.group(2)) }
 
 doc = enopy.parse(input, reporter=eno.reporters.HTML)
 
