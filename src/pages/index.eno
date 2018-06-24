@@ -26,12 +26,16 @@ As fast to write and edit as it probably gets.
 An excellent format for authoring content for the web.  
 A go-to content format especially for static site generation.  
 And for all kinds of generative documents and documentation actually.  
-Developer's bliss for quickly creating rich, safe user experiences around structured text.
+Developer's bliss for quickly creating rich, reliable user experiences around structured text.
 
 **eno** isn't ...
 
 Arbitrary automatic data de/serialization - yaml, toml are made for, and excellent, at that.  
 Human-readable inter-application/process communication - json is there and working great.
+
+## Watch the teaser:
+
+<video controls src="/teaser.mp4"></video>
 
 ## Want to learn more about how eno works? 
 
@@ -64,9 +68,9 @@ The eno libraries for [JavaScript](https://eno-lang.org/javascript/),
 [Python](https://eno-lang.org/python/) and [Ruby](https://eno-lang.org/ruby/)
 (more on the roadmap) offer [fast](https://github.com/eno-lang/benchmarks/), robust, dependency-free, and
 [thoroughly documented](https://eno-lang.org/develop/) parser implementations in popular languages. By using the
-eno API you get structural and type safety for all your data - programmatically
-and on the fly, without ever writing a schema - as well as carefully designed,
-fully localized user errors with rich metadata for easy and seamless
+eno API you get structural and type safety for all your data out of the box - programmatically
+and on the fly, without maintaining a separate schema - as well as carefully designed,
+fully localized user errors with rich metadata (most notably error selection ranges) for easy and seamless
 integration into apps, websites, plugins, editors, IDEs, you name it.
 
 Visit [eno-lang.org/develop](https://eno-lang.org/develop/) for an overview.
