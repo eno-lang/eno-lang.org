@@ -43,12 +43,11 @@ module.exports = (menu) => {
   }
 
   const content = `
-  <header>
-    <h1>Interactive eno library demos</h1>
-  </header>
-
   <div class="split">
     <div class="half">
+
+      <h2>Interactive eno library demos</h2>
+
       <select class="demo" style="width: 100%;">
       ${options}
       </select>
@@ -70,6 +69,8 @@ module.exports = (menu) => {
     </div>
 
     <div class="half">
+      <h2>&nbsp;</h2>
+
       <textarea id="editor">${first.eno}</textarea>
       <pre id="output"></pre>
     </div>

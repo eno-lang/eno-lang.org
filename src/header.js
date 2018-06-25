@@ -13,7 +13,7 @@ module.exports = (active = null, menu) => {
   return `
     <header>
       <div class="header__primary">
-        <div class="boundary">
+        <div ${active !== 'demo' ? 'class="boundary"' : ''}>
           <div class="menu">
 
             <a class="brand" href="/">eno</a>

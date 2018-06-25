@@ -10,7 +10,12 @@ Greeting: Hello World
 -- eno
 
 -- js
-const doc = eno.parse(input, { locale: 'de', reporter: 'html' });
+const options = {
+  locale: 'de',
+  reporter: 'html'
+};
+
+const doc = eno.parse(input, options);
 
 return doc.field('Greeting', { required: true });
 -- js
@@ -18,7 +23,9 @@ return doc.field('Greeting', { required: true });
 -- python
 # Emulated mode - code is read-only
 
-doc = enopy.parse(input, locale='de', reporter=enopy.reporters.HTML)
+doc = enopy.parse(input,
+                  locale='de',
+                  reporter=enopy.reporters.HTML)
 
 return doc.field('Greeting', required=True)
 -- python
@@ -26,7 +33,11 @@ return doc.field('Greeting', required=True)
 -- ruby
 # Emulated mode - code is read-only
 
-doc = eno.parse(input, locale: 'de', reporter: Eno::Reporters::HTML)
+doc = eno.parse(
+  input,
+  locale: 'de',
+  reporter: Eno::Reporters::HTML
+)
 
 return doc.field('Greeting', required: true)
 -- ruby
@@ -45,12 +56,12 @@ Continent: Europe
 -- eno
 
 -- js
-const doc = eno.parse(input);
+const doc = eno.parse(input, { reporter: 'html' });
 
 const city = doc.section('City');
 
-const name = city.field('Name');
-const continent = city.field('Continent');
+const name = city.field('Name', { required: true });
+const continent = city.field('Continent', { required: true });
 
 return `The city ${name} is in ${continent}`;
 -- js
@@ -58,12 +69,12 @@ return `The city ${name} is in ${continent}`;
 -- python
 # Emulated mode - code is read-only
 
-doc = enopy.parse(input)
+doc = enopy.parse(input, reporter=enopy.reporters.HTML)
 
 city = doc.section('City')
 
-name = city.field('Name')
-continent = city.field('Continent')
+name = city.field('Name', required=True)
+continent = city.field('Continent', required=True)
 
 return f"The city {name} is in {continent}"
 -- python
@@ -71,12 +82,12 @@ return f"The city {name} is in {continent}"
 -- ruby
 # Emulated mode - code is read-only
 
-doc = eno.parse(input)
+doc = eno.parse(input, reporter: Eno::Reporters::HTML)
 
 city = doc.section('City')
 
-name = city.field('Name')
-continent = city.field('Continent')
+name = city.field('Name', required: true)
+continent = city.field('Continent', required: true)
 
 return "The city #{name} is in #{continent}"
 -- ruby
@@ -167,7 +178,7 @@ Rating = ⭐⭐⭐⭐⭐
 -- eno
 
 -- js
-const doc = eno.parse(input);
+const doc = eno.parse(input, { reporter: 'html' });
 
 // In this example the 'cursor' variable is provided by the demo
 // to contain the numerical index of the cursor inside the textarea
@@ -184,7 +195,7 @@ return `
 -- python
 # Emulated mode - code is read-only
 
-doc = eno.parse(input)
+doc = eno.parse(input, reporter=enopy.reporters.HTML)
 
 # In this example the 'cursor' variable is provided by the demo
 # to contain the numerical index of the cursor inside the textarea
@@ -201,7 +212,7 @@ return f"""
 -- ruby
 # Emulated mode - code is read-only
 
-doc = eno.parse(input)
+doc = eno.parse(input, reporter: Eno::Reporters::HTML)
 
 # In this example the 'cursor' variable is provided by the demo
 # to contain the numerical index of the cursor inside the textarea

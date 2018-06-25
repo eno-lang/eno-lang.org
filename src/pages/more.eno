@@ -8,6 +8,8 @@ title: Dev Blog
 - Performance optimization releases enorb 0.4.4 and enopy 0.2.5, both addressing block content parser performance, with [1-16x speed gains for ruby](https://github.com/eno-lang/enorb/blob/4b8332a2a94061c586084c92bb229be6678d77e4/spec/benchmark/analysis.json) and [1-39x speed gains for python](https://github.com/eno-lang/enopy/blob/64fb14979ea881969a317463b37c4f755bfaa497/tests/benchmark/analysis.json)
 - Re-evaluated and updated the global benchmark report at [github.com/eno-lang/benchmarks](https://github.com/eno-lang/benchmarks/)
 - More optimizations (enorb 0.4.5, enopy 0.2.6), this time addressing token extraction performance, with [1-2.3x speed gains for ruby](https://github.com/eno-lang/enorb/blob/010be1cdc2efc75ee28b06503a8be8bce1ea1bd6/spec/benchmark/analysis.json) and [1-2.5x speed gains for python](https://github.com/eno-lang/enopy/blob/cb87f11593c87d34c287288ed92004c7893688b8/tests/benchmark/analysis.json), [benchmarks](https://github.com/eno-lang/benchmarks/) updated again.
+- Completed the last missing feature texts on the Advanced Features page.
+- Improved the [interactive demo](https://eno-lang.org/demo/) layout to make better use of screen space, updated some code snippets.
 
 **Sunday, June 24 2018**
 

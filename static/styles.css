@@ -137,12 +137,22 @@ video {
 }
 
 .half {
-  padding: 2em;
+  padding: 1em;
   width: 50%;
 }
 
 .split {
   display: flex;
+}
+
+@media (max-width: 1280px) {
+  .half {
+    width: 90%;
+  }
+
+  .split {
+    flex-direction: column;
+  }
 }
 
 .docs {
