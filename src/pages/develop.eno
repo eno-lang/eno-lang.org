@@ -28,7 +28,7 @@ for a diverse range of types like `number`, `color`, `boolean`, `float`, `latLng
 
 ##  <i class="devicon-python-plain python-blue"></i> Python
 
-**enopy v0.2.4 Alpha - Not yet recommended for production use**  
+**enopy v0.2.5 Alpha - Not yet recommended for production use**  
 [Complete documentation and API reference](https://eno-lang.org/python/)  
 
 enopy is the most recent library release (first published on PyPI on June 12th),
@@ -48,7 +48,7 @@ for a diverse range of types like `number`, `color`, `boolean`, `email`, `lat_ln
 
 ## <i class="devicon-ruby-plain ruby-red"></i> Ruby
 
-**enorb v0.4.3 Alpha - Not yet recommended for production use**  
+**enorb v0.4.4 Alpha - Not yet recommended for production use**  
 [Complete documentation and API reference](https://eno-lang.org/ruby/)  
 
 enorb already has an extensive test suite, all basic functionality should reliably work.
@@ -57,6 +57,14 @@ recommended for use in production scenarios.
 
 [<i class="devicon-ruby-plain"></i> Gem on rubygems](https://rubygems.org/gems/enorb/)  
 [<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enorb/)
+
+**enorb-exploaders v0.1.1**
+
+A collection of loaders for use with the enorb library, providing out of the box type validation and conversion
+for a diverse range of types like `Number`, `Color`, `Boolean`, `Email`, `LatLng`, `Url` and so on.
+
+[<i class="devicon-ruby-plain"></i> Gem and documentation on rubygems](https://rubygems.org/gems/enorb-exploaders/)  
+[<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enorb-exploaders/)
 
 ## Interactive Demos
 

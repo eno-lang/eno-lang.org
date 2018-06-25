@@ -3,10 +3,21 @@ title: Dev Blog
 -- markdown
 # Dev Blog
 
+**Monday, June 25 2018**
+
+- Performance optimization releases enorb 0.4.4 and enopy 0.2.5, both addressing block content parser performance, with [1-16x speed gains for ruby](https://github.com/eno-lang/enorb/blob/4b8332a2a94061c586084c92bb229be6678d77e4/spec/benchmark/analysis.json) and [1-39x speed gains for python](https://github.com/eno-lang/enopy/blob/64fb14979ea881969a317463b37c4f755bfaa497/tests/benchmark/analysis.json)
+- Re-evaluated and updated the global benchmark report at [github.com/eno-lang/benchmarks](https://github.com/eno-lang/benchmarks/)
+
+**Sunday, June 24 2018**
+
+- An [enorb-exploaders](https://rubygems.org/gems/enorb-exploaders) gem is now available as well (with the same featureset as its js/py siblings).
+- Improved clarity for some first impression texts on the frontpage (thanks to Dan Haiduc for feedback!).
+- New benchmark report at [github.com/eno-lang/benchmarks](https://github.com/eno-lang/benchmarks/) with an additional scenario added that evaluates performance for content-heavy data.
+
 **Saturday, June 23 2018**
 
 - An [experimental enopy loaders](https://test.pypi.org/project/enopy-exploaders/) package is now available too (with the same featureset as its js sibling).
-- Refactored the test structure for enopy, test coverage for enopy's `Value` class added, released `0.2.4` with small fixes.
+- Refactored the test structure for enopy, test coverage for enopy's `Value` class added, released 0.2.4 with small fixes.
 
  **Friday, June 22 2018**
  
