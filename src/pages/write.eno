@@ -12,7 +12,7 @@ essentials, pick whichever you prefer.
 
 ## The Essentials (Text Version)
 
-### Comments
+### Comments (>)
 
 Every line starting with `>` marks a comment line, in which any text may appear. The computer discards these lines when reading the file, so they are there for us to make notes and leave hints for others that might read the document.
 
@@ -20,7 +20,7 @@ Every line starting with `>` marks a comment line, in which any text may appear.
 > This is a comment!
 ```
 
-### Assigning values
+### Assigning values (:)
 
 At its core eno lets us write down values, the simplest form being:
 
@@ -47,7 +47,7 @@ More information:
 ```
 
 
-### Lists of values
+### Lists of values (-)
 
 If we want to assign multpiple values to a name, it looks like this:
 
@@ -64,7 +64,7 @@ An empty list looks like a regular empty value:
 Shopping list:
 ```
 
-### Values that span multiple lines
+### Values that span multiple lines (--)
 
 If we want to assign multiple lines to a name, we do it like this:
 
@@ -85,7 +85,7 @@ Heads up now - in the next line the block ends!
 -- Long Description
 ```
 
-### Sections
+### Sections (#)
 
 Now let's group values in a section:
 
@@ -111,7 +111,7 @@ Mobile: +43 699 104734953
 ### Uwe
 
 Landline: +43 1 0468648
-Mobile: +43 699 104734953
+Mobile: +43 699 104734953complicated
 ```
 
 And with this you already know everything you need to edit any `.eno` files you might encounter! To wrap things up, here's another small demonstration that combines all of the possibilities explained above:

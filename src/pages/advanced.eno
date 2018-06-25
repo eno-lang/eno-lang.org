@@ -14,7 +14,7 @@ experience with the concepts explained.
 
 <video controls src="/advanced.mp4"></video>
 
-## Copying
+## Copying (<)
 
 eno works very well for authoring content in multiple languages, imagine the following document layout for a blog post:
 
@@ -51,7 +51,7 @@ Hier findest du Antworten auf oft gestellte Fragen:
 
 By copying we get all fields from the english section, and by specifying a new `text` we are overwriting only that specific element, leaving the copied `title` and `permalink` intact.
 
-## Dictionaries
+## Dictionaries (=)
 
 ```eno
 color ratings:
@@ -60,12 +60,57 @@ red = 4
 blue = 1
 ```
 
-Documentation coming up in the next days!
+Dictionaries are "mini-sections" if you will. They start like a field or list (with a name and a colon),
+and go on as long as dicionary entries follow, which are differentiated from fields by their operator, an equals sign (`=`).
+Note that unlike in sections, no name can appear twice in a dictionary, every one of them needs to be unique.
 
-## Appending
+Dictionaries can be copied (like everything else in eno), in which case you can actually redeclare an existing name,
+which allows you to override its value in the copied dictionary:
 
 ```eno
-command:
+image:
+src = glass.jpg
+title = A glass, half full.
+
+image_2 < image
+title = A glass, half empty.
+```
+
+## Line Continuations (\\) and Newline Continuations (|)
+
+When a value gets overly long, or you would like to supply multiple lines for a field (without using a block) you can use line continuations:
+
+```eno
+A long sentence: I was riding my bike out in the woods, then a girl with a red cape came along and
+\                asked me what my destination was, and I honestly couldn't remember at that point.
+``` 
+
+With a backslash (`\`) you declare a *line continuation*, whatever you write on
+that line is appended to the end of the field before it (separated by a single
+space). Note that like everywhere else in eno, whitespace plays no role, so this
+is equivalent of the above example:
+
+```eno
+A long sentence: I was riding my bike out in the woods, then a girl with a red cape came along and
+
+    \ asked me what my destination was, and I honestly couldn't remember at that point.
+```
+
+With a vertical slash/pipe character (`|`) you declare a *newline continuation*, whatever you write on that line
+is also appened to the previous field, but on a new line:
+
+```eno
+A poem: Roses are red.
+|       Violets are blue.
+            
+            | Whitespace does not matter. ;)
+```
+
+Final remark: *Line continuations* and *newline continuations* can be mixed in any fashion,
+as for instance here in this classical programmer use case for line continuations:
+
+```eno
+commands:
 | ffmpeg -i input.mov
 \        -vf deinterlace
 \        output.mp4
@@ -75,7 +120,10 @@ command:
 
 Documentation coming up in the next days!
 
-## Deep copying
+## Deep copying (<<)
+
+Deep copying works like copying, except you use two angle brackets (`<<`) instead of one,
+which in turn allows you to overwrite and/or add fields inside deeply nested section hierarchies.
 
 ```eno
 # default
@@ -89,9 +137,12 @@ id: prod
 ultraservice: enabled
 ```
 
-Documentation coming up in the next days!
+In this example the resulting `# production` section will contain both `hyperservice` and `ultraservice`
+inside its `## settings` subsection, whereas if you used only a regular copy operation (single `<`),
+the `## settings` from `# default` would have been completely overwritten, deleting `hyperservice` and
+leaving only `ultraservice`. A classical usecase for this feature are complex server configurations.
 
-## Escaping
+## Escaping (``)
 
 Let's assume someone wrote an eno document describing which clothing to wear at different temperatures:
 
