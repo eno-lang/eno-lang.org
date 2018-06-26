@@ -5,7 +5,7 @@ title: Develop applications and websites with eno
 
 ## <i class="devicon-javascript-plain javascript-yellow"></i> JavaScript
 
-**enojs v0.10.5 Beta**  
+**enojs v0.10.5**  
 [Complete documentation and API reference](https://eno-lang.org/javascript/)  
 
 enojs is already being used in a few select production settings, e.g. at a
@@ -28,7 +28,7 @@ for a diverse range of types like `number`, `color`, `boolean`, `float`, `latLng
 
 ##  <i class="devicon-python-plain python-blue"></i> Python
 
-**enopy v0.2.6 Alpha - Not yet recommended for production use**  
+**enopy v0.2.6 Alpha**  
 [Complete documentation and API reference](https://eno-lang.org/python/)  
 
 enopy is the most recent library release (first published on PyPI on June 12th),
@@ -48,12 +48,14 @@ for a diverse range of types like `number`, `color`, `boolean`, `email`, `lat_ln
 
 ## <i class="devicon-ruby-plain ruby-red"></i> Ruby
 
-**enorb v0.4.5 Alpha - Not yet recommended for production use**  
+**enorb v0.4.5 Beta**  
 [Complete documentation and API reference](https://eno-lang.org/ruby/)  
 
-enorb already has an extensive test suite, all basic functionality should reliably work.
-Pending full test coverage and/or a production case study out in the wild it is however not yet
-recommended for use in production scenarios.
+enorb's functionality is already covered by an extensive test suite, all basic
+functionality should reliably work. Pending full test coverage and a production
+case study out in the wild it is likely that there are some minor glitches yet,
+in that case bugreports in the github issue tracker are warmly welcome and will
+be swiftly acted upon.
 
 [<i class="devicon-ruby-plain"></i> Gem on rubygems](https://rubygems.org/gems/enorb/)  
 [<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enorb/)

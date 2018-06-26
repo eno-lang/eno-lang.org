@@ -3,11 +3,9 @@ title: enorb - The Ruby eno library
 # Global
 
 library: enorb
-version: 0.4.5 Alpha
+version: 0.4.5 Beta
 
 -- intro
-**enorb is currently available as an alpha test release and not yet ready for production use.**
-
 ## Installation
 
 ### Bundler
