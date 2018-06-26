@@ -3,7 +3,7 @@ title: enopy - The Python eno library
 # Global
 
 library: enopy
-version: 0.2.6 Alpha
+version: 0.2.7 Alpha
 
 -- intro
 **enopy is currently available as an alpha test release and not yet ready for production use.**

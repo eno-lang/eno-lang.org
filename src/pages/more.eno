@@ -5,9 +5,10 @@ title: Dev Blog
 
 **Tuesday, June 26 2018**
 
-- Started collecting and evaluating test coverage for enojs (currently around 66%) and enorb (currently around 80%)
+- Started collecting and evaluating test coverage for all eno implementations (currently 66% for enojs, 37% for enopy and 80% for enorb)
 - Added some specs for enojs' `Value` class and a fix for a discovered regression.
 - Officially graduated enorb from Alpha to Beta status due to coverage and observed stability during usage in the last week.
+- Performance optimization release enopy 0.2.7, adressing post-opening block consumption and later allocation with [1-2.7x speed gains](https://github.com/eno-lang/enopy/blob/b884b80011c8af0301dd521396140a240a9eac96/tests/benchmark/analysis.json), updated [benchmarks](https://github.com/eno-lang/benchmarks/).
 
 **Monday, June 25 2018**
 
