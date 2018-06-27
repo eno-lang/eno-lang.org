@@ -6,6 +6,7 @@ title: Dev Blog
 **Wednesday, June 27 2018**
 
 - Performance optimization release enorb 0.4.6, adressing post-opening block consumption and later allocation with [1.25x speed decreases-3x speed gains](https://github.com/eno-lang/enorb/blob/638261d191649b317225a20b1f53abfbef3fdedb/spec/performance/analysis.json), updated [benchmarks](https://github.com/eno-lang/benchmarks/).
+- Released enopy 0.2.8 with a fix for a regression in enopy tokenization, set up a tokenization snapshot test scenario for future prevention.
 
 **Tuesday, June 26 2018**
 
