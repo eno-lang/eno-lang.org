@@ -3,6 +3,10 @@ title: Dev Blog
 -- markdown
 # Dev Blog
 
+**Wednesday, June 27 2018**
+
+- Performance optimization release enorb 0.4.6, adressing post-opening block consumption and later allocation with [1.25x speed decreases-3x speed gains](https://github.com/eno-lang/enorb/blob/638261d191649b317225a20b1f53abfbef3fdedb/spec/performance/analysis.json), updated [benchmarks](https://github.com/eno-lang/benchmarks/).
+
 **Tuesday, June 26 2018**
 
 - Started collecting and evaluating test coverage for all eno implementations (currently 66% for enojs, 37% for enopy and 80% for enorb)
