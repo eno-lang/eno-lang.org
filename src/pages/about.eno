@@ -14,17 +14,22 @@ title: About eno
 - eno allows **sequential and associative reading**, you can seamlessly blend between configuration/metadata and content in a single document
 - There is no indentation and **all whitespace is optional**, as are empty lines
 
-## Current Status
+## History
 
-eno has been designed in a 2-3 month focused period of applied research and
-development in early spring 2018. It's currently undergoing eager preparation
-for its public announcement. Already there are official [learning
-resources](https://eno-lang.org/write/) for the language itself, library
-implementations for [Javascript](https://eno-lang.org/javascript/),
+The eno notation language has been carefully designed in a 2-3 month focused
+period of applied research and development in early spring 2018. Initially
+developed in JavaScript, the eno libraries now already extend to the python and
+ruby platforms, with all three implementations extending and improving on each
+other in constant reciprocation on their current trajectory to stable release status.
+
+Although a project young in age, there already are official and complete
+[learning resources](https://eno-lang.org/write/) for the language itself, the
+aforementioned library implementations for
+[Javascript](https://eno-lang.org/javascript/),
 [Python](https://eno-lang.org/python/) and [Ruby](https://eno-lang.org/ruby/)
 (with more on the roadmap), syntax highlighting support for
 [Atom](https://atom.io/packages/language-eno/) and [Sublime
-Text](https://github.org/eno-lang/sublime-eno/) and much more in the making.
+Text](https://github.org/eno-lang/sublime-eno/), and much more in the making.
 
 ## Team
 

@@ -40,7 +40,7 @@ Developer's bliss for quickly creating rich, reliable and production-ready user 
 Arbitrary automatic data de/serialization - yaml, toml are made for, and excellent, at that.  
 Human-readable inter-application/process communication - json is there and working great.
 
-## Watch the teaser:
+## A quick video introduction:
 
 <video controls src="/teaser.mp4"></video>
 
