@@ -17,8 +17,7 @@ statically generated website case studies (e.g.
 [simonrepp.com](https://simonrepp.com)), as well as, of course, generating the
 whole eno-lang.org website.
 
-Test suite coverage is currently at 93%, full coverage is likely to be reached in early to mid july,
-if you discover any issues you are very welcome to report them in the github issue tracker either way.
+Test suite coverage is currently at 93%, if you discover any issues you are very welcome to report them in the github issue tracker!
 
 [<i class="devicon-javascript-plain"></i> Package on npm](https://npmjs.com/package/enojs/)  
 [<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enojs/)
@@ -53,13 +52,13 @@ for a diverse range of types like `number`, `color`, `boolean`, `email`, `lat_ln
 
 ## <i class="devicon-ruby-plain ruby-red"></i> Ruby
 
-**enorb v0.4.6 Beta**  
+**enorb v0.4.7 Beta**  
 [Complete documentation and API reference](https://eno-lang.org/ruby/)  
 
 enorb's functionality is already covered by an extensive test suite (at
-currently 80% coverage), the biggest part of the API should work reliably. As
-soon as a first production case study is in place and running,
-enorb will officially graduate into stable release status.
+currently 93% coverage), the biggest part of the API should work reliably. As
+soon as a first production case study is in place and running, enorb will
+officially graduate into stable release status.
 
 [<i class="devicon-ruby-plain"></i> Gem on rubygems](https://rubygems.org/gems/enorb/)  
 [<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enorb/)

@@ -9,6 +9,9 @@ title: Dev Blog
 - Fixed a minor issue in enopy's duplicate dictionary entry error implementation.
 - Added tons of unit tests to enojs (especially covering error implementations), test suite coverage is now up at 93%.
 - Released enojs 0.10.6 with various big and small fixes from the last days.
+- Updated the [benchmark report](https://github.com/eno-lang/benchmarks/) with better visual scaling at the top ranking performance field, as well as added explanations.
+- Added some test scenarios with wide effect for enorb's html and terminal reporters, catalog messages, as well as the dependency resolver, coverage now up at 93%.
+- Released enorb 0.4.7 with a critical fix for the html reporter.
 
 **Wednesday, June 27 2018**
 
