@@ -5,15 +5,20 @@ title: Develop applications and websites with eno
 
 ## <i class="devicon-javascript-plain javascript-yellow"></i> JavaScript
 
-**enojs v0.10.5**  
+**enojs v0.10.6**  
 [Complete documentation and API reference](https://eno-lang.org/javascript/)  
 
-enojs is already being used in a few select production settings, e.g. at a
-vienna-based institute for urban research, where it powers the validation,
-processing and editing process for thousands of articles in a completely (eno)
-file-based database, for building the message catalogs that power all eno
-implementations in the [eno-locales](https://github.com/eno-lang/eno-locales)
-repository, as well as, of course, generating the whole eno-lang.org website.
+enojs is already running in production, most notably at a vienna-based institute
+for urban research, where it powers the validation, processing and editing
+process for thousands of articles in a completely (eno) file-based database, for
+building the message catalogs that power all eno implementations in the
+[eno-locales](https://github.com/eno-lang/eno-locales) repository, for a few
+statically generated website case studies (e.g.
+[simonrepp.com](https://simonrepp.com)), as well as, of course, generating the
+whole eno-lang.org website.
+
+Test suite coverage is currently at 93%, full coverage is likely to be reached in early to mid july,
+if you discover any issues you are very welcome to report them in the github issue tracker either way.
 
 [<i class="devicon-javascript-plain"></i> Package on npm](https://npmjs.com/package/enojs/)  
 [<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enojs/)
@@ -32,8 +37,8 @@ for a diverse range of types like `number`, `color`, `boolean`, `float`, `latLng
 [Complete documentation and API reference](https://eno-lang.org/python/)  
 
 enopy is the most recent library release (first published on PyPI on June 12th),
-currently there is only very rudimentary automated test coverage, therefore you
-should expect to run into issues, potentially also with core functionality.
+test suite coverage is currently at 52% and steadily rising. There will likely be some glitches
+here and there still, but core functionality should run smoothly.
 
 [<i class="devicon-python-plain"></i> Package on PyPI](https://pypi.org/project/enopy/)  
 [<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enopy/)
@@ -51,11 +56,10 @@ for a diverse range of types like `number`, `color`, `boolean`, `email`, `lat_ln
 **enorb v0.4.6 Beta**  
 [Complete documentation and API reference](https://eno-lang.org/ruby/)  
 
-enorb's functionality is already covered by an extensive test suite, all basic
-functionality should reliably work. Pending full test coverage and a production
-case study out in the wild it is likely that there are some minor glitches yet,
-in that case bugreports in the github issue tracker are warmly welcome and will
-be swiftly acted upon.
+enorb's functionality is already covered by an extensive test suite (at
+currently 80% coverage), the biggest part of the API should work reliably. As
+soon as a first production case study is in place and running,
+enorb will officially graduate into stable release status.
 
 [<i class="devicon-ruby-plain"></i> Gem on rubygems](https://rubygems.org/gems/enorb/)  
 [<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enorb/)

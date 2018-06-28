@@ -3,6 +3,13 @@ title: Dev Blog
 -- markdown
 # Dev Blog
 
+**Thursday, June 28 2018**
+
+- Added unit tests for enopy's tokenization, analysis and resolution error implementations and the Dictionary element implementation, coverage is now up at 52%.
+- Fixed a minor issue in enopy's duplicate dictionary entry error implementation.
+- Added tons of unit tests to enojs (especially covering error implementations), test suite coverage is now up at 93%.
+- Released enojs 0.10.6 with various big and small fixes from the last days.
+
 **Wednesday, June 27 2018**
 
 - Performance optimization release enorb 0.4.6, adressing post-opening block consumption and later allocation with [1.25x speed decreases-3x speed gains](https://github.com/eno-lang/enorb/blob/638261d191649b317225a20b1f53abfbef3fdedb/spec/performance/analysis.json), updated [benchmarks](https://github.com/eno-lang/benchmarks/).
