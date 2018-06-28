@@ -3,19 +3,29 @@ title: Develop applications and websites with eno
 -- markdown
 # Overview
 
+The eno libraries for JavaScript, Python and Ruby are built upon very fast,
+dependency-free, custom and pure parser implementations. As indicated by the
+growing [eno benchmark suite](https://github.com/eno-lang/benchmarks/) they now
+already seem to outperform most popular toml and yaml parsers out in the field,
+even keeping up with parsers utilizing native C library bindings.
+
+The current objectives for development are to reach rock-solid stability for all
+implementations and to extend test coverage to 100% for all three platforms, both
+objectives being within close reach already.
+
 ## <i class="devicon-javascript-plain javascript-yellow"></i> JavaScript
 
 **enojs v0.10.6**  
 [Complete documentation and API reference](https://eno-lang.org/javascript/)  
 
-enojs is already running in production, most notably at a vienna-based institute
+enojs is already running in production scenarios, most notably at a vienna-based institute
 for urban research, where it powers the validation, processing and editing
 process for thousands of articles in a completely (eno) file-based database, for
 building the message catalogs that power all eno implementations in the
 [eno-locales](https://github.com/eno-lang/eno-locales) repository, for a few
 statically generated website case studies (e.g.
 [simonrepp.com](https://simonrepp.com)), as well as, of course, generating the
-whole eno-lang.org website.
+whole eno-lang.org website itself.
 
 Test suite coverage is currently at 93%, if you discover any issues you are very welcome to report them in the github issue tracker!
 
