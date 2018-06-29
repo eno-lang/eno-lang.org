@@ -3,6 +3,11 @@ title: Dev Blog
 -- markdown
 # Dev Blog
 
+**Friday, June 28 2018**
+
+- Brought test coverage for enopy up to 83% with tons of tests added for error implementations, dependency resolution, reporters, and more.
+- Graduated enopy from Alpha to Beta with release 0.2.10, which includes collected fixes from the last two days.
+
 **Thursday, June 28 2018**
 
 - Added unit tests for enopy's tokenization, analysis and resolution error implementations and the Dictionary element implementation, coverage is now up at 52%.

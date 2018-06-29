@@ -42,12 +42,12 @@ for a diverse range of types like `number`, `color`, `boolean`, `float`, `latLng
 
 ##  <i class="devicon-python-plain python-blue"></i> Python
 
-**enopy v0.2.9 Alpha**  
+**enopy v0.2.10 Beta**  
 [Complete documentation and API reference](https://eno-lang.org/python/)  
 
 enopy is the most recent library release (first published on PyPI on June 12th),
-test suite coverage is currently at 52% and steadily rising. There will likely be some glitches
-here and there still, but core functionality should run smoothly.
+test suite coverage is currently at 83% and rising. There will likely be some
+minor glitches here and there still, but most functionality should run smoothly.
 
 [<i class="devicon-python-plain"></i> Package on PyPI](https://pypi.org/project/enopy/)  
 [<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enopy/)
