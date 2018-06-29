@@ -6,8 +6,6 @@ library: enopy
 version: 0.2.10 Beta
 
 -- intro
-**enopy is currently available as an alpha test release and not yet ready for production use.**
-
 ## Installation
 
 ``` shell
@@ -90,7 +88,7 @@ description: A `Section` representing the document.
 ## Section
 
 -- class description
-Every section in an eno document, such as for instance `# notes` or `### Appendix`, maps to an `Section`.
+Every section in an eno document, such as for instance `# notes` or `### Appendix`, maps to a `Section`.
 More prominently though **the document itself is represented as an `Section`**,
 consequently this is the interface you'll be utilizing most for many usecases.
 -- class description
@@ -735,7 +733,7 @@ description: An array of `Section`s.
 -- class description
 All values in an eno document, such as the value of a field like `name: value`,
 the lines inside a block, the value of a list item, the value of a dictionary
-entry, and so on, map to an `Value`. Usually you don't interact with this
+entry, and so on, map to a `Value`. Usually you don't interact with this
 because you directly get the values from a section or dictionary in most cases.
 When you sequentially iterate a section (with `Section`'s
 '`#elements` method) you will get to interact with this class.

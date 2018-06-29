@@ -45,9 +45,9 @@ for a diverse range of types like `number`, `color`, `boolean`, `float`, `latLng
 **enopy v0.2.10 Beta**  
 [Complete documentation and API reference](https://eno-lang.org/python/)  
 
-enopy is the most recent library release (first published on PyPI on June 12th),
-test suite coverage is currently at 83% and rising. There will likely be some
-minor glitches here and there still, but most functionality should run smoothly.
+enopy is the most recent library release. Test suite coverage is at 83% and
+rising, and a first production case study is currently underway to confirm
+production stability of the implementation.
 
 [<i class="devicon-python-plain"></i> Package on PyPI](https://pypi.org/project/enopy/)  
 [<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enopy/)
@@ -62,13 +62,12 @@ for a diverse range of types like `number`, `color`, `boolean`, `email`, `lat_ln
 
 ## <i class="devicon-ruby-plain ruby-red"></i> Ruby
 
-**enorb v0.4.7 Beta**  
+**enorb v0.4.8 Beta**  
 [Complete documentation and API reference](https://eno-lang.org/ruby/)  
 
 enorb's functionality is already covered by an extensive test suite (at
-currently 93% coverage), the biggest part of the API should work reliably. As
-soon as a first production case study is in place and running, enorb will
-officially graduate into stable release status.
+currently 93% coverage). As soon as a first production case study is in place
+and running, enorb will officially graduate into stable release status.
 
 [<i class="devicon-ruby-plain"></i> Gem on rubygems](https://rubygems.org/gems/enorb/)  
 [<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enorb/)

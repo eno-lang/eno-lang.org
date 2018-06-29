@@ -3,7 +3,7 @@ title: enorb - The Ruby eno library
 # Global
 
 library: enorb
-version: 0.4.7 Beta
+version: 0.4.8 Beta
 
 -- intro
 ## Installation
