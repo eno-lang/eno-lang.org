@@ -3,7 +3,7 @@ title: enojs - The JavaScript eno library
 # Global
 
 library: enojs
-version: 0.10.6
+version: 0.11.0
 
 -- intro
 Installation from npm:

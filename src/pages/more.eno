@@ -3,7 +3,14 @@ title: Dev Blog
 -- markdown
 # Dev Blog
 
-**Friday, June 28 2018**
+**Saturday, June 30 2018**
+
+- Released enojs 0.11.0 with a new single-pass tokenizer and much lighter memory and allocation footprint
+- Added more isolated tokenizer snapshot tests for enojs to ensure regression-safety.
+- Re-run the [benchmarks](https://github.com/eno-lang/benchmarks/), enojs now performs 7x faster than the fastest yaml parser in the content heavy benchmark.
+
+
+**Friday, June 29 2018**
 
 - Brought test coverage for enopy up to 83% with tons of tests added for error implementations, dependency resolution, reporters, and more.
 - Graduated enopy from Alpha to Beta with release 0.2.10, which includes collected fixes from the last two days.
