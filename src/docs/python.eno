@@ -620,8 +620,8 @@ For all valid indices within the document returns a Hash with two keys:
 `'>'` => `comment_operator`  
 ``'`'`` => `escape_begin_operator`  
 ``'`'`` => `escape_end_operator`  
-`'|'` => `append_with_newline_operator`  
-`'\'` => `append_with_space_operator`  
+`'|'` => `newline_continuation_operator`  
+`'\'` => `line_continuation_operator`  
 `'#'` => `section_operator`  
 `'<'` => `copy_operator`  
 `'<<'` => `deep_copy_operator`  

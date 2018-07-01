@@ -614,8 +614,8 @@ For all valid indices within the document returns an object with two properties:
 `'>'` => `commentOperator`  
 ``'`'`` => `escapeBeginOperator`  
 ``'`'`` => `escapeEndOperator`  
-`'|'` => `appendWithNewlineOperator`  
-`'\'` => `appendWithSpaceOperator`  
+`'|'` => `newlineContinuationOperator`  
+`'\'` => `lineContinuationOperator`  
 `'#'` => `sectionOperator`  
 `'<'` => `copyOperator`  
 `'<<'` => `deepCopyOperator`  
