@@ -7,6 +7,9 @@ title: Dev Blog
 
 - Added more isolated tokenizer snapshot tests and element implementation tests for enojs, coverage now up at 95%.
 - Released enojs 0.11.1 with some small fixes for older undiscovered range indexing glitches
+- Added more isolated tokenizer snapshot tests for enopy, coverage now up at 87%.
+- Released enopy 0.3.0 which adopts the unified regex grammar tokenizer architecture from enojs, resulting in [1-1.2x speed gains](https://github.com/eno-lang/enopy/blob/1b6d6dcc6b610b3f7819d3056d9057cdc7ef0c4a/performance/analysis.json).
+- Updated [benchmarks](https://github.com/eno-lang/benchmarks/) with enopy 0.3.0 and ruamel.yaml 0.15.42, with the latter now explicitly using the libyaml based engine.
 
 **Saturday, June 30 2018**
 
