@@ -3,12 +3,16 @@ title: Dev Blog
 -- markdown
 # Dev Blog
 
+**Sunday, July 1 2018**
+
+- Added more isolated tokenizer snapshot tests and element implementation tests for enojs, coverage now up at 95%.
+- Released enojs 0.11.1 with some small fixes for older undiscovered range indexing glitches
+
 **Saturday, June 30 2018**
 
 - Released enojs 0.11.0 with a new single-pass tokenizer and much lighter memory and allocation footprint
 - Added more isolated tokenizer snapshot tests for enojs to ensure regression-safety.
 - Re-run the [benchmarks](https://github.com/eno-lang/benchmarks/), enojs now performs 7x faster than the fastest yaml parser in the content heavy benchmark.
-
 
 **Friday, June 29 2018**
 
