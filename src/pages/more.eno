@@ -3,6 +3,11 @@ title: Dev Blog
 -- markdown
 # Dev Blog
 
+**Moday, July 2 2018**
+
+- Released enopy 0.3.1 with a few fixes for section methods.
+- Further extended the enopy test suite, bringing coverage up to 90%.
+
 **Sunday, July 1 2018**
 
 - Added more isolated tokenizer snapshot tests and element implementation tests for enojs, coverage now up at 95%.
