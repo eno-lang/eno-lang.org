@@ -6,6 +6,9 @@ title: Dev Blog
 **Tuesday, July 3 2018**
 
 - Released enojs 0.12.0, enopy 0.4.0 and enorb 0.5.0, which implement eno's added language support for (new)line continuations on dictionary entries and list items.
+- Added complete test coverage for enorb's tokenization as isolated snapshot tests.
+- Released enorb 0.6.0 which also adopts the same regex-based tokenization logic used by enojs and enopy - no performance changes found but it fixes multiple issues.
+- Released enopy 0.4.1 with fixes for older tokenization regressions.
 
 **Moday, July 2 2018**
 
