@@ -1,24 +1,24 @@
 # menu
 
-## write
+## language
 
-label: Write
+label: Language
 tagline: Write your content with eno
 
 ### pages
 
-write: Introduction
+language: Introduction
 advanced: Advanced
 plugins: Plugins
 
-## develop
+## libraries
 
-label: Develop
+label: Libraries
 tagline: Develop applications and websites with eno
 
 ### pages
 
-develop: Overview
+libraries: Overview
 javascript: JavaScript
 python: Python
 ruby: Ruby

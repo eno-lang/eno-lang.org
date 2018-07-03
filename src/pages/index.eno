@@ -1,9 +1,7 @@
-title: eno &nbsp;-&nbsp;  A notation language for everyone
+title: The eno notation language and libraries
 
 -- markdown
-# A structured data notation language for everyone.
-
-**eno** is a structured data notation language for everyone.
+**eno** is a versatile data notation language for everyone, backed by open source libraries that help you build better and faster websites and applications around file-based content.
 
 ```eno
 # Section
@@ -33,7 +31,7 @@ Field B: Added Value
 
 As fast to write and edit as it probably gets - powerful and yet understandable for everyone (not just programmers).  
 An excellent format for authoring entire websites, documentation, invoices, CVs, reports, configuration, you name it.  
-Developer's bliss for quickly creating rich, reliable and production-ready user experiences around structured text.
+Developer's bliss for quickly creating rich, reliable and production-ready user experiences around file-based content.
 
 **eno** isn't ...
 
@@ -47,11 +45,11 @@ Human-readable inter-application/process communication - json is there and worki
 ## Want to learn more about how eno works? 
 
 The two-part video guide (or alternatively also as text) at
-[eno-lang.org/write](https://eno-lang.org/write/) covers everything there is to
+[eno-lang.org/language](https://eno-lang.org/language/) covers everything there is to
 know about the eno notation language, and you'll be able to author any content
 you can think of within minutes.
 
-Visit [eno-lang.org/write](https://eno-lang.org/write/) for an introduction.
+Visit [eno-lang.org/language](https://eno-lang.org/language/) for an introduction.
 
 ```eno
 command:
@@ -75,14 +73,14 @@ The eno libraries for [JavaScript](https://eno-lang.org/javascript/),
 [Python](https://eno-lang.org/python/) and [Ruby](https://eno-lang.org/ruby/)
 (more on the roadmap) offer [fast](https://github.com/eno-lang/benchmarks/),
 robust, dependency-free, and [thoroughly
-documented](https://eno-lang.org/develop/) parser implementations in popular
+documented](https://eno-lang.org/libraries/) parser implementations in popular
 languages. The eno libraries guarantee structural and type safety for all your
 data out of the box - programmatically and on the fly, without maintaining a
 separate schema - and provide you with beautiful, fully localized user errors
 with rich metadata (message, snippet, cursor position and selection range) for easy and
 seamless integration into apps, websites, plugins, editors, IDEs, you name it.
 
-Visit [eno-lang.org/develop](https://eno-lang.org/develop/) for an overview.
+Visit [eno-lang.org/libraries](https://eno-lang.org/libraries/) for an overview.
 
 ```eno
 # default

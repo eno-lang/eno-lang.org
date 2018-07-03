@@ -16,20 +16,17 @@ title: About eno
 
 ## History
 
-The eno notation language has been carefully designed in a 2-3 month focused
-period of applied research and development in early spring 2018. Initially
-developed in JavaScript, the eno libraries now already extend to the python and
-ruby platforms, with all three implementations extending and improving on each
-other in constant reciprocation on their current trajectory to stable release status.
-
-Although a project young in age, there already are official and complete
-[learning resources](https://eno-lang.org/write/) for the language itself, the
-aforementioned library implementations for
-[Javascript](https://eno-lang.org/javascript/),
-[Python](https://eno-lang.org/python/) and [Ruby](https://eno-lang.org/ruby/)
-(with more on the roadmap), syntax highlighting support for
-[Atom](https://atom.io/packages/language-eno/) and [Sublime
-Text](https://github.org/eno-lang/sublime-eno/), and much more in the making.
+The eno notation language exists since early 2018, where it surfaced in an
+extended period of applied research and development of a large project around
+file-based content. Initially developed in
+[JavaScript](https://eno-lang.org/javascript/), the eno libraries now already
+extend to the [Python](https://eno-lang.org/python/) and
+[Ruby](https://eno-lang.org/ruby/) platforms. Asides the language design and its
+implementations there already are official and complete [learning
+resources](https://eno-lang.org/language/) for the language itself, syntax
+highlighting support for [Atom](https://atom.io/packages/language-eno/) and
+[Sublime Text](https://github.org/eno-lang/sublime-eno/), and much more in the
+making.
 
 ## Team
 
@@ -45,8 +42,9 @@ If you just want to get in touch directly, you can write a mail to <simon@fdpl.i
 
 Give it a try, tell your colleagues, tweet it, share it, blog about it, report
 bugs, star your favorite repository on [github](https://github.com/eno-lang/),
-present it at your tech meetup, make proposals for improvements, every
-contribution is valueable.
+present it at your tech meetup, contribute
+[localizations](https://github.com/eno-lang/eno-locales), make proposals for
+improvements, every contribution is valueable.
 
 Grateful for any help you can provide!
 -- markdown

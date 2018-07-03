@@ -3,7 +3,7 @@ title: enopy - The Python eno library
 # Global
 
 library: enopy
-version: 0.3.1 Beta
+version: 0.4.0 Beta
 
 -- intro
 ## Installation
