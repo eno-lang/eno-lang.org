@@ -3,6 +3,10 @@ title: Dev Blog
 -- markdown
 # Dev Blog
 
+**Tuesday, July3 2018**
+
+- Released enojs 0.12.0 which implements eno's added language support for (new)line continuations on dictionary entries and list items.
+
 **Moday, July 2 2018**
 
 - Released enopy 0.3.1 with a few fixes for section methods.
