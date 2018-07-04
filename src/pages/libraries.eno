@@ -57,7 +57,7 @@ for a diverse range of types like `number`, `color`, `boolean`, `email`, `lat_ln
 
 ## <i class="devicon-ruby-plain ruby-red"></i> Ruby
 
-**enorb v0.6.0 Beta**  
+**enorb v0.7.0 Beta**  
 [Complete documentation and API reference](https://eno-lang.org/ruby/)  
 
 enorb's functionality is already covered by an extensive test suite (at
@@ -66,14 +66,6 @@ and running, enorb will officially graduate into stable release status.
 
 [<i class="devicon-ruby-plain"></i> Gem on rubygems](https://rubygems.org/gems/enorb/)  
 [<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enorb/)
-
-**enorb-exploaders v0.1.1**
-
-A collection of loaders for use with the enorb library, providing out of the box type validation and conversion
-for a diverse range of types like `Number`, `Color`, `Boolean`, `Email`, `LatLng`, `Url` and so on.
-
-[<i class="devicon-ruby-plain"></i> Gem and documentation on rubygems](https://rubygems.org/gems/enorb-exploaders/)  
-[<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enorb-exploaders/)
 
 ## Interactive Demos
 

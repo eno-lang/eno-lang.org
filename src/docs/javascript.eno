@@ -296,7 +296,7 @@ syntax: loaders.json
 -- js
 const document = eno.parse(input);
 
-document.field('json payload', loaders.url);  // returns { status: 500 }
+document.field('json payload', loaders.json);  // returns { status: 500 }
 -- js
 
 ### latLng

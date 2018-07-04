@@ -3,7 +3,7 @@ title: enorb - The Ruby eno library
 # Global
 
 library: enorb
-version: 0.6.0 Beta
+version: 0.7.0 Beta
 
 -- intro
 ## Installation
@@ -103,6 +103,284 @@ zero_indexing = `true` or `false` (default), set `true` to display `0,1,2,..` li
 #### return value
 
 description: An `Eno::Section` representing the document.
+
+## Eno::Loaders
+
+-- class description
+enorb provides a set of core loaders for important types that are available
+out-of-the-box (in addition to the possiblity to define your own custom loaders
+as described further down in the documentation).
+
+You can use the loaders with enorb as demonstrated in this example:
+
+```ruby
+require 'enorb'
+
+doc = parse(
+  <<~DOC
+    publish: yes
+    location: 36.987094, -25.091719
+    email: contact@faulty
+  DOC
+)
+
+doc.field('publish', Eno::Loaders::Boolean)
+  #=> true
+  
+doc.field('location', Eno::Loaders::LatLng)
+  #=>
+  # {
+  #   lat:  36.987094,
+  #   lng: -25.091719
+  # }
+  
+doc.field('email', Eno::Loaders::Email)
+  # raises an error: 'email' must contain a valid email address, for instance 'jane.doe@eno-lang.org'.
+```
+
+Note that some loaders only perform validation and return their input unaltered
+as string (e.g. `Color`, `Email`), while others both validate and transform the
+value into a new type (e.g. `Float`, `Boolean`) or even object (e.g. `LatLng`).
+
+**Development teaser**: There is a plan to integrate the loaders (both core loaders and user supplied ones)
+more tightly into the API, which would mean that in the near future you'll be able to write ...
+
+```ruby
+document.boolean('published') #=> true/false
+```
+
+instead of the currently more verbose ...
+
+```ruby
+document.field('published', Eno::Loaders::Boolean) #=> true/false
+```
+-- class description
+
+### ::Boolean
+
+-- description
+Accepts `true`, `false`, `yes` and `no`, returns a `boolean` (or raises an error for invalid values).
+-- description
+
+syntax: Eno::Loaders::Boolean
+
+-- eno
+enabled: true
+publish: no
+visible: not
+-- eno
+
+-- ruby
+document = Eno.parse(input)
+
+document.field('enabled', Eno::Loaders::Boolean)  #=> true
+document.field('publish', Eno::Loaders::Boolean)  #=> false
+
+document.field('visible', Eno::Loaders::Boolean)
+  # raises an error: 'visible' must contain a boolean - allowed values are 'true', 'false', 'yes' and 'no'.
+-- ruby
+
+### ::Color
+
+-- description
+Accepts values formatted as `#RRGGBB` or `#RGB` (case insensitive), returns the value unchanged (or raises an error for invalid values).
+-- description
+
+syntax: Eno::Loaders::Color
+
+-- eno
+active: #F00
+hover: #ff0000
+focus: blue
+-- eno
+
+-- ruby
+document = Eno.parse(input)
+
+document.field('active', Eno::Loaders::Color)  #=> '#F00'
+document.field('hover', Eno::Loaders::Color)  #=> '#ff0000'
+
+document.field('focus', Eno::Loaders::Color)
+  # raises an error: 'focus' must contain a color, for instance '#B6D918', '#fff' or '#01b'.
+-- ruby
+
+### ::Datetime
+
+-- description
+**HEADS UP: This loader is still in development and not yet released**
+
+Accepts a subset of ISO 8601 date/time formats described in this W3C note: <https://www.w3.org/TR/NOTE-datetime>
+
+Returns a ruby `Date` object (or raises an error for invalid values).
+
+Some possible example values that match the format:
+- `1990`
+- `1990-12`
+- `1990-12-31`
+- `1990-12-31T23:59Z`
+- `1990-12-31T23:59:00+01:00`
+- `1990-12-31T23:59:00.999+01:00`
+
+Note that spaces as separators are not allowed.
+
+Development note:
+A more appealing, less technical datetime format or an additional loader to serve that requirement would be generally welcome,
+the current format is basically just an initial draft that should cover many usecases and is standardized through its
+ISO origin, feel free to get in touch and propose an extension/update if you'd be interested in such development.
+-- description
+
+syntax: Eno::Loaders::Datetime
+
+-- eno
+start: 1992-12-01
+end: 1994-03-04T13:14Z
+invalid: 2018-03-14 13:10
+-- eno
+
+-- ruby
+document = Eno.parse(input)
+
+document.field('start', Eno::Loaders::Datetime)  #=> #<Date>
+document.field('end', Eno::Loaders::Datetime)  #=> #<Date>
+
+document.field('invalid', Eno::Loaders::Datetime)
+  # raises an error: 'invalid' must contain a valid date or date and time, for instance '1997-07-16' or '1994-11-05T13:15Z' (see https://www.w3.org/TR/NOTE-datetime).
+-- ruby
+
+### ::Float
+
+-- description
+Accepts floats (decimal part can be missing though), returns a float (or raises an error for malformed values).
+-- description
+
+syntax: Eno::Loaders::Float
+
+-- eno
+good: 49.9
+fine: -2
+bad: three
+-- eno
+
+-- ruby
+document = Eno.parse(input)
+
+document.field('good', Eno::Loaders::Float)  #=> 49.9
+document.field('fine', Eno::Loaders::Float)  #=> -2.0
+
+document.field('bad', Eno::Loaders::Float)
+  # raises an error: 'bad' must contain a decimal number, for instance '13.0', '-9.159' or '42'.
+-- ruby
+
+### ::Integer
+
+-- description
+Accepts integers only (float is not clipped but triggers an error), returns an integer.
+-- description
+
+syntax: Eno::Loaders::Integer
+
+-- eno
+good: -13
+bad: 0.3
+-- eno
+
+-- ruby
+document = Eno.parse(input)
+
+document.field('good', Eno::Loaders::Integer)  #=> -13
+
+document.field('bad', Eno::Loaders::Integer)
+  # raises an error: 'bad' must contain an integer, for instance '42' or '-21'.
+-- ruby
+
+### ::Json
+
+-- description
+Parses the value as JSON and returns the result (or passes on the parser error for malformed JSON).
+-- description
+
+syntax: Eno::Loaders::Json
+
+-- eno
+-- rubyon payload
+{
+  "status": 500
+}
+-- rubyon payload
+-- eno
+
+-- ruby
+document = Eno.parse(input)
+
+document.field('json payload', Eno::Loaders::Json)  #=> { status: 500 }
+-- ruby
+
+### ::LatLng
+
+-- description
+Accepts lat/lng coordinates of the form `dd.ddddd, dd.ddddd`, returns a `Hash` (see example below) (or raises an error for invalid values).
+-- description
+
+syntax: Eno::Loaders::LatLng
+
+-- eno
+location: 36.987094, -25.091719
+-- eno
+
+-- ruby
+document = Eno.parse(input)
+
+document.field('location', Eno::Loaders::LatLng)
+  #=>
+  # {
+  #   lat:  36.987094,
+  #   lng: -25.091719
+  # }
+-- ruby
+
+### ::Number
+
+-- description
+An alias for the `::Integer` loader.
+-- description
+
+syntax: Eno::Loaders::Number
+
+-- eno
+good: -13
+bad: 0.3
+-- eno
+
+-- ruby
+document = Eno.parse(input)
+
+document.field('good', Eno::Loaders::Number)  #=> -13
+
+document.field('bad', Eno::Loaders::Number)
+  # raises an error: 'bad' must contain an integer, for instance '42' or '-21'.
+-- ruby
+
+### ::Url
+
+-- description
+Validates a URL and returns it unaltered (or raises an error for an invalid URL).
+-- description
+
+syntax: Eno::Loaders::Url
+
+-- eno
+good: https://json.org
+bad: www.boom
+-- eno
+
+-- ruby
+document = Eno.parse(input)
+
+document.field('good', Eno::Loaders::Url)  #=> 'https://json.org'
+
+document.field('bad', Eno::Loaders::Url)
+  # raises an error: 'bad' must contain valid URL, for instance 'https://eno-lang.org'.
+-- ruby
 
 ## Eno::Section
 
@@ -496,8 +774,10 @@ document.list('colors', min_count: 3)  # raises an error
 name: The name of the list to return as a string.
 
 loader_block or loader_proc:
-| A block or `Proc` returning the transformed/validated value or raising an error.
-| (The block or `Proc` is applied to each list item on its own, being passed the arguments `name` and `value`)
+| A block or `Proc` returning the transformed/validated value or raising an
+| error.  (The block or `Proc` is applied to each list item on its own, being
+| passed the arguments `name`, `value` and ` context`, the last of which is
+| only used by the core loaders to determine the locale for error messages)
 
 options:
 enforce_element = Whether the list must be present in the document (defaults to `false`)  
@@ -858,7 +1138,7 @@ towel_color = document.element('towel color')
 flag_color.value  # => 'beige'
 towel_color.value  # => nil
 
-flag_color.value(->(name, value) { value.gsub('eig', 'lu') }   #=> 'blue'
+flag_color.value(Proc.new { |name, value| value.gsub('eig', 'lu') })   #=> 'blue'
 
 flag_color.value do |name, value|
   value.gsub('eig', 'lu')
@@ -869,8 +1149,9 @@ end  #=> 'blue'
 #### parameters
 
 loader_block or loader_proc:
-| A block returning the transformed/validated value or raising an error.  
-| The block is passed `name` and `value` as arguments.
+| A block or proc returning the transformed/validated value or raising an error.  
+| The block or proc is passed `name`, `value` and `context` as arguments, the last of which is
+| only used by the core loaders to determine the locale for error messages.
 
 options:
 enforce_value = Whether there must be a value or the field is allowed to be empty (default to `false`)
@@ -947,7 +1228,7 @@ list = document.element('colors')
 
 list.items()  #=> ['pink', 'peach']
 
-list.items(->(name, value) { "#{value}!!" })  #=> ['pink!!', 'peach!!']
+list.items(Proc.new { |name, value| "#{value}!!" })  #=> ['pink!!', 'peach!!']
 
 list.items { |name, value| { "#{value}!!" }  #=> ['pink!!', 'peach!!']
 -- ruby
@@ -956,7 +1237,8 @@ list.items { |name, value| { "#{value}!!" }  #=> ['pink!!', 'peach!!']
 
 loader_block or loader_proc:
 | A `Proc` or block returning the transformed/validated value or raising an error.
-| (The `Proc` or block is applied to each list item on its own, being passed the arguments `name` and `value`)
+| (The `Proc` or block is applied to each list item on its own, being passed the arguments `name`, `value` and `context`, the last of which is
+| only used by the core loaders to determine the locale for error messages)
 
 options:
 elements = Whether to return the elements (as `Eno::Value`) instead of the values of the list items. (defaults to `false`)  
@@ -1222,7 +1504,7 @@ qa.entry('Purpose', required: true)   # raises an error
 qa.entry('Purpose', enforce_element: true)   #=> nil
 qa.entry('Beige', enforce_element: true)   # raises an error
 
-qa.entry('Green', ->(name, value) { value.upcase })   #=> 'YES'
+qa.entry('Green', Proc.new { |name, value| value.upcase })   #=> 'YES'
 
 qa.entry('Meaning') do |name, value|  # raises an error
   raise "That one's getting old!" if value == '42'
