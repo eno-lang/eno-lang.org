@@ -3,7 +3,7 @@ title: enojs - The JavaScript eno library
 # Global
 
 library: enojs
-version: 0.12.0
+version: 0.13.0
 
 -- intro
 Installation from npm:
@@ -91,6 +91,279 @@ zeroIndexing = `true` or `false` (default), set `true` to display `0,1,2,..` lin
 #### return value
 
 description: An `EnoSection` representing the document.
+
+## loaders
+
+-- class description
+enojs provides a set of core loaders for important types that are available out-of-the-box (in addition to the possiblity to define your own custom loaders as described further down in the documentation).
+
+## Example
+
+You can use the loaders with enojs as demonstrated in this example.
+
+```js
+const eno = require('enojs');
+const { loaders } = require('enojs');
+
+const doc = eno.parse(`
+  publish: yes
+  location: 36.987094, -25.091719
+  email: contact@faulty
+`);
+
+doc.field('publish', loaders.boolean);
+  // returns true
+  
+doc.field('location', loaders.latLng);
+  // returns {
+  //   lat:  36.987094,
+  //   lng: -25.091719
+  // }
+  
+doc.field('email', loaders.email);
+  // throws an error: 'email' must contain a valid email address, for instance 'jane.doe@eno-lang.org'.
+```
+
+Note that some loaders only perform validation and return their input unaltered
+as string (e.g. `color`, `email`), while others both validate and transform the
+value into a new type (e.g. `float`, `boolean`) or even object (e.g. `latLng`).
+
+**Development teaser**: There is a plan to integrate the loaders (both core loaders and user supplied ones)
+more tightly into the API, which would mean that in the near future you'll be able to write ...
+
+```js
+document.boolean('published'); // returns true/false
+```
+
+instead of the currently more verbose ...
+
+```js
+document.field('published', loaders.boolean); // returns true/false
+```
+-- class description
+
+### boolean
+
+-- description
+Accepts `true`, `false`, `yes` and `no`, returns a `boolean` (or throws an error for invalid values).
+-- description
+
+syntax: loaders.boolean
+
+-- eno
+enabled: true
+publish: no
+visible: not
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+document.field('enabled', loaders.boolean);  // returns true
+document.field('publish', loaders.boolean);  // returns false
+
+document.field('visible', loaders.boolean);
+  // throws an error: 'visible' must contain a boolean - allowed values are 'true', 'false', 'yes' and 'no'.
+-- js
+
+### color
+
+-- description
+Accepts values formatted as `#RRGGBB` or `#RGB` (case insensitive), returns the value unchanged (or throws an error for invalid values).
+-- description
+
+syntax: loaders.color
+
+-- eno
+active: #F00
+hover: #ff0000
+focus: blue
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+document.field('active', loaders.color);  // returns '#F00'
+document.field('hover', loaders.color);  // returns '#ff0000'
+
+document.field('focus', loaders.color);
+  // throws an error: 'focus' must contain a color, for instance '#B6D918', '#fff' or '#01b'.
+-- js
+
+### datetime
+
+-- description
+Accepts a subset of ISO 8601 date/time formats described in this W3C note: <https://www.w3.org/TR/NOTE-datetime>
+
+Returns a JavaScript `Date` object (or throws an error for invalid values).
+
+Some possible example values that match the format:
+- `1990`
+- `1990-12`
+- `1990-12-31`
+- `1990-12-31T23:59Z`
+- `1990-12-31T23:59:00+01:00`
+- `1990-12-31T23:59:00.999+01:00`
+
+Note that spaces as separators are not allowed.
+
+Development note:
+A more appealing, less technical datetime format or an additional loader to serve that requirement would be generally welcome,
+the current format is basically just an initial draft that should cover many usecases and is standardized through its
+ISO origin, feel free to get in touch and propose an extension/update if you'd be interested in such development.
+-- description
+
+syntax: loaders.datetime
+
+-- eno
+start: 1992-12-01
+end: 1994-03-04T13:14Z
+invalid: 2018-03-14 13:10
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+document.field('start', loaders.datetime);  // returns [object Date]
+document.field('end', loaders.datetime);  // returns [object Date]
+
+document.field('invalid', loaders.datetime);
+  // throws an error: 'invalid' must contain a valid date or date and time, for instance '1997-07-16' or '1994-11-05T13:15Z' (see https://www.w3.org/TR/NOTE-datetime).
+-- js
+
+### float
+
+-- description
+Accepts floats (decimal part can be missing though), returns a float (or throws an error for malformed values).
+-- description
+
+syntax: loaders.float
+
+-- eno
+good: 49.9
+fine: -2
+bad: three
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+document.field('good', loaders.float);  // returns 49.9
+document.field('fine', loaders.float);  // returns -2.0
+
+document.field('bad', loaders.float);
+  // throws an error: 'bad' must contain a decimal number, for instance '13.0', '-9.159' or '42'.
+-- js
+
+### integer
+
+-- description
+Accepts integers only (float is not clipped but triggers an error), returns an integer.
+-- description
+
+syntax: loaders.integer
+
+-- eno
+good: -13
+bad: 0.3
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+document.field('good', loaders.integer);  // returns -13
+
+document.field('bad', loaders.integer);
+  // throws an error: 'bad' must contain an integer, for instance '42' or '-21'.
+-- js
+
+### json
+
+-- description
+Parses the value as JSON and returns the result (or passes on the parser error for malformed JSON).
+-- description
+
+syntax: loaders.json
+
+-- eno
+-- json payload
+{
+  "status": 500
+}
+-- json payload
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+document.field('json payload', loaders.url);  // returns { status: 500 }
+-- js
+
+### latLng
+
+-- description
+Accepts lat/lng coordinates of the form `dd.ddddd, dd.ddddd`, returns an object (see example below) (or throws an error for invalid values).
+-- description
+
+syntax: loaders.latLng
+
+-- eno
+location: 36.987094, -25.091719
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+document.field('location', loaders.latLng);
+  // returns {
+  //   lat:  36.987094,
+  //   lng: -25.091719
+  // }
+-- js
+
+### number
+
+-- description
+An alias for the `integer` loader.
+-- description
+
+syntax: loaders.number
+
+-- eno
+good: -13
+bad: 0.3
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+document.field('good', loaders.number);  // returns -13
+
+document.field('bad', loaders.number);
+  // throws an error: 'bad' must contain an integer, for instance '42' or '-21'.
+-- js
+
+### url
+
+-- description
+Validates a URL and returns it unaltered (or throws an error for an invalid URL).
+-- description
+
+syntax: loaders.url
+
+-- eno
+good: https://json.org
+bad: www.boom
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+document.field('good', loaders.url);  // returns 'https://json.org'
+
+document.field('bad', loaders.url);
+  // throws an error: 'bad' must contain valid URL, for instance 'https://eno-lang.org'.
+-- js
 
 ## EnoSection
 

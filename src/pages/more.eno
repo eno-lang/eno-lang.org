@@ -5,7 +5,8 @@ title: Dev Blog
 
 **Wednesday, July 4 2018**
 
-- The [experimental enojs loaders](https://www.npmjs.com/package/enojs-exploaders/) package now offers a datetime loader based on the formats described in https://www.w3.org/TR/NOTE-datetime (0.1.4).
+- Starting with release 0.13.0, enojs now provides core loaders for important types out-of-the-box, full documentation for this is already up [here](https://eno-lang.org/javascript/#loaders).
+- The enojs core loaders now also include a datetime loader based on the formats described in <https://www.w3.org/TR/NOTE-datetime>.
 - Resolved some potential bottlenecks around list insertions in the enopy implementation, introduced performance measurements based on average ips instead of total duration.
 
 **Tuesday, July 3 2018**

@@ -18,7 +18,7 @@ objectives being within close reach already.
 
 ## <i class="devicon-javascript-plain javascript-yellow"></i> JavaScript
 
-**enojs v0.12.0**  
+**enojs v0.13.0**  
 [Complete documentation and API reference](https://eno-lang.org/javascript/)  
 
 enojs is already running in production scenarios, most notably at a vienna-based institute
@@ -34,14 +34,6 @@ Test suite coverage is currently at 95%, if you discover any issues you are very
 
 [<i class="devicon-javascript-plain"></i> Package on npm](https://npmjs.com/package/enojs/)  
 [<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enojs/)
-
-**enojs-exploaders v0.1.4**
-
-A collection of loaders for use with the enojs library, providing out of the box type validation and conversion
-for a diverse range of types like `number`, `datetime`, `boolean`, `float`, `latLng`, `json`, `color` and so on.
-
-[<i class="devicon-javascript-plain"></i> Package and documentation on npm](https://www.npmjs.com/package/enojs-exploaders/)  
-[<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enojs-exploaders/)
 
 ##  <i class="devicon-python-plain python-blue"></i> Python
 
