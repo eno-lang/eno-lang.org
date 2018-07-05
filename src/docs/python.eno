@@ -3,7 +3,7 @@ title: enopy - The Python eno library
 # Global
 
 library: enopy
-version: 0.4.1 Beta
+version: 0.5.0 Beta
 
 -- intro
 ## Installation
@@ -84,6 +84,279 @@ zero_indexing = `True` or `False` (default), set `True` to display `0,1,2,..` li
 #### return value
 
 description: A `Section` representing the document.
+
+## enopy.loaders
+
+-- class description
+enopy provides a set of core loaders for important types that are available
+out-of-the-box (in addition to the possiblity to define your own custom loaders
+as described further down in the documentation).
+
+You can use the loaders with enopy as demonstrated in this example:
+
+```python
+>>> from enopy import loaders, parse
+
+>>> doc = parse("""
+...   publish: yes
+...   location: 36.987094, -25.091719
+...   email: contact@faulty
+... """)
+
+>>> doc.field('publish', loaders.boolean)
+True
+  
+>>> doc.field('location', loaders.lat_lng)
+{ 'lat':  36.987094, 'lng': -25.091719 }
+  
+>>> doc.field('email', Eno::Loaders::Email)
+ValidationError: 'email' must contain a valid email address, for instance 'jane.doe@eno-lang.org'.
+```
+
+Note that some loaders only perform validation and return their input unaltered
+as string (e.g. `Color`, `Email`), while others both validate and transform the
+value into a new type (e.g. `Float`, `Boolean`) or even object (e.g. `LatLng`).
+
+**Development teaser**: There is a plan to integrate the loaders (both core loaders and user supplied ones)
+more tightly into the API, which would mean that in the near future you'll be able to write ...
+
+```python
+>>> document.boolean('publish')
+True
+```
+
+instead of the currently more verbose ...
+
+```python
+>>> document.field('publish', loaders.boolean)
+True
+```
+-- class description
+
+### boolean
+
+-- description
+Accepts `true`, `false`, `yes` and `no`, returns a `boolean` (or raises an error for invalid values).
+-- description
+
+syntax: loaders.boolean
+
+-- eno
+enabled: true
+publish: no
+visible: not
+-- eno
+
+-- python
+>>> document = Eno.parse(input)
+
+>>> document.field('enabled', loaders.boolean)
+True
+>>> document.field('publish', loaders.boolean)
+False
+>>> document.field('visible', loaders.boolean)
+ValidationError: 'visible' must contain a boolean - allowed values are 'true', 'false', 'yes' and 'no'.
+-- python
+
+### color
+
+-- description
+Accepts values formatted as `#RRGGBB` or `#RGB` (case insensitive), returns the value unchanged (or raises an error for invalid values).
+-- description
+
+syntax: loaders.color
+
+-- eno
+active: #F00
+hover: #ff0000
+focus: blue
+-- eno
+
+-- python
+>>> document = Eno.parse(input)
+
+>>> document.field('active', loaders.color)
+'#F00'
+>>> document.field('hover', loaders.color)
+'#ff0000'
+>>> document.field('focus', loaders.color)
+ValidationError: 'focus' must contain a color, for instance '#B6D918', '#fff' or '#01b'.
+-- python
+
+### datetime
+
+-- description
+Accepts a subset of ISO 8601 date/time formats described in this W3C note: <https://www.w3.org/TR/NOTE-datetime>
+
+Returns a python `datetime` object (or raises an error for invalid values).
+
+Some possible example values that match the format:
+- `1990`
+- `1990-12`
+- `1990-12-31`
+- `1990-12-31T23:59Z`
+- `1990-12-31T23:59:00+01:00`
+- `1990-12-31T23:59:00.999+01:00`
+
+Note that spaces as separators are not allowed.
+
+Development note:
+A more appealing, less technical datetime format or an additional loader to serve that requirement would be generally welcome,
+the current format is basically just an initial draft that should cover many usecases and is standardized through its
+ISO origin, feel free to get in touch and propose an extension/update if you'd be interested in such development.
+-- description
+
+syntax: loaders.datetime
+
+-- eno
+start: 1992-12-01
+end: 1994-03-04T13:14Z
+invalid: 2018-03-14 13:10
+-- eno
+
+-- python
+>>> document = Eno.parse(input)
+
+>>> document.field('start', loaders.datetime)
+<class datetime ...>
+>>> document.field('end', loaders.datetime)
+<class datetime ...>
+>>> document.field('invalid', loaders.datetime)
+ValidationError: 'invalid' must contain a valid date or date and time, for instance '1997-07-16' or '1994-11-05T13:15Z' (see https://www.w3.org/TR/NOTE-datetime).
+-- python
+
+### to_float
+
+-- description
+Accepts floats (decimal part can be missing though), returns a float (or raises an error for malformed values).
+-- description
+
+syntax: loaders.to_float
+
+-- eno
+good: 49.9
+fine: -2
+bad: three
+-- eno
+
+-- python
+>>> document = Eno.parse(input)
+
+>>> document.field('good', loaders.to_float)
+49.9
+>>> document.field('fine', loaders.to_float)
+-2.0
+>>> document.field('bad', loaders.to_float)
+ValidationError: 'bad' must contain a decimal number, for instance '13.0', '-9.159' or '42'.
+-- python
+
+### integer
+
+-- description
+Accepts integers only (float is not clipped but triggers an error), returns an integer.
+-- description
+
+syntax: loaders.integer
+
+-- eno
+good: -13
+bad: 0.3
+-- eno
+
+-- python
+>>> document = Eno.parse(input)
+
+>>> document.field('good', loaders.integer)
+-13
+>>> document.field('bad', loaders.integer)
+ValidationError: 'bad' must contain an integer, for instance '42' or '-21'.
+-- python
+
+### json
+
+-- description
+Parses the value as JSON and returns the result (or passes on the parser error for malformed JSON).
+-- description
+
+syntax: loaders.json
+
+-- eno
+-- json payload
+{
+  "status": 500
+}
+-- json payload
+-- eno
+
+-- python
+>>> document = Eno.parse(input)
+
+>>> document.field('json payload', loaders.json)
+{ 'status': 500 }
+-- python
+
+### lat_lng
+
+-- description
+Accepts lat/lng coordinates of the form `dd.ddddd, dd.ddddd`, returns a `dict` (see example below) (or raises an error for invalid values).
+-- description
+
+syntax: loaders.lat_lng
+
+-- eno
+location: 36.987094, -25.091719
+-- eno
+
+-- python
+>>> document = Eno.parse(input)
+
+>>> document.field('location', loaders.lat_lng)
+{ lat: 36.987094, lng: -25.091719 }
+-- python
+
+### number
+
+-- description
+An alias for the `integer` loader.
+-- description
+
+syntax: loaders.number
+
+-- eno
+good: -13
+bad: 0.3
+-- eno
+
+-- python
+>>> document = Eno.parse(input)
+
+>>> document.field('good', loaders.number)
+-13
+>>> document.field('bad', loaders.number)
+ValidationError: 'bad' must contain an integer, for instance '42' or '-21'.
+-- python
+
+### url
+
+-- description
+Validates a URL and returns it unaltered (or raises an error for an invalid URL).
+-- description
+
+syntax: loaders.url
+
+-- eno
+good: https://json.org
+bad: www.boom
+-- eno
+
+-- python
+>>> document = Eno.parse(input)
+
+>>> document.field('good', loaders.url)
+'https://json.org'
+>>> document.field('bad', loaders.url)
+ValidationError: 'bad' must contain valid URL, for instance 'https://eno-lang.org'.
+-- python
 
 ## Section
 
@@ -379,10 +652,10 @@ ValidationError: ...
 None
 >>> document.field('texture', enforce_element=True)
 ValidationError: ...
->>> document.field('color', lambda name, value=value.upper())  
+>>> document.field('color', lambda name, value, context: value.upper())  
 'BLUE'
 
->>> def color_validator(name, value):
+>>> def color_validator(name, value, context):
 ...   if value != 'green':
 ...     raise ValueError('Only green is allowed!')
 ...   return value
@@ -474,10 +747,10 @@ ValidationError: ...
 ValidationError: ...
 >>> document.list('sounds', enforce_element=True)  
 ValidationError: ...
->>> document.list('colors', lambda: name, value: value.upper())
+>>> document.list('colors', lambda name, value, context: value.upper())
 [ 'PINK', 'PEACH' ]
 
->>> def color_validator(name, value):
+>>> def color_validator(name, value, context):
 ...   if value == 'peach':
 ...     raise ValueError('Peach may not be on the list!')
 ...   return f"I like {value}"
@@ -498,7 +771,9 @@ name: The name of the list to return as a string.
 
 loader:
 | A function returning the transformed/validated value or raising an error.
-| (The function is applied to each list item on its own, being passed the arguments `name` and `value`)
+| (The function is applied to each list item on its own, being passed the
+| arguments `name`, `value` and `context`, the latter being used by the core
+| loaders to determine the message locale, can be ignored for custom loaders)
 
 options:
 enforce_element = Whether the list must be present in the document (defaults to `False`)  
@@ -856,7 +1131,7 @@ towel color:
 'beige'
 >>> towel_color.value()
 None
->>> flag_color.value(lambda name, value: value.replace('eig', 'lu'))
+>>> flag_color.value(lambda name, value, context: value.replace('eig', 'lu'))
 'blue'
 -- python
 
@@ -864,7 +1139,8 @@ None
 
 loader:
 | A function returning the transformed/validated value or raising an error.  
-| The function is passed `name` and `value` as arguments.
+| The function is passed `name`, `value` and `context` as arguments, the latter being used by the core
+| loaders to determine the message locale, can be ignored for custom loaders.
 
 options:
 enforce_value = Whether there must be a value or the field is allowed to be empty (default to `False`)
@@ -939,15 +1215,17 @@ colors:
 >>> list.items()
 ['pink', 'peach']
 
->>> list.items(lambda name, value: f"{value}!!")
+>>> list.items(lambda name, value, context: f"{value}!!")
 ['pink!!', 'peach!!']
 -- python
 
 #### parameters
 
 loader:
-| A function returning the transformed/validated value or raising an error.
-| (The function is applied to each list item on its own, being passed the arguments `name` and `value`)
+| A function returning the transformed/validated value or raising an error. 
+| (The function is applied to each list item on its own, being passed the
+| arguments `name`, `value` and `context`, the latter being used by the core 
+| loaders to determine the message locale, can be ignored for custom loaders))
 
 options:
 elements = Whether to return the elements (as `Value`) instead of the values of the list items. (defaults to `False`)  
@@ -1220,10 +1498,10 @@ ValidationError: ...
 None
 >>> qa.entry('Beige', enforce_element=True)
 ValidationError: ...
->>> qa.entry('Green', lambda name, value: value.upper())
+>>> qa.entry('Green', lambda name, value, context: value.upper())
 'YES'
 
->>> def check_meaning(name, value):
+>>> def check_meaning(name, value, context):
 ...   if value == '42':
 ...     raise ValueError("That one's getting old!")
 ...   return value
@@ -1241,7 +1519,8 @@ name: The name of the entry as a string.
 
 loader:
 | A function returning the transformed/validated value or raising an error.  
-| The function is passed `name` and `value` as arguments.
+| The function is passed `name`, `value` and `context` as arguments, the latter being used by the core 
+| loaders to determine the message locale, can be ignored for custom loaders)).
 
 options:
 enforce_element = Whether the entry must be present in the document (`True` or `False`, defaults to `False`)  

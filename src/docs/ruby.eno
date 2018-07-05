@@ -3,7 +3,7 @@ title: enorb - The Ruby eno library
 # Global
 
 library: enorb
-version: 0.7.0 Beta
+version: 0.7.1 Beta
 
 -- intro
 ## Installation
@@ -207,11 +207,9 @@ document.field('focus', Eno::Loaders::Color)
 ### ::Datetime
 
 -- description
-**HEADS UP: This loader is still in development and not yet released**
-
 Accepts a subset of ISO 8601 date/time formats described in this W3C note: <https://www.w3.org/TR/NOTE-datetime>
 
-Returns a ruby `Date` object (or raises an error for invalid values).
+Returns a ruby `Time` object (or raises an error for invalid values).
 
 Some possible example values that match the format:
 - `1990`
@@ -240,8 +238,8 @@ invalid: 2018-03-14 13:10
 -- ruby
 document = Eno.parse(input)
 
-document.field('start', Eno::Loaders::Datetime)  #=> #<Date>
-document.field('end', Eno::Loaders::Datetime)  #=> #<Date>
+document.field('start', Eno::Loaders::Datetime)  #=> 1992-12-01 00:00:00 +0000
+document.field('end', Eno::Loaders::Datetime)  #=> 1994-03-04 13:14:00 +0000
 
 document.field('invalid', Eno::Loaders::Datetime)
   # raises an error: 'invalid' must contain a valid date or date and time, for instance '1997-07-16' or '1994-11-05T13:15Z' (see https://www.w3.org/TR/NOTE-datetime).

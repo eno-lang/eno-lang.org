@@ -3,6 +3,11 @@ title: Dev Blog
 -- markdown
 # Dev Blog
 
+**Thursday, July 5 2018**
+
+- Released enopy 0.5.0, now also providing core loaders for important types out-of-the-box, including the new datetime loader. See the [full documentation](https://eno-lang.org/python/#enopy.loaders).
+- Released enorb 0.7.1, which now also offers a datetime core loader.
+
 **Wednesday, July 4 2018**
 
 - Released enojs 0.13.0 and enorb 0.7.0, now providing core loaders for important types out-of-the-box! See the full documentation for [enojs](https://eno-lang.org/javascript/#loaders) and [enorb](https://eno-lang.org/ruby/#Eno::Loaders).
