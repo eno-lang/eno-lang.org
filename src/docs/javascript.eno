@@ -3,7 +3,7 @@ title: enojs - The JavaScript eno library
 # Global
 
 library: enojs
-version: 0.13.0
+version: 0.13.1
 
 -- intro
 Installation from npm:
@@ -188,6 +188,27 @@ document.field('hover', loaders.color);  // returns '#ff0000'
 
 document.field('focus', loaders.color);
   // throws an error: 'focus' must contain a color, for instance '#B6D918', '#fff' or '#01b'.
+-- js
+
+### commaSeparated
+
+-- description
+Splits a comma-separated listing (single line, think a list of tags e.g.) into an array and trims whitespace.
+-- description
+
+syntax: loaders.commaSeparated
+
+-- eno
+Tags: Coffee, Desk, Flavor
+
+Categories:  Computing  ,  High performance  ,  Cluster
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+document.field('Tags', loaders.commaSeparated);  // returns ['Coffee', 'Desk', 'Flavor']
+document.field('Categories', loaders.commaSeparated);  // returns ['Computing', 'High performance', 'Cluster']
 -- js
 
 ### datetime

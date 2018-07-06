@@ -3,10 +3,16 @@ title: Dev Blog
 -- markdown
 # Dev Blog
 
+**Friday, July 6 2018**
+
+- Released enojs 0.13.1 with light optimizations, minor fixes and including the new [commaSeparated core loader](https://eno-lang.org/javascript/#loaders-commaSeparated).
+- Added remaining dependency resolution test coverage for enojs and cleaned up some older specs, global coverage is now up at 96%.
+
 **Thursday, July 5 2018**
 
 - Released enopy 0.5.0, now also providing core loaders for important types out-of-the-box, including the new datetime loader. See the [full documentation](https://eno-lang.org/python/#enopy.loaders).
 - Released enorb 0.7.1, which now also offers a datetime core loader.
+- Implemented comma-separated value core loaders for all eno implementations
 
 **Wednesday, July 4 2018**
 
