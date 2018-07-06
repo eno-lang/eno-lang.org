@@ -42,7 +42,7 @@ Human-readable inter-application/process communication - json is there and worki
 
 <video controls src="/teaser.mp4"></video>
 
-## Want to learn more about how eno works? 
+## Want to learn more about the eno notation language?
 
 The two-part video guide (or alternatively also as text) at
 [eno-lang.org/language](https://eno-lang.org/language/) covers everything there is to
@@ -67,7 +67,7 @@ command:
 -- json payload
 ```
 
-## Interested in developing your application or website with eno?
+## Interested in developing your application or website with the eno libraries?
 
 The eno libraries for [JavaScript](https://eno-lang.org/javascript/),
 [Python](https://eno-lang.org/python/) and [Ruby](https://eno-lang.org/ruby/)

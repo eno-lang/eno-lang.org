@@ -3,7 +3,7 @@ title: enorb - The Ruby eno library
 # Global
 
 library: enorb
-version: 0.7.1 Beta
+version: 0.7.2 Beta
 
 -- intro
 ## Installation
@@ -202,6 +202,27 @@ document.field('hover', Eno::Loaders::Color)  #=> '#ff0000'
 
 document.field('focus', Eno::Loaders::Color)
   # raises an error: 'focus' must contain a color, for instance '#B6D918', '#fff' or '#01b'.
+-- ruby
+
+### ::CommaSeparated
+
+-- description
+Splits a comma-separated listing (single line, think a list of tags e.g.) into an array and strips whitespace.
+-- description
+
+syntax: Eno::Loaders::CommaSeparated
+
+-- eno
+Tags: Coffee, Desk, Flavor
+
+Categories:  Computing  ,  High performance  ,  Cluster
+-- eno
+
+-- ruby
+document = eno.parse(input)
+
+document.field('Tags', Eno::Loaders::CommaSeparated)  #=> ['Coffee', 'Desk', 'Flavor']
+document.field('Categories', Eno::Loaders::CommaSeparated)  #=> ['Computing', 'High performance', 'Cluster']
 -- ruby
 
 ### ::Datetime

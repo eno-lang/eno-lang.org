@@ -7,6 +7,10 @@ title: Dev Blog
 
 - Released enojs 0.13.1 with light optimizations, minor fixes and including the new [commaSeparated core loader](https://eno-lang.org/javascript/#loaders-commaSeparated).
 - Added remaining dependency resolution test coverage for enojs and cleaned up some older specs, global coverage is now up at 96%.
+- Published a new eno introduction video on the frontpage.
+- Released enorb 0.7.2 with optimizations for structural validation and the new [CommaSeparated](https://eno-lang.org/ruby/#Eno::Loaders-::CommaSeparated) loader.
+- Did some research and initial tests for getting branch coverage metrics in enorb.
+- Released enopy 0.5.1 with the new [comma_separated](https://eno-lang.org/python/#enopy.loaders-comma_separated) core loader.
 
 **Thursday, July 5 2018**
 

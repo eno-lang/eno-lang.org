@@ -3,7 +3,7 @@ title: enopy - The Python eno library
 # Global
 
 library: enopy
-version: 0.5.0 Beta
+version: 0.5.1 Beta
 
 -- intro
 ## Installation
@@ -181,6 +181,29 @@ focus: blue
 '#ff0000'
 >>> document.field('focus', loaders.color)
 ValidationError: 'focus' must contain a color, for instance '#B6D918', '#fff' or '#01b'.
+-- python
+
+### comma_separated
+
+-- description
+Splits a comma-separated listing (single line, think a list of tags e.g.) into a list and strips whitespace.
+-- description
+
+syntax: loaders.comma_separated
+
+-- eno
+Tags: Coffee, Desk, Flavor
+
+Categories:  Computing  ,  High performance  ,  Cluster
+-- eno
+
+-- python
+>>> document = parse(input)
+
+>>> document.field('Tags', loaders.comma_separated)
+['Coffee', 'Desk', 'Flavor']
+>>> document.field('Categories', loaders.comma_separated)
+['Computing', 'High performance', 'Cluster']
 -- python
 
 ### datetime
