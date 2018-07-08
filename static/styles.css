@@ -203,7 +203,8 @@ video {
   padding: 0 1em;
 }
 
-.npm-red { color: #cb3837 }
-.ruby-red { color: #d91404 }
-.python-blue { color: #3673a5 }
-.javascript-yellow { color: #ffde00 }
+.npm-red { color: #cb3837; }
+.ruby-red { color: #d91404; }
+.php-violet { color: #8892bf; }
+.python-blue { color: #3673a5; }
+.javascript-yellow { color: #ffde00; }

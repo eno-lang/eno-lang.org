@@ -3,6 +3,14 @@ title: Dev Blog
 -- markdown
 # Dev Blog
 
+**Sunday, July 8 2018**
+
+- Worked on the internal architecture for the upcoming new core loader APIs, allowing e.g. calls like `document.boolean('publish')`.
+
+**Saturday, July 7 2018**
+
+- Started early experimental development and research for an [eno PHP implementation](https://github.com/eno-lang/enophp/).
+
 **Friday, July 6 2018**
 
 - Released enojs 0.13.1 with light optimizations, minor fixes and including the new [commaSeparated core loader](https://eno-lang.org/javascript/#loaders-commaSeparated).

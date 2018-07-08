@@ -59,6 +59,12 @@ and running, enorb will officially graduate into stable release status.
 [<i class="devicon-ruby-plain"></i> Gem on rubygems](https://rubygems.org/gems/enorb/)  
 [<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enorb/)
 
+## <i class="devicon-php-plain php-violet"></i> PHP
+
+Early experimental development for **enophp** has begun on July 7th, 2018!
+
+[<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enophp/)
+
 ## Interactive Demos
 
 This is a work in progress effort to showcase different usecases for eno and the
