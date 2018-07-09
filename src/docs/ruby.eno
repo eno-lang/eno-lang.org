@@ -178,9 +178,9 @@ Accepts `true`, `false`, `yes` and `no`, returns a `boolean` (or raises an error
 -- description
 
 syntax:
-| boolean
-| boolean_items
-| boolean_list
+| boolean → boolean
+| boolean_items → array
+| boolean_list → array
 
 -- eno
 enabled: true
@@ -210,9 +210,9 @@ Accepts values formatted as `#RRGGBB` or `#RGB` (case insensitive), returns the 
 -- description
 
 syntax:
-| color
-| color_items
-| color_list
+| color → string
+| color_items → array
+| color_list → array
 
 -- eno
 states:
@@ -238,9 +238,9 @@ Splits a comma-separated listing (single line, think a list of tags e.g.) into a
 -- description
 
 syntax:
-| comma_separated
-| comma_separated_items
-| comma_separated_list
+| comma_separated → array
+| comma_separated_items → array
+| comma_separated_list → array
 
 -- eno
 Tags: Coffee, Desk, Flavor
@@ -279,9 +279,9 @@ ISO origin, feel free to get in touch and propose an extension/update if you'd b
 -- description
 
 syntax:
-| datetime
-| datetime_items
-| datetime_list
+| datetime → Time
+| datetime_items → array
+| datetime_list → array
 
 -- eno
 start: 1992-12-01
@@ -306,9 +306,9 @@ Accepts floats (decimal part can be missing though), returns a float (or raises 
 -- description
 
 syntax:
-| float
-| float_items
-| float_list
+| float → Float
+| float_items → array
+| float_list → array
 
 -- eno
 good: 49.9
@@ -333,9 +333,9 @@ Accepts integers only (float is not clipped but triggers an error), returns an i
 -- description
 
 syntax:
-| integer
-| integer_items
-| integer_list
+| integer → Integer
+| integer_items → array
+| integer_list → array
 
 -- eno
 good: -13
@@ -358,9 +358,9 @@ Parses the value as JSON and returns the result (or passes on the parser error f
 -- description
 
 syntax:
-| json
-| json_items
-| json_list
+| json → hash/array/value
+| json_items → array
+| json_list → array
 
 -- eno
 -- json payload
@@ -383,9 +383,9 @@ Accepts lat/lng coordinates of the form `dd.ddddd, dd.ddddd`, returns a `Hash` (
 -- description
 
 syntax:
-| lat_lng
-| lat_lng_items
-| lat_lng_list
+| lat_lng → hash
+| lat_lng_items → array
+| lat_lng_list → array
 
 -- eno
 location: 36.987094, -25.091719
@@ -409,9 +409,9 @@ An alias for the `integer` loader.
 -- description
 
 syntax:
-| number
-| number_items
-| number_list
+| number → Integer
+| number_items → array
+| number_list → array
 
 -- eno
 good: -13
@@ -434,9 +434,9 @@ Validates a URL and returns it unaltered (or raises an error for an invalid URL)
 -- description
 
 syntax:
-| url
-| url_items
-| url_list
+| url → string
+| url_items → array
+| url_list → array
 
 -- eno
 good: https://json.org

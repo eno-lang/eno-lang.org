@@ -3,7 +3,7 @@ title: enojs - The JavaScript eno library
 # Global
 
 library: enojs
-version: 0.13.1
+version: 0.14.0
 
 -- intro
 Installation from npm:
@@ -95,11 +95,36 @@ description: An `EnoSection` representing the document.
 ## loaders
 
 -- class description
-enojs provides a set of core loaders for important types that are available out-of-the-box (in addition to the possiblity to define your own custom loaders as described further down in the documentation).
+enojs provides a set of core loaders for important types that are available out
+of the box (in addition to the possiblity to define your own custom loaders,
+which can be passed as callbacks to all accessors).
 
-## Example
+The loaders are exposed through the API as drop in replacements to the standard accessors:
+- `EnoDictionary`
+  - `entry()` => `[loaderName]()`
+- `EnoList`
+  - `items()` => `[loaderName]Items()`
+- `EnoSection`
+  - `field()` => `[loaderName]()`
+  - `list()` => `[loaderName]List()`
+- `EnoValue`
+  - `value()` => `[loaderName]()`
 
-You can use the loaders with enojs as demonstrated in this example.
+So for instance, instead of calling ...
+
+```js
+document.field('done', { required: true });  // returns 'yes'
+document.list('visitor_counts', { required: true });  // returns [ '476', '213', '330', ... ]
+```
+
+... you can just replace `field` or augment `list` with the loader name ...
+
+```js
+document.boolean('done', { required: true });  // returns true
+document.integerList('visitor_counts', { required: true });  // returns [ 476, 213, 330, ... ]
+```
+
+Here's another full example:
 
 ```js
 const eno = require('enojs');
@@ -108,19 +133,19 @@ const { loaders } = require('enojs');
 const doc = eno.parse(`
   publish: yes
   location: 36.987094, -25.091719
-  email: contact@faulty
+  contact: contact@faulty
 `);
 
-doc.field('publish', loaders.boolean);
+doc.boolean('publish');
   // returns true
   
-doc.field('location', loaders.latLng);
+doc.latLng('location');
   // returns {
   //   lat:  36.987094,
   //   lng: -25.091719
   // }
   
-doc.field('email', loaders.email);
+doc.email('contact');
   // throws an error: 'email' must contain a valid email address, for instance 'jane.doe@eno-lang.org'.
 ```
 
@@ -128,18 +153,6 @@ Note that some loaders only perform validation and return their input unaltered
 as string (e.g. `color`, `email`), while others both validate and transform the
 value into a new type (e.g. `float`, `boolean`) or even object (e.g. `latLng`).
 
-**Development teaser**: There is a plan to integrate the loaders (both core loaders and user supplied ones)
-more tightly into the API, which would mean that in the near future you'll be able to write ...
-
-```js
-document.boolean('published'); // returns true/false
-```
-
-instead of the currently more verbose ...
-
-```js
-document.field('published', loaders.boolean); // returns true/false
-```
 -- class description
 
 ### boolean
@@ -148,7 +161,10 @@ document.field('published', loaders.boolean); // returns true/false
 Accepts `true`, `false`, `yes` and `no`, returns a `boolean` (or throws an error for invalid values).
 -- description
 
-syntax: loaders.boolean
+syntax:
+| boolean() → boolean
+| booleanItems() → array
+| booleanList() → array
 
 -- eno
 enabled: true
@@ -159,10 +175,10 @@ visible: not
 -- js
 const document = eno.parse(input);
 
-document.field('enabled', loaders.boolean);  // returns true
-document.field('publish', loaders.boolean);  // returns false
+document.boolean('enabled');  // returns true
+document.boolean('publish');  // returns false
 
-document.field('visible', loaders.boolean);
+document.boolean('visible');
   // throws an error: 'visible' must contain a boolean - allowed values are 'true', 'false', 'yes' and 'no'.
 -- js
 
@@ -172,7 +188,10 @@ document.field('visible', loaders.boolean);
 Accepts values formatted as `#RRGGBB` or `#RGB` (case insensitive), returns the value unchanged (or throws an error for invalid values).
 -- description
 
-syntax: loaders.color
+syntax:
+| color() → string
+| colorItems() → array
+| colorList() → array
 
 -- eno
 active: #F00
@@ -183,10 +202,10 @@ focus: blue
 -- js
 const document = eno.parse(input);
 
-document.field('active', loaders.color);  // returns '#F00'
-document.field('hover', loaders.color);  // returns '#ff0000'
+document.color('active');  // returns '#F00'
+document.color('hover');  // returns '#ff0000'
 
-document.field('focus', loaders.color);
+document.color('focus');
   // throws an error: 'focus' must contain a color, for instance '#B6D918', '#fff' or '#01b'.
 -- js
 
@@ -196,7 +215,10 @@ document.field('focus', loaders.color);
 Splits a comma-separated listing (single line, think a list of tags e.g.) into an array and trims whitespace.
 -- description
 
-syntax: loaders.commaSeparated
+syntax:
+| commaSeparated() → array
+| commaSeparatedItems() → array
+| commaSeparatedList() → array
 
 -- eno
 Tags: Coffee, Desk, Flavor
@@ -207,8 +229,8 @@ Categories:  Computing  ,  High performance  ,  Cluster
 -- js
 const document = eno.parse(input);
 
-document.field('Tags', loaders.commaSeparated);  // returns ['Coffee', 'Desk', 'Flavor']
-document.field('Categories', loaders.commaSeparated);  // returns ['Computing', 'High performance', 'Cluster']
+document.commaSeparated('Tags');  // returns ['Coffee', 'Desk', 'Flavor']
+document.commaSeparated('Categories');  // returns ['Computing', 'High performance', 'Cluster']
 -- js
 
 ### datetime
@@ -234,7 +256,10 @@ the current format is basically just an initial draft that should cover many use
 ISO origin, feel free to get in touch and propose an extension/update if you'd be interested in such development.
 -- description
 
-syntax: loaders.datetime
+syntax:
+| datetime() → Date
+| datetimeItems() → array
+| datetimeList() → array
 
 -- eno
 start: 1992-12-01
@@ -245,10 +270,10 @@ invalid: 2018-03-14 13:10
 -- js
 const document = eno.parse(input);
 
-document.field('start', loaders.datetime);  // returns [object Date]
-document.field('end', loaders.datetime);  // returns [object Date]
+document.datetime('start');  // returns [object Date]
+document.datetime('end');  // returns [object Date]
 
-document.field('invalid', loaders.datetime);
+document.datetime('invalid');
   // throws an error: 'invalid' must contain a valid date or date and time, for instance '1997-07-16' or '1994-11-05T13:15Z' (see https://www.w3.org/TR/NOTE-datetime).
 -- js
 
@@ -258,7 +283,10 @@ document.field('invalid', loaders.datetime);
 Accepts floats (decimal part can be missing though), returns a float (or throws an error for malformed values).
 -- description
 
-syntax: loaders.float
+syntax:
+| float() → float
+| floatItems() → array
+| floatList() → array
 
 -- eno
 good: 49.9
@@ -269,10 +297,10 @@ bad: three
 -- js
 const document = eno.parse(input);
 
-document.field('good', loaders.float);  // returns 49.9
-document.field('fine', loaders.float);  // returns -2.0
+document.float('good');  // returns 49.9
+document.float('fine');  // returns -2.0
 
-document.field('bad', loaders.float);
+document.float('bad');
   // throws an error: 'bad' must contain a decimal number, for instance '13.0', '-9.159' or '42'.
 -- js
 
@@ -282,7 +310,10 @@ document.field('bad', loaders.float);
 Accepts integers only (float is not clipped but triggers an error), returns an integer.
 -- description
 
-syntax: loaders.integer
+syntax:
+| integer() → int
+| integerItems() → array
+| integerList() → array
 
 -- eno
 good: -13
@@ -292,9 +323,9 @@ bad: 0.3
 -- js
 const document = eno.parse(input);
 
-document.field('good', loaders.integer);  // returns -13
+document.integer('good');  // returns -13
 
-document.field('bad', loaders.integer);
+document.integer('bad');
   // throws an error: 'bad' must contain an integer, for instance '42' or '-21'.
 -- js
 
@@ -304,7 +335,10 @@ document.field('bad', loaders.integer);
 Parses the value as JSON and returns the result (or passes on the parser error for malformed JSON).
 -- description
 
-syntax: loaders.json
+syntax:
+| json() → object/array/value
+| jsonItems() → array
+| jsonList() → array
 
 -- eno
 -- json payload
@@ -317,7 +351,7 @@ syntax: loaders.json
 -- js
 const document = eno.parse(input);
 
-document.field('json payload', loaders.json);  // returns { status: 500 }
+document.json('json payload');  // returns { status: 500 }
 -- js
 
 ### latLng
@@ -326,7 +360,10 @@ document.field('json payload', loaders.json);  // returns { status: 500 }
 Accepts lat/lng coordinates of the form `dd.ddddd, dd.ddddd`, returns an object (see example below) (or throws an error for invalid values).
 -- description
 
-syntax: loaders.latLng
+syntax:
+| latLng() → object
+| latLngItems() → array
+| latLngList() → array
 
 -- eno
 location: 36.987094, -25.091719
@@ -335,7 +372,7 @@ location: 36.987094, -25.091719
 -- js
 const document = eno.parse(input);
 
-document.field('location', loaders.latLng);
+document.latLng('location');
   // returns {
   //   lat:  36.987094,
   //   lng: -25.091719
@@ -348,7 +385,10 @@ document.field('location', loaders.latLng);
 An alias for the `integer` loader.
 -- description
 
-syntax: loaders.number
+syntax:
+| number() → int
+| numberItems() → array
+| numberList() → array
 
 -- eno
 good: -13
@@ -358,9 +398,9 @@ bad: 0.3
 -- js
 const document = eno.parse(input);
 
-document.field('good', loaders.number);  // returns -13
+document.number('good');  // returns -13
 
-document.field('bad', loaders.number);
+document.number('bad');
   // throws an error: 'bad' must contain an integer, for instance '42' or '-21'.
 -- js
 
@@ -370,7 +410,10 @@ document.field('bad', loaders.number);
 Validates a URL and returns it unaltered (or throws an error for an invalid URL).
 -- description
 
-syntax: loaders.url
+syntax:
+| url() → string
+| urlItems() → array
+| urlList() → array
 
 -- eno
 good: https://json.org
@@ -380,9 +423,9 @@ bad: www.boom
 -- js
 const document = eno.parse(input);
 
-document.field('good', loaders.url);  // returns 'https://json.org'
+document.url('good');  // returns 'https://json.org'
 
-document.field('bad', loaders.url);
+document.url('bad');
   // throws an error: 'bad' must contain valid URL, for instance 'https://eno-lang.org'.
 -- js
 
@@ -567,7 +610,7 @@ description: An element (e.g. `EnoList`, `EnoValue`, etc.) or `null`.
 
 ### elements
 
-syntax: elements → array
+syntax: elements() → array
 
 -- description
 Retrieve the elements of this section in sequential order. This seamlessly lets you switch from
@@ -1177,7 +1220,7 @@ accessor on the document or its sections to directly obtain the values of a list
 
 ### elements
 
-syntax: elements → array
+syntax: elements() → array
 
 -- description
 Retrieve the items of this list as `EnoValue` elements (instead of
@@ -1402,7 +1445,7 @@ description: An element (e.g. `EnoValue`, `EnoList`, etc.) or `null`.
 
 ### elements
 
-syntax: elements → array
+syntax: elements() → array
 
 -- description
 Retrieve the elements of this section in sequential order. This seamlessly lets you switch from
