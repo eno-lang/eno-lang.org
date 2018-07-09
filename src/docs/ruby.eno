@@ -3,7 +3,7 @@ title: enorb - The Ruby eno library
 # Global
 
 library: enorb
-version: 0.7.2 Beta
+version: 0.8.0 Beta
 
 -- intro
 ## Installation
@@ -108,10 +108,38 @@ description: An `Eno::Section` representing the document.
 
 -- class description
 enorb provides a set of core loaders for important types that are available
-out-of-the-box (in addition to the possiblity to define your own custom loaders
-as described further down in the documentation).
+out of the box (in addition to the possiblity to define your own custom loaders, which can
+be bootstrapped and made accessible directly through the core loader API or be passed as
+arguments, e.g. as lambdas, to all accessors).
 
-You can use the loaders with enorb as demonstrated in this example:
+The loaders are exposed through the API as drop in replacements to the standard accessors:
+- `Eno::Dictionary`
+  - `#entry` => `#[loader_name]`
+- `Eno::List`
+  - `#items` => `#[loader_name]_items`
+- `Eno::Section`
+  - `#field` => `#[loader_name]`
+  - `#list` => `#[loader_name]_list`
+- `Eno::Value`
+  - `#value` => `#[loader_name]`
+
+So for instance, instead of calling ...
+
+```ruby
+document.field('done', required: true)  #=> 'yes'
+document.list('visitor_counts', required: true)  #=> [ '476', '213', '330', ... ]
+```
+
+... you can just replace `field` or augment `list` with the loader name ...
+
+```ruby
+document.boolean('done', required: true)  #=> true
+document.integer_list('visitor_counts', required: true)  #=> [ 476, 213, 330, ... ]
+```
+
+... and the method signature stays exactly the same as for the original accessor (except you can't provide a loader as an argument anymore).
+
+Here's another full example:
 
 ```ruby
 require 'enorb'
@@ -120,97 +148,99 @@ doc = parse(
   <<~DOC
     publish: yes
     location: 36.987094, -25.091719
-    email: contact@faulty
+    contact: contact@faulty
   DOC
 )
 
-doc.field('publish', Eno::Loaders::Boolean)
+doc.boolean('publish')
   #=> true
   
-doc.field('location', Eno::Loaders::LatLng)
+doc.lat_lng('location')
   #=>
   # {
   #   lat:  36.987094,
   #   lng: -25.091719
   # }
   
-doc.field('email', Eno::Loaders::Email)
-  # raises an error: 'email' must contain a valid email address, for instance 'jane.doe@eno-lang.org'.
+doc.email('contact')
+  # raises an error: 'contact' must contain a valid email address, for instance 'jane.doe@eno-lang.org'.
 ```
 
 Note that some loaders only perform validation and return their input unaltered
-as string (e.g. `Color`, `Email`), while others both validate and transform the
-value into a new type (e.g. `Float`, `Boolean`) or even object (e.g. `LatLng`).
-
-**Development teaser**: There is a plan to integrate the loaders (both core loaders and user supplied ones)
-more tightly into the API, which would mean that in the near future you'll be able to write ...
-
-```ruby
-document.boolean('published') #=> true/false
-```
-
-instead of the currently more verbose ...
-
-```ruby
-document.field('published', Eno::Loaders::Boolean) #=> true/false
-```
+as string (e.g. `color`, `email`), while others both validate and transform the
+value into a new type (e.g. `float`, `boolean`) or even object (e.g. `lat_lng`).
 -- class description
 
-### ::Boolean
+### #boolean
 
 -- description
 Accepts `true`, `false`, `yes` and `no`, returns a `boolean` (or raises an error for invalid values).
 -- description
 
-syntax: Eno::Loaders::Boolean
+syntax:
+| boolean
+| boolean_items
+| boolean_list
 
 -- eno
 enabled: true
-publish: no
+
+state_sequence:
+- true
+- false
+- true
+
 visible: not
 -- eno
 
 -- ruby
 document = Eno.parse(input)
 
-document.field('enabled', Eno::Loaders::Boolean)  #=> true
-document.field('publish', Eno::Loaders::Boolean)  #=> false
+document.boolean('enabled')  #=> true
+document.boolean_list('state_sequence')  #=> [ true, false, true ]
 
-document.field('visible', Eno::Loaders::Boolean)
+document.boolean('visible')
   # raises an error: 'visible' must contain a boolean - allowed values are 'true', 'false', 'yes' and 'no'.
 -- ruby
 
-### ::Color
+### #color
 
 -- description
 Accepts values formatted as `#RRGGBB` or `#RGB` (case insensitive), returns the value unchanged (or raises an error for invalid values).
 -- description
 
-syntax: Eno::Loaders::Color
+syntax:
+| color
+| color_items
+| color_list
 
 -- eno
-active: #F00
-hover: #ff0000
-focus: blue
+states:
+active = #F00
+hover = #ff0000
+focus = blue
 -- eno
 
 -- ruby
-document = Eno.parse(input)
+states = Eno.parse(input).dictionary('states')
 
-document.field('active', Eno::Loaders::Color)  #=> '#F00'
-document.field('hover', Eno::Loaders::Color)  #=> '#ff0000'
+states.color('active')  #=> '#F00'
+states.color('hover')  #=> '#ff0000'
 
-document.field('focus', Eno::Loaders::Color)
+states.color('focus')
   # raises an error: 'focus' must contain a color, for instance '#B6D918', '#fff' or '#01b'.
 -- ruby
 
-### ::CommaSeparated
+### #comma_separated
 
 -- description
 Splits a comma-separated listing (single line, think a list of tags e.g.) into an array and strips whitespace.
 -- description
 
-syntax: Eno::Loaders::CommaSeparated
+syntax:
+| comma_separated
+| comma_separated_items
+| comma_separated_list
 
 -- eno
 Tags: Coffee, Desk, Flavor
@@ -221,11 +251,11 @@ Categories:  Computing  ,  High performance  ,  Cluster
 -- ruby
 document = eno.parse(input)
 
-document.field('Tags', Eno::Loaders::CommaSeparated)  #=> ['Coffee', 'Desk', 'Flavor']
-document.field('Categories', Eno::Loaders::CommaSeparated)  #=> ['Computing', 'High performance', 'Cluster']
+document.comma_separated('Tags')  #=> ['Coffee', 'Desk', 'Flavor']
+document.comma_separated('Categories')  #=> ['Computing', 'High performance', 'Cluster']
 -- ruby
 
-### ::Datetime
+### #datetime
 
 -- description
 Accepts a subset of ISO 8601 date/time formats described in this W3C note: <https://www.w3.org/TR/NOTE-datetime>
@@ -248,7 +278,10 @@ the current format is basically just an initial draft that should cover many use
 ISO origin, feel free to get in touch and propose an extension/update if you'd be interested in such development.
 -- description
 
-syntax: Eno::Loaders::Datetime
+syntax:
+| datetime
+| datetime_items
+| datetime_list
 
 -- eno
 start: 1992-12-01
@@ -259,20 +292,23 @@ invalid: 2018-03-14 13:10
 -- ruby
 document = Eno.parse(input)
 
-document.field('start', Eno::Loaders::Datetime)  #=> 1992-12-01 00:00:00 +0000
-document.field('end', Eno::Loaders::Datetime)  #=> 1994-03-04 13:14:00 +0000
+document.datetime('start')  #=> 1992-12-01 00:00:00 +0000
+document.datetime('end')  #=> 1994-03-04 13:14:00 +0000
 
-document.field('invalid', Eno::Loaders::Datetime)
+document.datetime('invalid')
   # raises an error: 'invalid' must contain a valid date or date and time, for instance '1997-07-16' or '1994-11-05T13:15Z' (see https://www.w3.org/TR/NOTE-datetime).
 -- ruby
 
-### ::Float
+### #float
 
 -- description
 Accepts floats (decimal part can be missing though), returns a float (or raises an error for malformed values).
 -- description
 
-syntax: Eno::Loaders::Float
+syntax:
+| float
+| float_items
+| float_list
 
 -- eno
 good: 49.9
@@ -283,20 +319,23 @@ bad: three
 -- ruby
 document = Eno.parse(input)
 
-document.field('good', Eno::Loaders::Float)  #=> 49.9
-document.field('fine', Eno::Loaders::Float)  #=> -2.0
+document.float('good')  #=> 49.9
+document.float('fine')  #=> -2.0
 
-document.field('bad', Eno::Loaders::Float)
+document.float('bad')
   # raises an error: 'bad' must contain a decimal number, for instance '13.0', '-9.159' or '42'.
 -- ruby
 
-### ::Integer
+### #integer
 
 -- description
 Accepts integers only (float is not clipped but triggers an error), returns an integer.
 -- description
 
-syntax: Eno::Loaders::Integer
+syntax:
+| integer
+| integer_items
+| integer_list
 
 -- eno
 good: -13
@@ -306,41 +345,47 @@ bad: 0.3
 -- ruby
 document = Eno.parse(input)
 
-document.field('good', Eno::Loaders::Integer)  #=> -13
+document.integer('good')  #=> -13
 
-document.field('bad', Eno::Loaders::Integer)
+document.integer('bad')
   # raises an error: 'bad' must contain an integer, for instance '42' or '-21'.
 -- ruby
 
-### ::Json
+### #json
 
 -- description
 Parses the value as JSON and returns the result (or passes on the parser error for malformed JSON).
 -- description
 
-syntax: Eno::Loaders::Json
+syntax:
+| json
+| json_items
+| json_list
 
 -- eno
--- rubyon payload
+-- json payload
 {
   "status": 500
 }
--- rubyon payload
+-- json payload
 -- eno
 
 -- ruby
 document = Eno.parse(input)
 
-document.field('json payload', Eno::Loaders::Json)  #=> { status: 500 }
+document.json('json payload')  #=> { status: 500 }
 -- ruby
 
-### ::LatLng
+### #lat_lng
 
 -- description
 Accepts lat/lng coordinates of the form `dd.ddddd, dd.ddddd`, returns a `Hash` (see example below) (or raises an error for invalid values).
 -- description
 
-syntax: Eno::Loaders::LatLng
+syntax:
+| lat_lng
+| lat_lng_items
+| lat_lng_list
 
 -- eno
 location: 36.987094, -25.091719
@@ -349,7 +394,7 @@ location: 36.987094, -25.091719
 -- ruby
 document = Eno.parse(input)
 
-document.field('location', Eno::Loaders::LatLng)
+document.lat_lng('location')
   #=>
   # {
   #   lat:  36.987094,
@@ -357,13 +402,16 @@ document.field('location', Eno::Loaders::LatLng)
   # }
 -- ruby
 
-### ::Number
+### #number
 
 -- description
-An alias for the `::Integer` loader.
+An alias for the `integer` loader.
 -- description
 
-syntax: Eno::Loaders::Number
+syntax:
+| number
+| number_items
+| number_list
 
 -- eno
 good: -13
@@ -373,19 +421,22 @@ bad: 0.3
 -- ruby
 document = Eno.parse(input)
 
-document.field('good', Eno::Loaders::Number)  #=> -13
+document.number('good')  #=> -13
 
-document.field('bad', Eno::Loaders::Number)
+document.number('bad')
   # raises an error: 'bad' must contain an integer, for instance '42' or '-21'.
 -- ruby
 
-### ::Url
+### #url
 
 -- description
 Validates a URL and returns it unaltered (or raises an error for an invalid URL).
 -- description
 
-syntax: Eno::Loaders::Url
+syntax:
+| url
+| url_items
+| url_list
 
 -- eno
 good: https://json.org
@@ -395,9 +446,9 @@ bad: www.boom
 -- ruby
 document = Eno.parse(input)
 
-document.field('good', Eno::Loaders::Url)  #=> 'https://json.org'
+document.url('good')  #=> 'https://json.org'
 
-document.field('bad', Eno::Loaders::Url)
+document.url('bad')
   # raises an error: 'bad' must contain valid URL, for instance 'https://eno-lang.org'.
 -- ruby
 
@@ -794,9 +845,8 @@ name: The name of the list to return as a string.
 
 loader_block or loader_proc:
 | A block or `Proc` returning the transformed/validated value or raising an
-| error.  (The block or `Proc` is applied to each list item on its own, being
-| passed the arguments `name`, `value` and ` context`, the last of which is
-| only used by the core loaders to determine the locale for error messages)
+| error.  (The block or `Proc` is applied to each list item on its own, its
+| argument signature is dynamic, you can either use `|value|` or `|name, value|`)
 
 options:
 enforce_element = Whether the list must be present in the document (defaults to `false`)  
@@ -1169,8 +1219,8 @@ end  #=> 'blue'
 
 loader_block or loader_proc:
 | A block or proc returning the transformed/validated value or raising an error.  
-| The block or proc is passed `name`, `value` and `context` as arguments, the last of which is
-| only used by the core loaders to determine the locale for error messages.
+| The block or proc's argument signature is dynamic, you can either use `|value|`
+| or `|name, value|` depending on your needs.
 
 options:
 enforce_value = Whether there must be a value or the field is allowed to be empty (default to `false`)
@@ -1256,8 +1306,8 @@ list.items { |name, value| { "#{value}!!" }  #=> ['pink!!', 'peach!!']
 
 loader_block or loader_proc:
 | A `Proc` or block returning the transformed/validated value or raising an error.
-| (The `Proc` or block is applied to each list item on its own, being passed the arguments `name`, `value` and `context`, the last of which is
-| only used by the core loaders to determine the locale for error messages)
+| (The `Proc` or block is applied to each list item on its own, with a dynamic argument
+| signature that allows to use `|value|` or `|name, value|` based on your needs.
 
 options:
 elements = Whether to return the elements (as `Eno::Value`) instead of the values of the list items. (defaults to `false`)  

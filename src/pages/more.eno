@@ -3,6 +3,10 @@ title: Dev Blog
 -- markdown
 # Dev Blog
 
+**Monday, July 9 2018**
+
+- Released enorb 0.8.0 with the new core loader API and dynamic loader signatures, see the [updated documentation](https://eno-lang.org/ruby/#Eno::Loaders).
+
 **Sunday, July 8 2018**
 
 - Worked on the internal architecture for the upcoming new core loader APIs, allowing e.g. calls like `document.boolean('publish')`.
