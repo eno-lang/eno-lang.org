@@ -7,6 +7,8 @@ title: Dev Blog
 
 - Released enorb 0.8.0 with the new core loader API and dynamic loader signatures, see the [updated documentation](https://eno-lang.org/ruby/#Eno::Loaders).
 - Released enojs 0.14.0 with the new core loader API, see the [updated documentation](https://eno-lang.org/javascript/#loaders).
+- Released enopy 0.6.0 with the new core loader API, see the [updated documentation](https://eno-lang.org/python/#loaders).
+- Updated the frontpage introduction video to showcase the new core loader API.
 
 **Sunday, July 8 2018**
 

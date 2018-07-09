@@ -3,7 +3,7 @@ title: enopy - The Python eno library
 # Global
 
 library: enopy
-version: 0.5.1 Beta
+version: 0.6.0 Beta
 
 -- intro
 ## Installation
@@ -85,14 +85,45 @@ zero_indexing = `True` or `False` (default), set `True` to display `0,1,2,..` li
 
 description: A `Section` representing the document.
 
-## enopy.loaders
+## loaders
 
 -- class description
 enopy provides a set of core loaders for important types that are available
-out-of-the-box (in addition to the possiblity to define your own custom loaders
-as described further down in the documentation).
+out of the box (in addition to the possiblity to pass your own custom loaders
+as functions/lambdas on all accessors).
 
-You can use the loaders with enopy as demonstrated in this example:
+The loaders are exposed through the API as drop in replacements to the standard accessors:
+- `Dictionary`
+  - `entry()` => `[loader_name]()`
+- `List`
+  - `items()` => `[loader_name]_items()`
+- `Section`
+  - `field()` => `[loader_name]()`
+  - `list()` => `[loader_name]_list()`
+- `Value`
+  - `value()` => `[loader_name]()`
+
+So for instance, instead of calling ...
+
+```python
+>>> document.field('done', required=True)
+'yes'
+>>> document.list('visitor_counts', required=True)
+[ '476', '213', '330', ... ]
+```
+
+... you can just replace `field` or augment `list` with the loader name ...
+
+```python
+>>> document.boolean('done', required=True)
+True
+>>> document.integer_list('visitor_counts', required=True)
+[ 476, 213, 330, ... ]
+```
+
+... and the method signature stays exactly the same as for the original accessor (except you can't provide a loader as an argument anymore).
+
+Here's another full example:
 
 ```python
 >>> from enopy import loaders, parse
@@ -100,37 +131,22 @@ You can use the loaders with enopy as demonstrated in this example:
 >>> doc = parse("""
 ...   publish: yes
 ...   location: 36.987094, -25.091719
-...   email: contact@faulty
+...   contact: contact@faulty
 ... """)
 
->>> doc.field('publish', loaders.boolean)
+>>> doc.boolean('publish')
 True
   
->>> doc.field('location', loaders.lat_lng)
+>>> doc.lat_lng('location')
 { 'lat':  36.987094, 'lng': -25.091719 }
   
->>> doc.field('email', Eno::Loaders::Email)
-ValidationError: 'email' must contain a valid email address, for instance 'jane.doe@eno-lang.org'.
+>>> doc.email('contact')
+ValidationError: 'contact' must contain a valid email address, for instance 'jane.doe@eno-lang.org'.
 ```
 
 Note that some loaders only perform validation and return their input unaltered
-as string (e.g. `Color`, `Email`), while others both validate and transform the
-value into a new type (e.g. `Float`, `Boolean`) or even object (e.g. `LatLng`).
-
-**Development teaser**: There is a plan to integrate the loaders (both core loaders and user supplied ones)
-more tightly into the API, which would mean that in the near future you'll be able to write ...
-
-```python
->>> document.boolean('publish')
-True
-```
-
-instead of the currently more verbose ...
-
-```python
->>> document.field('publish', loaders.boolean)
-True
-```
+as string (e.g. `color`, `email`), while others both validate and transform the
+value into a new type (e.g. `float`, `boolean`) or even object (e.g. `lat_lng`).
 -- class description
 
 ### boolean
@@ -139,7 +155,10 @@ True
 Accepts `true`, `false`, `yes` and `no`, returns a `boolean` (or raises an error for invalid values).
 -- description
 
-syntax: loaders.boolean
+syntax:
+| boolean() → boolean
+| boolean_items() → list
+| boolean_list() → list
 
 -- eno
 enabled: true
@@ -150,11 +169,11 @@ visible: not
 -- python
 >>> document = Eno.parse(input)
 
->>> document.field('enabled', loaders.boolean)
+>>> document.boolean('enabled')
 True
->>> document.field('publish', loaders.boolean)
+>>> document.boolean('publish')
 False
->>> document.field('visible', loaders.boolean)
+>>> document.boolean('visible')
 ValidationError: 'visible' must contain a boolean - allowed values are 'true', 'false', 'yes' and 'no'.
 -- python
 
@@ -164,7 +183,10 @@ ValidationError: 'visible' must contain a boolean - allowed values are 'true', '
 Accepts values formatted as `#RRGGBB` or `#RGB` (case insensitive), returns the value unchanged (or raises an error for invalid values).
 -- description
 
-syntax: loaders.color
+syntax:
+| color() → string
+| color_items() → list
+| color_list() → list
 
 -- eno
 active: #F00
@@ -175,11 +197,11 @@ focus: blue
 -- python
 >>> document = Eno.parse(input)
 
->>> document.field('active', loaders.color)
+>>> document.color('active')
 '#F00'
->>> document.field('hover', loaders.color)
+>>> document.color('hover')
 '#ff0000'
->>> document.field('focus', loaders.color)
+>>> document.color('focus')
 ValidationError: 'focus' must contain a color, for instance '#B6D918', '#fff' or '#01b'.
 -- python
 
@@ -189,7 +211,10 @@ ValidationError: 'focus' must contain a color, for instance '#B6D918', '#fff' or
 Splits a comma-separated listing (single line, think a list of tags e.g.) into a list and strips whitespace.
 -- description
 
-syntax: loaders.comma_separated
+syntax:
+| comma_separated() → list
+| comma_separated_items() → list
+| comma_separated_list() → list
 
 -- eno
 Tags: Coffee, Desk, Flavor
@@ -200,9 +225,9 @@ Categories:  Computing  ,  High performance  ,  Cluster
 -- python
 >>> document = parse(input)
 
->>> document.field('Tags', loaders.comma_separated)
+>>> document.comma_separated('Tags')
 ['Coffee', 'Desk', 'Flavor']
->>> document.field('Categories', loaders.comma_separated)
+>>> document.comma_separated('Categories')
 ['Computing', 'High performance', 'Cluster']
 -- python
 
@@ -229,7 +254,10 @@ the current format is basically just an initial draft that should cover many use
 ISO origin, feel free to get in touch and propose an extension/update if you'd be interested in such development.
 -- description
 
-syntax: loaders.datetime
+syntax:
+| datetime() → datetime
+| datetime_items() → list
+| datetime_list() → list
 
 -- eno
 start: 1992-12-01
@@ -240,11 +268,11 @@ invalid: 2018-03-14 13:10
 -- python
 >>> document = Eno.parse(input)
 
->>> document.field('start', loaders.datetime)
+>>> document.datetime('start')
 <class datetime ...>
->>> document.field('end', loaders.datetime)
+>>> document.datetime('end')
 <class datetime ...>
->>> document.field('invalid', loaders.datetime)
+>>> document.datetime('invalid')
 ValidationError: 'invalid' must contain a valid date or date and time, for instance '1997-07-16' or '1994-11-05T13:15Z' (see https://www.w3.org/TR/NOTE-datetime).
 -- python
 
@@ -254,7 +282,10 @@ ValidationError: 'invalid' must contain a valid date or date and time, for insta
 Accepts floats (decimal part can be missing though), returns a float (or raises an error for malformed values).
 -- description
 
-syntax: loaders.to_float
+syntax:
+| float() → float
+| float_items() → list
+| float_list() → list
 
 -- eno
 good: 49.9
@@ -265,11 +296,11 @@ bad: three
 -- python
 >>> document = Eno.parse(input)
 
->>> document.field('good', loaders.to_float)
+>>> document.float('good')
 49.9
->>> document.field('fine', loaders.to_float)
+>>> document.float('fine')
 -2.0
->>> document.field('bad', loaders.to_float)
+>>> document.float('bad')
 ValidationError: 'bad' must contain a decimal number, for instance '13.0', '-9.159' or '42'.
 -- python
 
@@ -279,7 +310,10 @@ ValidationError: 'bad' must contain a decimal number, for instance '13.0', '-9.1
 Accepts integers only (float is not clipped but triggers an error), returns an integer.
 -- description
 
-syntax: loaders.integer
+syntax:
+| integer() → Integer
+| integer_items() → list
+| integer_list() → list
 
 -- eno
 good: -13
@@ -289,9 +323,9 @@ bad: 0.3
 -- python
 >>> document = Eno.parse(input)
 
->>> document.field('good', loaders.integer)
+>>> document.integer('good')
 -13
->>> document.field('bad', loaders.integer)
+>>> document.integer('bad')
 ValidationError: 'bad' must contain an integer, for instance '42' or '-21'.
 -- python
 
@@ -301,7 +335,10 @@ ValidationError: 'bad' must contain an integer, for instance '42' or '-21'.
 Parses the value as JSON and returns the result (or passes on the parser error for malformed JSON).
 -- description
 
-syntax: loaders.json
+syntax:
+| json() → dict/list/value
+| json_items() → list
+| json_list() → list
 
 -- eno
 -- json payload
@@ -314,7 +351,7 @@ syntax: loaders.json
 -- python
 >>> document = Eno.parse(input)
 
->>> document.field('json payload', loaders.json)
+>>> document.json('json payload')
 { 'status': 500 }
 -- python
 
@@ -324,7 +361,11 @@ syntax: loaders.json
 Accepts lat/lng coordinates of the form `dd.ddddd, dd.ddddd`, returns a `dict` (see example below) (or raises an error for invalid values).
 -- description
 
-syntax: loaders.lat_lng
+syntax:
+| lat_lng() → dict
+| lat_lng_items() → list
+| lat_lng_list() → list
+
 
 -- eno
 location: 36.987094, -25.091719
@@ -333,7 +374,7 @@ location: 36.987094, -25.091719
 -- python
 >>> document = Eno.parse(input)
 
->>> document.field('location', loaders.lat_lng)
+>>> document.lat_lng('location')
 { lat: 36.987094, lng: -25.091719 }
 -- python
 
@@ -343,7 +384,10 @@ location: 36.987094, -25.091719
 An alias for the `integer` loader.
 -- description
 
-syntax: loaders.number
+syntax:
+| number() → Integer
+| number_items() → list
+| number_list() → list
 
 -- eno
 good: -13
@@ -353,9 +397,9 @@ bad: 0.3
 -- python
 >>> document = Eno.parse(input)
 
->>> document.field('good', loaders.number)
+>>> document.number('good')
 -13
->>> document.field('bad', loaders.number)
+>>> document.number('bad')
 ValidationError: 'bad' must contain an integer, for instance '42' or '-21'.
 -- python
 
@@ -365,7 +409,10 @@ ValidationError: 'bad' must contain an integer, for instance '42' or '-21'.
 Validates a URL and returns it unaltered (or raises an error for an invalid URL).
 -- description
 
-syntax: loaders.url
+syntax:
+| url() → string
+| url_items() → list
+| url_list() → list
 
 -- eno
 good: https://json.org
@@ -375,9 +422,9 @@ bad: www.boom
 -- python
 >>> document = Eno.parse(input)
 
->>> document.field('good', loaders.url)
+>>> document.url('good')
 'https://json.org'
->>> document.field('bad', loaders.url)
+>>> document.url('bad')
 ValidationError: 'bad' must contain valid URL, for instance 'https://eno-lang.org'.
 -- python
 
@@ -438,12 +485,12 @@ returning a string. (The arguments passed are `name` and `value`, although
 -- message or message_function
 
 options:
-only = An array of strings, e.g. `['name', 'email']`, which specifies to only check these elements for whether they've been touched.  
-skip = An array of strings, e.g. `['phone number']`, which specifies to exclude these elements from checking whether they've been touched.  
+only = A list of strings, e.g. `['name', 'email']`, which specifies to only check these elements for whether they've been touched.  
+skip = A list of strings, e.g. `['phone number']`, which specifies to exclude these elements from checking whether they've been touched.  
 
 ### dictionaries
 
-syntax: dictionaries(name) → array
+syntax: dictionaries(name) → list
 
 -- description
 Retrieve dictionaries with the specified name from this current section.
@@ -471,7 +518,7 @@ name: A string specifying the name of the dictionaries to retrieve.
 
 #### return value
 
-description: An array of `Dictionary`s.
+description: A list of `Dictionary`s.
 
 ### dictionary
 
@@ -568,7 +615,7 @@ description: An element (e.g. `List`, `Value`, etc.) or `None`.
 
 ### elements
 
-syntax: elements → array
+syntax: elements() → list
 
 -- description
 Retrieve the elements of this section in sequential order. This seamlessly lets you switch from
@@ -605,7 +652,7 @@ p: This is my first post, I'm so happy!
 
 #### return value
 
-description: An array containing the elements of this section.
+description: A list containing the elements of this section.
 
 ### enforce_all_elements
 
@@ -675,10 +722,10 @@ ValidationError: ...
 None
 >>> document.field('texture', enforce_element=True)
 ValidationError: ...
->>> document.field('color', lambda name, value, context: value.upper())  
+>>> document.field('color', lambda name, value: value.upper())  
 'BLUE'
 
->>> def color_validator(name, value, context):
+>>> def color_validator(name, value):
 ...   if value != 'green':
 ...     raise ValueError('Only green is allowed!')
 ...   return value
@@ -697,17 +744,17 @@ options:
 enforce_element = Whether the field must be present in the document (`True` or `False`, defaults to `False`)  
 enforce_value = Whether there must be a value or the field is allowed to be empty (defaults to `False`)
 required = Alias for `enforce_value` (this exists on many methods and depending on context refers to either element or value)
-with_element = Whether to return an array of the form `[element, value]` instead of just the value (default `False`)
+with_element = Whether to return a list of the form `[element, value]` instead of just the value (default `False`)
 
 #### return value
 
 description:
-| The value of the field, or `None` if empty, or an array of the form `[element, value]`
+| The value of the field, or `None` if empty, or a list of the form `[element, value]`
 | when the option `with_element` is specified.
 
 ### fields
 
-syntax: fields(name) → array
+syntax: fields(name) → list
 
 -- description
 Retrieve fields with the specified name from this current section.
@@ -733,14 +780,14 @@ name: A string specifying the name of the fields to retrieve.
 
 #### return value
 
-description: An array of `Value`s.
+description: A list of `Value`s.
 
 ### list
 
 syntax:
-| list(name) → array
-| list(name, options) → array
-| list(name, loader, options) → array
+| list(name) → list
+| list(name, options) → list
+| list(name, loader, options) → list
 
 -- description
 Retrieve the items of a list, optionally supplying a loader and options.
@@ -770,10 +817,10 @@ ValidationError: ...
 ValidationError: ...
 >>> document.list('sounds', enforce_element=True)  
 ValidationError: ...
->>> document.list('colors', lambda name, value, context: value.upper())
+>>> document.list('colors', lambda name, value: value.upper())
 [ 'PINK', 'PEACH' ]
 
->>> def color_validator(name, value, context):
+>>> def color_validator(name, value):
 ...   if value == 'peach':
 ...     raise ValueError('Peach may not be on the list!')
 ...   return f"I like {value}"
@@ -794,9 +841,9 @@ name: The name of the list to return as a string.
 
 loader:
 | A function returning the transformed/validated value or raising an error.
-| (The function is applied to each list item on its own, being passed the
-| arguments `name`, `value` and `context`, the latter being used by the core
-| loaders to determine the message locale, can be ignored for custom loaders)
+| (The function is applied to each list item on its own, and for the parameter
+| signature you can choose between just `value` as single parameter or `name`, `value`
+| - in that order - if you need both)
 
 options:
 enforce_element = Whether the list must be present in the document (defaults to `False`)  
@@ -805,17 +852,17 @@ exact_count = Validate that there are exactly `n` items in the list (takes a num
 min_count = Validate that there are at least `n` items in the list (takes a number, defaults to `None`)  
 max_count = Validate that there are at most `n` items in the list (takes a number, defaults to `None`)  
 required = Alias for `enforce_element` (this exists on many methods and depending on context refers to either element or value)
-with_elements = Whether to return an array of arrays of the form `[element, value]` instead of just the values (defaults to `False`)
+with_elements = Whether to return a list of lists of the form `[element, value]` instead of just the values (defaults to `False`)
 
 #### return value
 
 description:
-| The (optionally transformed/validated) values of the items of this list as an array.
-| With `with_elements` set to `True` it returns an array of arrays of the form `[element, value]` instead.
+| The (optionally transformed/validated) values of the items of this list as a list.
+| With `with_elements` set to `True` it returns a list of lists of the form `[element, value]` instead.
 
 ### lists
 
-syntax: lists(name) → array
+syntax: lists(name) → list
 
 -- description
 Retrieve lists with the specified name from this current section.
@@ -849,7 +896,7 @@ name: A string specifying the name of the lists to retrieve.
 
 #### return value
 
-description: An array of `List`s.
+description: A list of `List`s.
 
 ### lookup
 
@@ -929,7 +976,7 @@ When an index outside the document is supplied, `None` is returned.
 
 ### raw
 
-syntax: raw → array
+syntax: raw → list
 
 -- description
 Retrieve a python native representation of the section.
@@ -947,7 +994,7 @@ color: blue
 
 #### return value
 
-description: An array of elements (also returned in their raw representation).
+description: A list of elements (also returned in their raw representation).
 
 ### section
 
@@ -997,7 +1044,7 @@ description: An `Section`, or `None`.
 
 ### sections
 
-syntax: sections(name) → array
+syntax: sections(name) → list
 
 -- description
 Retrieve subsections with the specified name from this current section.
@@ -1024,7 +1071,7 @@ name: A string specifying the name of the sections to retrieve.
 
 #### return value
 
-description: An array of `Section`s.
+description: A list of `Section`s.
 
 ## Value
 
@@ -1154,7 +1201,7 @@ towel color:
 'beige'
 >>> towel_color.value()
 None
->>> flag_color.value(lambda name, value, context: value.replace('eig', 'lu'))
+>>> flag_color.value(lambda name, value: value.replace('eig', 'lu'))
 'blue'
 -- python
 
@@ -1162,8 +1209,8 @@ None
 
 loader:
 | A function returning the transformed/validated value or raising an error.  
-| The function is passed `name`, `value` and `context` as arguments, the latter being used by the core
-| loaders to determine the message locale, can be ignored for custom loaders.
+| The function is passed either `name` and `value`, in that order, or just
+| `value` if your loader only takes a single argument.
 
 options:
 enforce_value = Whether there must be a value or the field is allowed to be empty (default to `False`)
@@ -1190,7 +1237,7 @@ method on the document or its sections to directly obtain the values of a list.
 
 ### elements
 
-syntax: elements → array
+syntax: elements() → list
 
 -- description
 Retrieve the items of this list as `Value` elements (instead of
@@ -1212,14 +1259,14 @@ numbers:
 
 #### return value
 
-description: An array containing the items of this list as `Value` elements.
+description: A list containing the items of this list as `Value` elements.
 
 ### items
 
 syntax:
-| items → array
-| items(options) → array
-| items(loader, options) → array
+| items → list
+| items(options) → list
+| items(loader, options) → list
 
 -- description
 Retrieve the items of the list, optionally passing them through a loader.
@@ -1238,7 +1285,7 @@ colors:
 >>> list.items()
 ['pink', 'peach']
 
->>> list.items(lambda name, value, context: f"{value}!!")
+>>> list.items(lambda name, value: f"{value}!!")
 ['pink!!', 'peach!!']
 -- python
 
@@ -1247,17 +1294,17 @@ colors:
 loader:
 | A function returning the transformed/validated value or raising an error. 
 | (The function is applied to each list item on its own, being passed the
-| arguments `name`, `value` and `context`, the latter being used by the core 
-| loaders to determine the message locale, can be ignored for custom loaders))
+| arguments `name` and `value`, in that order, or just `value` if your loader
+| only takes a single parameter.
 
 options:
 elements = Whether to return the elements (as `Value`) instead of the values of the list items. (defaults to `False`)  
 enforce_values = Whether empty list items (`- ` in the document, mapping to `None`) are disallowed (defaults to `True`)  
-with_elements = Whether to return an array of arrays of the form `[element, value]` instead of just the values (defaults to `False`)
+with_elements = Whether to return a list of lists of the form `[element, value]` instead of just the values (defaults to `False`)
 
 #### return value
 
-description: The (optionally transformed/validated) items of this list as an array.
+description: The (optionally transformed/validated) items of this list as a list.
 
 ### length
 
@@ -1371,8 +1418,8 @@ returning a string. (`name` and `value` are provided as arguments)
 -- message or message_function
 
 options:
-only = An array of strings, e.g. `['name', 'email']`, which specifies to only check these elements for whether they've been touched.  
-skip = An array of strings, e.g. `['phone number']`, which specifies to exclude these elements from checking whether they've been touched.  
+only = A list of strings, e.g. `['name', 'email']`, which specifies to only check these elements for whether they've been touched.  
+skip = A list of strings, e.g. `['phone number']`, which specifies to exclude these elements from checking whether they've been touched.  
 
 ### element
 
@@ -1421,7 +1468,7 @@ description: An element (`Value`) or `None`.
 
 ### elements
 
-syntax: elements → array
+syntax: elements() → list
 
 -- description
 Retrieve the entries of this dictionary as `Value` elements (instead of
@@ -1453,7 +1500,7 @@ bob = nothin'
 
 #### return value
 
-description: An array containing the elements of this dictionary.
+description: A list containing the elements of this dictionary.
 
 ### enforce_all_elements
 
@@ -1521,10 +1568,10 @@ ValidationError: ...
 None
 >>> qa.entry('Beige', enforce_element=True)
 ValidationError: ...
->>> qa.entry('Green', lambda name, value, context: value.upper())
+>>> qa.entry('Green', lambda name, value: value.upper())
 'YES'
 
->>> def check_meaning(name, value, context):
+>>> def check_meaning(name, value):
 ...   if value == '42':
 ...     raise ValueError("That one's getting old!")
 ...   return value
@@ -1542,14 +1589,14 @@ name: The name of the entry as a string.
 
 loader:
 | A function returning the transformed/validated value or raising an error.  
-| The function is passed `name`, `value` and `context` as arguments, the latter being used by the core 
-| loaders to determine the message locale, can be ignored for custom loaders)).
+| The function is passed `name` and `value`, in that order, or just `value`
+| if your function only takes a single parameter.
 
 options:
 enforce_element = Whether the entry must be present in the document (`True` or `False`, defaults to `False`)  
 enforce_value = Whether there must be a value or the entry is allowed to be empty (default to `False`)
 required = Alias for `enforce_value` (this exists on many methods and depending on context refers to either element or value)
-with_element = Whether to return an array with both the element and the value (defaults to `False`)
+with_element = Whether to return a list with both the element and the value (defaults to `False`)
 
 #### return value
 
@@ -1699,7 +1746,7 @@ validation errors indiscriminately, like so:
 syntax: cursor → [line, column]
 
 -- description
-Returns a cursor position as an array of the form [line, column], indicating
+Returns a cursor position as a list of the form [line, column], indicating
 where a cursor should be placed if an application wants to offer the user a way
 to move the cursor straight to the error location.
 -- description
@@ -1714,14 +1761,14 @@ to move the cursor straight to the error location.
 
 #### return value
 
-description: An array, where [0] is the line number, and [1] is the column number.
+description: A list, where [0] is the line number, and [1] is the column number.
 
 ### selection
 
 syntax: selection → [[line, column], [line, column]]
 
 -- description
-Returns a selection as an array of the form [[line, column], [line, column]],
+Returns a selection as a list of the form [[line, column], [line, column]],
 indicating a text range to select if an application wants to offer the user a
 way to get a selection for the error in the input.
 -- description
@@ -1738,8 +1785,8 @@ way to get a selection for the error in the input.
 #### return value
 
 description:
-| An array, where [0] is the begin of the selection and [1] is the end,
-| and both begin and end are each again an array, where [0] is the
+| A list, where [0] is the begin of the selection and [1] is the end,
+| and both begin and end are each again a list, where [0] is the
 | line number, and [1] is the column number.
 
 ### message

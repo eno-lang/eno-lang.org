@@ -146,7 +146,7 @@ doc.latLng('location');
   // }
   
 doc.email('contact');
-  // throws an error: 'email' must contain a valid email address, for instance 'jane.doe@eno-lang.org'.
+  // throws an error: 'contact' must contain a valid email address, for instance 'jane.doe@eno-lang.org'.
 ```
 
 Note that some loaders only perform validation and return their input unaltered
