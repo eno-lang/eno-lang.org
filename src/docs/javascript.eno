@@ -3,7 +3,7 @@ title: enojs - The JavaScript eno library
 # Global
 
 library: enojs
-version: 0.14.0
+version: 0.14.1
 
 -- intro
 Installation from npm:
@@ -231,6 +231,33 @@ const document = eno.parse(input);
 
 document.commaSeparated('Tags');  // returns ['Coffee', 'Desk', 'Flavor']
 document.commaSeparated('Categories');  // returns ['Computing', 'High performance', 'Cluster']
+-- js
+
+### date
+
+-- description
+Accepts `YYYY-MM-DD` and returns a JavaScript `Date` object (or throws an error for invalid values).
+-- description
+
+syntax:
+| date() → Date
+| dateItems() → array
+| dateList() → array
+
+-- eno
+start: 1992-12-01
+end: 1994-03-04
+invalid: 2018-03-14 13:10
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+document.date('start');  // returns [object Date]
+document.date('end');  // returns [object Date]
+
+document.date('invalid');
+  // throws an error: 'invalid' must contain a valid date, for instance '1993-11-18'.
 -- js
 
 ### datetime
