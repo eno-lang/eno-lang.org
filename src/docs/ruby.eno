@@ -3,7 +3,7 @@ title: enorb - The Ruby eno library
 # Global
 
 library: enorb
-version: 0.8.0 Beta
+version: 0.8.1 Beta
 
 -- intro
 ## Installation
@@ -80,14 +80,14 @@ color: blue
 -- eno
 
 -- ruby
-eno.parse(input)  #=> #<Eno::Section document elements=1>
+Eno.parse(input)  #=> #<Eno::Section document elements=1>
 
                                                       # Errors will be ...
-eno.parse(input, locale: 'es')                        # In spanish - ¡hola!
-eno.parse(input, reporter: Eno::Reporters::HTML)      # HTML for e.g. web integration
-eno.parse(input, reporter: Eno::Reporters::Terminal)  # Colored for terminal output
-eno.parse(input, source_label: 'my-file.eno')         # Annotated with a label as context
-eno.parse(input, zero_indexing: true)                 # Counting line and column numbers from 0
+Eno.parse(input, locale: 'es')                        # In spanish - ¡hola!
+Eno.parse(input, reporter: Eno::Reporters::HTML)      # HTML for e.g. web integration
+Eno.parse(input, reporter: Eno::Reporters::Terminal)  # Colored for terminal output
+Eno.parse(input, source_label: 'my-file.eno')         # Annotated with a label as context
+Eno.parse(input, zero_indexing: true)                 # Counting line and column numbers from 0
 -- ruby
 
 #### parameters
@@ -249,10 +249,37 @@ Categories:  Computing  ,  High performance  ,  Cluster
 -- eno
 
 -- ruby
-document = eno.parse(input)
+document = Eno.parse(input)
 
 document.comma_separated('Tags')  #=> ['Coffee', 'Desk', 'Flavor']
 document.comma_separated('Categories')  #=> ['Computing', 'High performance', 'Cluster']
+-- ruby
+
+### date
+
+-- description
+Accepts `YYYY-MM-DD` and returns a Ruby `Time` object (or raises an error for invalid values).
+-- description
+
+syntax:
+| date → Time
+| date_items → array
+| date_list → array
+
+-- eno
+start: 1992-12-01
+end: 1994-03-04
+invalid: 2018-03-14 13:10
+-- eno
+
+-- ruby
+document = Eno.parse(input)
+
+document.date('start')  #=> #<Time>
+document.date('end')  #=> #<Time>
+
+document.date('invalid')
+  # raises an error: 'invalid' must contain a valid date, for instance '1993-11-18'.
 -- ruby
 
 ### #datetime
@@ -427,6 +454,38 @@ document.number('bad')
   # raises an error: 'bad' must contain an integer, for instance '42' or '-21'.
 -- ruby
 
+### #string
+
+-- description
+Technically not a loader, but an alias for the standard accessors (which always
+return strings), you can use it if you prefer a 100% type-oriented value access
+terminology in your code. Note that this is not even a noop function, but really
+just a direct alias, so using it instead of e.g. `field` does not incur any
+performance drawback.
+-- description
+
+syntax:
+| string → string
+| string_items → array
+| string_list → array
+
+-- eno
+name: Alice
+number: 13
+-- eno
+
+-- ruby
+document = Eno.parse(input)
+
+document.string('name')  #=> 'Alice'
+document.string('number')  #=> '13'
+
+# .... these are completely identical to ...
+
+document.field('name')  #=> 'Alice'
+document.field('number')  #=> '13'
+-- ruby
+
 ### #url
 
 -- description
@@ -484,7 +543,7 @@ Important data B: Me too!
 -- eno
 
 -- ruby
-document = eno.parse(input)
+document = Eno.parse(input)
 
 data_a = document.field('Important data A')
 
@@ -531,7 +590,7 @@ src = white-roses.jpg
 -- eno
 
 -- ruby
-document = eno.parse(input)
+document = Eno.parse(input)
 
 images = document.dictionaries('image')
 
@@ -608,7 +667,7 @@ tags:
 -- eno
 
 -- ruby
-document = eno.parse(input)
+document = Eno.parse(input)
 
 document.element('title')  #=> #<Eno::Value name="title" value="Artfest 2018">
 document.element('tags')  #=> #<Eno::List name="tags" items=2>
@@ -652,7 +711,7 @@ p: This is my first post, I'm so happy!
 -- eno
 
 -- ruby
-document = eno.parse(input)
+document = Eno.parse(input)
 
 metadata = {
   date: document.field('date', my_date_loader_proc),
@@ -692,7 +751,7 @@ color: blue
 -- eno
 
 -- ruby
-document = eno.parse(input)
+document = Eno.parse(input)
 
 document.field('sound')  #=> nil
 
@@ -775,7 +834,7 @@ color: orange
 -- eno
 
 -- ruby
-document = eno.parse(input)
+document = Eno.parse(input)
 
 colors = document.fields('color')
 
@@ -814,7 +873,7 @@ textures:
 -- eno
 
 -- ruby
-document = eno.parse(input)
+document = Eno.parse(input)
 
 document.list('colors')  #=> [ 'pink', 'peach' ]
 document.list('sounds')  #=> []
@@ -883,7 +942,7 @@ route:
 -- eno
 
 -- ruby
-document = eno.parse(input)
+document = Eno.parse(input)
 
 routes = document.lists('route')
 
@@ -923,7 +982,7 @@ color: blue
 -- eno
 
 -- ruby
-document = eno.parse(input)
+document = Eno.parse(input)
 
 document.lookup(3)  # 'o'
   #=> { element: #<Eno::Value name="color" value="blue">, zone: :name }
@@ -993,7 +1052,7 @@ color: blue
 -- eno
 
 -- ruby
-document = eno.parse(input)
+document = Eno.parse(input)
 
 document.raw  #=> [{ 'color' => 'blue' }]
 -- ruby
@@ -1020,7 +1079,7 @@ title: A Manifest
 -- eno
 
 -- ruby
-document = eno.parse(input)
+document = Eno.parse(input)
 
 document.section('content')   #=> #<Eno::Section name="content" elements=1>
 document.section('notes')     #=> #<Eno::Section name="notes" elements=0>
@@ -1060,7 +1119,7 @@ Retrieve subsections with the specified name from this current section.
 -- eno
 
 -- ruby
-document = eno.parse(input)
+document = Eno.parse(input)
 
 sections = document.sections('Article')
 
@@ -1124,7 +1183,7 @@ color: cozy
 -- eno
 
 -- ruby
-document = eno.parse(input)
+document = Eno.parse(input)
 element, value = document.field('color', with_element: true)
 
 # ...
@@ -1167,7 +1226,7 @@ numbers:
 -- eno
 
 -- ruby
-document = eno.parse(input)
+document = Eno.parse(input)
 
 document.element('color').raw  #=> { 'color' => 'blue' }
 
@@ -1199,7 +1258,7 @@ towel color:
 -- eno
 
 -- ruby
-document = eno.parse(input)
+document = Eno.parse(input)
 
 flag_color = document.element('flag color')
 towel_color = document.element('towel color')
@@ -1262,7 +1321,7 @@ numbers:
 -- eno
 
 -- ruby
-list = eno.parse(input).element('numbers')
+list = Eno.parse(input).element('numbers')
 
 list.elements
   #=> [ #<Eno::Value value="6">, #<Eno::Value value="8">, #<Eno::Value value="19"> ]
@@ -1292,7 +1351,7 @@ colors:
 -- eno
 
 -- ruby
-document = eno.parse(input)
+document = Eno.parse(input)
 list = document.element('colors')
 
 list.items()  #=> ['pink', 'peach']
@@ -1333,7 +1392,7 @@ colors:
 -- eno
 
 -- ruby
-list = eno.parse(input).element('colors')
+list = Eno.parse(input).element('colors')
 
 list.length  #=> 2
 -- ruby
@@ -1357,7 +1416,7 @@ colors:
 -- eno
 
 -- ruby
-list = eno.parse(input).element('colors')
+list = Eno.parse(input).element('colors')
 
 list.first.raw  #=> { 'colors' => ['pink', 'peach'] }
 -- ruby
@@ -1404,7 +1463,7 @@ B = Me too!
 -- eno
 
 -- ruby
-document = eno.parse(input)
+document = Eno.parse(input)
 dictionary = document.dictionary('Important data')
 
 data_a = dictionary.entry('A')
@@ -1455,7 +1514,7 @@ years:
 -- eno
 
 -- ruby
-dictionary = eno.parse(input).dictionary('years')
+dictionary = Eno.parse(input).dictionary('years')
 
 dictionary.element('2010')  #=> #<Eno::Value name="2010" value="Year of the awesome beanstalk">
 dictionary.element('2020')  #=> nil
@@ -1495,7 +1554,7 @@ bob = nothin'
 -- eno
 
 -- ruby
-document = eno.parse(input)
+document = Eno.parse(input)
 dialogue = document.dictionary('dialogue')
 
 html = '<h1>Observe this fascinating dialogue, presented in html!</h1>'
@@ -1533,7 +1592,7 @@ conversions:
 -- eno
 
 -- ruby
-document = eno.parse(input)
+document = Eno.parse(input)
 
 conversions = document.dictionary('conversions')
 
@@ -1563,7 +1622,7 @@ Purpose =
 -- eno
 
 -- ruby
-document = eno.parse(input)
+document = Eno.parse(input)
 qa = document.dictionary('Q&A')
 
 qa.entry('Meaning')   #=> '42'
@@ -1615,7 +1674,7 @@ pineapple = 800g
 -- eno
 
 -- ruby
-document = eno.parse(input)
+document = Eno.parse(input)
 
 document.dictionary('weights').raw 
   #=> { 'weights' => [{ 'apple' => '100g' }, { 'pineapple' => '800g' }] }
@@ -1655,7 +1714,7 @@ color:
 -- eno
 
 -- ruby
-document = eno.parse(input)
+document = Eno.parse(input)
 
 element, value = document.field('color', with_element: true)
 
@@ -1693,7 +1752,7 @@ color:
 -- eno
 
 -- ruby
-empty = eno.parse(input).element('color')
+empty = Eno.parse(input).element('color')
 
 empty.raw  #=> { 'color' => nil }
 -- ruby
@@ -1716,7 +1775,7 @@ note:
 -- eno
 
 -- ruby
-empty = eno.parse(input).element('note')
+empty = Eno.parse(input).element('note')
 
 note.value  #=> nil
 -- ruby

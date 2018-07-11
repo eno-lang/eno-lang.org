@@ -3,10 +3,17 @@ title: Dev Blog
 -- markdown
 # Dev Blog
 
+**Wednesday, July 11 2018**
+
+- Released enorb 0.8.1 with a new [date loader](https://eno-lang.org/ruby/#Eno::Loaders-date) and corrections for the lat/lng loader.
+- Adopted the new average ips based perfomance metrics for the enorb optimization tooling and did some housekeeping for the specs suite.
+- Did some speculative research and experimentation on the possibility (or maybe rather, likelihood) of an eno Java library.
+
 **Tuesday, July 10 2018**
 
 - Released enojs 0.14.1 with a new [date loader](https://eno-lang.org/javascript/#loaders-date) and corrections for the lat/lng loader.
 - Completely refactored all specs for the enorb loaders.
+- Rebooted the [enojs-exploaders](https://www.npmjs.com/package/enojs-exploaders/) package as purely experimental sidetrack to the now available core loaders (with a single new 'slug' loader for now).
 
 **Monday, July 9 2018**
 

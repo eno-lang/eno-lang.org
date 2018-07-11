@@ -12,58 +12,45 @@ native C library bindings. (You are welcome to run and extend these benchmarks
 on other computers and platforms and/or help to improve the methodology and
 code!)
 
-The current objectives for development are to reach rock-solid stability for all
-implementations and to extend test coverage to 100% for all three platforms, both
-objectives being within close reach already.
+The current main objective for development is to reach full test coverage for
+all three platforms - currently 96% (js) 90% (py) 92% (rb) - as well as to confirm
+production stability for enopy and enorb in the various running case studies.
 
-## <i class="devicon-javascript-plain javascript-yellow"></i> JavaScript
+## <i class="devicon-javascript-plain javascript-yellow"></i> JavaScript / enojs v0.14.1
 
-**enojs v0.14.1**  
 [Complete documentation and API reference](https://eno-lang.org/javascript/)  
+[Package on npm](https://npmjs.com/package/enojs/)  
+[Repository on github](https://github.com/eno-lang/enojs/)
 
-enojs is already running in production scenarios, most notably at a vienna-based institute
-for urban research, where it powers the validation, processing and editing
-process for thousands of articles in a completely (eno) file-based database, for
-building the message catalogs that power all eno implementations in the
-[eno-locales](https://github.com/eno-lang/eno-locales) repository, for a few
-statically generated website case studies (e.g.
-[simonrepp.com](https://simonrepp.com)), as well as, of course, generating the
-whole eno-lang.org website itself.
-
-Test suite coverage is currently at 96%, if you discover any issues you are very welcome to report them in the github issue tracker!
-
-[<i class="devicon-javascript-plain"></i> Package on npm](https://npmjs.com/package/enojs/)  
-[<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enojs/)
-
-##  <i class="devicon-python-plain python-blue"></i> Python
-
-**enopy v0.6.0 Beta**  
+##  <i class="devicon-python-plain python-blue"></i> Python / enopy v0.6.0 Beta
+ 
 [Complete documentation and API reference](https://eno-lang.org/python/)  
+[Package on PyPI](https://pypi.org/project/enopy/)  
+[Repository on github](https://github.com/eno-lang/enopy/)
 
-enopy is the most recent library release. Test suite coverage is at 90%, and a
-first production case study is currently underway to confirm production
-stability of the implementation.
+## <i class="devicon-ruby-plain ruby-red"></i> Ruby / enorb v0.8.1 Beta
 
-[<i class="devicon-python-plain"></i> Package on PyPI](https://pypi.org/project/enopy/)  
-[<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enopy/)
-
-## <i class="devicon-ruby-plain ruby-red"></i> Ruby
-
-**enorb v0.8.0 Beta**  
 [Complete documentation and API reference](https://eno-lang.org/ruby/)  
+[Gem on rubygems](https://rubygems.org/gems/enorb/)  
+[Repository on github](https://github.com/eno-lang/enorb/)
 
-enorb's functionality is already covered by an extensive test suite (at
-currently 92% coverage). As soon as a first production case study is in place
-and running, enorb will officially graduate into stable release status.
+## <i class="devicon-php-plain php-violet"></i> PHP / enophp pre-alpha
 
-[<i class="devicon-ruby-plain"></i> Gem on rubygems](https://rubygems.org/gems/enorb/)  
-[<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enorb/)
+Early experimental developments for **enophp** have begin in early July 2018.
 
-## <i class="devicon-php-plain php-violet"></i> PHP
+[Repository on github](https://github.com/eno-lang/enophp/)
 
-Early experimental development for **enophp** has begun on July 7th, 2018!
+## Roadmap for further implementations
 
-[<i class="devicon-github-plain"></i> Repository on github](https://github.com/eno-lang/enophp/)
+Go, Rust and PHP are likely followups for 2018, but what lands on the definite roadmap will also depend on your
+feedback, so make yourself heard if you have suggestions or questions!
+
+## Benchmarks
+
+There is now a benchmark suite that evaluates the performance of all eno libraries, also in comparism
+against other popular libraries for parsing yaml and toml.
+
+Visit [github.com/eno-lang/benchmarks](https://github.com/eno-lang/benchmarks/) to study these.
 
 ## Interactive Demos
 
@@ -73,21 +60,9 @@ limited selection of early demos and a draft page layout.
 
 [Interactive Demos](https://eno-lang.org/demo/)  
 
-## Roadmap for further implementations
-
-Go, Rust and PHP are likely followups for 2018, but what lands on the definite roadmap will also
-depend on your feedback, so make yourself heard if you have suggestions or questions!
-
-## Benchmarks
-
-There is now a benchmark suite that evaluates the performance of all eno libraries, also in comparism
-against other popular libraries for parsing yaml and toml.
-
-Visit [github.com/eno-lang/benchmarks](https://github.com/eno-lang/benchmarks/) to study these.
-
 ## Dive deeper
 
 Explore all repositories where the development work is currently happening at the eno umbrella organization on github.
 
-[<i class="devicon-github-plain"></i> github.com/eno-lang](https://github.com/eno-lang/)
+[github.com/eno-lang](https://github.com/eno-lang/)
 -- markdown

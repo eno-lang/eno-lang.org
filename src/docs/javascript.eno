@@ -431,6 +431,38 @@ document.number('bad');
   // throws an error: 'bad' must contain an integer, for instance '42' or '-21'.
 -- js
 
+### string
+
+-- description
+Technically not a loader, but an alias for the standard accessors (which always
+return strings), you can use it if you prefer a 100% type-oriented value access
+terminology in your code. Note that this is not even a noop function, but really
+just a direct alias, so using it instead of e.g. `field` does not incur any
+performance drawback.
+-- description
+
+syntax:
+| string() → string
+| stringItems() → array
+| stringList() → array
+
+-- eno
+name: Alice
+number: 13
+-- eno
+
+-- js
+const document = eno.parse(input);
+
+document.string('name');  // returns 'Alice'
+document.string('number');  // returns '13'
+
+// .... these are completely identical to ...
+
+document.field('name');  // returns 'Alice'
+document.field('number');  // returns '13'
+-- js
+
 ### url
 
 -- description
