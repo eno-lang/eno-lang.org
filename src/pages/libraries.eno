@@ -7,25 +7,21 @@ title: Develop applications and websites with eno
 -- markdown
 # Libraries
 
-The eno libraries for JavaScript, Python and Ruby are built upon very fast,
-dependency-free, custom and pure parser implementations. The growing [eno
-benchmark suite](https://github.com/eno-lang/benchmarks/) indicates that eno
-parsers by now already outperform most popular toml and yaml parser in
-the field in their respective lanugage, even keeping up with parsers utilizing
-native C library bindings. (You are welcome to run and extend these benchmarks
-on other computers and platforms and/or help to improve the methodology and
-code!)
+All libraries are built upon custom, dependency-free, pure parser implementations.
+The growing [benchmark suite](https://github.com/eno-lang/benchmarks/) indicates that eno
+parsers by now already outperform most popular toml/yaml parsers in their respective lanugage,
+even keeping up with parsers utilizing native C library bindings.
 
 The current main objective for development is to reach full test coverage for
-all three platforms - currently 96% (js) 90% (py) 92% (rb) - as well as to confirm
-production stability for enopy and enorb in the various running case studies.
+all platforms - currently 96% (js) 90% (py) 92% (rb), and to confirm full
+production stability in all running case studies.
 
 -- markdown
 
 ## tripled
 
 -- third
-## <img src="/javascript.svg" style="max-width: 36px; height: auto;" />  enojs v0.14.1 (JavaScript)
+## <img class="logo" src="/javascript.svg" />  enojs v0.14.1 (JavaScript)
 
 [Complete documentation and API reference](https://eno-lang.org/javascript/)  
 [Package on npm](https://npmjs.com/package/enojs/)  
@@ -33,7 +29,7 @@ production stability for enopy and enorb in the various running case studies.
 -- third
 
 -- third
-## <img src="/python.svg" style="max-width: 36px; height: auto;" />  enopy v0.6.1 (Python)
+## <img class="logo" src="/python.svg" />  enopy v0.6.1 (Python)
 
 [Complete documentation and API reference](https://eno-lang.org/python/)  
 [Package on PyPI](https://pypi.org/project/enopy/)  
@@ -41,7 +37,7 @@ production stability for enopy and enorb in the various running case studies.
 -- third
 
 -- third
-## <img src="/ruby.svg" style="max-width: 36px; height: auto;" />  enorb v0.8.1 (Ruby)
+## <img class="logo" src="/ruby.svg" />  enorb v0.8.1 (Ruby)
 
 [Complete documentation and API reference](https://eno-lang.org/ruby/)  
 [Gem on rubygems](https://rubygems.org/gems/enorb/)  
@@ -49,9 +45,9 @@ production stability for enopy and enorb in the various running case studies.
 -- third
 
 -- third
-## <img src="/php.svg" style="max-width: 36px; height: auto;" />  enophp (PHP)
+## <img class="logo" src="/php.svg" />  enophp (PHP)
 
-Early experimental developments for **enophp** have begun in early July 2018.
+In development!
 
 [Repository on github](https://github.com/eno-lang/enophp/)
 -- third
@@ -61,12 +57,12 @@ Early experimental developments for **enophp** have begun in early July 2018.
 -- markdown
 ## Roadmap for further implementations
 
-Go, Rust, PHP and Java are likely followup candidates for 2018, but what lands on the definite roadmap will also depend on your
+Rust, Go and Java are likely followup candidates for 2018, but what lands on the definite roadmap will also depend on your
 feedback, so make yourself heard if you have suggestions or questions!
 
 ## Benchmarks
 
-There is now a benchmark suite that evaluates the performance of all eno libraries, also in comparism
+The eno benchmark suite evaluates the performance of all eno libraries, also in comparism
 against other popular libraries for parsing yaml and toml.
 
 Visit [github.com/eno-lang/benchmarks](https://github.com/eno-lang/benchmarks/) to study these.

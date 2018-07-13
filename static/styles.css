@@ -47,8 +47,14 @@ body {
   margin: 0;
 }
 
-body, textarea {
-  font-size: 18px;
+body, textarea { font-size: 18px; }
+
+@media (max-width: 540px) {
+  body, textarea { font-size: 16px; }
+}
+
+@media (max-width: 300px) {
+  body, textarea { font-size: 14px; }
 }
 
 a {
@@ -65,6 +71,22 @@ img {
   max-width: 100%;
 }
 
+h1, h2, h3 {
+  align-items: center;
+  display: flex;
+  font-weight: 500;
+}
+
+h1 { font-size: 1.6em; }
+h2 { font-size: 1.2em; }
+h3 { font-size: 1.1em; }
+
+h1 img,
+h2 img,
+h3 img {
+  padding-right: 0.5em;
+}
+
 pre {
   position: relative;
 }
@@ -72,6 +94,11 @@ pre {
 .boundary {
   margin: 0 auto;
   max-width: 1280px;
+}
+
+.logo {
+  max-width: 1.5em;
+  height: auto;
 }
 
 .padding {
@@ -106,7 +133,7 @@ video {
 }
 
 .header__primary {
-  background: linear-gradient(to right, #d79e80, #6fb6c9);
+  background: #51575d;
   font-size: 1.2em;
 }
 

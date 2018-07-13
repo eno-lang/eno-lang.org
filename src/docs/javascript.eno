@@ -1,7 +1,7 @@
 title: enojs - The JavaScript eno library
 
 -- intro
-# <img src="/javascript.svg" style="max-width: 36px; height: auto;" /> enojs 0.14.1
+# <img class="logo" src="/javascript.svg" /> enojs 0.14.1
 
 Installation from npm:
 
@@ -32,7 +32,7 @@ console.log( document.field('Greeting') );  // prints 'Hello World!'
 
 ## Interactive code demos
 
-A preview of the enojs demo page, featuring interactive code examples (soon also for all other languages supported by the eno libraries) is online at:
+A preview of the enojs demo page, featuring interactive code examples is online at:
 <https://eno-lang.org/demo/>
 
 ## Links

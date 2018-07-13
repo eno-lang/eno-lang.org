@@ -1,7 +1,7 @@
 title: enopy - The Python eno library
 
 -- intro
-# <img src="/python.svg" style="max-width: 36px; height: auto;" /> enopy 0.6.1
+# <img class="logo" src="/python.svg" /> enopy 0.6.1
 
 ## Installation
 
@@ -300,7 +300,7 @@ invalid: 2018-03-14 13:10
 ValidationError: 'invalid' must contain a valid date or date and time, for instance '1997-07-16' or '1994-11-05T13:15Z' (see https://www.w3.org/TR/NOTE-datetime).
 -- python
 
-### to_float
+### float
 
 -- description
 Accepts floats (decimal part can be missing though), returns a float (or raises an error for malformed values).

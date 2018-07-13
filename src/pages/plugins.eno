@@ -14,7 +14,7 @@ colors, improving our visual grasp on our content.
 ## split
 
 -- half
-## <img src="/atom.svg" style="max-width: 36px; height: auto;" /> Atom
+## <img class="logo" src="/atom.svg" /> Atom
 
 The [language-eno](https://atom.io/packages/language-eno) package provides first
 class support for eno documents in Atom. It not only provides beautiful custom syntax
@@ -25,7 +25,7 @@ Visit the [language-eno](https://atom.io/packages/language-eno) package on atom.
 -- half
 
 -- half
-## <img src="/vscode.svg" style="max-width: 36px; height: auto;" /> Visual Studio Code
+## <img class="logo" src="/vscode.svg" /> Visual Studio Code
 
 The
 [vscode-eno](https://marketplace.visualstudio.com/items?itemName=eno-lang.vscode-eno)
@@ -38,7 +38,7 @@ extension on the Visual Studio Marketplace.
 -- half
 
 -- half
-## <img src="/sublime.svg" style="max-width: 36px; height: auto;" /> Sublime Text
+## <img class="logo" src="/sublime.svg" /> Sublime Text
 
 The [sublime-eno](https://github.com/eno-lang/sublime-eno) package is already feature-complete,
 although not yet packaged and wrapped up for distribution through packagecontrol.io For the time
@@ -48,7 +48,7 @@ Visit the [sublime-eno](https://github.com/eno-lang/sublime-eno) repository on g
 -- half
 
 -- half
-## <img src="/prism.svg" style="max-width: 36px; height: auto;" /> Prism
+## <img class="logo" src="/prism.svg" /> Prism
 
 [prism-eno](https://github.com/eno-lang/prism-eno) is a plugin for writing and
 blogging about eno. All eno snippets on eno-lang.org get their syntax

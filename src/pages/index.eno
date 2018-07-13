@@ -62,7 +62,7 @@ require 'enorb'
 
 document = Eno.parse(
   File.read('example.eno'),
-  locale: :es,                   # Fully localized messages
+  locale: :es,                   # Fully localized error messages
   reporter: Eno::Reporters::HTML # Text, Terminal also available
 )
 
