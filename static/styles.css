@@ -52,7 +52,7 @@ body, textarea {
 }
 
 a {
-  color: #ff5370;
+  color: #929c6b;
   text-decoration: none;
 }
 
@@ -70,9 +70,13 @@ pre {
   max-width: 1280px;
 }
 
+.padding {
+  padding: 0 1em;
+}
+
 .brand {
   color: #fff;
-  font-weight: 700;
+  font-weight: 400;
 }
 
 .menu {
@@ -98,7 +102,7 @@ video {
 }
 
 .header__primary {
-  background: linear-gradient(to right, #ff5a00, #f09);
+  background: linear-gradient(to right, #d79e80, #6fb6c9);
   font-size: 1.2em;
 }
 
@@ -136,22 +140,40 @@ video {
   width: 100%;
 }
 
-.half {
-  padding: 1em;
-  width: 50%;
+.hacky-half {
+  width: 90%;
 }
 
-.split {
+.split,
+.tripled {
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-@media (max-width: 1280px) {
-  .half {
-    width: 90%;
+@media (min-width: 720px) {
+  .split,
+  .tripled {
+    flex-flow: row wrap;
   }
 
-  .split {
-    flex-direction: column;
+  .tripled .third {
+    width: calc(50% - 0.5em);
+  }
+}
+
+@media (min-width: 1280px) {
+  .hacky-half {
+    padding: 1em;
+    width: 50%;
+  }
+
+  .split .half {
+    width: calc(50% - 0.5em);
+  }
+
+  .tripled .third {
+    width: calc(33% - 0.5em);
   }
 }
 
@@ -178,6 +200,10 @@ video {
 .docs .syntax {
   margin-top: 3em;
   white-space: pre;
+}
+
+p {
+  text-align: justify;
 }
 
 .docs p {

@@ -4,7 +4,6 @@ const fs = require('fs');
 const fsExtra = require('fs-extra');
 const glob = require('glob');
 const path = require('path');
-const markdownIt = require('markdown-it')({ html: true });
 
 const generateDemo = require('./src/demo/generate.js');
 const layout = require('./src/layout.js');
@@ -24,11 +23,38 @@ glob('src/pages/*.eno', (err, files) => {
   for(let file of files) {
     const input = fs.readFileSync(file, 'utf-8');
     const page = eno.parse(input, { reporter: 'terminal', sourceLabel: file });
-    const content = markdownIt.render(page.field('markdown'));
+
+    let rendered = '';
+
+    const content = page.section('content');
+
+    for(let element of content.elements()) {
+      if(element.name === 'markdown') {
+        rendered += element.value(markdown);
+      } else if(element.name === 'single') {
+        rendered += element.field('markdown', markdown);
+      } else if(element.name === 'split') {
+        rendered += `
+          <div class="split">
+            ${element.elements().map(element => `
+              <div class="half">${element.value(markdown)}</div>
+            `).join('')}
+          </div>
+        `;
+      } else if(element.name === 'tripled') {
+        rendered += `
+          <div class="tripled">
+            ${element.elements().map(element => `
+              <div class="third">${element.value(markdown)}</div>
+            `).join('')}
+          </div>
+        `;
+      }
+    }
 
     const fileName = path.basename(file, '.eno');
 
-    const html = layout(content, page.field('title'), fileName, menu);
+    const html = layout(rendered, page.field('title'), fileName === 'index' ? '/' : `/${fileName}/`, menu);
 
     if(fileName === 'index') {
       fs.writeFileSync(path.join(__dirname, `public/index.html`), html);
@@ -153,7 +179,7 @@ glob('src/docs/*.eno', (err, files) => {
 
     const fileName = path.basename(file, '.eno');
 
-    const html = layout(content, documentation.field('title'), fileName, menu);
+    const html = layout(content, documentation.field('title'), `/${fileName}/`, menu);
 
     fs.mkdirSync(path.join(__dirname, `public/${fileName}`));
     fs.writeFileSync(path.join(__dirname, `public/${fileName}/index.html`), html);
@@ -161,5 +187,5 @@ glob('src/docs/*.eno', (err, files) => {
     documentation.assertAllTouched();
   }
 
-  menu.assertAllTouched();
+  menu.assertAllTouched({ except: '/' });
 });

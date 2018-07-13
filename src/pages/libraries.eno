@@ -1,7 +1,11 @@
 title: Develop applications and websites with eno
 
+# content
+
+## single
+
 -- markdown
-# Overview
+# Libraries
 
 The eno libraries for JavaScript, Python and Ruby are built upon very fast,
 dependency-free, custom and pure parser implementations. The growing [eno
@@ -16,33 +20,48 @@ The current main objective for development is to reach full test coverage for
 all three platforms - currently 96% (js) 90% (py) 92% (rb) - as well as to confirm
 production stability for enopy and enorb in the various running case studies.
 
-## <i class="devicon-javascript-plain javascript-yellow"></i> JavaScript / enojs v0.14.1
+-- markdown
+
+## tripled
+
+-- third
+## <img src="/javascript.svg" style="max-width: 36px; height: auto;" />  enojs v0.14.1 (JavaScript)
 
 [Complete documentation and API reference](https://eno-lang.org/javascript/)  
 [Package on npm](https://npmjs.com/package/enojs/)  
 [Repository on github](https://github.com/eno-lang/enojs/)
+-- third
 
-##  <i class="devicon-python-plain python-blue"></i> Python / enopy v0.6.0 Beta
- 
+-- third
+## <img src="/python.svg" style="max-width: 36px; height: auto;" />  enopy v0.6.1 (Python)
+
 [Complete documentation and API reference](https://eno-lang.org/python/)  
 [Package on PyPI](https://pypi.org/project/enopy/)  
 [Repository on github](https://github.com/eno-lang/enopy/)
+-- third
 
-## <i class="devicon-ruby-plain ruby-red"></i> Ruby / enorb v0.8.1 Beta
+-- third
+## <img src="/ruby.svg" style="max-width: 36px; height: auto;" />  enorb v0.8.1 (Ruby)
 
 [Complete documentation and API reference](https://eno-lang.org/ruby/)  
 [Gem on rubygems](https://rubygems.org/gems/enorb/)  
 [Repository on github](https://github.com/eno-lang/enorb/)
+-- third
 
-## <i class="devicon-php-plain php-violet"></i> PHP / enophp pre-alpha
+-- third
+## <img src="/php.svg" style="max-width: 36px; height: auto;" />  enophp (PHP)
 
-Early experimental developments for **enophp** have begin in early July 2018.
+Early experimental developments for **enophp** have begun in early July 2018.
 
 [Repository on github](https://github.com/eno-lang/enophp/)
+-- third
 
+## single
+
+-- markdown
 ## Roadmap for further implementations
 
-Go, Rust and PHP are likely followups for 2018, but what lands on the definite roadmap will also depend on your
+Go, Rust, PHP and Java are likely followup candidates for 2018, but what lands on the definite roadmap will also depend on your
 feedback, so make yourself heard if you have suggestions or questions!
 
 ## Benchmarks

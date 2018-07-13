@@ -1,145 +1,91 @@
 title: Write your content with eno
 
+# content
+
 -- markdown
-# Introduction
+# Language
 
-eno is very simple, in a few minutes you'll be ready to create any content you wish.
+## User guide
 
-You can either watch the video or read the text below, they both cover the same
-essentials, pick whichever you prefer.
+For the beginner-friendly user guide in video or text form, visit
+[eno-lang.org/introduction](https://eno-lang.org/introduction/) for the
+introduction and then optionally
+[eno-lang.org/advanced](https://eno-lang.org/advanced/) to learn about the
+advanced features.
 
-<video controls src="/introduction.mp4"></video>
+## Developer guide / Cheatsheet
 
-## The Essentials (Text Version)
+If you're a developer or otherwise familiar with structured text formats like YAML or TOML
+you will likely gather most things you need to know on this page (note that all topics are
+handled with more detail in the user guide though, if you miss something on this page),
+here's the quick rundown:
 
-### Comments (>)
+eno is unaware of indentation and whitespace in general - before, after and
+between all language tokens (names, operators and values) you can have as much
+or little space and empty lines as you wish.
 
-Every line starting with `>` marks a comment line, in which any text may appear. The computer discards these lines when reading the file, so they are there for us to make notes and leave hints for others that might read the document.
+eno is line-based, there is only a single necessary exception, which is the multiline field ("block").
 
-```eno
-> This is a comment!
-```
-
-### Assigning values (:)
-
-At its core eno lets us write down values, the simplest form being:
-
-```eno
-Current Temperature: Quite pleasant
-```
-
-With this we specify a pair of a name and a value, the name being "Current temperature" and the value being "Quite pleasant". In the majority of cases, the name (here "Current Temperature") will come from a template already, so as a user we usually just concern ourselves with editing the values and a friendly developer takes care of specifying the names for us. :)
-
-Some other examples:
+Without further ado, here is the quick tour:
 
 ```eno
-Last Name: Schneider
-Website: www.example.com
-Profession: Freelance graphics artist
+> Text of Comment
+
+Field: Value
+
+-- Block
+Value of ...
+... Block
+-- Block
+
+--- Block
+Value of ...
+-- Block
+... block
+--- Block
+
+List:
+- Value
+- Value
+
+Dictionary:
+Entry A = Value
+Entry B = Value
+
+Field: Line ...
+\ ... continuation
+\ ... (separated with space)
+
+Field: Line ...
+| Newline continuation
+| (separated with linebreak)
+
+Name of copy < Name of source element
+
+# Section
+## Subsection
+### Subsubsection
+
+# Name of section copy < Name of source section
+# Name of deep-merged section copy << Name of source section
+
+`Escaped field name`: Value
+
+`Escaped list name`:
+- Value
+- Value
+
+`Escaped dictionary name`:
+`Escaped entry A` = Value
+`Escaped entry B` = Value
+
+`Escaped name of copy` < Name of source element
+
+# `Escaped name of section copy` < Name of source section
 ```
 
-### No value
+### Specification
 
-If we don't want to specify a value, we just leave the right side empty:
-
-```eno
-More information:
-```
-
-
-### Lists of values (-)
-
-If we want to assign multpiple values to a name, it looks like this:
-
-```eno
-Shopping list:
-- Bread
-- Yoghurt
-- Bananas (not too ripe)
-```
-
-An empty list looks like a regular empty value:
-
-```eno
-Shopping list:
-```
-
-### Values that span multiple lines (--)
-
-If we want to assign multiple lines to a name, we do it like this:
-
-```eno
--- Long Description
-The previous line marks a block, whose content starts with this line.
-
-Until the line that marks the begin of the block appears a second time,
-we can write any content we want, leave any number of lines empty ...
-
-... and so on
-
-With "--" we tell eno that we want to start a text block, and the text
-right next to the two dashes on that same line again is the name (in this
-case "Long Description") that provides a context to our block of text.
-
-Heads up now - in the next line the block ends!
--- Long Description
-```
-
-### Sections (#)
-
-Now let's group values in a section:
-
-```eno
-# Contact data
-
-Telephone: +43 699 104734953
-Email: anna.schneider@anna-schneider.de
-```
-
-This assigns all name-value pairs that follow after the begin of the section "Contact data" to that section. It is also possible to create any number of sub-sub-(and so on)-sections:
-
-```eno
-# Contact data
-
-## Telephone numbers
-
-### Anna
-
-Landline: +43 1 0468648
-Mobile: +43 699 104734953
-
-### Uwe
-
-Landline: +43 1 0468648
-Mobile: +43 699 104734953complicated
-```
-
-And with this you already know everything you need to edit any `.eno` files you might encounter! To wrap things up, here's another small demonstration that combines all of the possibilities explained above:
-
-```eno
-# Profile
-
-Name: John Doe
-Hair color: brown/gray
-Age:
-Hobbies:
-- Fishing
-- Horse-riding
-
--- Quote
-I read the eno guide and everything made sense,
-except this non-sensical example text here.
--- Quote
-
-## Friends
-
-False friends:
-
-Close friends:
-- Jane Doe
-- Jean Doe
-
-Casual acquaintances:
-- John Dear
-```
+A formal writedown of the language specification in ABNF notation is in the making, as there a lot of areas that need
+attention it might still take a while until it will go online though. Stay tuned!
 -- markdown

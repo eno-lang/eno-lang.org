@@ -1,96 +1,94 @@
 title: The eno notation language and libraries
 
--- markdown
-**eno** is a versatile data notation language for everyone, backed by open source libraries that help you build better and faster websites and applications around file-based content.
+# content
+
+## split
+
+-- half
+# The eno notation language
+
+A modern plaintext data format, designed from the ground up for file-based
+content generation - [simple](https://eno-lang.org/introduction/),
+[powerful](https://eno-lang.org/advanced/) and elegant:
 
 ```eno
-# Section
+author: Jane Doe
+email: jane@eno-lang.org
 
-Field: Value (no quotes required ever)
+-- my_content
+Multi-line embedded content (e.g. markdown) here ...
+-- my_content
 
-List:
-- Value
-- Value
+states:
+active = #fff
+hover = #b6b6b6
 
--- Multiline Field
-Any long text or embedded content (e.g. markdown) here ...
--- Multiline Field
+# cities
+Den Haag: 52.069961, 4.302315
+Málaga: 36.721447, -4.421291
+서울특별시: 37.566984, 126.977041
 
-## Subsection
-Field A: Value
-
-# Section Copy < Section
-Field: Replaced Value
-
-# Section Deep Copy << Section
-## Subsection
-Field B: Added Value
+# cities expanded < cities
+Springfield: 38.790312, -77.186418
 ```
 
-**eno** is ...
+Feature Overview:
+- As fast to write and edit as it probably gets
+- Powerful and yet understandable for non-programmers
+- Fields, Multiline Fields, Lists, Sections, Dictionaries
+- Elements can be copied, merged and deep merged
 
-As fast to write and edit as it probably gets - powerful and yet understandable for everyone (not just programmers).  
-An excellent format for authoring entire websites, documentation, invoices, CVs, reports, configuration, you name it.  
-Developer's bliss for quickly creating rich, reliable and production-ready user experiences around file-based content.
+Usecases:
+- Authoring entire websites, from the macro to the micro level
+- Generating documentation, invoices, CVs, reports, you name it
+- Configuration files, from the simplest to the most complex
+- Textfile-based databases and archives
 
-**eno** isn't ...
+Visit [eno-lang.org/language](https://eno-lang.org/language/) for more information.
+-- half
 
-Arbitrary automatic data de/serialization - yaml, toml are made for, and excellent, at that.  
-Human-readable inter-application/process communication - json is there and working great.
+--half
 
-## A quick video introduction:
+# The eno libraries
 
-<video controls src="/teaser.mp4"></video>
+[Blazing fast](https://github.com/eno-lang/benchmarks/), zero-dependency, [fully documented](https://eno-lang.org/libraries/) eno parsers
+for [JavaScript](https://eno-lang.org/javascript/),
+[Python](https://eno-lang.org/python/), [Ruby](https://eno-lang.org/ruby/) (and
+soon more) - featuring a powerful, expressive API:
 
-## Want to learn more about the eno notation language?
+```ruby
+# Ruby example (JavaScript and Python APIs are identical)
+require 'enorb'
 
-The two-part video guide (or alternatively also as text) at
-[eno-lang.org/language](https://eno-lang.org/language/) covers everything there is to
-know about the eno notation language, and you'll be able to author any content
-you can think of within minutes.
+document = Eno.parse(
+  File.read('example.eno'),
+  locale: :es,                   # Fully localized messages
+  reporter: Eno::Reporters::HTML # Text, Terminal also available
+)
 
-Visit [eno-lang.org/language](https://eno-lang.org/language/) for an introduction.
-
-```eno
-command:
-| ./configure -foo
-\             --format bar
-\             --hex #bc
-\             out.tmpl
-| sudo make
-| sudo make install
-
--- json payload
-{
-  "result": 200
-}
--- json payload
+document.string('author', required: true)  # query and validate
+  #=> 'Jane Doe'
+document.section('cities').lat_lng('Málaga')  # high-level types
+  #=> { lat: 36.721447, lng: -4.421291 }
+document.lookup(9, 12)  # "What's at line 9, column 12?"
+  #=> {
+  #   element: #<Eno::Value name="hover" value="#b6b6b6">,
+  #   zone: :value
+  # }
 ```
 
-## Interested in developing your application or website with the eno libraries?
+Feature Overview:
+- Automatic, on the fly, structural and type validation
+- Out of the box high level types support like email, url, color, ...
+- Easily definable custom types via functional loaders
+- Fully localized, human language error messages with rich metadata
+  (message, snippet, cursor position and selection range)
 
-The eno libraries for [JavaScript](https://eno-lang.org/javascript/),
-[Python](https://eno-lang.org/python/) and [Ruby](https://eno-lang.org/ruby/)
-(more on the roadmap) offer [fast](https://github.com/eno-lang/benchmarks/),
-robust, dependency-free, and [thoroughly
-documented](https://eno-lang.org/libraries/) parser implementations in popular
-languages. The eno libraries guarantee structural and type safety for all your
-data out of the box - programmatically and on the fly, without maintaining a
-separate schema - and provide you with beautiful, fully localized user errors
-with rich metadata (message, snippet, cursor position and selection range) for easy and
-seamless integration into apps, websites, plugins, editors, IDEs, you name it.
+Usecases:
+- Static site generation
+- Generating documentation, invoices, CVs, reports, you name it
+- Highly reliable app configuration data with minimal development effort
+- Content management tooling for apps, websites, editors, IDEs, ...
 
-Visit [eno-lang.org/libraries](https://eno-lang.org/libraries/) for an overview.
-
-```eno
-# default
-id:
-## settings
-hyperservice: disabled
-
-# production << default
-id: prod
-## settings
-ultraservice: enabled
-```
--- markdown
+Visit [eno-lang.org/libraries](https://eno-lang.org/libraries/) for more information.
+-- half

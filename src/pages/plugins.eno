@@ -1,5 +1,7 @@
 title: Plugins
 
+# content
+
 -- markdown
 # Plugins
 
@@ -7,7 +9,11 @@ Every operating system comes with a text editor - that's all you need to edit
 eno documents! However, dedicated eno plugins for text editors make editing more
 fun and productive by highlighting the elements in a document in different
 colors, improving our visual grasp on our content.
+-- markdown
 
+## split
+
+-- half
 ## Atom
 
 The [language-eno](https://atom.io/packages/language-eno) package provides first
@@ -16,7 +22,9 @@ highlighting for eno itself, but also for user-definable embedded languages
 within multiline blocks in eno documents (e.g. markdown).
 
 Visit the [language-eno](https://atom.io/packages/language-eno) package on atom.io.
+-- half
 
+-- half
 ## Sublime Text 3
 
 The [sublime-eno](https://github.com/eno-lang/sublime-eno) package is already feature-complete,
@@ -24,7 +32,9 @@ although not yet packaged and wrapped up for distribution through packagecontrol
 being you can download and manually install the package from the github repository.
 
 Visit the [sublime-eno](https://github.com/eno-lang/sublime-eno) repository on github.
+-- half
 
+-- half
 ## Prism
 
 This is not a plugin for writing eno documents per se, but a plugin that aids in writing
@@ -35,16 +45,20 @@ prism.js repository, but for the time being you can simply pull and use the plug
 own repository.
 
 Visit the [prism-eno](https://github.com/eno-lang/prism-eno) repository on github.
+-- half
 
+-- half
 ## VSCode `[Roadmap 2018]`
 
 This is on the roadmap for late summer 2018. Let me know that you are looking forward to this, and it will likely
 go in the making earlier.
+-- half
 
+-- half
 ## GtkSourceView `[Roadmap Candidate]`
 
 This is in consideration for the roadmap, because it would add syntax highlighting for all applications
 in the wider linux ecosystem that rely on GtkSourceView for their syntax highlighting, for instance *gedit*.
 If you're maintaining software that relies on this technology stack and would love to see it included,
 ping me, happy to hear from you.
--- markdown
+-- half

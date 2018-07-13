@@ -1,13 +1,22 @@
 title: Dev Blog
 
+# content
+
 -- markdown
 # Dev Blog
 
+**Friday, July 13 2018**
+
+- Released enopy 0.6.1 with a new [date loader](https://eno-lang.org/python/#loaders-date) and various loader corrections.
+- Put on some fresh paint - updated the website color scheme.
+
 **Wednesday, July 11 2018**
 
-- Released enorb 0.8.1 with a new [date loader](https://eno-lang.org/ruby/#Eno::Loaders-date) and corrections for the lat/lng loader.
+- Released enorb 0.8.1 with a new [date loader](https://eno-lang.org/ruby/#Eno::Loaders-#date) and corrections for the lat/lng loader.
 - Adopted the new average ips based perfomance metrics for the enorb optimization tooling and did some housekeeping for the specs suite.
 - Did some speculative research and experimentation on the possibility (or maybe rather, likelihood) of an eno Java library.
+- Graduated enopy and enorb into regular release status due to coverage degree and acquired stability from fixes ported between all implementations.
+- Major website update: New frontpage, structural changes, some new quick tour content for the language, mobile version layout improvements and fixes.
 
 **Tuesday, July 10 2018**
 

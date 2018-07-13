@@ -44,7 +44,7 @@ module.exports = (menu) => {
 
   const content = `
   <div class="split">
-    <div class="half">
+    <div class="hacky-half">
 
       <h2>Interactive eno library demos</h2>
 
@@ -68,7 +68,7 @@ module.exports = (menu) => {
       <div id="code">${first.js}</div>
     </div>
 
-    <div class="half">
+    <div class="hacky-half">
       <h2>&nbsp;</h2>
 
       <textarea id="editor">${first.eno}</textarea>

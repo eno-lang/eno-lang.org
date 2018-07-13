@@ -3,7 +3,7 @@ title: enorb - The Ruby eno library
 # Global
 
 library: enorb
-version: 0.8.1 Beta
+version: 0.8.1
 
 -- intro
 ## Installation
@@ -255,7 +255,7 @@ document.comma_separated('Tags')  #=> ['Coffee', 'Desk', 'Flavor']
 document.comma_separated('Categories')  #=> ['Computing', 'High performance', 'Cluster']
 -- ruby
 
-### date
+### #date
 
 -- description
 Accepts `YYYY-MM-DD` and returns a Ruby `Time` object (or raises an error for invalid values).

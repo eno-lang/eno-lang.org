@@ -3,7 +3,7 @@ title: enopy - The Python eno library
 # Global
 
 library: enopy
-version: 0.6.0 Beta
+version: 0.6.1
 
 -- intro
 ## Installation
@@ -229,6 +229,33 @@ Categories:  Computing  ,  High performance  ,  Cluster
 ['Coffee', 'Desk', 'Flavor']
 >>> document.comma_separated('Categories')
 ['Computing', 'High performance', 'Cluster']
+-- python
+
+### date
+
+-- description
+Accepts `YYYY-MM-DD` and returns a python `date` (or raises an error for invalid values).
+-- description
+
+syntax:
+| date → date
+| date_items → list
+| date_list → list
+
+-- eno
+start: 1992-12-01
+end: 1994-03-04
+invalid: 2018-03-14 13:10
+-- eno
+
+-- python
+document = parse(input)
+
+document.date('start')  #=> <class date>
+document.date('end')  #=> <class date>
+
+document.date('invalid')
+  # raises an error: 'invalid' must contain a valid date, for instance '1993-11-18'.
 -- python
 
 ### datetime

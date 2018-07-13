@@ -1,35 +1,44 @@
 # menu
 
-## language
+## /
+
+label: eno
+tagline: The eno notation language and libraries
+
+### pages
+
+/: Introduction
+/about/: About
+/blog/: Blog
+
+## /language/
 
 label: Language
-tagline: Write your content with eno
+tagline: The eno notation language
 
 ### pages
 
-language: Introduction
-advanced: Advanced
-plugins: Plugins
+/language/: Overview
+/introduction/: Introduction
+/advanced/: Advanced
 
-## libraries
+## /libraries/
 
 label: Libraries
-tagline: Develop applications and websites with eno
+tagline: The eno libraries
 
 ### pages
 
-libraries: Overview
-javascript: JavaScript
-python: Python
-ruby: Ruby
+/libraries/: Overview
+/javascript/: JavaScript
+/python/: Python
+/ruby/: Ruby
 
-## more
+## /plugins/
 
-label: More
-tagline: More information
+label: Plugins
+tagline: IDE and editor plugins for eno
 
 ### pages
 
-more: Dev Blog
-comparism: Comparism
-about: About
+/plugins/: Plugins

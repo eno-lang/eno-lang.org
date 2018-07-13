@@ -26,7 +26,7 @@ module.exports = (content, title, active = null, menu) => {
       <body>
         ${header(active, menu)}
 
-        <div ${active !== 'demo' ? 'class="boundary"' : ''}>
+        <div ${active !== 'demo' ? 'class="boundary padding"' : ''}>
           ${content}
         </div>
 
