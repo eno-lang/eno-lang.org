@@ -80,12 +80,12 @@ document.lookup(9, 12)  # "What's at line 9, column 12?"
 Feature Overview:
 - Automatic, on the fly, structural and type validation
 - Out of the box high level types support like email, url, color, ...
-- Easily definable custom types via functional loaders
+- Easily definable custom types via loader functions
 - Fully localized, human language error messages with rich metadata
   (message, snippet, cursor position and selection range)
 
 Usecases:
-- Static site generation
+- Static site generation, also and especially for massive amounts of content
 - Generating documentation, invoices, CVs, reports, you name it
 - Highly reliable app configuration data with minimal development effort
 - Content management tooling for apps, websites, editors, IDEs, ...

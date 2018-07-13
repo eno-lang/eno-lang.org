@@ -41,4 +41,7 @@ tagline: IDE and editor plugins for eno
 
 ### pages
 
-/plugins/: Plugins
+/plugins/: Overview
+/atom/: Atom
+/vscode/: VSCode
+/sublime/: Sublime

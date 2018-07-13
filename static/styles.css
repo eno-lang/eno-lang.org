@@ -61,6 +61,10 @@ code {
   font-size: 0.8em;
 }
 
+img {
+  max-width: 100%;
+}
+
 pre {
   position: relative;
 }
@@ -228,9 +232,3 @@ p {
 .sidebar, .main {
   padding: 0 1em;
 }
-
-.npm-red { color: #cb3837; }
-.ruby-red { color: #d91404; }
-.php-violet { color: #8892bf; }
-.python-blue { color: #3673a5; }
-.javascript-yellow { color: #ffde00; }

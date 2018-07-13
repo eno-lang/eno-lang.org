@@ -72,11 +72,7 @@ glob('src/docs/*.eno', (err, files) => {
     const input = fs.readFileSync(file, 'utf-8');
     const documentation = eno.parse(input, { reporter: 'terminal', sourceLabel: file });
 
-    const global = documentation.section('Global');
-
-    let main = `<h1>${global.field('library')} ${global.field('version')}</h1>`;
-    main += global.field('intro', markdown);
-
+    let main = documentation.field('intro', markdown);
     let sidebar = '<h1>&nbsp;</h1>';
 
     const modules = documentation.section('Modules');

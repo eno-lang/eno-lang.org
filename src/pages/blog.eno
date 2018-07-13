@@ -7,8 +7,10 @@ title: Dev Blog
 
 **Friday, July 13 2018**
 
+- Released the [vscode-eno](https://marketplace.visualstudio.com/items?itemName=eno-lang.vscode-eno) language support package for Visual Studio Code.
 - Released enopy 0.6.1 with a new [date loader](https://eno-lang.org/python/#loaders-date) and various loader corrections.
-- Put on some fresh paint - updated the website color scheme.
+- Put on some fresh paint and updated the website color scheme, as well as new plugin pages with screenshots.
+- Added a paragraph on language stability and the development plan to the [language](https://eno-lang.org/language/) page.
 
 **Wednesday, July 11 2018**
 

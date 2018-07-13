@@ -14,7 +14,7 @@ colors, improving our visual grasp on our content.
 ## split
 
 -- half
-## Atom
+## <img src="/atom.svg" style="max-width: 36px; height: auto;" /> Atom
 
 The [language-eno](https://atom.io/packages/language-eno) package provides first
 class support for eno documents in Atom. It not only provides beautiful custom syntax
@@ -25,7 +25,20 @@ Visit the [language-eno](https://atom.io/packages/language-eno) package on atom.
 -- half
 
 -- half
-## Sublime Text 3
+## <img src="/vscode.svg" style="max-width: 36px; height: auto;" /> Visual Studio Code
+
+The
+[vscode-eno](https://marketplace.visualstudio.com/items?itemName=eno-lang.vscode-eno)
+extension provides complete syntax highlighting support for eno documents in
+Visual Studio Code.
+
+Visit the
+[vscode-eno](https://marketplace.visualstudio.com/items?itemName=eno-lang.vscode-eno)
+extension on the Visual Studio Marketplace.
+-- half
+
+-- half
+## <img src="/sublime.svg" style="max-width: 36px; height: auto;" /> Sublime Text
 
 The [sublime-eno](https://github.com/eno-lang/sublime-eno) package is already feature-complete,
 although not yet packaged and wrapped up for distribution through packagecontrol.io For the time
@@ -35,30 +48,22 @@ Visit the [sublime-eno](https://github.com/eno-lang/sublime-eno) repository on g
 -- half
 
 -- half
-## Prism
+## <img src="/prism.svg" style="max-width: 36px; height: auto;" /> Prism
 
-This is not a plugin for writing eno documents per se, but a plugin that aids in writing
-and blogging *about* eno. All sample eno documents that you see on eno-lang.org get their syntax
-highlighting from [prism-eno](https://github.com/eno-lang/prism-eno), which utilizes the [prism.js](https://prismjs.com/) syntax
-highlighting engine for websites. At a future date the plugin will be officially submitted to the
-prism.js repository, but for the time being you can simply pull and use the plugin files from its
-own repository.
+[prism-eno](https://github.com/eno-lang/prism-eno) is a plugin for writing and
+blogging about eno. All eno snippets on eno-lang.org get their syntax
+highlighting from this [prism.js](https://prismjs.com/) extension. At a future
+date the plugin will be submitted to the prism.js repository, for the time
+being you can use the files straight from the repository.
 
 Visit the [prism-eno](https://github.com/eno-lang/prism-eno) repository on github.
 -- half
 
--- half
-## VSCode `[Roadmap 2018]`
+## single
 
-This is on the roadmap for late summer 2018. Let me know that you are looking forward to this, and it will likely
-go in the making earlier.
--- half
+-- markdown
+## Roadmap for further plugin development
 
--- half
-## GtkSourceView `[Roadmap Candidate]`
-
-This is in consideration for the roadmap, because it would add syntax highlighting for all applications
-in the wider linux ecosystem that rely on GtkSourceView for their syntax highlighting, for instance *gedit*.
-If you're maintaining software that relies on this technology stack and would love to see it included,
-ping me, happy to hear from you.
--- half
+[Vim](https://www.vim.org/), [GtkSourceView](https://wiki.gnome.org/Projects/GtkSourceView) (used by [gedit](https://wiki.gnome.org/Apps/Gedit) and others) and [Ace](https://ace.c9.io/) are candidates for upcoming official plugins,
+if you have additional suggestions or requests feel free to get in touch.
+-- markdown

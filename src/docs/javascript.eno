@@ -1,11 +1,8 @@
 title: enojs - The JavaScript eno library
 
-# Global
-
-library: enojs
-version: 0.14.1
-
 -- intro
+# <img src="/javascript.svg" style="max-width: 36px; height: auto;" /> enojs 0.14.1
+
 Installation from npm:
 
 ```shell

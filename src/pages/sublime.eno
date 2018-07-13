@@ -1,0 +1,15 @@
+title: Sublime Text Plugin
+
+# content
+
+-- markdown
+# <img src="/sublime.svg" style="max-width: 36px; height: auto;" /> Sublime Text
+
+The [sublime-eno](https://github.com/eno-lang/sublime-eno) package is already feature-complete,
+although not yet packaged and wrapped up for distribution through packagecontrol.io For the time
+being you can download and manually install the package from the github repository.
+
+Visit the [sublime-eno](https://github.com/eno-lang/sublime-eno) repository on github.
+
+<img src="/resources/sublime.png" />
+-- markdown

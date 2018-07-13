@@ -1,0 +1,18 @@
+title: Visual Studio Code Plugin
+
+# content
+
+-- markdown
+# <img src="/vscode.svg" style="max-width: 36px; height: auto;" /> Visual Studio Code
+
+The
+[vscode-eno](https://marketplace.visualstudio.com/items?itemName=eno-lang.vscode-eno)
+extension provides complete syntax highlighting support for eno documents in
+Visual Studio Code.
+
+Visit the
+[vscode-eno](https://marketplace.visualstudio.com/items?itemName=eno-lang.vscode-eno)
+extension on the Visual Studio Marketplace.
+
+<img src="/resources/vscode.png" />
+-- markdown

@@ -1,11 +1,8 @@
 title: enorb - The Ruby eno library
 
-# Global
-
-library: enorb
-version: 0.8.1
-
 -- intro
+# <img src="/ruby.svg" style="max-width: 36px; height: auto;" /> enorb 0.8.1
+
 ## Installation
 
 ### Bundler

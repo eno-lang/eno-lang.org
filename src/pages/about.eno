@@ -19,20 +19,20 @@ title: About eno
 ## History
 
 The eno notation language exists since early 2018, where it surfaced in an
-extended period of applied research and development of a large project around
+extended period of applied research and development in a large project around
 file-based content. Initially developed in
 [JavaScript](https://eno-lang.org/javascript/), the eno libraries now already
-extend to the [Python](https://eno-lang.org/python/) and
-[Ruby](https://eno-lang.org/ruby/) platforms. Asides the language design and its
-implementations there already are official and complete [learning
+extend to the [Python](https://eno-lang.org/python/),
+[Ruby](https://eno-lang.org/ruby/), and soon
+[PHP](https://github.com/eno-lang/enophp) platforms. Asides the language design
+and its implementations there already are official and complete [learning
 resources](https://eno-lang.org/language/) for the language itself, syntax
-highlighting support for [Atom](https://atom.io/packages/language-eno/) and
-[Sublime Text](https://github.org/eno-lang/sublime-eno/), and much more in the
-making.
+highlighting support for [Atom](https://eno-lang.org/atom/), [Visual Studio Code](https://eno-lang.org/vscode/) and
+[Sublime Text](https://eno-lang.org/sublime/), and much more in the making.
 
 ## Team
 
-Designed and developed with great enthusiasm and painstaking dedication by [Simon Repp](https://simonrepp.com). My pleasure!
+Designed and developed with great enthusiasm and dedication by [Simon Repp](https://simonrepp.com). My pleasure!
 
 ## Contact
 
@@ -47,6 +47,4 @@ bugs, star your favorite repository on [github](https://github.com/eno-lang/),
 present it at your tech meetup, contribute
 [localizations](https://github.com/eno-lang/eno-locales), make proposals for
 improvements, every contribution is valueable.
-
-Grateful for any help you can provide!
 -- markdown
