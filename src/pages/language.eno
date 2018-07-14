@@ -20,14 +20,6 @@ you will likely gather most things you need to know on this page (note that all 
 handled with more detail in the user guide though, if you miss something on this page),
 here's the quick rundown:
 
-eno is unaware of indentation and whitespace in general - before, after and
-between all language tokens (names, operators and values) you can have as much
-or little space and empty lines as you wish.
-
-eno is line-based, there is only a single necessary exception, which is the multiline field ("block").
-
-Without further ado, here is the quick tour:
-
 ```eno
 > Text of Comment
 
@@ -65,6 +57,7 @@ Name of copy < Name of source element
 # Section
 ## Subsection
 ### Subsubsection
+#### ...
 
 # Name of section copy < Name of source section
 # Name of deep-merged section copy << Name of source section

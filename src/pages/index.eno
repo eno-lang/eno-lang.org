@@ -32,17 +32,19 @@ Málaga: 36.721447, -4.421291
 Springfield: 38.790312, -77.186418
 ```
 
-Feature Overview:
+Language Overview:
 - As fast to write and edit as it probably gets
-- Powerful and yet understandable for non-programmers
-- Fields, Multiline Fields, Lists, Sections, Dictionaries
-- Elements can be copied, merged and deep merged
+- Intuitive and simple - easy to use for non-programmers too
+- No indentation, all empty lines and whitespace optional
+- No type syntax rules and restrictions on the language level
+- Documents map to ubiquitous structural types in all programming languages
+- Powerful advanced features - copy, merge, deep merge elements
 
 Usecases:
-- Authoring entire websites, from the macro to the micro level
+- Authoring blogs, up to entire websites, from the macro to the micro level
 - Generating documentation, invoices, CVs, reports, you name it
+- Large scale textfile-based databases and archives
 - Configuration files, from the simplest to the most complex
-- Textfile-based databases and archives
 
 Visit [eno-lang.org/language](https://eno-lang.org/language/) for more information.
 -- half
@@ -77,15 +79,16 @@ document.lookup(9, 12)  # "What's at line 9, column 12?"
   # }
 ```
 
-Feature Overview:
-- Automatic, on the fly, structural and type validation
-- Out of the box high level types support like email, url, color, ...
-- Easily definable custom types via loader functions
-- Fully localized, human language error messages with rich metadata
-  (message, snippet, cursor position and selection range)
+Libraries Overview:
+- Automatic implicit document structure and value type validation
+- High-level types for emails, urls, colors, ... included out of the box
+- Custom types can be easily defined with simple loader functions
+- Fully localized, handwritten, human language error messages everywhere
+- Rich error metadata - message, snippet, cursor position, selection range
+- Both ordered and associative access to all data in the document
 
 Usecases:
-- Static site generation, also and especially for massive amounts of content
+- Static site generation, scalable up to massive amounts of content
 - Generating documentation, invoices, CVs, reports, you name it
 - Highly reliable app configuration data with minimal development effort
 - Content management tooling for apps, websites, editors, IDEs, ...

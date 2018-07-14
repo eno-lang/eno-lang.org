@@ -5,16 +5,18 @@ title: About eno
 -- markdown
 # About
 
-## Overview
+## Abstract
 
-- eno is a **structured, plain-text notation** language, related in many ways to its ancestors and relatives *JSON*, *YAML*, *TOML*, *ArchieML*, and others
-- Through its **simple syntax and versatile nature** it targets a wide audience, both in regards to cultural background as well as technical ability
-- Documents authored as eno comprise of *elements* that map to **ubiquitous structural types** in all programing languages
-- On a syntactic level there are no types in eno, **only textual representations**
-- eno provides a high-grade **API to validate and obtain fully customizable types** on the application level instead
-- All eno implementations feature **100% internationalized, hand written, human language error messages**
-- eno allows **sequential and associative reading**, you can seamlessly blend between configuration/metadata and content in a single document
-- There is no indentation and **all whitespace is optional**, as are empty lines
+eno is a structured, plain-text notation language, related in many ways to its
+ancestors and relatives *JSON*, *YAML*, *TOML*, *ArchieML*, *StrictYAML*, and
+others. Through its simple syntax and versatile nature it targets a wide
+audience, both in regards to cultural background as well as technical ability.
+Backed by officially maintained, thoroughly engineered open source libraries and
+plugins it allows usage on a wide variety of platforms and for many, diverse
+usecases. As a modern foundational technology for file-based content it enables
+more productive and more reliable application development, and the possibility
+to create file-based applications for a wider and more diverse user audience
+than was previously possible.
 
 ## History
 
@@ -34,6 +36,10 @@ highlighting support for [Atom](https://eno-lang.org/atom/), [Visual Studio Code
 
 Designed and developed with great enthusiasm and dedication by [Simon Repp](https://simonrepp.com). My pleasure!
 
+## Newsletter
+
+Stay up to date by signing up for the <a href="http://eepurl.com/dA9LcH" target="_blank">newsletter</a>.
+
 ## Contact
 
 For concrete technical issues, questions and proposals feel free to open issues on github in the respective repositories.
@@ -43,7 +49,7 @@ If you just want to get in touch directly, you can write a mail to <simon@fdpl.i
 ## Support the project
 
 Give it a try, tell your colleagues, tweet it, share it, blog about it, report
-bugs, star your favorite repository on [github](https://github.com/eno-lang/),
+bugs, star your favorite repository on [github.com/eno-lang](https://github.com/eno-lang/),
 present it at your tech meetup, contribute
 [localizations](https://github.com/eno-lang/eno-locales), make proposals for
 improvements, every contribution is valueable.

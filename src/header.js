@@ -37,7 +37,7 @@ module.exports = (active = null, menu) => {
               <div class="spacer"></div>
 
               ${currentSection.section('pages').elements().map(page => `
-                <a class="menu__link" href="${page.name}">${page.value()}</a>
+                <a class="menu__link ${page.name === active ? 'active' : ''}" href="${page.name}">${page.value()}</a>
               `).join('')}
             </div>
           </div>

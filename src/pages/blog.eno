@@ -5,6 +5,12 @@ title: Dev Blog
 -- markdown
 # Dev Blog
 
+**Saturday, July 14 2018**
+
+- You can sign up for the brand new [newsletter](http://eepurl.com/dA9LcH) now.
+- Lots and lots of small corrections and updates on the website (big thanks to Michael Schwanzer!).
+- Released enopy 0.6.2 with [string pseudo loaders](https://eno-lang.org/python/#loaders-string), also enopy now maintains a [changelog](https://github.com/eno-lang/enopy/blob/master/CHANGELOG.md).
+
 **Friday, July 13 2018**
 
 - Released the [vscode-eno](https://marketplace.visualstudio.com/items?itemName=eno-lang.vscode-eno) language support package for Visual Studio Code.
