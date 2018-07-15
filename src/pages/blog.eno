@@ -5,6 +5,11 @@ title: Dev Blog
 -- markdown
 # Dev Blog
 
+**Sunday, July 15 2018**
+
+- Rebooted [enorb-exploaders](https://github.com/eno-lang/enorb-exploaders) as 0.2.0 with a new ipv4 loader, the project now maintains a [changelog](https://github.com/eno-lang/enorb-exploaders/blob/master/CHANGELOG.md).
+
+
 **Saturday, July 14 2018**
 
 - You can sign up for the brand new [newsletter](http://eepurl.com/dA9LcH) now.
