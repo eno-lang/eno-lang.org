@@ -46,9 +46,10 @@ extension on the Visual Studio Marketplace.
 
 <a href="/resources/sublime.png"><img src="/resources/sublime.png" /></a>
 
-The [sublime-eno](https://github.com/eno-lang/sublime-eno) package is already feature-complete,
-although not yet packaged and wrapped up for distribution through packagecontrol.io For the time
-being you can download and manually install the package from the github repository.
+The [sublime-eno](https://github.com/eno-lang/sublime-eno) package offers syntax
+highlighting for eno with a light and dark theme. It is currently pending
+approval for distribution through packagecontrol.io. In the meantime you can
+download and manually install the package from the github repository.
 
 Visit the [sublime-eno](https://github.com/eno-lang/sublime-eno) repository on github.
 -- half

@@ -5,10 +5,16 @@ title: Dev Blog
 -- markdown
 # Dev Blog
 
+**Tuesday, July 17 2018**
+
+- Started work on a themes project for unified eno syntax theme development for all editors, drafted an *enokai* theme.
+
 **Sunday, July 15 2018**
 
 - Rebooted [enorb-exploaders](https://github.com/eno-lang/enorb-exploaders) as 0.2.0 with a new ipv4 loader, the project now maintains a [changelog](https://github.com/eno-lang/enorb-exploaders/blob/master/CHANGELOG.md).
-
+- Released [vscode-eno](https://marketplace.visualstudio.com/items?itemName=eno-lang.vscode-eno) 0.1.1 with improved syntax scopes for generic theme coloring.
+- Rebooted [enopy-exploaders](https://github.com/eno-lang/enopy-exploaders) as 0.2.0 with a new enum loader, the project now maintains a [changelog](https://github.com/eno-lang/enopy-exploaders/blob/master/CHANGELOG.md).
+- Updated [sublime-eno](https://github.com/eno-lang/sublime-eno) for the initial 0.1.0 release, submission to [packagecontrol.io](https://packagecontrol.io) is now pending and the package should be officially available there soon.
 
 **Saturday, July 14 2018**
 
