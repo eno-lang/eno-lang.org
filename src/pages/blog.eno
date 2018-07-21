@@ -5,6 +5,15 @@ title: Dev Blog
 -- markdown
 # Dev Blog
 
+**Friday, July 20 2018**
+
+- Released enopy 0.7.0 with stability contributions from Dan Haiduc and a name change for the base error class - see [changelog](https://github.com/eno-lang/enopy/blob/master/CHANGELOG.md).
+
+**Wednesday, July 17 2018**
+
+- Published the [color schemes](https://github.com/eno-lang/color-schemes) repository, with further work on the color scheme meta format and a sublime generator.
+- Research and experimentation on how to circumvent Atom's missing generic support for syntax-specific color scheme support.
+
 **Tuesday, July 17 2018**
 
 - Started work on a themes project for unified eno syntax theme development for all editors, drafted an *enokai* theme.

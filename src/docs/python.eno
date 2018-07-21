@@ -1,7 +1,7 @@
 title: enopy - The Python eno library
 
 -- intro
-# <img class="logo" src="/python.svg" /> enopy 0.6.2
+# <img class="logo" src="/python.svg" /> enopy 0.7.0
 
 ## Installation
 
@@ -1784,7 +1784,7 @@ None
 
 description: Always `None`.
 
-## GenericError
+## Error
 
 -- class description
 The single generic error interface for all (user) errors that eno generates.
@@ -1796,7 +1796,7 @@ validation errors indiscriminately, like so:
 ```python
 >>> try:
 ...    # ...
-... except GenericError as e: # catches both ParseError and ValidationError
+... except Error as e: # catches both ParseError and ValidationError
 ...   # ...
 ```
 -- class description
@@ -1814,7 +1814,7 @@ to move the cursor straight to the error location.
 -- python
 >>> try:
 ...   # ...
-... except GenericError as e:
+... except Error as e:
 ...   return e.cursor
 [3, 14]
 -- python
@@ -1836,7 +1836,7 @@ way to get a selection for the error in the input.
 -- python
 >>> try:
 ...   # ...
-... except GenericError as e:
+... except Error as e:
 ...   return e.selection
 [[3, 14], [3, 23]]
 
@@ -1861,7 +1861,7 @@ get in the console when you don't catch the error.
 -- python
 >>> try:
 ...   # ...
-... except GenericError as e:
+... except Error as e:
 ...   return e.message
 "In line 4 'a' is copied into itself.\n\n   Line | Content\n ..."
 -- python
@@ -1881,7 +1881,7 @@ Returns a formatted excerpt of those passage(s) from the input where the error o
 -- python
 >>> try:
 ...   # ...
-... except GenericError as e:
+... except Error as e:
 ...   return e.snippet
    Line | Content
       1 | 
@@ -1906,7 +1906,7 @@ Returns a one-liner that describes the error in human language.
 -- python
 >>> try:
 ...   # ...
-... except GenericError as e:
+... except Error as e:
 ...   return e.message
 "In line 4 'a' is copied into itself."
 -- python
@@ -1919,14 +1919,14 @@ description: A single sentence that describes the error in human language.
 
 -- class description
 When this is raised, it indicates an error regarding syntax or grammatical semantics of the document.
-Functionally this behaves exactly like `GenericError`, therefore the interface methods are not repeated here and can
-be looked up on the `GenericError` documentation.
+Functionally this behaves exactly like `Error`, therefore the interface methods are not repeated here and can
+be looked up on the `Error` documentation.
 -- class description
 
 ## ValidationError
 
 -- class description
 When this is raised, it indicates an error regarding application-specific requirements for the document.
-Functionally this behaves exactly like `GenericError`, therefore the interface methods are not repeated here and can
-be looked up on the `GenericError` documentation.
+Functionally this behaves exactly like `Error`, therefore the interface methods are not repeated here and can
+be looked up on the `Error` documentation.
 -- class description
