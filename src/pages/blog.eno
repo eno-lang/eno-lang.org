@@ -23,6 +23,7 @@ and by the APIs, but it does not change the way fieldsets/dictionaries work in a
 - Updated the advanced language guide on the website to use the new fieldset terminology.
 - Released eno-locales 0.8.0, adapting all error messages to the new terminology - see [changelog](https://github.com/eno-lang/eno-locales/blob/master/CHANGELOG.md).
 - Released enorb 0.9.0 with the new message catalog, fieldset API methods and a shorter base error class name - see [changelog](https://github.com/eno-lang/enorb/blob/master/CHANGELOG.md).
+- Released enopy 0.8.0 with the new message catalog and fieldset API methods - see [changelog](https://github.com/eno-lang/enorb/blob/master/CHANGELOG.md).
 
 **Friday, July 20 2018**
 
