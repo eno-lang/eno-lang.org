@@ -1,7 +1,7 @@
 title: enojs - The JavaScript eno library
 
 -- intro
-# <img class="logo" src="/javascript.svg" /> enojs 0.14.1
+# <img class="logo" src="/javascript.svg" /> enojs 0.15.0
 
 Installation from npm:
 
@@ -97,7 +97,7 @@ of the box (in addition to the possiblity to define your own custom loaders,
 which can be passed as callbacks to all accessors).
 
 The loaders are exposed through the API as drop in replacements to the standard accessors:
-- `EnoDictionary`
+- `EnoFieldset`
   - `entry()` => `[loaderName]()`
 - `EnoList`
   - `items()` => `[loaderName]Items()`
@@ -540,19 +540,19 @@ found, is it possibly a typo?*) will do fine. If you want to override it,
 provide either a static message as a string, or alternatively a function
 returning a string. (The function is passed `name` and `value` inside a single
 object parameter, although `value` can be `undefined` if the untouched element
-is a dictionary or section)
+is a fieldset or section)
 -- message or messageFunction
 
 options:
 only = An array of strings, e.g. `['name', 'email']`, which specifies to only check these elements for whether they've been touched.  
 except = An array of strings, e.g. `['phone number']`, which specifies to exclude these elements from checking whether they've been touched.  
 
-### dictionaries
+### fieldsets
 
-syntax: dictionaries(name) → array
+syntax: fieldsets(name) → array
 
 -- description
-Retrieve dictionaries with the specified name from this current section.
+Retrieve fieldsets with the specified name from this current section.
 -- description
 
 -- eno
@@ -566,7 +566,7 @@ src = white-roses.jpg
 -- js
 const document = eno.parse(input);
 
-const images = document.dictionaries('image');
+const images = document.fieldsets('image');
 
 images.forEach(image => {
   console.log( image.entry('src') );
@@ -575,20 +575,20 @@ images.forEach(image => {
 
 #### parameters
 
-name: A string specifying the name of the dictionaries to retrieve.
+name: A string specifying the name of the fieldsets to retrieve.
 
 #### return value
 
-description: An array of `EnoDictionary`s.
+description: An array of `EnoFieldset`s.
 
-### dictionary
+### fieldset
 
 syntax:
-| dictionary(name) → EnoDictionary or null
-| dictionary(name, options) → EnoDictionary or null
+| fieldset(name) → EnoFieldset or null
+| fieldset(name, options) → EnoFieldset or null
 
 -- description
-Retrieve a dictionary from the section, optionally supplying an options object.
+Retrieve a fieldset from the section, optionally supplying an options object.
 -- description
 
 -- eno
@@ -599,11 +599,11 @@ blue = 3
 -- eno
 
 -- js
-section.dictionary('color ratings');   // returns [object EnoDictionary name="color ratings" entries=3]
-section.dictionary('temperature ratings');   // throws an error
+section.fieldset('color ratings');   // returns [object EnoFieldset name="color ratings" entries=3]
+section.fieldset('temperature ratings');   // throws an error
 
-section.dictionary('temperature ratings', { required: false });   // returns null
-section.dictionary('temperature ratings', { enforceElement: true });  // throws an error
+section.fieldset('temperature ratings', { required: false });   // returns null
+section.fieldset('temperature ratings', { enforceElement: true });  // throws an error
 -- js
 
 #### parameters
@@ -611,12 +611,12 @@ section.dictionary('temperature ratings', { enforceElement: true });  // throws 
 name: A string representing the name of the field to return.
 
 options:
-enforceElement = A boolean stating whether the dictionary must exist in the document. (defaults to `false`)
+enforceElement = A boolean stating whether the fieldset must exist in the document. (defaults to `false`)
 required = Alias for `enforceElement` (this exists on many methods and depending on context refers to either element or value)
 
 #### return value
 
-description: An `EnoDictionary`, or `null`.
+description: An `EnoFieldset`, or `null`.
 
 ### element
 
@@ -990,7 +990,7 @@ column: The column to look up (0-indexed, i.e. the first column is 0, not 1) - o
 -- description
 For all valid indices within the document returns an object with two properties:  
 
-`element`: An `EnoSection`, `EnoDictionary`, `EnoValue`.. . For empty lines you get the containing section.
+`element`: An `EnoSection`, `EnoFieldset`, `EnoValue`.. . For empty lines you get the containing section.
 
 `zone`: A string denoting the token at the index, here's the full list:  
 
@@ -1118,8 +1118,8 @@ description: An array of `EnoSection`s.
 
 -- class description
 All values in an eno document, such as the value of a field like `name: value`, the lines inside a block,
-the value of a list item, the value of a dictionary entry, and so on, map to an `EnoValue`. Usually you
-don't interact with this because you directly get the values from a section or dictionary in most cases.
+the value of a list item, the value of a fieldset entry, and so on, map to an `EnoValue`. Usually you
+don't interact with this because you directly get the values from a section or fieldset in most cases.
 When you, for instance, sequentially iterate a section (with `EnoSection`'s '`elements` method) or explicitly ask
 for the `EnoValue` by using an accessor with the `{ withElement: true }` option (for delayed error triggering)
 you will get to interact with this class.
@@ -1390,10 +1390,10 @@ list.raw();  // returns { colors: ['pink', 'peach'] }
 
 description: A native javascript representation of the list.
 
-## EnoDictionary
+## EnoFieldset
 
 -- class description
-Dictionaries are represented as an `EnoDictionary`:
+Fieldsets are represented as an `EnoFieldset`:
 
 ```eno
 rated things:
@@ -1401,7 +1401,7 @@ toys = 5 stars
 plants = 3 stars
 ```
 
-You will mostly obtain an instance of this through the `dictionary` accessor on a document/section.
+You will mostly obtain an instance of this through the `fieldset` accessor on a document/section.
 -- class description
 
 ### assertAllTouched
@@ -1413,7 +1413,7 @@ syntax:
 | assertAllTouched(messageFunction, options)
 
 -- description
-Assert that all entries of this dictionary that were present in the parsed eno document
+Assert that all entries of this fieldset that were present in the parsed eno document
 were also queried (and therefore *touched*) by the application. This, combined with eno's
 query methods, serves to ensure a two-way guarantee for both users and developers:
 No data that the application requires can be left out, and no data that the application
@@ -1428,18 +1428,18 @@ B = Me too!
 
 -- js
 const document = eno.parse(input);
-const dictionary = document.dictionary('Important data');
+const fieldset = document.fieldset('Important data');
 
-const dataA = dictionary.entry('A');
+const dataA = fieldset.entry('A');
 
 // ... processing happens only for dataA
 
-dictionary.assertAllTouched(); // throws an error
+fieldset.assertAllTouched(); // throws an error
 
-dictionary.assertAllTouched({ only: ['A'] })  // passes
-dictionary.assertAllTouched({ except: ['B'] })  // passes
+fieldset.assertAllTouched({ only: ['A'] })  // passes
+fieldset.assertAllTouched({ except: ['B'] })  // passes
 
-dictionary.assertAllTouched(({ name, value }) =>  // throws an error "B is not ..."
+fieldset.assertAllTouched(({ name, value }) =>  // throws an error "B is not ..."
   `${name} is not supported by the application, please contact support if you think it should be`
 );
 -- js
@@ -1466,7 +1466,7 @@ syntax:
 
 -- description
 Retrieve a single entry as `EnoValue` (instead of
-its direct value) from the dictionary by its name.
+its direct value) from the fieldset by its name.
 Optionally specify whether it's optional or mandatory for the entry to be
 present in the eno document (by default it's optional).
 -- description
@@ -1479,17 +1479,17 @@ years:
 -- eno
 
 -- js
-const dictionary = eno.parse(input).dictionary('years');
+const fieldset = eno.parse(input).fieldset('years');
 
-dictionary.element('2010');  // returns [object EnoValue name="2010" value="Year of the awesome beanstalk"]
-dictionary.element('2020');  // returns null
-dictionary.element('2020', enforceElement: true);  // raises an error
-dictionary.element('2020', required: true);  // raises an error
+fieldset.element('2010');  // returns [object EnoValue name="2010" value="Year of the awesome beanstalk"]
+fieldset.element('2020');  // returns null
+fieldset.element('2020', enforceElement: true);  // raises an error
+fieldset.element('2020', required: true);  // raises an error
 -- js
 
 #### parameters
 
-name: The name of the entry to fetch from the dictionary as a string.
+name: The name of the entry to fetch from the fieldset as a string.
 
 options:
 enforceElement = Whether the element must be present in the document (`true` or `false`, defaults to `false`)  
@@ -1547,7 +1547,7 @@ syntax:
 | enforceAllElements(enforce)
 
 -- description
-Set the default for all following queries on this dictionary of whether the
+Set the default for all following queries on this fieldset of whether the
 presence of elements in the eno input text should be enforced (by default it is
 not). This can be used to prevent "template decay" - with presence enforcement
 enabled entries may be empty, but they (at least their declaration) must be
@@ -1564,7 +1564,7 @@ conversions:
 -- js
 const document = eno.parse(input);
 
-const conversions = document.dictionary('conversions');
+const conversions = document.fieldset('conversions');
 
 conversions.enforceAllElements();
 
@@ -1585,7 +1585,7 @@ syntax:
 | entry(name, loader, options) → object/value or null
 
 -- description
-Retrieve an entry's value from the dictionary, optionally supplying a loader to
+Retrieve an entry's value from the fieldset, optionally supplying a loader to
 validate and/or transform the value, and/or an options object.
 -- description
 
@@ -1598,7 +1598,7 @@ Purpose =
 
 -- js
 const document = eno.parse(input);
-const qa = document.dictionary('Q&A');
+const qa = document.fieldset('Q&A');
 
 qa.entry('Meaning');   // returns '42'
 qa.entry('Purpose');   // returns null
@@ -1643,7 +1643,7 @@ description: The entry's value, or `null` if empty.
 syntax: raw() → object
 
 -- description
-Retrieve a native representation of the dictionary.
+Retrieve a native representation of the fieldset.
 -- description
 
 -- eno
@@ -1655,18 +1655,18 @@ pineapple = 800g
 -- js
 const document = eno.parse(input);
 
-document.dictionary('weights').raw();
+document.fieldset('weights').raw();
   // returns { weights: [{ apple: '100g' }, { pineapple: '800g' }] }
 -- js
 
 #### return value
 
-description: A native object representation of the dictionary.
+description: A native object representation of the fieldset.
 
 ## EnoEmpty
 
 -- class description
-This represents empty elements such as `color:`, where it is not clear if it is an empty field, list, or dictionary.
+This represents empty elements such as `color:`, where it is not clear if it is an empty field, list, or fieldset.
 -- class description
 
 ### error
