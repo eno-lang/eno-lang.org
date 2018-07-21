@@ -15,10 +15,10 @@ module.exports = (menu) => {
 
   for(let demo of demos.elements()) {
     const title = demo.name;
-    const eno = demo.field('eno', { required: true });
-    const js = demo.field('js', { required: true });
-    const python = demo.field('python', { required: true });
-    const ruby = demo.field('ruby', { required: true });
+    const eno = demo.string('eno', { required: true });
+    const js = demo.string('js', { required: true });
+    const python = demo.string('python', { required: true });
+    const ruby = demo.string('ruby', { required: true });
     const text = demo.field('markdown', markdown, { required: true });
 
     options += `

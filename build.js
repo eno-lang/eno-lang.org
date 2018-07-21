@@ -1,5 +1,5 @@
 const eno = require('enojs');
-const { EnoDictionary } = require('enojs');
+const { EnoFieldset } = require('enojs');
 const fs = require('fs');
 const fsExtra = require('fs-extra');
 const glob = require('glob');
@@ -54,7 +54,7 @@ glob('src/pages/*.eno', (err, files) => {
 
     const fileName = path.basename(file, '.eno');
 
-    const html = layout(rendered, page.field('title'), fileName === 'index' ? '/' : `/${fileName}/`, menu);
+    const html = layout(rendered, page.string('title'), fileName === 'index' ? '/' : `/${fileName}/`, menu);
 
     if(fileName === 'index') {
       fs.writeFileSync(path.join(__dirname, `public/index.html`), html);
@@ -91,7 +91,7 @@ glob('src/docs/*.eno', (err, files) => {
         main += `<a name="${_module.name}-${method.name}"></a>`;
         sidebar += `<a href="#${_module.name}-${method.name}">${method.name}</a><br/>`;
 
-        const syntax = method.field('syntax')
+        const syntax = method.string('syntax')
         if(syntax) {
           main += `<h3 class="syntax">${syntax}</h3>`;
         }
@@ -101,28 +101,28 @@ glob('src/docs/*.eno', (err, files) => {
           main += description;
         }
 
-        const notation = method.field('eno');
+        const notation = method.string('eno');
         if(notation) {
           main += `
             <pre><span class="extension">eno</span><code class="language-eno">${notation}</code></pre>
           `;
         }
 
-        const js = method.field('js');
+        const js = method.string('js');
         if(js) {
           main += `
             <pre><span class="extension">js</span><code class="language-js">${htmlEscape(js)}</code></pre>
           `;
         }
 
-        const python = method.field('python');
+        const python = method.string('python');
         if(python) {
           main += `
             <pre><span class="extension">py</span><code class="language-python">${htmlEscape(python)}</code></pre>
           `;
         }
 
-        const ruby = method.field('ruby');
+        const ruby = method.string('ruby');
         if(ruby) {
           main += `
             <pre><span class="extension">rb</span><code class="language-ruby">${htmlEscape(ruby)}</code></pre>
@@ -134,7 +134,7 @@ glob('src/docs/*.eno', (err, files) => {
           main += `<h4>Parameters</h4>`;
           for(let parameter of parameters.elements()) {
             main += `<strong>${parameter.name}</strong>`;
-            if(parameter instanceof EnoDictionary) {
+            if(parameter instanceof EnoFieldset) {
               for(let option of parameter.entries()) {
                 main += `<p><i>${option.name}</i></p>`;
                 main += option.value(markdown);
@@ -175,7 +175,7 @@ glob('src/docs/*.eno', (err, files) => {
 
     const fileName = path.basename(file, '.eno');
 
-    const html = layout(content, documentation.field('title'), `/${fileName}/`, menu);
+    const html = layout(content, documentation.string('title'), `/${fileName}/`, menu);
 
     fs.mkdirSync(path.join(__dirname, `public/${fileName}`));
     fs.writeFileSync(path.join(__dirname, `public/${fileName}/index.html`), html);

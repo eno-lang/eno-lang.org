@@ -21,7 +21,7 @@ module.exports = (active = null, menu) => {
             <div class="spacer"></div>
 
             ${sections.filter(section => section.name !== '/').map(section => `
-              <a class="menu__link ${section === currentSection ? 'active' : ''}" href="${section.name}">${section.field('label')}</a>
+              <a class="menu__link ${section === currentSection ? 'active' : ''}" href="${section.name}">${section.string('label')}</a>
             `).join('')}
 
           </div>
@@ -32,7 +32,7 @@ module.exports = (active = null, menu) => {
         <div class="header__secondary">
           <div class="boundary">
             <div class="menu">
-              <span class="menu__text">${currentSection.field('tagline')}</span>
+              <span class="menu__text">${currentSection.string('tagline')}</span>
 
               <div class="spacer"></div>
 
