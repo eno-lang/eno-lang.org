@@ -5,6 +5,25 @@ title: Dev Blog
 -- markdown
 # Dev Blog
 
+**Saturday, July 21 2018**
+
+**`Dictionary` elements are now called `Fieldset` elements.** This change was
+long in the making, addressing a few issues and improving a few aspects of the
+original terminology, e.g.: Conceptually, sections are dictionaries as well (in
+the generic sense of the term), so this was rather ambiguous. Fieldset indicates
+the strong relation to fields - it's really just a way of grouping fields - whereas
+dictionary possibly indicated some larger, non-existant difference. Fieldset as a term
+also hints at fieldsets in HTML and forms in general, which is also desired because
+it's a more user-facing and user-friendly wording and concept
+
+Note that in the eno language context this is purely a non-functional change, it only
+modifies how the language construct is referred to in documentation, error messages,
+and by the APIs, but it does not change the way fieldsets/dictionaries work in any way.
+
+- Updated the advanced language guide on the website to use the new fieldset terminology.
+- Released eno-locales 0.8.0, adapting all error messages to the new terminology - see [changelog](https://github.com/eno-lang/eno-locales/blob/master/CHANGELOG.md).
+- Released enorb 0.9.0 with the new message catalog, fieldset API methods and a shorter base error class name - see [changelog](https://github.com/eno-lang/enorb/blob/master/CHANGELOG.md).
+
 **Friday, July 20 2018**
 
 - Released enopy 0.7.0 with stability contributions from Dan Haiduc and a name change for the base error class - see [changelog](https://github.com/eno-lang/enopy/blob/master/CHANGELOG.md).

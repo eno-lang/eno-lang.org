@@ -1,7 +1,7 @@
 title: enorb - The Ruby eno library
 
 -- intro
-# <img class="logo" src="/ruby.svg" /> enorb 0.8.1
+# <img class="logo" src="/ruby.svg" /> enorb 0.9.0
 
 ## Installation
 
@@ -110,7 +110,7 @@ be bootstrapped and made accessible directly through the core loader API or be p
 arguments, e.g. as lambdas, to all accessors).
 
 The loaders are exposed through the API as drop in replacements to the standard accessors:
-- `Eno::Dictionary`
+- `Eno::Fieldset`
   - `#entry` => `#[loader_name]`
 - `Eno::List`
   - `#items` => `#[loader_name]_items`
@@ -219,7 +219,7 @@ focus = blue
 -- eno
 
 -- ruby
-states = Eno.parse(input).dictionary('states')
+states = Eno.parse(input).fieldset('states')
 
 states.color('active')  #=> '#F00'
 states.color('hover')  #=> '#ff0000'
@@ -563,19 +563,19 @@ Optional, usually the default message (*An excess element named [NAME] was
 found, is it possibly a typo?*) will do fine. If you want to override it,
 provide either a static message as a string, or alternatively a `Proc` or block
 returning a string. (The arguments passed are `name` and `value`, although
-`value` can be `nil` if the untouched element is a dictionary or section)
+`value` can be `nil` if the untouched element is a fieldset or section)
 -- message, message_proc or message_block
 
 options:
 only = An array of strings, e.g. `['name', 'email']`, which specifies to only check these elements for whether they've been touched.  
 except = An array of strings, e.g. `['phone number']`, which specifies to exclude these elements from checking whether they've been touched.  
 
-### #dictionaries
+### #fieldsets
 
-syntax: dictionaries(name) → array
+syntax: fieldsets(name) → array
 
 -- description
-Retrieve dictionaries with the specified name from this current section.
+Retrieve fieldsets with the specified name from this current section.
 -- description
 
 -- eno
@@ -589,7 +589,7 @@ src = white-roses.jpg
 -- ruby
 document = Eno.parse(input)
 
-images = document.dictionaries('image')
+images = document.fieldsets('image')
 
 images.each do |image|
   puts image.entry('src')
@@ -598,20 +598,20 @@ end
 
 #### parameters
 
-name: A string specifying the name of the dictionaries to retrieve.
+name: A string specifying the name of the fieldsets to retrieve.
 
 #### return value
 
-description: An array of `Eno::Dictionary`s.
+description: An array of `Eno::Fieldset`s.
 
-### #dictionary
+### #fieldset
 
 syntax:
-| dictionary(name) → Eno::Dictionary or nil
-| dictionary(name, options) → Eno::Dictionary or nil
+| fieldset(name) → Eno::Fieldset or nil
+| fieldset(name, options) → Eno::Fieldset or nil
 
 -- description
-Retrieve a dictionary from the section, optionally supplying an options.
+Retrieve a fieldset from the section, optionally supplying an options.
 -- description
 
 -- eno
@@ -622,11 +622,11 @@ blue = 3
 -- eno
 
 -- ruby
-section.dictionary('color ratings')        #=> #<Eno::Dictionary name="color ratings" entries=3>
-section.dictionary('temperature ratings')  # raises an error
+section.fieldset('color ratings')        #=> #<Eno::Fieldset name="color ratings" entries=3>
+section.fieldset('temperature ratings')  # raises an error
 
-section.dictionary('temperature ratings', required: false)        #=> nil
-section.dictionary('temperature ratings', enforce_element: true)  # raises an error
+section.fieldset('temperature ratings', required: false)        #=> nil
+section.fieldset('temperature ratings', enforce_element: true)  # raises an error
 -- ruby
 
 #### parameters
@@ -634,12 +634,12 @@ section.dictionary('temperature ratings', enforce_element: true)  # raises an er
 name: A string representing the name of the field to return.
 
 options:
-enforce_element = A boolean stating whether the dictionary must exist in the document. (defaults to `false`)
+enforce_element = A boolean stating whether the fieldset must exist in the document. (defaults to `false`)
 required = Alias for `enforce_element` (this exists on many methods and depending on context refers to either element or value)
 
 #### return value
 
-description: An `Eno::Dictionary`, or `nil`.
+description: An `Eno::Fieldset`, or `nil`.
 
 ### #element
 
@@ -1010,7 +1010,7 @@ column: The column to look up (0-indexed, i.e. the first column is 0, not 1) - o
 -- description
 For all valid indices within the document returns a Hash with two keys:  
 
-`element`: An `Eno::Section`, `Eno::Dictionary`, `Eno::Value`.. . For empty lines you get the containing section.
+`element`: An `Eno::Section`, `Eno::Fieldset`, `Eno::Value`.. . For empty lines you get the containing section.
 
 `zone`: A symbol denoting the token at the specified position, here's the full list:  
 
@@ -1137,9 +1137,9 @@ description: An array of `Eno::Section`s.
 
 -- class description
 All values in an eno document, such as the value of a field like `name: value`,
-the lines inside a block, the value of a list item, the value of a dictionary
+the lines inside a block, the value of a list item, the value of a fieldset
 entry, and so on, map to an `Eno::Value`. Usually you don't interact with this
-because you directly get the values from a section or dictionary in most cases.
+because you directly get the values from a section or fieldset in most cases.
 When you sequentially iterate a section (with `Eno::Section`'s
 '`#elements` method) you will get to interact with this class.
 -- class description
@@ -1422,10 +1422,10 @@ list.first.raw  #=> { 'colors' => ['pink', 'peach'] }
 
 description: A native representation of the list.
 
-## Eno::Dictionary
+## Eno::Fieldset
 
 -- class description
-Dictionaries are represented as an `Eno::Dictionary`:
+Fieldsets are represented as an `Eno::Fieldset`:
 
 ```eno
 rated things:
@@ -1433,7 +1433,7 @@ toys = 5 stars
 plants = 3 stars
 ```
 
-You will mostly obtain an instance of this through the `#dictionary` method on a document/section.
+You will mostly obtain an instance of this through the `#fieldset` method on a document/section.
 -- class description
 
 ### #assert_all_touched
@@ -1446,7 +1446,7 @@ syntax:
 | assert_all_touched(options) { |name, value| message_block }
 
 -- description
-Assert that all entries of this dictionary that were present in the parsed eno document
+Assert that all entries of this fieldset that were present in the parsed eno document
 were also queried (and therefore *touched*) by the application. This, combined with eno's
 query methods, serves to ensure a two-way guarantee for both users and developers:
 No data that the application requires can be left out, and no data that the application
@@ -1461,18 +1461,18 @@ B = Me too!
 
 -- ruby
 document = Eno.parse(input)
-dictionary = document.dictionary('Important data')
+fieldset = document.fieldset('Important data')
 
-data_a = dictionary.entry('A')
+data_a = fieldset.entry('A')
 
 # ... processing happens only for data_a
 
-dictionary.assert_all_touched  # raises an error
+fieldset.assert_all_touched  # raises an error
 
-dictionary.assert_all_touched(only: ['A'])  # passes
-dictionary.assert_all_touched(except: ['B'])  # passes
+fieldset.assert_all_touched(only: ['A'])  # passes
+fieldset.assert_all_touched(except: ['B'])  # passes
 
-dictionary.assert_all_touched do |name, value|  # raises an error "B is not ..."
+fieldset.assert_all_touched do |name, value|  # raises an error "B is not ..."
   "#{name} is not supported by the application, please contact support if you think it should be"
 end  
 -- ruby
@@ -1498,7 +1498,7 @@ syntax:
 
 -- description
 Retrieve a single entry as `Eno::Value` (instead of
-its direct value) from the dictionary by its name.
+its direct value) from the fieldset by its name.
 Optionally specify whether it's optional or mandatory for the entry to be
 present in the eno document (by default it's optional).
 -- description
@@ -1511,17 +1511,17 @@ years:
 -- eno
 
 -- ruby
-dictionary = Eno.parse(input).dictionary('years')
+fieldset = Eno.parse(input).fieldset('years')
 
-dictionary.element('2010')  #=> #<Eno::Value name="2010" value="Year of the awesome beanstalk">
-dictionary.element('2020')  #=> nil
-dictionary.element('2020', enforce_element: true)  # raises an error
-dictionary.element('2020', required: true)  # raises an error
+fieldset.element('2010')  #=> #<Eno::Value name="2010" value="Year of the awesome beanstalk">
+fieldset.element('2020')  #=> nil
+fieldset.element('2020', enforce_element: true)  # raises an error
+fieldset.element('2020', required: true)  # raises an error
 -- ruby
 
 #### parameters
 
-name: The name of the entry to fetch from the dictionary as a string.
+name: The name of the entry to fetch from the fieldset as a string.
 
 options:
 enforce_element = Whether the element must be present in the document (`true` or `false`, defaults to `false`)  
@@ -1536,9 +1536,9 @@ description: An element (`Eno::Value`) or `nil`.
 syntax: elements → array
 
 -- description
-Retrieve the entries of this dictionary as `Eno::Value` elements (instead of
+Retrieve the entries of this fieldset as `Eno::Value` elements (instead of
 their direct values) in sequential order. This seamlessly lets you switch from
-associative readout to sequential readout, allowing dictionaries to also represent
+associative readout to sequential readout, allowing fieldsets to also represent
 document-like structures instead of just associative data.
 -- description
 
@@ -1552,7 +1552,7 @@ bob = nothin'
 
 -- ruby
 document = Eno.parse(input)
-dialogue = document.dictionary('dialogue')
+dialogue = document.fieldset('dialogue')
 
 html = '<h1>Observe this fascinating dialogue, presented in html!</h1>'
 
@@ -1565,7 +1565,7 @@ File.write('index.html', html)
 
 #### return value
 
-description: An array containing the elements of this dictionary.
+description: An array containing the elements of this fieldset.
 
 ### #enforce_all_elements
 
@@ -1574,7 +1574,7 @@ syntax:
 | enforce_all_elements(enforce)
 
 -- description
-Set the default for all following queries on this dictionary of whether the
+Set the default for all following queries on this fieldset of whether the
 presence of elements in the eno input text should be enforced (by default it is
 not). This can be used to prevent "template decay" - with presence enforcement
 enabled entries may be empty, but they (at least their declaration) must be
@@ -1591,7 +1591,7 @@ conversions:
 -- ruby
 document = Eno.parse(input)
 
-conversions = document.dictionary('conversions')
+conversions = document.fieldset('conversions')
 
 conversions.enforce_all_elements
 
@@ -1607,7 +1607,7 @@ syntax:
 | entry(name, enforce_element: false, required: false, with_element: false) → object/value or nil
 
 -- description
-Retrieve an entry's value from the dictionary, optionally supplying a loader to
+Retrieve an entry's value from the fieldset, optionally supplying a loader to
 validate and/or transform the value, and/or an options object.
 -- description
 
@@ -1620,7 +1620,7 @@ Purpose =
 
 -- ruby
 document = Eno.parse(input)
-qa = document.dictionary('Q&A')
+qa = document.fieldset('Q&A')
 
 qa.entry('Meaning')   #=> '42'
 qa.entry('Purpose')   #=> nil
@@ -1661,7 +1661,7 @@ description: The entry's value, or `nil` if empty.
 syntax: raw → object
 
 -- description
-Retrieve a native representation of the dictionary.
+Retrieve a native representation of the fieldset.
 -- description
 
 -- eno
@@ -1673,18 +1673,18 @@ pineapple = 800g
 -- ruby
 document = Eno.parse(input)
 
-document.dictionary('weights').raw 
+document.fieldset('weights').raw 
   #=> { 'weights' => [{ 'apple' => '100g' }, { 'pineapple' => '800g' }] }
 -- ruby
 
 #### return value
 
-description: A native object representation of the dictionary.
+description: A native object representation of the fieldset.
 
 ## Eno::Empty
 
 -- class description
-This represents empty elements such as `color:`, where it is not clear if it is an empty field, list, or dictionary.
+This represents empty elements such as `color:`, where it is not clear if it is an empty field, list, or fieldset.
 -- class description
 
 ### #error
@@ -1781,7 +1781,7 @@ note.value  #=> nil
 
 description: Always `nil`.
 
-## Eno::GenericError
+## Eno::Error
 
 -- class description
 The single generic error interface for all (user) errors that eno generates.
@@ -1793,7 +1793,7 @@ validation errors indiscriminately, like so:
 ```ruby
 begin
   # ...
-rescue Eno::GenericError => e # catches both Eno::ParseError and Eno::ValidationError
+rescue Eno::Error => e # catches both Eno::ParseError and Eno::ValidationError
   # ...
 end
 ```
@@ -1812,7 +1812,7 @@ to move the cursor straight to the error location.
 -- ruby
 begin
   # ...
-rescue Eno::GenericError => e
+rescue Eno::Error => e
   e.cursor  #=> [3, 14]
 end
 -- ruby
@@ -1834,7 +1834,7 @@ way to get a selection for the error in the input.
 -- ruby
 begin
   # ...
-rescue Eno::GenericError => e
+rescue Eno::Error => e
   e.selection  #=> [[3, 14], [3, 23]]
 end
 -- ruby
@@ -1858,7 +1858,7 @@ get in the console when you don't catch the error.
 -- ruby
 begin
   # ...
-rescue Eno::GenericError => e
+rescue Eno::Error => e
   e.message  #=> "In line 4 'a' is copied into itself.\n\n   Line | Content\n ..."
 end
 -- ruby
@@ -1878,7 +1878,7 @@ Returns a formatted excerpt of those passage(s) from the input where the error o
 -- ruby
 begin
   # ...
-rescue Eno::GenericError => e
+rescue Eno::Error => e
   e.snippet
   
   # returns something like ...
@@ -1907,7 +1907,7 @@ Returns a one-liner that describes the error in human language.
 -- ruby
 begin
   # ...
-rescue Eno::GenericError => e
+rescue Eno::Error => e
   e.message  #=> "In line 4 'a' is copied into itself."
 end
 -- ruby
@@ -1920,14 +1920,14 @@ description: A single sentence that describes the error in human language.
 
 -- class description
 When this is raised, it indicates an error regarding syntax or grammatical semantics of the document.
-Functionally this behaves exactly like `Eno::GenericError`, therefore the interface methods are not repeated here and can
-be looked up on the `Eno::GenericError` documentation.
+Functionally this behaves exactly like `Eno::Error`, therefore the interface methods are not repeated here and can
+be looked up on the `Eno::Error` documentation.
 -- class description
 
 ## Eno::ValidationError
 
 -- class description
 When this is raised, it indicates an error regarding application-specific requirements for the document.
-Functionally this behaves exactly like `Eno::GenericError`, therefore the interface methods are not repeated here and can
-be looked up on the `Eno::GenericError` documentation.
+Functionally this behaves exactly like `Eno::Error`, therefore the interface methods are not repeated here and can
+be looked up on the `Eno::Error` documentation.
 -- class description

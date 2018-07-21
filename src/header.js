@@ -2,7 +2,7 @@
 //       assertAllTouched takes care to make sure there weren't other items as well that should
 //       have been picked up sequentially.
 
-// TODO: Sequential accessor for dictionaries (see below usecase for secondary header) (implemented but reevaluate in this context)
+// TODO: Sequential accessor for fieldsets (see below usecase for secondary header) (implemented but reevaluate in this context)
 
 module.exports = (active = null, menu) => {
   const sections = menu.elements();

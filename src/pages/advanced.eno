@@ -53,7 +53,7 @@ Hier findest du Antworten auf oft gestellte Fragen:
 
 By copying we get all fields from the english section, and by specifying a new `text` we are overwriting only that specific element, leaving the copied `title` and `permalink` intact.
 
-## Dictionaries (=)
+## Fieldsets (=)
 
 ```eno
 color ratings:
@@ -62,12 +62,12 @@ red = 4
 blue = 1
 ```
 
-Dictionaries are "mini-sections" if you will. They start like a field or list (with a name and a colon),
-and go on as long as dicionary entries follow, which are differentiated from fields by their operator, an equals sign (`=`).
-Note that unlike in sections, no name can appear twice in a dictionary, every one of them needs to be unique.
+Fieldsets allow us to group fields without the need to specify an entire section. They start like a field or list (with a name and a colon),
+and go on as long as fieldset entries follow, which are differentiated from regular fields by their operator, an equals sign (`=`).
+Note that unlike in sections, no name can appear twice in a fieldset, every one of them needs to be unique.
 
-Dictionaries can be copied (like everything else in eno), in which case you can actually redeclare an existing name,
-which allows you to override its value in the copied dictionary:
+Fieldsets can be copied (like everything else in eno), in which case you can actually redeclare an existing fieldset entry name,
+which allows you to override its value in the copied fieldset:
 
 ```eno
 image:

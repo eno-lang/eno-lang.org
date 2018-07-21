@@ -40,7 +40,7 @@ List:
 - Value
 - Value
 
-Dictionary:
+Fieldset:
 Entry A = Value
 Entry B = Value
 
@@ -68,7 +68,7 @@ Name of copy < Name of source element
 - Value
 - Value
 
-`Escaped dictionary name`:
+`Escaped fieldset name`:
 `Escaped entry A` = Value
 `Escaped entry B` = Value
 
