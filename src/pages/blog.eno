@@ -7,8 +7,8 @@ title: Dev Blog
 
 **Sunday, July 22 2018**
 
-- Released enojs 0.16.0 ([Changelog](https://github.com/eno-lang/enojs/blob/master/CHANGELOG.md)).
-- Released enopy 0.9.0 ([Changelog](https://github.com/eno-lang/enopy/blob/master/CHANGELOG.md)).
+- Released enojs 0.16.0 ([Changelog](https://github.com/eno-lang/enojs/blob/master/CHANGELOG.md)), enopy 0.9.0 ([Changelog](https://github.com/eno-lang/enopy/blob/master/CHANGELOG.md)) and enorb 0.10.0 ([Changelog](https://github.com/eno-lang/enorb/blob/master/CHANGELOG.md)).
+- More work on [color schemes](https://github.com/eno-lang/color-schemes), bringing [enokai](https://rawgit.com/eno-lang/color-schemes/master/dist/html/enokai.html) and [enorphin](https://rawgit.com/eno-lang/color-schemes/master/dist/html/enorphin.html) up to release quality and adding a sublime generator.
 
 **Saturday, July 21 2018**
 

@@ -1,7 +1,7 @@
 title: enorb - The Ruby eno library
 
 -- intro
-# <img class="logo" src="/ruby.svg" /> enorb 0.9.0
+# <img class="logo" src="/ruby.svg" /> enorb 0.10.0
 
 ## Installation
 
@@ -110,6 +110,8 @@ be bootstrapped and made accessible directly through the core loader API or be p
 arguments, e.g. as lambdas, to all accessors).
 
 The loaders are exposed through the API as drop in replacements to the standard accessors:
+- `Eno::Field`
+  - `#value` => `#[loader_name]`
 - `Eno::Fieldset`
   - `#entry` => `#[loader_name]`
 - `Eno::List`
@@ -117,8 +119,7 @@ The loaders are exposed through the API as drop in replacements to the standard 
 - `Eno::Section`
   - `#field` => `#[loader_name]`
   - `#list` => `#[loader_name]_list`
-- `Eno::Value`
-  - `#value` => `#[loader_name]`
+
 
 So for instance, instead of calling ...
 
@@ -666,7 +667,7 @@ tags:
 -- ruby
 document = Eno.parse(input)
 
-document.element('title')  #=> #<Eno::Value name="title" value="Artfest 2018">
+document.element('title')  #=> #<Eno::Field name="title" value="Artfest 2018">
 document.element('tags')  #=> #<Eno::List name="tags" items=2>
 document.element('content')  #=> #<Eno::Section name="content" items=14>
 
@@ -685,7 +686,7 @@ required = Alias for `enforce_element` (this exists on many methods and dependin
 
 #### return value
 
-description: An element (e.g. `Eno::List`, `Eno::Value`, etc.) or `nil`.
+description: An element (e.g. `Eno::List`, `Eno::Field`, etc.) or `nil`.
 
 ### #elements
 
@@ -797,7 +798,7 @@ section.field('color') do |name, value|
 end
 
 section.field('color', with_element: true)
-  #=> [ #<Eno::Value name="color" value="blue">, 'blue' ]
+  #=> [ #<Eno::Field name="color" value="blue">, 'blue' ]
 -- ruby
 
 #### parameters
@@ -846,7 +847,7 @@ name: A string specifying the name of the fields to retrieve.
 
 #### return value
 
-description: An array of `Eno::Value`s.
+description: An array of `Eno::Field`s.
 
 ### #list
 
@@ -889,8 +890,8 @@ document.list('colors') do |name, value|
 end
 
 document.list('colors', with_elements: true)
-  #=> [[ #<Eno::Value value="pink">, 'pink' ],
-  #    [ #<Eno::Value value="peach">, 'peach' ]]
+  #=> [[ #<Eno::Field value="pink">, 'pink' ],
+  #    [ #<Eno::Field value="peach">, 'peach' ]]
   
 document.list('colors', min_count: 3)  # raises an error
 -- ruby
@@ -982,13 +983,13 @@ color: blue
 document = Eno.parse(input)
 
 document.lookup(3)  # 'o'
-  #=> { element: #<Eno::Value name="color" value="blue">, zone: :name }
+  #=> { element: #<Eno::Field name="color" value="blue">, zone: :name }
 document.lookup(7)  # 'b'
-  #=> { element: #<Eno::Value name="color" value="blue">, zone: :value }
+  #=> { element: #<Eno::Field name="color" value="blue">, zone: :value }
 document.lookup(0, 3)  # 'o'
-  #=> { element: #<Eno::Value name="color" value="blue">, zone: :name }
+  #=> { element: #<Eno::Field name="color" value="blue">, zone: :name }
 document.lookup(0, 7)  # 'b'
-  #=> { element: #<Eno::Value name="color" value="blue">, zone: :value }
+  #=> { element: #<Eno::Field name="color" value="blue">, zone: :value }
 document.lookup(13)  # '#'
   #=> { element: #<Eno::Section name="notes" elements=0>, zone: :section_operator }
 document.lookup(19)  # 's'
@@ -1010,7 +1011,7 @@ column: The column to look up (0-indexed, i.e. the first column is 0, not 1) - o
 -- description
 For all valid indices within the document returns a Hash with two keys:  
 
-`element`: An `Eno::Section`, `Eno::Fieldset`, `Eno::Value`.. . For empty lines you get the containing section.
+`element`: An `Eno::Section`, `Eno::Fieldset`, `Eno::Field`.. . For empty lines you get the containing section.
 
 `zone`: A symbol denoting the token at the specified position, here's the full list:  
 
@@ -1133,12 +1134,12 @@ name: A string specifying the name of the sections to retrieve.
 
 description: An array of `Eno::Section`s.
 
-## Eno::Value
+## Eno::Field
 
 -- class description
 All values in an eno document, such as the value of a field like `name: value`,
 the value of a block, the value of a list item, the value of a fieldset
-entry, and so on, map to an `Eno::Value`. Usually you don't interact with this
+entry, and so on, map to an `Eno::Field`. Usually you don't interact with this
 because you directly get the values from a section or fieldset in most cases.
 When you sequentially iterate a section (with `Eno::Section`'s
 '`#elements` method) you will get to interact with this class.
@@ -1244,7 +1245,7 @@ syntax:
 | value(options) { |name, value| loader } → value or nil
 
 -- description
-Retrieve the value of an `Eno::Value`, optionally passing it through a loader
+Retrieve the value of an `Eno::Field`, optionally passing it through a loader
 block or `Proc` and/or supplying options.
 -- description
 
@@ -1284,7 +1285,7 @@ required = Alias for `enforce_value` (this exists on many methods and depending 
 
 #### return value
 
-description: The (optionally transformed/validated) value of this `Eno::Value`.
+description: The (optionally transformed/validated) value of this `Eno::Field`.
 
 ## Eno::List
 
@@ -1297,7 +1298,7 @@ things:
 - plants
 ```
 
-Like `Eno::Value`, you will seldom interact with this class, and instead use the `list`
+Like `Eno::Field`, you will seldom interact with this class, and instead use the `list`
 method on the document or its sections to directly obtain the values of a list.
 -- class description
 
@@ -1306,7 +1307,7 @@ method on the document or its sections to directly obtain the values of a list.
 syntax: elements → array
 
 -- description
-Retrieve the items of this list as `Eno::Value` elements (instead of
+Retrieve the items of this list as `Eno::Field` elements (instead of
 their direct values) in sequential order.
 -- description
 
@@ -1321,12 +1322,12 @@ numbers:
 list = Eno.parse(input).element('numbers')
 
 list.elements
-  #=> [ #<Eno::Value value="6">, #<Eno::Value value="8">, #<Eno::Value value="19"> ]
+  #=> [ #<Eno::Field value="6">, #<Eno::Field value="8">, #<Eno::Field value="19"> ]
 -- ruby
 
 #### return value
 
-description: An array containing the items of this list as `Eno::Value` elements.
+description: An array containing the items of this list as `Eno::Field` elements.
 
 ### #items
 
@@ -1366,7 +1367,7 @@ loader_block or loader_proc:
 | signature that allows to use `|value|` or `|name, value|` based on your needs.
 
 options:
-elements = Whether to return the elements (as `Eno::Value`) instead of the values of the list items. (defaults to `false`)  
+elements = Whether to return the elements (as `Eno::Field`) instead of the values of the list items. (defaults to `false`)  
 enforce_values = Whether empty list items (`- ` in the document, mapping to `nil`) are disallowed (defaults to `true`)  
 with_elements = Whether to return an array of arrays of the form `[element, value]` instead of just the values (defaults to `false`)
 
@@ -1497,7 +1498,7 @@ syntax:
 | element(name, options) → element or nil
 
 -- description
-Retrieve a single entry as `Eno::Value` (instead of
+Retrieve a single entry as `Eno::Field` (instead of
 its direct value) from the fieldset by its name.
 Optionally specify whether it's optional or mandatory for the entry to be
 present in the eno document (by default it's optional).
@@ -1513,7 +1514,7 @@ years:
 -- ruby
 fieldset = Eno.parse(input).fieldset('years')
 
-fieldset.element('2010')  #=> #<Eno::Value name="2010" value="Year of the awesome beanstalk">
+fieldset.element('2010')  #=> #<Eno::Field name="2010" value="Year of the awesome beanstalk">
 fieldset.element('2020')  #=> nil
 fieldset.element('2020', enforce_element: true)  # raises an error
 fieldset.element('2020', required: true)  # raises an error
@@ -1529,14 +1530,14 @@ required = Alias for `enforce_element` (this exists on many methods and dependin
 
 #### return value
 
-description: An element (`Eno::Value`) or `nil`.
+description: An element (`Eno::Field`) or `nil`.
 
 ### #elements
 
 syntax: elements → array
 
 -- description
-Retrieve the entries of this fieldset as `Eno::Value` elements (instead of
+Retrieve the entries of this fieldset as `Eno::Field` elements (instead of
 their direct values) in sequential order. This seamlessly lets you switch from
 associative readout to sequential readout, allowing fieldsets to also represent
 document-like structures instead of just associative data.
@@ -1636,7 +1637,7 @@ qa.entry('Meaning') do |name, value|  # raises an error
   value
 end
 
-qa.entry('Meaning', with_element: true)   #=> [ #<Eno::Value name="Meaning" value="42"> , '42' ]
+qa.entry('Meaning', with_element: true)   #=> [ #<Eno::Field name="Meaning" value="42"> , '42' ]
 -- ruby
 
 #### parameters
