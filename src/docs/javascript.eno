@@ -1118,7 +1118,7 @@ description: An array of `Section`s.
 ## Field
 
 -- class description
-All values in an eno document, such as the value of a field like `name: value`, the lines inside a block,
+All values in an eno document, such as the value of a field like `name: value`, the value of a block,
 the value of a list item, the value of a fieldset entry, and so on, map to an `Field`. Usually you
 don't interact with this because you directly get the values from a section or fieldset in most cases.
 When you, for instance, sequentially iterate a section (with `Section`'s '`elements` method) or explicitly ask

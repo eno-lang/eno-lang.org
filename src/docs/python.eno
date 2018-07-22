@@ -1,7 +1,7 @@
 title: enopy - The Python eno library
 
 -- intro
-# <img class="logo" src="/python.svg" /> enopy 0.8.0
+# <img class="logo" src="/python.svg" /> enopy 0.9.0
 
 ## Installation
 
@@ -90,6 +90,8 @@ out of the box (in addition to the possiblity to pass your own custom loaders
 as functions/lambdas on all accessors).
 
 The loaders are exposed through the API as drop in replacements to the standard accessors:
+- `Field`
+  - `value()` => `[loader_name]()`
 - `Fieldset`
   - `entry()` => `[loader_name]()`
 - `List`
@@ -97,8 +99,6 @@ The loaders are exposed through the API as drop in replacements to the standard 
 - `Section`
   - `field()` => `[loader_name]()`
   - `list()` => `[loader_name]_list()`
-- `Value`
-  - `value()` => `[loader_name]()`
 
 So for instance, instead of calling ...
 
@@ -648,7 +648,7 @@ tags:
 >>> document = enopy.parse(input)
 
 >>> document.element('title')
-<class Value name="title" value="Artfest 2018">
+<class Field name="title" value="Artfest 2018">
 >>> document.element('tags')
 <class List name="tags" items=2>
 >>> document.element('content')
@@ -671,7 +671,7 @@ required = Alias for `enforce_element` (this exists on many methods and dependin
 
 #### return value
 
-description: An element (e.g. `List`, `Value`, etc.) or `None`.
+description: An element (e.g. `List`, `Field`, etc.) or `None`.
 
 ### elements
 
@@ -793,7 +793,7 @@ ValidationError: ...
 ValidationError: Only green is allowed!
 
 >>> document.field('color', with_element=True)
-[ <class Value name="color" value="blue">, 'blue' ]
+[ <class Field name="color" value="blue">, 'blue' ]
 -- python
 
 #### parameters
@@ -840,7 +840,7 @@ name: A string specifying the name of the fields to retrieve.
 
 #### return value
 
-description: A list of `Value`s.
+description: A list of `Field`s.
 
 ### list
 
@@ -888,8 +888,8 @@ ValidationError: ...
 ValidationError: Peach may not be on the list!
 
 >>> document.list('colors', with_elements=True)
-[[ <class Value value="pink">, 'pink' ],
- [ <class Value value="peach">, 'peach' ]]
+[[ <class Field value="pink">, 'pink' ],
+ [ <class Field value="peach">, 'peach' ]]
   
 >>> document.list('colors', min_count=3)
 ValidationError: ...
@@ -980,13 +980,13 @@ color: blue
 >>> document = enopy.parse(input)
 
 >>> document.lookup(3)  # 'o'
-{ 'element': <class Value name="color" value="blue">, 'zone': 'name' }
+{ 'element': <class Field name="color" value="blue">, 'zone': 'name' }
 >>> document.lookup(7)  # 'b'
-{ 'element': <class Value name="color" value="blue">, 'zone': 'value' }
+{ 'element': <class Field name="color" value="blue">, 'zone': 'value' }
 >>> document.lookup(0, 3)  # 'o'  
-{ 'element': <class Value name="color" value="blue">, 'zone': 'name' }
+{ 'element': <class Field name="color" value="blue">, 'zone': 'name' }
 >>> document.lookup(0, 7)  # 'b'  
-{ 'element': <class Value name="color" value="blue">, 'zone': 'value' }
+{ 'element': <class Field name="color" value="blue">, 'zone': 'value' }
 >>> document.lookup(13)  # '#' 
 { 'element': <class Section name="notes" elements=0>, 'zone': 'section_operator' }
 >>> document.lookup(19)  # 's' 
@@ -1008,7 +1008,7 @@ column: The column to look up (0-indexed, i.e. the first column is 0, not 1) - o
 -- description
 For all valid indices within the document returns a Hash with two keys:  
 
-`element`: An `Section`, `Fieldset`, `Value`.. . For empty lines you get the containing section.
+`element`: An `Section`, `Fieldset`, `Field`.. . For empty lines you get the containing section.
 
 `zone`: A string denoting the token at the specified position, here's the full list:  
 
@@ -1133,12 +1133,12 @@ name: A string specifying the name of the sections to retrieve.
 
 description: A list of `Section`s.
 
-## Value
+## Field
 
 -- class description
 All values in an eno document, such as the value of a field like `name: value`,
-the lines inside a block, the value of a list item, the value of a fieldset
-entry, and so on, map to a `Value`. Usually you don't interact with this
+the value of a block, the value of a list item, the value of a fieldset
+entry, and so on, map to a `Field`. Usually you don't interact with this
 because you directly get the values from a section or fieldset in most cases.
 When you sequentially iterate a section (with `Section`'s
 '`#elements` method) you will get to interact with this class.
@@ -1243,7 +1243,7 @@ syntax:
 | value(loader, options) → value or None
 
 -- description
-Retrieve the value of an `Value`, optionally passing it through a loader and/or supplying options.
+Retrieve the value of an `Field`, optionally passing it through a loader and/or supplying options.
 -- description
 
 -- eno
@@ -1278,7 +1278,7 @@ required = Alias for `enforce_value` (this exists on many methods and depending 
 
 #### return value
 
-description: The (optionally transformed/validated) value of this `Value`.
+description: The (optionally transformed/validated) value of this `Field`.
 
 ## List
 
@@ -1291,7 +1291,7 @@ things:
 - plants
 ```
 
-Like `Value`, you will seldom interact with this class, and instead use the `list`
+Like `Field`, you will seldom interact with this class, and instead use the `list`
 method on the document or its sections to directly obtain the values of a list.
 -- class description
 
@@ -1300,7 +1300,7 @@ method on the document or its sections to directly obtain the values of a list.
 syntax: elements() → list
 
 -- description
-Retrieve the items of this list as `Value` elements (instead of
+Retrieve the items of this list as `Field` elements (instead of
 their direct values) in sequential order.
 -- description
 
@@ -1314,12 +1314,12 @@ numbers:
 -- python
 >>> list = enopy.parse(input).element('numbers')
 >>> list.elements()
-[ <class Value value="6">, <class Value value="8">, <class Value value="19"> ]
+[ <class Field value="6">, <class Field value="8">, <class Field value="19"> ]
 -- python
 
 #### return value
 
-description: A list containing the items of this list as `Value` elements.
+description: A list containing the items of this list as `Field` elements.
 
 ### items
 
@@ -1358,7 +1358,7 @@ loader:
 | only takes a single parameter.
 
 options:
-elements = Whether to return the elements (as `Value`) instead of the values of the list items. (defaults to `False`)  
+elements = Whether to return the elements (as `Field`) instead of the values of the list items. (defaults to `False`)  
 enforce_values = Whether empty list items (`- ` in the document, mapping to `None`) are disallowed (defaults to `True`)  
 with_elements = Whether to return a list of lists of the form `[element, value]` instead of just the values (defaults to `False`)
 
@@ -1488,7 +1488,7 @@ syntax:
 | element(name, options) → element or None
 
 -- description
-Retrieve a single entry as `Value` (instead of
+Retrieve a single entry as `Field` (instead of
 its direct value) from the fieldset by its name.
 Optionally specify whether it's optional or mandatory for the entry to be
 present in the eno document (by default it's optional).
@@ -1505,7 +1505,7 @@ years:
 >>> fieldset = enopy.parse(input).fieldset('years')
 
 >>> fieldset.element('2010')
-<class Value name="2010" value="Year of the awesome beanstalk">
+<class Field name="2010" value="Year of the awesome beanstalk">
 >>> fieldset.element('2020')
 None
 >>> fieldset.element('2020', enforce_element=True)
@@ -1524,14 +1524,14 @@ required = Alias for `enforce_element` (this exists on many methods and dependin
 
 #### return value
 
-description: An element (`Value`) or `None`.
+description: An element (`Field`) or `None`.
 
 ### elements
 
 syntax: elements() → list
 
 -- description
-Retrieve the entries of this fieldset as `Value` elements (instead of
+Retrieve the entries of this fieldset as `Field` elements (instead of
 their direct values) in sequential order. This seamlessly lets you switch from
 associative readout to sequential readout, allowing fieldsets to also represent
 document-like structures instead of just associative data.
@@ -1640,7 +1640,7 @@ ValidationError: ...
 ValidationError: That one's getting old!
 
 >>> qa.entry('Meaning', with_element=True)
-[ <class Value name="Meaning" value="42"> , '42' ]
+[ <class Field name="Meaning" value="42"> , '42' ]
 -- python
 
 #### parameters

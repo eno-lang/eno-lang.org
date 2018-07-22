@@ -8,7 +8,7 @@ title: The eno notation language and libraries
 # The eno notation language
 
 A modern plaintext data format, designed from the ground up for file-based
-content generation - [simple](https://eno-lang.org/introduction/),
+content - [simple](https://eno-lang.org/introduction/),
 [powerful](https://eno-lang.org/advanced/) and elegant:
 
 ```eno
