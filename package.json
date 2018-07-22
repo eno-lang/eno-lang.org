@@ -8,7 +8,7 @@
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
-    "enojs": "^0.15.0",
+    "enojs": "^0.16.0",
     "file-loader": "^1.1.11",
     "fs-extra": "^7.0.0",
     "http-server": "^0.11.1",

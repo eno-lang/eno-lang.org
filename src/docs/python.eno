@@ -492,7 +492,7 @@ ValidationError: 'bad' must contain valid URL, for instance 'https://eno-lang.or
 
 -- class description
 Every section in an eno document, such as for instance `# notes` or `### Appendix`, maps to a `Section`.
-More prominently though **the document itself is represented as an `Section`**,
+More prominently though **the document itself is represented as a `Section`**,
 consequently this is the interface you'll be utilizing most for many usecases.
 -- class description
 

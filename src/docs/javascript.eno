@@ -1,7 +1,7 @@
 title: enojs - The JavaScript eno library
 
 -- intro
-# <img class="logo" src="/javascript.svg" /> enojs 0.15.0
+# <img class="logo" src="/javascript.svg" /> enojs 0.16.0
 
 Installation from npm:
 
@@ -54,8 +54,8 @@ or source label (usually to have filename appear in error messages) to that call
 ### parse
 
 syntax:
-| parse(input) → EnoSection
-| parse(input, options) → EnoSection
+| parse(input) → Section
+| parse(input, options) → Section
 
 -- description
 Parse a string in eno notation.
@@ -66,7 +66,7 @@ color: blue
 -- eno
 
 -- js
-eno.parse(input);  // returns [object EnoSection document elements=1]
+eno.parse(input);  // returns [object Section document elements=1]
 
                                                    // Errors will be ...
 eno.parse(input, { locale: 'es' });                // In spanish - ¡hola!
@@ -87,7 +87,7 @@ zeroIndexing = `true` or `false` (default), set `true` to display `0,1,2,..` lin
 
 #### return value
 
-description: An `EnoSection` representing the document.
+description: An `Section` representing the document.
 
 ## loaders
 
@@ -97,15 +97,16 @@ of the box (in addition to the possiblity to define your own custom loaders,
 which can be passed as callbacks to all accessors).
 
 The loaders are exposed through the API as drop in replacements to the standard accessors:
-- `EnoFieldset`
+- `Field`
+  - `value()` => `[loaderName]()`
+- `Fieldset`
   - `entry()` => `[loaderName]()`
-- `EnoList`
+- `List`
   - `items()` => `[loaderName]Items()`
-- `EnoSection`
+- `Section`
   - `field()` => `[loaderName]()`
   - `list()` => `[loaderName]List()`
-- `EnoValue`
-  - `value()` => `[loaderName]()`
+
 
 So for instance, instead of calling ...
 
@@ -135,13 +136,13 @@ const doc = eno.parse(`
 
 doc.boolean('publish');
   // returns true
-  
+
 doc.latLng('location');
   // returns {
   //   lat:  36.987094,
   //   lng: -25.091719
   // }
-  
+
 doc.email('contact');
   // throws an error: 'contact' must contain a valid email address, for instance 'jane.doe@eno-lang.org'.
 ```
@@ -485,11 +486,11 @@ document.url('bad');
   // throws an error: 'bad' must contain valid URL, for instance 'https://eno-lang.org'.
 -- js
 
-## EnoSection
+## Section
 
 -- class description
-Every section in an eno document, such as for instance `# notes` or `### Appendix`, maps to an `EnoSection`.
-More prominently though **the document itself is represented as an `EnoSection`**,
+Every section in an eno document, such as for instance `# notes` or `### Appendix`, maps to a `Section`.
+More prominently though **the document itself is represented as a `Section`**,
 consequently this is the interface you'll be utilizing most for many usecases.
 -- class description
 
@@ -544,8 +545,8 @@ is a fieldset or section)
 -- message or messageFunction
 
 options:
-only = An array of strings, e.g. `['name', 'email']`, which specifies to only check these elements for whether they've been touched.  
-except = An array of strings, e.g. `['phone number']`, which specifies to exclude these elements from checking whether they've been touched.  
+only = An array of strings, e.g. `['name', 'email']`, which specifies to only check these elements for whether they've been touched.
+except = An array of strings, e.g. `['phone number']`, which specifies to exclude these elements from checking whether they've been touched.
 
 ### fieldsets
 
@@ -579,13 +580,13 @@ name: A string specifying the name of the fieldsets to retrieve.
 
 #### return value
 
-description: An array of `EnoFieldset`s.
+description: An array of `Fieldset`s.
 
 ### fieldset
 
 syntax:
-| fieldset(name) → EnoFieldset or null
-| fieldset(name, options) → EnoFieldset or null
+| fieldset(name) → Fieldset or null
+| fieldset(name, options) → Fieldset or null
 
 -- description
 Retrieve a fieldset from the section, optionally supplying an options object.
@@ -599,7 +600,7 @@ blue = 3
 -- eno
 
 -- js
-section.fieldset('color ratings');   // returns [object EnoFieldset name="color ratings" entries=3]
+section.fieldset('color ratings');   // returns [object Fieldset name="color ratings" entries=3]
 section.fieldset('temperature ratings');   // throws an error
 
 section.fieldset('temperature ratings', { required: false });   // returns null
@@ -616,7 +617,7 @@ required = Alias for `enforceElement` (this exists on many methods and depending
 
 #### return value
 
-description: An `EnoFieldset`, or `null`.
+description: An `Eno::Fieldset`, or `null`.
 
 ### element
 
@@ -643,9 +644,9 @@ tags:
 -- js
 const document = eno.parse(input);
 
-document.element('title');  // returns [object EnoValue name="title" value="Artfest 2018"]
-document.element('tags');  // returns [object EnoList name="tags" items=2]
-document.element('content');  // returns [object EnoSection name="content" items=14]
+document.element('title');  // returns [object Field name="title" value="Artfest 2018"]
+document.element('tags');  // returns [object List name="tags" items=2]
+document.element('content');  // returns [object Section name="content" items=14]
 
 document.element('fantasy');  // returns null
 document.element('fantasy', { enforceElement: true });  // throws an error
@@ -657,12 +658,12 @@ document.element('fantasy', { required: true });  // throws an error
 name: The name of the element to fetch from the section as a string.
 
 options:
-enforceElement = Whether the element must be present in the document (`true` or `false`, defaults to `false`)  
+enforceElement = Whether the element must be present in the document (`true` or `false`, defaults to `false`)
 required = Alias for `enforceElement` (this exists on many methods and depending on context refers to either element or value)
 
 #### return value
 
-description: An element (e.g. `EnoList`, `EnoValue`, etc.) or `null`.
+description: An element (e.g. `List`, `Field`, etc.) or `null`.
 
 ### elements
 
@@ -774,8 +775,8 @@ section.field('color', ({ value }) => {   // throws an error
   return value;
 });
 
-section.field('color', { withElement: true });  
-  // returns { element: [object EnoValue name="blue" value="blue"], value: 'blue' }
+section.field('color', { withElement: true });
+  // returns { element: [object Field name="blue" value="blue"], value: 'blue' }
 -- js
 
 #### parameters
@@ -783,7 +784,7 @@ section.field('color', { withElement: true });
 name: A string representing the name of the field to return.
 loader: A function returning the transformed/validated value or throwing an error.
 options:
-enforceElement = Whether the field must be present in the document (`true` or `false`, defaults to `false`)  
+enforceElement = Whether the field must be present in the document (`true` or `false`, defaults to `false`)
 enforceValue = Whether there must be a value or the field is allowed to be empty (defaults to `false`)
 required = Alias for `enforceValue` (this exists on many methods and depending on context refers to either element or value)
 withElement = Whether to return an object of the form `{ element: ..., value: ... }` instead of just the value (default `false`)
@@ -824,7 +825,7 @@ name: A string specifying the name of the fields to retrieve.
 
 #### return value
 
-description: An array of `EnoValue`s.
+description: An array of `Field`s.
 
 ### list
 
@@ -868,10 +869,10 @@ document.list('colors', ({ value }) => {   // throws an error
   return `I like ${value}`;
 });
 
-document.list('colors', { withElements: true });  
-  // returns [{ element: [object EnoValue value="pink"], value: 'pink' },
-  //          { element: [object EnoValue value="pink"], value: 'peach' }]
-  
+document.list('colors', { withElements: true });
+  // returns [{ element: [object Field value="pink"], value: 'pink' },
+  //          { element: [object Field value="pink"], value: 'peach' }]
+
 document.list('colors', { minCount: 3 });  // throws an error
 -- js
 
@@ -885,11 +886,11 @@ loader:
 | object parameter with the keys `name` and `value`)
 
 options:
-enforceElement = Whether the list must be present in the document (defaults to `false`)  
-enforceValues = Whether empty list items (`- ` in the document, mapping to `null`) are disallowed (defaults to `true`)  
-exact_count = Validate that there are exactly `n` items in the list (takes a number, defaults to `null`)  
-min_count = Validate that there are at least `n` items in the list (takes a number, defaults to `null`)  
-max_count = Validate that there are at most `n` items in the list (takes a number, defaults to `null`)  
+enforceElement = Whether the list must be present in the document (defaults to `false`)
+enforceValues = Whether empty list items (`- ` in the document, mapping to `null`) are disallowed (defaults to `true`)
+exact_count = Validate that there are exactly `n` items in the list (takes a number, defaults to `null`)
+min_count = Validate that there are at least `n` items in the list (takes a number, defaults to `null`)
+max_count = Validate that there are at most `n` items in the list (takes a number, defaults to `null`)
 required = Alias for `enforceElement` (this exists on many methods and depending on context refers to either element or value)
 withElements = Whether to return an array of objects of the form `{ element: ..., value: ... }` instead of just the values (defaults to `false`)
 
@@ -938,7 +939,7 @@ name: A string specifying the name of the lists to retrieve.
 
 #### return value
 
-description: An array of `EnoList`s.
+description: An array of `List`s.
 
 ### lookup
 
@@ -962,21 +963,21 @@ color: blue
 const document = eno.parse(input);
 
 document.lookup(3);  // 'o'
-  // returns { element: [object EnoValue name="color" value="blue"], zone: 'name' }
+  // returns { element: [object Field name="color" value="blue"], zone: 'name' }
 document.lookup(7);  // 'b'
-  // returns { element: [object EnoValue name="color" value="blue"], zone: 'value' }
+  // returns { element: [object Field name="color" value="blue"], zone: 'value' }
 document.lookup(0, 3);  // 'o'
-  // returns { element: [object EnoValue name="color" value="blue"], zone: 'name' }
+  // returns { element: [object Field name="color" value="blue"], zone: 'name' }
 document.lookup(0, 7);  // 'b'
-  // returns { element: [object EnoValue name="color" value="blue"], zone: 'value' }
+  // returns { element: [object Field name="color" value="blue"], zone: 'value' }
 document.lookup(13);  // '#'
-  // returns { element: [object EnoSection name="notes" elements=0], zone: 'sectionOperator' }
+  // returns { element: [object Section name="notes" elements=0], zone: 'sectionOperator' }
 document.lookup(19);  // 's'
-  // returns { element: [object EnoSection name="notes" elements=0], zone: 'name' }
+  // returns { element: [object Section name="notes" elements=0], zone: 'name' }
 document.lookup(2, 0);  // '#'
-  // returns { element: [object EnoSection name="notes" elements=0], zone: 'sectionOperator' }
+  // returns { element: [object Section name="notes" elements=0], zone: 'sectionOperator' }
 document.lookup(2, 6);  // 's'
-  // returns { element: [object EnoSection name="notes" elements=0], zone: 'name' }
+  // returns { element: [object Section name="notes" elements=0], zone: 'name' }
 -- js
 
 #### parameters
@@ -990,7 +991,6 @@ column: The column to look up (0-indexed, i.e. the first column is 0, not 1) - o
 -- description
 For all valid indices within the document returns an object with two properties:  
 
-`element`: An `EnoSection`, `EnoFieldset`, `EnoValue`.. . For empty lines you get the containing section.
 
 `zone`: A string denoting the token at the index, here's the full list:  
 
@@ -1012,6 +1012,7 @@ For all valid indices within the document returns an object with two properties:
 `'#'` => `sectionOperator`  
 `'<'` => `copyOperator`  
 `'<<'` => `deepCopyOperator`  
+`element`: An `Section`, `Fieldset`, `Field`.. . For empty lines you get the containing section.
 
 When an index outside the document is supplied, `null` is returned.
 -- description
@@ -1040,9 +1041,9 @@ description: An array of elements (also returned in their raw representation).
 
 ### section
 
-syntax: 
-| section(name) → EnoSection or null
-| section(name, options) → EnoSection or null
+syntax:
+| section(name) → Section or null
+| section(name, options) → Section or null
 
 -- description
 Retrieve the subsection with the specified name from this current section.
@@ -1058,12 +1059,12 @@ title: A Manifest
 -- js
 const document = eno.parse(input);
 
-document.section('content');   // returns [object EnoSection name="content" elements=1]
-document.section('notes');     // returns [object EnoSection name="notes" elements=0]
+document.section('content');   // returns [object Section name="content" elements=1]
+document.section('notes');     // returns [object Section name="notes" elements=0]
 document.section('metadata');  // throws an error
 
 document.section('metadata', { required: false });       // returns null
-document.section('notes', { enforceElement: true });     // returns [object EnoSection name="notes" elements=0]
+document.section('notes', { enforceElement: true });     // returns [object Section name="notes" elements=0]
 document.section('metadata', { enforceElement: true });  // throws an error
 -- js
 
@@ -1078,7 +1079,7 @@ required = Alias for `enforceElement` (this exists on many methods and depending
 
 #### return value
 
-description: An `EnoSection`, or `null`.
+description: An `Section`, or `null`.
 
 ### sections
 
@@ -1112,25 +1113,25 @@ name: A string specifying the name of the sections to retrieve.
 
 #### return value
 
-description: An array of `EnoSection`s.
+description: An array of `Section`s.
 
-## EnoValue
+## Field
 
 -- class description
 All values in an eno document, such as the value of a field like `name: value`, the lines inside a block,
-the value of a list item, the value of a fieldset entry, and so on, map to an `EnoValue`. Usually you
+the value of a list item, the value of a fieldset entry, and so on, map to an `Field`. Usually you
 don't interact with this because you directly get the values from a section or fieldset in most cases.
-When you, for instance, sequentially iterate a section (with `EnoSection`'s '`elements` method) or explicitly ask
-for the `EnoValue` by using an accessor with the `{ withElement: true }` option (for delayed error triggering)
+When you, for instance, sequentially iterate a section (with `Section`'s '`elements` method) or explicitly ask
+for the `Field` by using an accessor with the `{ withElement: true }` option (for delayed error triggering)
 you will get to interact with this class.
 -- class description
 
 ### error
 
 syntax:
-| error() → EnoValidationError
-| error(message) → EnoValidationError
-| error(messageFunction) → EnoValidationError
+| error() → ValidationError
+| error(message) → ValidationError
+| error(messageFunction) → ValidationError
 
 -- description
 Generate an error in the context of the element. The error includes a generic
@@ -1169,7 +1170,7 @@ message or messageFunction:
 #### return value
 
 description:
-| An `EnoValidationError` in the context of the element's value
+| An `ValidationError` in the context of the element's value
 | (and with an optional custom message).
 
 ### isEmpty
@@ -1223,7 +1224,7 @@ syntax:
 | value(loader, options) → value or null
 
 -- description
-Retrieve the value of an `EnoValue`, optionally passing it through a loader
+Retrieve the value of an `Field`, optionally passing it through a loader
 function and/or supplying options.
 -- description
 
@@ -1257,12 +1258,12 @@ required = Alias for `enforceValue` (this exists on many methods and depending o
 
 #### return value
 
-description: The (optionally transformed/validated) value of this `EnoValue`.
+description: The (optionally transformed/validated) value of this `Field`.
 
-## EnoList
+## List
 
 -- class description
-Lists such as the one below are represented as an `EnoList`:
+Lists such as the one below are represented as an `List`:
 
 ```eno
 things:
@@ -1270,7 +1271,7 @@ things:
 - plants
 ```
 
-Like `EnoValue`, you will seldom interact with this class, and instead use the `list`
+Like `Field`, you will seldom interact with this class, and instead use the `list`
 accessor on the document or its sections to directly obtain the values of a list.
 -- class description
 
@@ -1279,7 +1280,7 @@ accessor on the document or its sections to directly obtain the values of a list
 syntax: elements() → array
 
 -- description
-Retrieve the items of this list as `EnoValue` elements (instead of
+Retrieve the items of this list as `Field` elements (instead of
 their direct values) in sequential order.
 -- description
 
@@ -1294,12 +1295,12 @@ numbers:
 const list = eno.parse(input).element('numbers');
 
 list.elements();
-  // returns [ [object EnoValue value="6"], [object EnoValue value="8"], [object EnoValue value="19"] ]
+  // returns [ [object Field value="6"], [object Field value="8"], [object Field value="19"] ]
 -- js
 
 #### return value
 
-description: An array containing the items of this list as `EnoValue` elements.
+description: An array containing the items of this list as `Field` elements.
 
 ### items
 
@@ -1333,8 +1334,8 @@ loader:
 | (The `Proc` or block is applied to each list item on its own, being passed the arguments `name` and `value`)
 
 options:
-elements = Whether to return the elements (as `Eno::Value`) instead of the values of the list items. (defaults to `false`)  
-enforceValues = Whether empty list items (`- ` in the document, mapping to `null`) are disallowed (defaults to `true`)  
+elements = Whether to return the elements (as `Field`) instead of the values of the list items. (defaults to `false`)
+enforceValues = Whether empty list items (`- ` in the document, mapping to `null`) are disallowed (defaults to `true`)
 withElements = Whether to return an array of objects of the form `{ element: ..., value: ... }` instead of just the values (defaults to `false`)
 
 
@@ -1390,10 +1391,10 @@ list.raw();  // returns { colors: ['pink', 'peach'] }
 
 description: A native javascript representation of the list.
 
-## EnoFieldset
+## Fieldset
 
 -- class description
-Fieldsets are represented as an `EnoFieldset`:
+Fieldsets are represented as an `Fieldset`:
 
 ```eno
 rated things:
@@ -1455,8 +1456,8 @@ object parameter.)
 -- message or messageFunction
 
 options:
-only = An array of strings, e.g. `['name', 'email']`, which specifies to only check these elements for whether they've been touched.  
-except = An array of strings, e.g. `['phone number']`, which specifies to exclude these elements from checking whether they've been touched.  
+only = An array of strings, e.g. `['name', 'email']`, which specifies to only check these elements for whether they've been touched.
+except = An array of strings, e.g. `['phone number']`, which specifies to exclude these elements from checking whether they've been touched.
 
 ### element
 
@@ -1465,7 +1466,7 @@ syntax:
 | element(name, options) → element or null
 
 -- description
-Retrieve a single entry as `EnoValue` (instead of
+Retrieve a single entry as `Field` (instead of
 its direct value) from the fieldset by its name.
 Optionally specify whether it's optional or mandatory for the entry to be
 present in the eno document (by default it's optional).
@@ -1481,7 +1482,7 @@ years:
 -- js
 const fieldset = eno.parse(input).fieldset('years');
 
-fieldset.element('2010');  // returns [object EnoValue name="2010" value="Year of the awesome beanstalk"]
+fieldset.element('2010');  // returns [object Field name="2010" value="Year of the awesome beanstalk"]
 fieldset.element('2020');  // returns null
 fieldset.element('2020', enforceElement: true);  // raises an error
 fieldset.element('2020', required: true);  // raises an error
@@ -1492,12 +1493,12 @@ fieldset.element('2020', required: true);  // raises an error
 name: The name of the entry to fetch from the fieldset as a string.
 
 options:
-enforceElement = Whether the element must be present in the document (`true` or `false`, defaults to `false`)  
+enforceElement = Whether the element must be present in the document (`true` or `false`, defaults to `false`)
 required = Alias for `enforceElement` (this exists on many methods and depending on context refers to either element or value)
 
 #### return value
 
-description: An element (e.g. `EnoValue`, `EnoList`, etc.) or `null`.
+description: An element (e.g. `Field`, `List`, etc.) or `null`.
 
 ### elements
 
@@ -1617,7 +1618,7 @@ qa.entry('Meaning', ({ value }) => {   // throws an error
 });
 
 qa.entry('Meaning', { withElement: true });
-  // returns { element: [object EnoValue name="Meaning" value="42"], value: '42' }
+  // returns { element: [object Field name="Meaning" value="42"], value: '42' }
 -- js
 
 #### parameters
@@ -1629,7 +1630,7 @@ loader:
 | The function is passed `name` and `value` inside a single object parameter.
 
 options:
-enforceElement = Whether the entry must be present in the document (`true` or `false`, defaults to `false`)  
+enforceElement = Whether the entry must be present in the document (`true` or `false`, defaults to `false`)
 enforceValue = Whether there must be a value or the entry is allowed to be empty (default to `false`)
 required = Alias for `enforceValue` (this exists on many methods and depending on context refers to either element or value)
 withElement = Whether to return an array with both the element and the value (defaults to `false`)
@@ -1663,7 +1664,7 @@ document.fieldset('weights').raw();
 
 description: A native object representation of the fieldset.
 
-## EnoEmpty
+## Empty
 
 -- class description
 This represents empty elements such as `color:`, where it is not clear if it is an empty field, list, or fieldset.
@@ -1672,9 +1673,9 @@ This represents empty elements such as `color:`, where it is not clear if it is 
 ### error
 
 syntax:
-| error() → EnoValidationError
-| error(message) → EnoValidationError
-| error(messageFunction) → EnoValidationError
+| error() → ValidationError
+| error(message) → ValidationError
+| error(messageFunction) → ValidationError
 
 -- description
 Generate an error in the context of the element. The error includes a generic
@@ -1713,7 +1714,7 @@ message or messageFunction:
 #### return value
 
 description:
-| An `EnoValidationError` in the context of the element's value
+| An `ValidationError` in the context of the element's value
 | (and with an optional custom message).
 
 ### raw
@@ -1766,7 +1767,7 @@ description: Always `null`.
 -- class description
 The single generic error interface for all (user) errors that eno generates.
 Note that this is never thrown by itself, but only in one of it's subclassed
-variants (`EnoParseError` and `EnoValidationError`). However, you can still
+variants (`ParseError` and `ValidationError`). However, you can still
 utilize this generic class in cases where you want to catch both parser and
 validation errors indiscriminately, like so:
 
@@ -1774,7 +1775,7 @@ validation errors indiscriminately, like so:
 try {
   // ...
 } catch(err) {
-  if(err instanceof EnoError) { // catches both EnoParseError and EnoValidationError
+  if(err instanceof EnoError) { // catches both ParseError and ValidationError
     // ...
   }
 }
@@ -1908,7 +1909,7 @@ try {
 
 description: A single sentence that describes the error in human language.
 
-## EnoParseError
+## ParseError
 
 -- class description
 When this is thrown, it indicates an error regarding syntax or grammatical semantics of the document.
@@ -1916,7 +1917,7 @@ Functionally this behaves exactly like `EnoError`, therefore the interface metho
 be looked up on the `EnoError` documentation.
 -- class description
 
-## EnoValidationError
+## ValidationError
 
 -- class description
 When this is thrown, it indicates an error regarding application-specific requirements for the document.

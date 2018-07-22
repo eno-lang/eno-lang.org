@@ -5,6 +5,10 @@ title: Dev Blog
 -- markdown
 # Dev Blog
 
+**Sunday, July 22 2018**
+
+- Released enojs 0.16.0 ([Changelog](https://github.com/eno-lang/enojs/blob/master/CHANGELOG.md)).
+
 **Saturday, July 21 2018**
 
 **`Dictionary` elements are now called `Fieldset` elements.** This change was
@@ -184,15 +188,15 @@ and by the APIs, but it does not change the way fieldsets/dictionaries work in a
 - Refactored the test structure for enopy, test coverage for enopy's `Value` class added, released 0.2.4 with small fixes.
 
  **Friday, June 22 2018**
- 
+
  - **The website now has a dev blog and more contact options. ヽ(^o^)ノ**
  - Two enojs core error implementations (invalid/missing value) have been greatly overhauled and additional tests were added. (0.10.5)
  - enojs now only bundles runtime files
  - The interactive demos at [eno-lang.org/demo](https://eno-lang.org/demo/) now offer emulated, interactive python and ruby code examples as well
  - The benchmark suite at [github.com/eno-lang/benchmarks](https://github.com/eno-lang/benchmarks/) has been expanded from 2 to 5 scenarios, visual fidelity of the full report has been increased
  - The [experimental enojs loaders](https://www.npmjs.com/package/enojs-exploaders/) package now features `color`, `json` and `url` loaders.
- 
+
  **Thursday, June 21 2018**
- 
+
  - An extensive benchmark suite is now available at [github.com/eno-lang/benchmarks](https://github.com/eno-lang/benchmarks/), it evaluates eno library performance across all supported languages, also in relation to popular yaml and toml parsers
 -- markdown
