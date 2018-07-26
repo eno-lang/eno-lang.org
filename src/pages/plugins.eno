@@ -46,12 +46,12 @@ extension on the Visual Studio Marketplace.
 
 <a href="/resources/sublime.png"><img src="/resources/sublime.png" /></a>
 
-The [sublime-eno](https://github.com/eno-lang/sublime-eno) package offers syntax
-highlighting for eno with a light and dark theme. It is currently pending
-approval for distribution through packagecontrol.io. In the meantime you can
-download and manually install the package from the github repository.
+The [sublime-eno](https://packagecontrol.io/packages/eno) package offers syntax
+highlighting for eno with a light and dark theme.
 
-Visit the [sublime-eno](https://github.com/eno-lang/sublime-eno) repository on github.
+Visit [sublime-eno](https://packagecontrol.io/packages/eno) package on packagecontrol.io.
+
+<img src="/resources/sublime.png" />
 -- half
 
 -- half

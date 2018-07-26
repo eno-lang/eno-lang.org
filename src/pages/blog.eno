@@ -5,6 +5,19 @@ title: Dev Blog
 -- markdown
 # Dev Blog
 
+**Thursday, July 26 2018**
+
+- [sublime-eno](https://packagecontrol.io/packages/eno) is now available on packagecontrol.io - big kudos to them, every package gets hand-reviewed (!!).
+
+**Wednesday, July 25 2018**
+
+- Did a first production study of one of the eno logo designs in [blender](https://blender.org).
+
+**Tuesday, July 24 2018**
+
+- Added some light performance optimizations for structural validation in enojs and enopy.
+- Spent a late hour sketching possible eno logo designs.
+
 **Sunday, July 22 2018**
 
 - Released enojs 0.16.0 ([Changelog](https://github.com/eno-lang/enojs/blob/master/CHANGELOG.md)), enopy 0.9.0 ([Changelog](https://github.com/eno-lang/enopy/blob/master/CHANGELOG.md)) and enorb 0.10.0 ([Changelog](https://github.com/eno-lang/enorb/blob/master/CHANGELOG.md)).
