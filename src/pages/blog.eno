@@ -1,13 +1,22 @@
-title: Dev Blog
+title: Blog
 
 # content
 
 -- markdown
-# Dev Blog
+# Blog
+
+**Saturday, July 28 2018**
+
+- Rebooted the [eno](https://github.com/eno-lang/eno) core language repository as the central collection point for all specification documents.
+- Authored a new [terminology](https://github.com/eno-lang/eno/blob/master/TERMINOLOGY.md) document, describing the entire terminology employed by the eno language.
+
+**Friday, July 27 2018**
+
+- Some early research for the planned rust implementation.
 
 **Thursday, July 26 2018**
 
-- [sublime-eno](https://packagecontrol.io/packages/eno) is now available on packagecontrol.io - big kudos to them, every package gets hand-reviewed (!!).
+- [sublime-eno](https://packagecontrol.io/packages/eno) is now available on [packagecontrol.io](https://packagecontrol.io/) - big kudos to them, every package gets hand-reviewed (!!).
 
 **Wednesday, July 25 2018**
 

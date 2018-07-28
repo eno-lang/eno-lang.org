@@ -13,7 +13,16 @@ introduction and then optionally
 [eno-lang.org/advanced](https://eno-lang.org/advanced/) to learn about the
 advanced features.
 
-## Developer guide / Cheatsheet
+## Developer resources
+
+### Specification
+
+There is a growing set of documents in the [eno](https://github.com/eno-lang/eno) core language repository,
+describing the structure and terminology, file extension and MIME type of the language.
+
+It also contains the development plan, providing information on language stability and long term strategy.
+
+### Cheatsheet
 
 If you're a developer or otherwise familiar with structured text formats like YAML or TOML
 you will likely gather most things you need to know on this page (note that all topics are
@@ -76,30 +85,4 @@ Name of copy < Name of source element
 
 # `Escaped name of section copy` < Name of source section
 ```
-
-## Language stability and development plan
-
-The eno language as documented, shown and used throughout this page, all repositories, and all case studies,
-is a fully designed and developed release candidate (1.0.0-RC if you will), whose aptness for a
-broad variety of usecases has already been tested in multiple, diverse case studies.
-
-For the coming months up until the end of 2018 this stage (frozen RC) will be
-kept, with the goal of gathering more and broader data and insights on any
-possibly overlooked language design flaws, inconsistencies or absolutely
-required changes.
-
-Based on this data a final specification will be compiled and ratified around Q2
-2019, which should only introduce breaking changes if there are very fundamental
-reasons found for such changes.
-
-As soon as this second and at the same time last specification goes into effect
-and is fully supported by all library implementations it will consequently be
-frozen and locked, with no further changes planned nor allowed from that point
-on, or in other words, eno "1.0.0 Final" will be the next and last iteration
-of the language.
-
-## Formal language specification document
-
-A formal writedown of the language specification in ABNF notation is in the making, as there a lot of areas that need
-attention it might still take a while until it will go online though. Stay tuned!
 -- markdown
