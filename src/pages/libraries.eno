@@ -52,12 +52,20 @@ In development!
 [Repository on github](https://github.com/eno-lang/enophp/)
 -- third
 
+-- third
+## <img class="logo" src="/rust.svg" />  enors (Rust)
+
+Early development.
+
+[Repository on github](https://github.com/eno-lang/enors/)
+-- third
+
 ## single
 
 -- markdown
 ## Roadmap for further implementations
 
-Rust, Go and Java are likely followup candidates for 2018, but what lands on the definite roadmap will also depend on your
+Go and Java are likely followup candidates, but what lands on the definite roadmap will also depend on your
 feedback, so make yourself heard if you have suggestions or questions!
 
 ## Benchmarks

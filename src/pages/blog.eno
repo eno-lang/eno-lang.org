@@ -5,10 +5,15 @@ title: Blog
 -- markdown
 # Blog
 
+**Sunday, July 28 2018**
+
+- Officially kicked off development for the rust library implementation - [enors](https://github.com/eno-lang/enors).
+
 **Saturday, July 28 2018**
 
 - Rebooted the [eno](https://github.com/eno-lang/eno) core language repository as the central collection point for all specification documents.
 - Authored a new [terminology](https://github.com/eno-lang/eno/blob/master/TERMINOLOGY.md) document, describing the entire terminology employed by the eno language.
+- Some more rust implementation basic research.
 
 **Friday, July 27 2018**
 
