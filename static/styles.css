@@ -101,6 +101,12 @@ pre {
   height: auto;
 }
 
+.parade-logo {
+  max-width: 7.5%;
+  height: auto;
+  padding: 4%;
+}
+
 .padding {
   padding: 0 1em;
 }
