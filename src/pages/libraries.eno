@@ -21,7 +21,7 @@ production stability in all running case studies.
 ## tripled
 
 -- third
-## <img class="logo" src="/javascript.svg" />  enojs v0.16.0 (JavaScript)
+## <img class="logo" src="/javascript.svg" />  enojs v0.16.1 (JavaScript)
 
 [Complete documentation and API reference](https://eno-lang.org/javascript/)  
 [Package on npm](https://npmjs.com/package/enojs/)  
@@ -95,8 +95,6 @@ unit-tested just like the core libraries themselves!
 [enojs-exploaders (Javascript)](https://github.com/eno-lang/enojs-exploaders/)  
 [enopy-exploaders (Python)](https://github.com/eno-lang/enopy-exploaders/)  
 [enorb-exploaders (Ruby)](https://github.com/eno-lang/enorb-exploaders/)  
-
-[] Demos](https://eno-lang.org/demo/)  
 
 ## Dive deeper
 

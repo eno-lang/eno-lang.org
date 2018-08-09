@@ -5,6 +5,10 @@ title: Blog
 -- markdown
 # Blog
 
+**Thursday, August 9 2018**
+
+- Released enojs 0.16.1 with a bugfix addressing an undefined element link for block lookups, as well as yet unreleased optimizations ([changelog](https://github.com/eno-lang/enojs/blob/master/CHANGELOG.md)).
+
 **Saturday, August 4 2018**
 
 - Released [enojs-exploaders](https://github.com/eno-lang/enors) 0.2.1 with a new `enum` loader, the project now also has a [changelog](https://github.com/eno-lang/enojs-exploaders/blob/master/CHANGELOG.md).
