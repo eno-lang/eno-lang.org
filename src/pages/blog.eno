@@ -5,6 +5,11 @@ title: Blog
 -- markdown
 # Blog
 
+**Monday, August 13 2018**
+
+- Released enorb 0.10.1 with a bugfix addressing an undefined element link for block lookups ([changelog](https://github.com/eno-lang/enorb/blob/master/CHANGELOG.md)).
+- Released enopy 0.9.1 with a bugfix addressing an undefined element link for block lookups, as well as yet unreleased optimizations ([changelog](https://github.com/eno-lang/enopy/blob/master/CHANGELOG.md)).
+
 **Thursday, August 9 2018**
 
 - Released enojs 0.16.1 with a bugfix addressing an undefined element link for block lookups, as well as yet unreleased optimizations ([changelog](https://github.com/eno-lang/enojs/blob/master/CHANGELOG.md)).
