@@ -5,6 +5,10 @@ title: Blog
 -- markdown
 # Blog
 
+**Wednesday, August 15 2018**
+
+- Released [enojs-exploaders](https://github.com/eno-lang/enojs-exploaders) 0.2.2 with a new `htmlEscaped` loader ([changelog](https://github.com/eno-lang/enojs-exploaders/blob/master/CHANGELOG.md)).
+
 **Monday, August 13 2018**
 
 - Released enorb 0.10.1 with a bugfix addressing an undefined element link for block lookups ([changelog](https://github.com/eno-lang/enorb/blob/master/CHANGELOG.md)).
@@ -16,7 +20,7 @@ title: Blog
 
 **Saturday, August 4 2018**
 
-- Released [enojs-exploaders](https://github.com/eno-lang/enors) 0.2.1 with a new `enum` loader, the project now also has a [changelog](https://github.com/eno-lang/enojs-exploaders/blob/master/CHANGELOG.md).
+- Released [enojs-exploaders](https://github.com/eno-lang/enojs-exploaders) 0.2.1 with a new `enum` loader, the project now also has a [changelog](https://github.com/eno-lang/enojs-exploaders/blob/master/CHANGELOG.md).
 
 **Sunday, July 28 2018**
 
