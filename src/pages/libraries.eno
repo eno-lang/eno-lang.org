@@ -9,7 +9,7 @@ title: Develop applications and websites with eno
 
 All libraries are built upon custom, dependency-free, pure parser implementations.
 The growing [benchmark suite](https://github.com/eno-lang/benchmarks/) indicates that eno
-parsers by now already outperform most popular toml/yaml parsers in their respective lanugage,
+parsers by now already outperform most popular toml/yaml parsers in their respective language,
 even keeping up with parsers utilizing native C library bindings.
 
 The current main objective for development is to reach full test coverage for
@@ -70,7 +70,7 @@ feedback, so make yourself heard if you have suggestions or questions!
 
 ## Benchmarks
 
-The eno benchmark suite evaluates the performance of all eno libraries, also in comparism
+The eno benchmark suite evaluates the performance of all eno libraries, also in comparison
 against other popular libraries for parsing yaml and toml.
 
 Visit [github.com/eno-lang/benchmarks](https://github.com/eno-lang/benchmarks/) to study these.
