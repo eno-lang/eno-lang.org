@@ -3,6 +3,8 @@ title: enorb - The Ruby eno library
 -- intro
 # <img class="logo" src="/ruby.svg" /> enorb 0.10.2
 
+> Everyone is welcome to improve this documentation by editing [ruby.eno](https://github.com/eno-lang/eno-lang.org/blob/master/src/docs/ruby.eno) and submitting a Pull Request!
+
 ## Installation
 
 ### Bundler

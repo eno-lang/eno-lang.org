@@ -3,6 +3,8 @@ title: enojs - The JavaScript eno library
 -- intro
 # <img class="logo" src="/javascript.svg" /> enojs 0.16.1
 
+> Everyone is welcome to improve this documentation by editing [javascript.eno](https://github.com/eno-lang/eno-lang.org/blob/master/src/docs/javascript.eno) and submitting a Pull Request!
+
 Installation from npm:
 
 ```shell

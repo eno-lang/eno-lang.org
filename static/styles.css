@@ -265,6 +265,16 @@ p {
   padding: 0.25em;
 }
 
+.docs blockquote {
+  background-color: #f8f0e8;
+  margin: 0;
+  padding: 1em;
+}
+
+.docs blockquote p {
+  margin: 0;
+}
+
 .extension {
   position: absolute;
   right: 0;
