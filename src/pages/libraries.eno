@@ -12,10 +12,6 @@ The growing [benchmark suite](https://github.com/eno-lang/benchmarks/) indicates
 parsers by now already outperform most popular toml/yaml parsers in their respective language,
 even keeping up with parsers utilizing native C library bindings.
 
-The current main objective for development is to reach full test coverage for
-all platforms - currently 96% (js) 90% (py) 92% (rb), and to confirm full
-production stability in all running case studies.
-
 -- markdown
 
 ## tripled
@@ -37,7 +33,7 @@ production stability in all running case studies.
 -- third
 
 -- third
-## <img class="logo" src="/ruby.svg" />  enorb v0.10.1 (Ruby)
+## <img class="logo" src="/ruby.svg" />  enorb v0.10.2 (Ruby)
 
 [Complete documentation and API reference](https://eno-lang.org/ruby/)  
 [Gem on rubygems](https://rubygems.org/gems/enorb/)  

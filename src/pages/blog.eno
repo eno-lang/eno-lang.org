@@ -5,6 +5,14 @@ title: Blog
 -- markdown
 # Blog
 
+**Saturday, August 18 2018**
+
+- Released enorb 0.10.2 with fixes to ensure compatibility with the ruby 2.3 and 2.4 series ([changelog](https://github.com/eno-lang/enorb/blob/master/CHANGELOG.md)) - thanks to Ralf Ebert for reporting the issues!
+
+**Thursday 16/Friday 17, August 2018**
+
+eno was on the HN frontpage and gained important public exposure - I'd like to say thanks to everyone who helped spread the word, asked fantastic questions and all the encouragement, PRs and reports that followed in the wake! These were intense and important 48 hours, now the steady work on eno and the ecosystem continues. :)
+
 **Wednesday, August 15 2018**
 
 - Released [enojs-exploaders](https://github.com/eno-lang/enojs-exploaders) 0.2.2 with a new `htmlEscaped` loader ([changelog](https://github.com/eno-lang/enojs-exploaders/blob/master/CHANGELOG.md)).
