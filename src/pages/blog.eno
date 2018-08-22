@@ -5,9 +5,19 @@ title: Blog
 -- markdown
 # Blog
 
+**Wednesday, August 22 2018**
+
+- Multiple documented real usecase examples and a Q&A document added to the [core repository](https://github.com/eno-lang/eno).
+
+**Sunday, August 19 2018**
+
+- More work on the [core language documentation](https://github.com/eno-lang/eno) (ABNF progress, examples collection, details in textual form).
+
 **Saturday, August 18 2018**
 
 - Released enorb 0.10.2 with fixes to ensure compatibility with the ruby 2.3 and 2.4 series ([changelog](https://github.com/eno-lang/enorb/blob/master/CHANGELOG.md)) - thanks to Ralf Ebert for reporting the issues!
+- Added info badges to the library documentation pages to indicate how the docs can be edited by everyone who'd like to contribute.
+- Some work towards completing the eno ABNF [specification document](https://github.com/eno-lang/eno/blob/master/eno.abnf).
 
 **Thursday 16/Friday 17, August 2018**
 
