@@ -5,6 +5,10 @@ title: Blog
 -- markdown
 # Blog
 
+**Sunday, August 26 2018**
+
+- Implemented base text reporting for [enophp](https://github.com/eno-lang/enophp), plus some essential snapshot testing prerequisites.
+
 **Wednesday, August 22 2018**
 
 - Multiple documented real usecase examples and a Q&A document added to the [core repository](https://github.com/eno-lang/eno).
