@@ -5,6 +5,10 @@ title: Blog
 -- markdown
 # Blog
 
+**Sunday, September 2 2018**
+
+- Implemented HTML & Terminal reporting, as well as most of the empty element implementation for [enophp](https://github.com/eno-lang/enophp).
+
 **Sunday, August 26 2018**
 
 - Implemented base text reporting for [enophp](https://github.com/eno-lang/enophp), plus some essential snapshot testing prerequisites.
@@ -25,7 +29,7 @@ title: Blog
 
 **Thursday 16/Friday 17, August 2018**
 
-eno was on the HN frontpage and gained important public exposure - I'd like to say thanks to everyone who helped spread the word, asked fantastic questions and all the encouragement, PRs and reports that followed in the wake! These were intense and important 48 hours, now the steady work on eno and the ecosystem continues. :)
+eno was on the HN frontpage and gained important public exposure - I'd like to say thanks to everyone who helped spread the word, asked fantastic questions and all the encouragement, PRs and reports that followed in the wake! These were intense and important 48 hours, now the steady work on eno and the ecosystem continues.
 
 **Wednesday, August 15 2018**
 
