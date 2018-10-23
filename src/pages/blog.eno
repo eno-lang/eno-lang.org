@@ -5,6 +5,21 @@ title: Blog
 -- markdown
 # Blog
 
+**Tuesday, October 23 2018**
+
+After some time off to a) earn money and thereby cross-finance the next months of eno development,
+b) gather more insights in the currently largest production usecase of eno and c) recharge batteries :)
+regular development is now continuing!
+
+Getting the enophp implementation feature-complete in the coming weeks is the current development target,
+with the enors (rust) implementation coming up next on the roadmap, likely to commence around christmas.
+
+- Improved the still lacking snapshot testing feature basis for the [enophp](https://github.com/eno-lang/enophp) implementation and testsuite.
+
+**Sunday, September 9 2018**
+
+- Implemented all exception types (Error, ParseError, ValidationError) for [enophp](https://github.com/eno-lang/enophp).
+
 **Sunday, September 2 2018**
 
 - Implemented HTML & Terminal reporting, as well as most of the empty element implementation for [enophp](https://github.com/eno-lang/enophp).
