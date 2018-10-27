@@ -43,7 +43,7 @@ even keeping up with parsers utilizing native C library bindings.
 -- third
 ## <img class="logo" src="/php.svg" />  enophp (PHP)
 
-In development!
+Current development focus - targeting november 2018 for release.
 
 [Repository on github](https://github.com/eno-lang/enophp/)
 -- third
@@ -51,7 +51,7 @@ In development!
 -- third
 ## <img class="logo" src="/rust.svg" />  enors (Rust)
 
-Early development.
+Early stage development - scheduled to continue december 2018.
 
 [Repository on github](https://github.com/eno-lang/enors/)
 -- third
@@ -59,11 +59,6 @@ Early development.
 ## single
 
 -- markdown
-## Roadmap for further implementations
-
-Go and Java are likely followup candidates, but what lands on the definite roadmap will also depend on your
-feedback, so make yourself heard if you have suggestions or questions!
-
 ## Benchmarks
 
 The eno benchmark suite evaluates the performance of all eno libraries, also in comparison

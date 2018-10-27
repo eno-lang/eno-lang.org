@@ -5,16 +5,34 @@ title: Blog
 -- markdown
 # Blog
 
+**Saturday, October 27 2018**
+
+- Implemented enophp's resolver component and all error generators
+
+**Friday, October 26 2018**
+
+- Fully implemented enophp's analyzer component and all analysis error generators
+- Added complete specs for all analysis error types in enophp
+- Research and major refactoring to accomodate for php language idiosyncracies
+
+**Wednesday, October 24 2018**
+
+- Completed the full enophp tokenizer implementation and testsuite
+- Various critical bugfixes around enophp's reporter implementations
+- Implemented all enophp tokenization error generators plus the complete testsuite
+
 **Tuesday, October 23 2018**
 
 After some time off to a) earn money and thereby cross-finance the next months of eno development,
 b) gather more insights in the currently largest production usecase of eno and c) recharge batteries :)
-regular development is now continuing!
+development is now continuing!
 
-Getting the enophp implementation feature-complete in the coming weeks is the current development target,
-with the enors (rust) implementation coming up next on the roadmap, likely to commence around christmas.
+Getting the enophp implementation feature-complete in november is the current development target,
+with the enors (rust) implementation coming up next on the roadmap, likely to commence around december.
 
-- Improved the still lacking snapshot testing feature basis for the [enophp](https://github.com/eno-lang/enophp) implementation and testsuite.
+- Heavily improved the still lacking snapshot testing feature basis for the [enophp](https://github.com/eno-lang/enophp) implementation and testsuite.
+- Implemented 90% of the standard eno tokenizer testsuite for enophp, plus a handful of bugfixes and general cleanup work
+- Added missing support for non-section "noop deep copy" operators for enophp's tokenizer
 
 **Sunday, September 9 2018**
 
