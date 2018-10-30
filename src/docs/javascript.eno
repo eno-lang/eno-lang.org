@@ -56,8 +56,8 @@ or source label (usually to have filename appear in error messages) to that call
 ### parse
 
 syntax:
-| parse(input) → Section
-| parse(input, options) → Section
+- parse(input) → Section
+- parse(input, options) → Section
 
 -- description
 Parse a string in eno notation.
@@ -162,9 +162,9 @@ Accepts `true`, `false`, `yes` and `no`, returns a `boolean` (or throws an error
 -- description
 
 syntax:
-| boolean() → boolean
-| booleanItems() → array
-| booleanList() → array
+- boolean() → boolean
+- booleanItems() → array
+- booleanList() → array
 
 -- eno
 enabled: true
@@ -189,9 +189,9 @@ Accepts values formatted as `#RRGGBB` or `#RGB` (case insensitive), returns the 
 -- description
 
 syntax:
-| color() → string
-| colorItems() → array
-| colorList() → array
+- color() → string
+- colorItems() → array
+- colorList() → array
 
 -- eno
 active: #F00
@@ -216,9 +216,9 @@ Splits a comma-separated listing (single line, think a list of tags e.g.) into a
 -- description
 
 syntax:
-| commaSeparated() → array
-| commaSeparatedItems() → array
-| commaSeparatedList() → array
+- commaSeparated() → array
+- commaSeparatedItems() → array
+- commaSeparatedList() → array
 
 -- eno
 Tags: Coffee, Desk, Flavor
@@ -240,9 +240,9 @@ Accepts `YYYY-MM-DD` and returns a JavaScript `Date` object (or throws an error 
 -- description
 
 syntax:
-| date() → Date
-| dateItems() → array
-| dateList() → array
+- date() → Date
+- dateItems() → array
+- dateList() → array
 
 -- eno
 start: 1992-12-01
@@ -284,9 +284,9 @@ ISO origin, feel free to get in touch and propose an extension/update if you'd b
 -- description
 
 syntax:
-| datetime() → Date
-| datetimeItems() → array
-| datetimeList() → array
+- datetime() → Date
+- datetimeItems() → array
+- datetimeList() → array
 
 -- eno
 start: 1992-12-01
@@ -311,9 +311,9 @@ Accepts floats (decimal part can be missing though), returns a float (or throws 
 -- description
 
 syntax:
-| float() → float
-| floatItems() → array
-| floatList() → array
+- float() → float
+- floatItems() → array
+- floatList() → array
 
 -- eno
 good: 49.9
@@ -338,9 +338,9 @@ Accepts integers only (float is not clipped but triggers an error), returns an i
 -- description
 
 syntax:
-| integer() → int
-| integerItems() → array
-| integerList() → array
+- integer() → int
+- integerItems() → array
+- integerList() → array
 
 -- eno
 good: -13
@@ -363,9 +363,9 @@ Parses the value as JSON and returns the result (or passes on the parser error f
 -- description
 
 syntax:
-| json() → object/array/value
-| jsonItems() → array
-| jsonList() → array
+- json() → object/array/value
+- jsonItems() → array
+- jsonList() → array
 
 -- eno
 -- json payload
@@ -388,9 +388,9 @@ Accepts lat/lng coordinates of the form `dd.ddddd, dd.ddddd`, returns an object 
 -- description
 
 syntax:
-| latLng() → object
-| latLngItems() → array
-| latLngList() → array
+- latLng() → object
+- latLngItems() → array
+- latLngList() → array
 
 -- eno
 location: 36.987094, -25.091719
@@ -413,9 +413,9 @@ An alias for the `integer` loader.
 -- description
 
 syntax:
-| number() → int
-| numberItems() → array
-| numberList() → array
+- number() → int
+- numberItems() → array
+- numberList() → array
 
 -- eno
 good: -13
@@ -442,9 +442,9 @@ performance drawback.
 -- description
 
 syntax:
-| string() → string
-| stringItems() → array
-| stringList() → array
+- string() → string
+- stringItems() → array
+- stringList() → array
 
 -- eno
 name: Alice
@@ -470,9 +470,9 @@ Validates a URL and returns it unaltered (or throws an error for an invalid URL)
 -- description
 
 syntax:
-| url() → string
-| urlItems() → array
-| urlList() → array
+- url() → string
+- urlItems() → array
+- urlList() → array
 
 -- eno
 good: https://json.org
@@ -499,10 +499,10 @@ consequently this is the interface you'll be utilizing most for many usecases.
 ### assertAllTouched
 
 syntax:
-| assertAllTouched()
-| assertAllTouched(options)
-| assertAllTouched(message, options)
-| assertAllTouched(messageFunction, options)
+- assertAllTouched()
+- assertAllTouched(options)
+- assertAllTouched(message, options)
+- assertAllTouched(messageFunction, options)
 
 -- description
 Assert that all elements of this section (and also, recursively, all
@@ -587,8 +587,8 @@ description: An array of `Fieldset`s.
 ### fieldset
 
 syntax:
-| fieldset(name) → Fieldset or null
-| fieldset(name, options) → Fieldset or null
+- fieldset(name) → Fieldset or null
+- fieldset(name, options) → Fieldset or null
 
 -- description
 Retrieve a fieldset from the section, optionally supplying an options object.
@@ -624,8 +624,8 @@ description: An `Eno::Fieldset`, or `null`.
 ### element
 
 syntax:
-| element(name) → element or null
-| element(name, options) → element or null
+- element(name) → element or null
+- element(name, options) → element or null
 
 -- description
 Retrieve a single element of any allowed type from the section by its name.
@@ -711,8 +711,8 @@ description: An array containing the elements of this section.
 ### enforceAllElements
 
 syntax:
-| enforceAllElements()
-| enforceAllElements(enforce)
+- enforceAllElements()
+- enforceAllElements(enforce)
 
 -- description
 Set the default for all following queries on this section of whether the
@@ -745,10 +745,10 @@ enforce: An optional boolean indicating whether to enforce or not. (`true` is th
 ### field
 
 syntax:
-| field(name) → value or null
-| field(name, options) → object/value or null
-| field(name, loader) → value or null
-| field(name, loader, options) → object/value or null
+- field(name) → value or null
+- field(name, options) → object/value or null
+- field(name, loader) → value or null
+- field(name, loader, options) → object/value or null
 
 -- description
 Retrieve a field's value from the section, optionally supplying a loader to
@@ -832,10 +832,10 @@ description: An array of `Field`s.
 ### list
 
 syntax:
-| list() → array
-| list(options) → array
-| list(loader) → array
-| list(loader, options) → array
+- list() → array
+- list(options) → array
+- list(loader) → array
+- list(loader, options) → array
 
 -- description
 Retrieve the items of a list, optionally supplying a loader and options.
@@ -946,8 +946,8 @@ description: An array of `List`s.
 ### lookup
 
 syntax:
-| lookup(index) → object or null
-| lookup(line, column) → object or null
+- lookup(index) → object or null
+- lookup(line, column) → object or null
 
 -- description
 Ask the document *Hey what's at column X in line Y in my eno file?*. The lookup **always** returns an element for valid indices
@@ -1044,8 +1044,8 @@ description: An array of elements (also returned in their raw representation).
 ### section
 
 syntax:
-| section(name) → Section or null
-| section(name, options) → Section or null
+- section(name) → Section or null
+- section(name, options) → Section or null
 
 -- description
 Retrieve the subsection with the specified name from this current section.
@@ -1131,9 +1131,9 @@ you will get to interact with this class.
 ### error
 
 syntax:
-| error() → ValidationError
-| error(message) → ValidationError
-| error(messageFunction) → ValidationError
+- error() → ValidationError
+- error(message) → ValidationError
+- error(messageFunction) → ValidationError
 
 -- description
 Generate an error in the context of the element. The error includes a generic
@@ -1220,10 +1220,10 @@ description: A native representation of the value element.
 ### value
 
 syntax:
-| value() → value or null
-| value(options) → value or null
-| value(loader) → value or null
-| value(loader, options) → value or null
+- value() → value or null
+- value(options) → value or null
+- value(loader) → value or null
+- value(loader, options) → value or null
 
 -- description
 Retrieve the value of an `Field`, optionally passing it through a loader
@@ -1307,10 +1307,10 @@ description: An array containing the items of this list as `Field` elements.
 ### items
 
 syntax:
-| items() → array
-| items(options) → array
-| items(loader) → array
-| items(loader, options) → array
+- items() → array
+- items(options) → array
+- items(loader) → array
+- items(loader, options) → array
 
 -- description
 Retrieve the items of the list, optionally passing them through a loader function.
@@ -1410,10 +1410,10 @@ You will mostly obtain an instance of this through the `fieldset` accessor on a 
 ### assertAllTouched
 
 syntax:
-| assertAllTouched()
-| assertAllTouched(options)
-| assertAllTouched(message, options)
-| assertAllTouched(messageFunction, options)
+- assertAllTouched()
+- assertAllTouched(options)
+- assertAllTouched(message, options)
+- assertAllTouched(messageFunction, options)
 
 -- description
 Assert that all entries of this fieldset that were present in the parsed eno document
@@ -1464,8 +1464,8 @@ except = An array of strings, e.g. `['phone number']`, which specifies to exclud
 ### element
 
 syntax:
-| element(name) → element or null
-| element(name, options) → element or null
+- element(name) → element or null
+- element(name, options) → element or null
 
 -- description
 Retrieve a single entry as `Field` (instead of
@@ -1546,8 +1546,8 @@ description: An array containing the elements of this section.
 ### enforceAllElements
 
 syntax:
-| enforceAllElements()
-| enforceAllElements(enforce)
+- enforceAllElements()
+- enforceAllElements(enforce)
 
 -- description
 Set the default for all following queries on this fieldset of whether the
@@ -1582,10 +1582,10 @@ enforce: An optional boolean indicating whether to enforce or not. (otherwise `t
 ### entry
 
 syntax:
-| entry(name) → value or null
-| entry(name, options) → object/value or null
-| entry(name, loader) → value or null
-| entry(name, loader, options) → object/value or null
+- entry(name) → value or null
+- entry(name, options) → object/value or null
+- entry(name, loader) → value or null
+- entry(name, loader, options) → object/value or null
 
 -- description
 Retrieve an entry's value from the fieldset, optionally supplying a loader to
@@ -1675,9 +1675,9 @@ This represents empty elements such as `color:`, where it is not clear if it is 
 ### error
 
 syntax:
-| error() → ValidationError
-| error(message) → ValidationError
-| error(messageFunction) → ValidationError
+- error() → ValidationError
+- error(message) → ValidationError
+- error(messageFunction) → ValidationError
 
 -- description
 Generate an error in the context of the element. The error includes a generic
@@ -1743,8 +1743,7 @@ description: A native representation of the empty element.
 
 ### value
 
-syntax:
-| value() → null
+syntax: value() → null
 
 -- description
 Retrieve the value (always returns `null`).

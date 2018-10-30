@@ -49,8 +49,8 @@ or source label (usually to have filename appear in error messages) to that call
 ### parse
 
 syntax:
-| parse(input) → Section
-| parse(input, options) → Section
+- parse(input) → Section
+- parse(input, options) → Section
 
 -- description
 Parse a string in eno notation.
@@ -156,9 +156,9 @@ Accepts `true`, `false`, `yes` and `no`, returns a `boolean` (or raises an error
 -- description
 
 syntax:
-| boolean() → boolean
-| boolean_items() → list
-| boolean_list() → list
+- boolean() → boolean
+- boolean_items() → list
+- boolean_list() → list
 
 -- eno
 enabled: true
@@ -184,9 +184,9 @@ Accepts values formatted as `#RRGGBB` or `#RGB` (case insensitive), returns the 
 -- description
 
 syntax:
-| color() → string
-| color_items() → list
-| color_list() → list
+- color() → string
+- color_items() → list
+- color_list() → list
 
 -- eno
 active: #F00
@@ -212,9 +212,9 @@ Splits a comma-separated listing (single line, think a list of tags e.g.) into a
 -- description
 
 syntax:
-| comma_separated() → list
-| comma_separated_items() → list
-| comma_separated_list() → list
+- comma_separated() → list
+- comma_separated_items() → list
+- comma_separated_list() → list
 
 -- eno
 Tags: Coffee, Desk, Flavor
@@ -238,9 +238,9 @@ Accepts `YYYY-MM-DD` and returns a python `date` (or raises an error for invalid
 -- description
 
 syntax:
-| date → date
-| date_items → list
-| date_list → list
+- date → date
+- date_items → list
+- date_list → list
 
 -- eno
 start: 1992-12-01
@@ -282,9 +282,9 @@ ISO origin, feel free to get in touch and propose an extension/update if you'd b
 -- description
 
 syntax:
-| datetime() → datetime
-| datetime_items() → list
-| datetime_list() → list
+- datetime() → datetime
+- datetime_items() → list
+- datetime_list() → list
 
 -- eno
 start: 1992-12-01
@@ -310,9 +310,9 @@ Accepts floats (decimal part can be missing though), returns a float (or raises 
 -- description
 
 syntax:
-| float() → float
-| float_items() → list
-| float_list() → list
+- float() → float
+- float_items() → list
+- float_list() → list
 
 -- eno
 good: 49.9
@@ -338,9 +338,9 @@ Accepts integers only (float is not clipped but triggers an error), returns an i
 -- description
 
 syntax:
-| integer() → Integer
-| integer_items() → list
-| integer_list() → list
+- integer() → Integer
+- integer_items() → list
+- integer_list() → list
 
 -- eno
 good: -13
@@ -363,9 +363,9 @@ Parses the value as JSON and returns the result (or passes on the parser error f
 -- description
 
 syntax:
-| json() → dict/list/value
-| json_items() → list
-| json_list() → list
+- json() → dict/list/value
+- json_items() → list
+- json_list() → list
 
 -- eno
 -- json payload
@@ -389,9 +389,9 @@ Accepts lat/lng coordinates of the form `dd.ddddd, dd.ddddd`, returns a `dict` (
 -- description
 
 syntax:
-| lat_lng() → dict
-| lat_lng_items() → list
-| lat_lng_list() → list
+- lat_lng() → dict
+- lat_lng_items() → list
+- lat_lng_list() → list
 
 
 -- eno
@@ -412,9 +412,9 @@ An alias for the `integer` loader.
 -- description
 
 syntax:
-| number() → Integer
-| number_items() → list
-| number_list() → list
+- number() → Integer
+- number_items() → list
+- number_list() → list
 
 -- eno
 good: -13
@@ -441,9 +441,9 @@ performance drawback.
 -- description
 
 syntax:
-| string → string
-| string_items → list
-| string_list → list
+- string → string
+- string_items → list
+- string_list → list
 
 -- eno
 name: Alice
@@ -473,9 +473,9 @@ Validates a URL and returns it unaltered (or raises an error for an invalid URL)
 -- description
 
 syntax:
-| url() → string
-| url_items() → list
-| url_list() → list
+- url() → string
+- url_items() → list
+- url_list() → list
 
 -- eno
 good: https://json.org
@@ -502,10 +502,10 @@ consequently this is the interface you'll be utilizing most for many usecases.
 ### assert_all_touched
 
 syntax:
-| assert_all_touched
-| assert_all_touched(options)
-| assert_all_touched(message, options)
-| assert_all_touched(message_function, options)
+- assert_all_touched
+- assert_all_touched(options)
+- assert_all_touched(message, options)
+- assert_all_touched(message_function, options)
 
 -- description
 Assert that all elements of this section (and also, recursively, all
@@ -586,8 +586,8 @@ description: A list of `Fieldset`s.
 ### fieldset
 
 syntax:
-| fieldset(name) → Fieldset or None
-| fieldset(name, options) → Fieldset or None
+- fieldset(name) → Fieldset or None
+- fieldset(name, options) → Fieldset or None
 
 -- description
 Retrieve a fieldset from the section, optionally supplying an options.
@@ -628,8 +628,8 @@ description: An `Fieldset`, or `None`.
 ### element
 
 syntax:
-| element(name) → element or None
-| element(name, options) → element or None
+- element(name) → element or None
+- element(name, options) → element or None
 
 -- description
 Retrieve a single element of any allowed type from the section by its name.
@@ -720,8 +720,8 @@ description: A list containing the elements of this section.
 ### enforce_all_elements
 
 syntax:
-| enforce_all_elements
-| enforce_all_elements(enforce)
+- enforce_all_elements
+- enforce_all_elements(enforce)
 
 -- description
 Set the default for all following queries on this section of whether the
@@ -756,9 +756,9 @@ enforce: An optional boolean indicating whether to enforce or not. (otherwise `T
 ### field
 
 syntax:
-| field(name) → value or None
-| field(name, options) → object/value or None
-| field(name, loader, options) → value or None
+- field(name) → value or None
+- field(name, options) → object/value or None
+- field(name, loader, options) → value or None
 
 -- description
 Retrieve a field's value from the section, optionally supplying a loader to
@@ -848,9 +848,9 @@ description: A list of `Field`s.
 ### list
 
 syntax:
-| list(name) → list
-| list(name, options) → list
-| list(name, loader, options) → list
+- list(name) → list
+- list(name, options) → list
+- list(name, loader, options) → list
 
 -- description
 Retrieve the items of a list, optionally supplying a loader and options.
@@ -964,8 +964,8 @@ description: A list of `List`s.
 ### lookup
 
 syntax:
-| lookup(index) → Hash or None
-| lookup(line, column) → Hash or None
+- lookup(index) → Hash or None
+- lookup(line, column) → Hash or None
 
 -- description
 Ask the document *Hey what's at column X in line Y in my eno file?*. The lookup **always** returns an element for valid indices
@@ -1062,8 +1062,8 @@ description: A list of elements (also returned in their raw representation).
 ### section
 
 syntax: 
-| section(name) → Section or None
-| section(name, options) → Section or None
+- section(name) → Section or None
+- section(name, options) → Section or None
 
 -- description
 Retrieve the subsection with the specified name from this current section.
@@ -1162,9 +1162,9 @@ description: `True` if empty, otherwise `False`.
 ### error
 
 syntax:
-| error → ValidationError
-| error(message) → ValidationError
-| error(message_function) → ValidationError
+- error → ValidationError
+- error(message) → ValidationError
+- error(message_function) → ValidationError
 
 -- description
 Generate an error in the context of the element. The error includes a generic
@@ -1241,9 +1241,9 @@ description: A native representation of the value element.
 ### value
 
 syntax:
-| value → value or None
-| value(options) → value or None
-| value(loader, options) → value or None
+- value → value or None
+- value(options) → value or None
+- value(loader, options) → value or None
 
 -- description
 Retrieve the value of an `Field`, optionally passing it through a loader and/or supplying options.
@@ -1327,9 +1327,9 @@ description: A list containing the items of this list as `Field` elements.
 ### items
 
 syntax:
-| items → list
-| items(options) → list
-| items(loader, options) → list
+- items → list
+- items(options) → list
+- items(loader, options) → list
 
 -- description
 Retrieve the items of the list, optionally passing them through a loader.
@@ -1434,10 +1434,10 @@ You will mostly obtain an instance of this through the `#fieldset` method on a d
 ### assert_all_touched
 
 syntax:
-| assert_all_touched
-| assert_all_touched(options)
-| assert_all_touched(message, options)
-| assert_all_touched(message_function, options)
+- assert_all_touched
+- assert_all_touched(options)
+- assert_all_touched(message, options)
+- assert_all_touched(message_function, options)
 
 -- description
 Assert that all entries of this fieldset that were present in the parsed eno document
@@ -1487,8 +1487,8 @@ skip = A list of strings, e.g. `['phone number']`, which specifies to exclude th
 ### element
 
 syntax:
-| element(name) → element or None
-| element(name, options) → element or None
+- element(name) → element or None
+- element(name, options) → element or None
 
 -- description
 Retrieve a single entry as `Field` (instead of
@@ -1568,8 +1568,8 @@ description: A list containing the elements of this fieldset.
 ### enforce_all_elements
 
 syntax:
-| enforce_all_elements
-| enforce_all_elements(enforce)
+- enforce_all_elements
+- enforce_all_elements(enforce)
 
 -- description
 Set the default for all following queries on this fieldset of whether the
@@ -1601,9 +1601,9 @@ None
 ### entry
 
 syntax:
-| entry(name) → value or None
-| entry(name, loader) → value or None
-| entry(name, enforce_element: False, required: False, with_element: False) → object/value or None
+- entry(name) → value or None
+- entry(name, loader) → value or None
+- entry(name, enforce_element: False, required: False, with_element: False) → object/value or None
 
 -- description
 Retrieve an entry's value from the fieldset, optionally supplying a loader to
@@ -1698,9 +1698,9 @@ This represents empty elements such as `color:`, where it is not clear if it is 
 ### error
 
 syntax:
-| error → ValidationError
-| error(message) → ValidationError
-| error(message_function) → ValidationError
+- error → ValidationError
+- error(message) → ValidationError
+- error(message_function) → ValidationError
 
 -- description
 Generate an error in the context of the element. The error includes a generic
@@ -1766,8 +1766,7 @@ description: A native representation of the empty element.
 
 ### value
 
-syntax:
-| value → None
+syntax: value → None
 
 -- description
 Retrieve the value (always returns `None`).

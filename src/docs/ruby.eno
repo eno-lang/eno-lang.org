@@ -67,8 +67,8 @@ or source label (usually to have filename appear in error messages) to that call
 ### ::parse
 
 syntax:
-| parse(input) → Eno::Section
-| parse(input, options) → Eno::Section
+- parse(input) → Eno::Section
+- parse(input, options) → Eno::Section
 
 -- description
 Parse a string in eno notation.
@@ -178,9 +178,9 @@ Accepts `true`, `false`, `yes` and `no`, returns a `boolean` (or raises an error
 -- description
 
 syntax:
-| boolean → boolean
-| boolean_items → array
-| boolean_list → array
+- boolean → boolean
+- boolean_items → array
+- boolean_list → array
 
 -- eno
 enabled: true
@@ -210,9 +210,9 @@ Accepts values formatted as `#RRGGBB` or `#RGB` (case insensitive), returns the 
 -- description
 
 syntax:
-| color → string
-| color_items → array
-| color_list → array
+- color → string
+- color_items → array
+- color_list → array
 
 -- eno
 states:
@@ -238,9 +238,9 @@ Splits a comma-separated listing (single line, think a list of tags e.g.) into a
 -- description
 
 syntax:
-| comma_separated → array
-| comma_separated_items → array
-| comma_separated_list → array
+- comma_separated → array
+- comma_separated_items → array
+- comma_separated_list → array
 
 -- eno
 Tags: Coffee, Desk, Flavor
@@ -262,9 +262,9 @@ Accepts `YYYY-MM-DD` and returns a Ruby `Time` object (or raises an error for in
 -- description
 
 syntax:
-| date → Time
-| date_items → array
-| date_list → array
+- date → Time
+- date_items → array
+- date_list → array
 
 -- eno
 start: 1992-12-01
@@ -306,9 +306,9 @@ ISO origin, feel free to get in touch and propose an extension/update if you'd b
 -- description
 
 syntax:
-| datetime → Time
-| datetime_items → array
-| datetime_list → array
+- datetime → Time
+- datetime_items → array
+- datetime_list → array
 
 -- eno
 start: 1992-12-01
@@ -333,9 +333,9 @@ Accepts floats (decimal part can be missing though), returns a float (or raises 
 -- description
 
 syntax:
-| float → Float
-| float_items → array
-| float_list → array
+- float → Float
+- float_items → array
+- float_list → array
 
 -- eno
 good: 49.9
@@ -360,9 +360,9 @@ Accepts integers only (float is not clipped but triggers an error), returns an i
 -- description
 
 syntax:
-| integer → Integer
-| integer_items → array
-| integer_list → array
+- integer → Integer
+- integer_items → array
+- integer_list → array
 
 -- eno
 good: -13
@@ -385,9 +385,9 @@ Parses the value as JSON and returns the result (or passes on the parser error f
 -- description
 
 syntax:
-| json → hash/array/value
-| json_items → array
-| json_list → array
+- json → hash/array/value
+- json_items → array
+- json_list → array
 
 -- eno
 -- json payload
@@ -410,9 +410,9 @@ Accepts lat/lng coordinates of the form `dd.ddddd, dd.ddddd`, returns a `Hash` (
 -- description
 
 syntax:
-| lat_lng → hash
-| lat_lng_items → array
-| lat_lng_list → array
+- lat_lng → hash
+- lat_lng_items → array
+- lat_lng_list → array
 
 -- eno
 location: 36.987094, -25.091719
@@ -436,9 +436,9 @@ An alias for the `integer` loader.
 -- description
 
 syntax:
-| number → Integer
-| number_items → array
-| number_list → array
+- number → Integer
+- number_items → array
+- number_list → array
 
 -- eno
 good: -13
@@ -465,9 +465,9 @@ performance drawback.
 -- description
 
 syntax:
-| string → string
-| string_items → array
-| string_list → array
+- string → string
+- string_items → array
+- string_list → array
 
 -- eno
 name: Alice
@@ -493,9 +493,9 @@ Validates a URL and returns it unaltered (or raises an error for an invalid URL)
 -- description
 
 syntax:
-| url → string
-| url_items → array
-| url_list → array
+- url → string
+- url_items → array
+- url_list → array
 
 -- eno
 good: https://json.org
@@ -522,11 +522,11 @@ consequently this is the interface you'll be utilizing most for many usecases.
 ### #assert_all_touched
 
 syntax:
-| assert_all_touched
-| assert_all_touched(options)
-| assert_all_touched(message, options)
-| assert_all_touched(message_proc, options)
-| assert_all_touched(options) { |name, value| message_block }
+- assert_all_touched
+- assert_all_touched(options)
+- assert_all_touched(message, options)
+- assert_all_touched(message_proc, options)
+- assert_all_touched(options) { |name, value| message_block }
 
 -- description
 Assert that all elements of this section (and also, recursively, all
@@ -610,8 +610,8 @@ description: An array of `Eno::Fieldset`s.
 ### #fieldset
 
 syntax:
-| fieldset(name) → Eno::Fieldset or nil
-| fieldset(name, options) → Eno::Fieldset or nil
+- fieldset(name) → Eno::Fieldset or nil
+- fieldset(name, options) → Eno::Fieldset or nil
 
 -- description
 Retrieve a fieldset from the section, optionally supplying an options.
@@ -647,8 +647,8 @@ description: An `Eno::Fieldset`, or `nil`.
 ### #element
 
 syntax:
-| element(name) → element or nil
-| element(name, options) → element or nil
+- element(name) → element or nil
+- element(name, options) → element or nil
 
 -- description
 Retrieve a single element of any allowed type from the section by its name.
@@ -734,8 +734,8 @@ description: An array containing the elements of this section.
 ### #enforce_all_elements
 
 syntax:
-| enforce_all_elements
-| enforce_all_elements(enforce)
+- enforce_all_elements
+- enforce_all_elements(enforce)
 
 -- description
 Set the default for all following queries on this section of whether the
@@ -768,10 +768,10 @@ enforce: An optional boolean indicating whether to enforce or not. (otherwise `t
 ### #field
 
 syntax:
-| field(name) → value or nil
-| field(name, options) → object/value or nil
-| field(name, loader_proc, options) → value or nil
-| field(name, options) { |name, value| loader_block } → object/value or nil
+- field(name) → value or nil
+- field(name, options) → object/value or nil
+- field(name, loader_proc, options) → value or nil
+- field(name, options) { |name, value| loader_block } → object/value or nil
 
 -- description
 Retrieve a field's value from the section, optionally supplying a loader to
@@ -854,10 +854,10 @@ description: An array of `Eno::Field`s.
 ### #list
 
 syntax:
-| list(name) → array
-| list(name, options) → array
-| list(name, loader_proc, options) → array
-| list(name, options) { |name, value| loader_block } → array
+- list(name) → array
+- list(name, options) → array
+- list(name, loader_proc, options) → array
+- list(name, options) { |name, value| loader_block } → array
 
 -- description
 Retrieve the items of a list, optionally supplying a loader block or `Proc` and options.
@@ -966,8 +966,8 @@ description: An array of `Eno::List`s.
 ### #lookup
 
 syntax:
-| lookup(index) → Hash or nil
-| lookup(line, column) → Hash or nil
+- lookup(index) → Hash or nil
+- lookup(line, column) → Hash or nil
 
 -- description
 Ask the document *Hey what's at column X in line Y in my eno file?*. The lookup **always** returns an element for valid indices
@@ -1064,8 +1064,8 @@ description: An array of elements (also returned in their raw representation).
 ### #section
 
 syntax: 
-| section(name) → Eno::Section or nil
-| section(name, options) → Eno::Section or nil
+- section(name) → Eno::Section or nil
+- section(name, options) → Eno::Section or nil
 
 -- description
 Retrieve the subsection with the specified name from this current section.
@@ -1162,10 +1162,10 @@ description: `true` if empty, otherwise `false`.
 ### #error
 
 syntax:
-| error → Eno::ValidationError
-| error(message) → Eno::ValidationError
-| error(message_proc) → Eno::ValidationError
-| error { |name, value| message_block } → Eno::ValidationError
+- error → Eno::ValidationError
+- error(message) → Eno::ValidationError
+- error(message_proc) → Eno::ValidationError
+- error { |name, value| message_block } → Eno::ValidationError
 
 -- description
 Generate an error in the context of the element. The error includes a generic
@@ -1241,10 +1241,10 @@ description: A native representation of the value element.
 ### #value
 
 syntax:
-| value → value or nil
-| value(options) → value or nil
-| value(loader_proc, options) → value or nil
-| value(options) { |name, value| loader } → value or nil
+- value → value or nil
+- value(options) → value or nil
+- value(loader_proc, options) → value or nil
+- value(options) { |name, value| loader } → value or nil
 
 -- description
 Retrieve the value of an `Eno::Field`, optionally passing it through a loader
@@ -1334,10 +1334,10 @@ description: An array containing the items of this list as `Eno::Field` elements
 ### #items
 
 syntax:
-| items → array
-| items(options) → array
-| items(loader_proc, options) → array
-| items(options) { |name, value| loader_block } → array
+- items → array
+- items(options) → array
+- items(loader_proc, options) → array
+- items(options) { |name, value| loader_block } → array
 
 -- description
 Retrieve the items of the list, optionally passing them through a loader block or Proc.
@@ -1442,11 +1442,11 @@ You will mostly obtain an instance of this through the `#fieldset` method on a d
 ### #assert_all_touched
 
 syntax:
-| assert_all_touched
-| assert_all_touched(options)
-| assert_all_touched(message, options)
-| assert_all_touched(message_proc, options)
-| assert_all_touched(options) { |name, value| message_block }
+- assert_all_touched
+- assert_all_touched(options)
+- assert_all_touched(message, options)
+- assert_all_touched(message_proc, options)
+- assert_all_touched(options) { |name, value| message_block }
 
 -- description
 Assert that all entries of this fieldset that were present in the parsed eno document
@@ -1496,8 +1496,8 @@ except = An array of strings, e.g. `['phone number']`, which specifies to exclud
 ### #element
 
 syntax:
-| element(name) → element or nil
-| element(name, options) → element or nil
+- element(name) → element or nil
+- element(name, options) → element or nil
 
 -- description
 Retrieve a single entry as `Eno::Field` (instead of
@@ -1573,8 +1573,8 @@ description: An array containing the elements of this fieldset.
 ### #enforce_all_elements
 
 syntax:
-| enforce_all_elements
-| enforce_all_elements(enforce)
+- enforce_all_elements
+- enforce_all_elements(enforce)
 
 -- description
 Set the default for all following queries on this fieldset of whether the
@@ -1605,9 +1605,9 @@ conversions.entry('0011', enforce_element: false)  #=> nil
 ### #entry
 
 syntax:
-| entry(name) → value or nil
-| entry(name, loader) → value or nil
-| entry(name, enforce_element: false, required: false, with_element: false) → object/value or nil
+- entry(name) → value or nil
+- entry(name, loader) → value or nil
+- entry(name, enforce_element: false, required: false, with_element: false) → object/value or nil
 
 -- description
 Retrieve an entry's value from the fieldset, optionally supplying a loader to
@@ -1693,10 +1693,10 @@ This represents empty elements such as `color:`, where it is not clear if it is 
 ### #error
 
 syntax:
-| error → Eno::ValidationError
-| error(message) → Eno::ValidationError
-| error(message_proc) → Eno::ValidationError
-| error { |name, value| message_block } → Eno::ValidationError
+- error → Eno::ValidationError
+- error(message) → Eno::ValidationError
+- error(message_proc) → Eno::ValidationError
+- error { |name, value| message_block } → Eno::ValidationError
 
 -- description
 Generate an error in the context of the element. The error includes a generic
@@ -1763,8 +1763,7 @@ description: A native representation of the empty element.
 
 ### #value
 
-syntax:
-| value → nil
+syntax: value → nil
 
 -- description
 Retrieve the value (always returns `nil`).

@@ -1,5 +1,5 @@
 const eno = require('enojs');
-const { Fieldset } = require('enojs');
+const { Fieldset, List } = require('enojs');
 const fs = require('fs');
 const fsExtra = require('fs-extra');
 const glob = require('glob');
@@ -91,9 +91,11 @@ glob('src/docs/*.eno', (err, files) => {
         main += `<a name="${_module.name}-${method.name}"></a>`;
         sidebar += `<a href="#${_module.name}-${method.name}">${method.name}</a><br/>`;
 
-        const syntax = method.string('syntax')
-        if(syntax) {
-          main += `<h3 class="syntax">${syntax}</h3>`;
+        const syntaxElement = method.element('syntax');
+        if(syntaxElement instanceof List) {
+          main += `<h3 class="syntax">${syntaxElement.stringItems().join('<br/>')}</h3>`;
+        } else {
+          main += `<h3 class="syntax">${syntaxElement.string()}</h3>`;
         }
 
         const description = method.field('description', markdown);
