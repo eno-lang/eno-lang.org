@@ -5,9 +5,38 @@ title: Blog
 -- markdown
 # Blog
 
+**Wednesday, October 31 2018**
+
+- Added a good third of the enophp validation error generator specs
+- Various bugfixes around enophp's error generation
+
+**Tuesday, October 30 2018**
+
+Today [enophp](https://github.com/eno-lang/enophp) reached feature-complete
+state! In the coming days the remaining missing parts of the testsuite will be
+implemented (which will likely entail some bugfixing), alongside some detail
+considerations around loaders. Also, importantly, the documentation for enophp
+on eno-lang.org will be set up. After that it's release time!
+
+- Completed all of enophp's element implementations
+- Added complete specs for all element implementations in enophp
+- Various fixes and tweaks throughout the enophp implementation
+- Small update to the eno-lang.org api documentation format and generator
+
+**Sunday, October 28 2018**
+
+- Spent some time working on line continuations for the future second/final eno spec
+- Completed enophp's EmptyElement implementation including full specs
+- Implementation of all enophp validation error generators
+- Finish Field implementation in enophp including complete specs
+- Complete ListElement implementation in enophp
+- Added typehints throughout the enophp codebase
+
 **Saturday, October 27 2018**
 
 - Implemented enophp's resolver component and all error generators
+- Added construction/verification scaffolding for all enophp element implementations
+- Added a full testsuite for both the resolver and all error generators in enophp
 
 **Friday, October 26 2018**
 
