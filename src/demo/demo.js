@@ -37,7 +37,7 @@ const refresh = () => {
     if(languageOption === 'javascript') {
       js = aceEditor.getValue();
     } else {
-      js = attrUnescape(demoOption.dataset.js);
+      js = attrUnescape(demoOption.dataset.javascript);
     }
 
     const evaluate = new Function('input', 'eno', 'cursor', js);
@@ -68,7 +68,7 @@ const updateDemo = changed => {
   }
 
   if(languageOption === 'javascript') {
-    aceEditor.setValue(attrUnescape(demoOption.dataset.js));
+    aceEditor.setValue(attrUnescape(demoOption.dataset.javascript));
     aceEditor.session.setMode('ace/mode/javascript');
     aceEditor.setReadOnly(false);
   } else if(languageOption === 'python') {

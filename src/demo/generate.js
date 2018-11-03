@@ -16,14 +16,14 @@ module.exports = (menu) => {
   for(let demo of demos.elements()) {
     const title = demo.name;
     const eno = demo.string('eno', { required: true });
-    const js = demo.string('js', { required: true });
+    const javascript = demo.string('javascript', { required: true });
     const python = demo.string('python', { required: true });
     const ruby = demo.string('ruby', { required: true });
     const text = demo.field('markdown', markdown, { required: true });
 
     options += `
       <option data-eno="${attrEscape(eno)}"
-              data-js="${attrEscape(js)}"
+              data-javascript="${attrEscape(javascript)}"
               data-python="${attrEscape(python)}"
               data-ruby="${attrEscape(ruby)}"
               data-text="${attrEscape(text)}">
@@ -34,7 +34,7 @@ module.exports = (menu) => {
     if(!first) {
       first = {
         eno: eno,
-        js: js,
+        javascript: javascript,
         python: python,
         ruby: ruby,
         text: text
@@ -65,7 +65,7 @@ module.exports = (menu) => {
         ${first.text}
       </div>
 
-      <div id="code">${first.js}</div>
+      <div id="code">${first.javascript}</div>
     </div>
 
     <div class="hacky-half">

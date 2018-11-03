@@ -21,7 +21,7 @@ Greeting: Hello World!
 
 A minimal example to read this file with `enojs`:
 
-```js
+```javascript
 const eno = require('enojs');
 const fs = require('fs');
 
@@ -67,7 +67,7 @@ Parse a string in eno notation.
 color: blue
 -- eno
 
--- js
+-- javascript
 eno.parse(input);  // returns [object Section document elements=1]
 
                                                    // Errors will be ...
@@ -76,7 +76,7 @@ eno.parse(input, { reporter: 'html' });            // HTML for e.g. web integrat
 eno.parse(input, { reporter: 'terminal' });        // Colored for terminal output
 eno.parse(input, { sourceLabel: 'my-file.eno' });  // Annotated with a label as context
 eno.parse(input, { zeroIndexing: true });          // Counting line and column numbers from 0
--- js
+-- javascript
 
 #### parameters
 
@@ -112,23 +112,22 @@ The loaders are exposed through the API as drop in replacements to the standard 
 
 So for instance, instead of calling ...
 
-```js
+```javascript
 document.field('done', { required: true });  // returns 'yes'
 document.list('visitor_counts', { required: true });  // returns [ '476', '213', '330', ... ]
 ```
 
 ... you can just replace `field` or augment `list` with the loader name ...
 
-```js
+```javascript
 document.boolean('done', { required: true });  // returns true
 document.integerList('visitor_counts', { required: true });  // returns [ 476, 213, 330, ... ]
 ```
 
 Here's another full example:
 
-```js
+```javascript
 const eno = require('enojs');
-const { loaders } = require('enojs');
 
 const doc = eno.parse(`
   publish: yes
@@ -172,7 +171,7 @@ publish: no
 visible: not
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 
 document.boolean('enabled');  // returns true
@@ -180,7 +179,7 @@ document.boolean('publish');  // returns false
 
 document.boolean('visible');
   // throws an error: 'visible' must contain a boolean - allowed values are 'true', 'false', 'yes' and 'no'.
--- js
+-- javascript
 
 ### color
 
@@ -199,7 +198,7 @@ hover: #ff0000
 focus: blue
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 
 document.color('active');  // returns '#F00'
@@ -207,7 +206,7 @@ document.color('hover');  // returns '#ff0000'
 
 document.color('focus');
   // throws an error: 'focus' must contain a color, for instance '#B6D918', '#fff' or '#01b'.
--- js
+-- javascript
 
 ### commaSeparated
 
@@ -226,12 +225,12 @@ Tags: Coffee, Desk, Flavor
 Categories:  Computing  ,  High performance  ,  Cluster
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 
 document.commaSeparated('Tags');  // returns ['Coffee', 'Desk', 'Flavor']
 document.commaSeparated('Categories');  // returns ['Computing', 'High performance', 'Cluster']
--- js
+-- javascript
 
 ### date
 
@@ -250,7 +249,7 @@ end: 1994-03-04
 invalid: 2018-03-14 13:10
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 
 document.date('start');  // returns [object Date]
@@ -258,7 +257,7 @@ document.date('end');  // returns [object Date]
 
 document.date('invalid');
   // throws an error: 'invalid' must contain a valid date, for instance '1993-11-18'.
--- js
+-- javascript
 
 ### datetime
 
@@ -294,7 +293,7 @@ end: 1994-03-04T13:14Z
 invalid: 2018-03-14 13:10
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 
 document.datetime('start');  // returns [object Date]
@@ -302,7 +301,7 @@ document.datetime('end');  // returns [object Date]
 
 document.datetime('invalid');
   // throws an error: 'invalid' must contain a valid date or date and time, for instance '1997-07-16' or '1994-11-05T13:15Z' (see https://www.w3.org/TR/NOTE-datetime).
--- js
+-- javascript
 
 ### float
 
@@ -321,7 +320,7 @@ fine: -2
 bad: three
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 
 document.float('good');  // returns 49.9
@@ -329,7 +328,7 @@ document.float('fine');  // returns -2.0
 
 document.float('bad');
   // throws an error: 'bad' must contain a decimal number, for instance '13.0', '-9.159' or '42'.
--- js
+-- javascript
 
 ### integer
 
@@ -347,14 +346,14 @@ good: -13
 bad: 0.3
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 
 document.integer('good');  // returns -13
 
 document.integer('bad');
   // throws an error: 'bad' must contain an integer, for instance '42' or '-21'.
--- js
+-- javascript
 
 ### json
 
@@ -375,11 +374,11 @@ syntax:
 -- json payload
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 
 document.json('json payload');  // returns { status: 500 }
--- js
+-- javascript
 
 ### latLng
 
@@ -396,7 +395,7 @@ syntax:
 location: 36.987094, -25.091719
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 
 document.latLng('location');
@@ -404,7 +403,7 @@ document.latLng('location');
   //   lat:  36.987094,
   //   lng: -25.091719
   // }
--- js
+-- javascript
 
 ### number
 
@@ -422,14 +421,14 @@ good: -13
 bad: 0.3
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 
 document.number('good');  // returns -13
 
 document.number('bad');
   // throws an error: 'bad' must contain an integer, for instance '42' or '-21'.
--- js
+-- javascript
 
 ### string
 
@@ -451,7 +450,7 @@ name: Alice
 number: 13
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 
 document.string('name');  // returns 'Alice'
@@ -461,7 +460,7 @@ document.string('number');  // returns '13'
 
 document.field('name');  // returns 'Alice'
 document.field('number');  // returns '13'
--- js
+-- javascript
 
 ### url
 
@@ -479,14 +478,14 @@ good: https://json.org
 bad: www.boom
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 
 document.url('good');  // returns 'https://json.org'
 
 document.url('bad');
   // throws an error: 'bad' must contain valid URL, for instance 'https://eno-lang.org'.
--- js
+-- javascript
 
 ## Section
 
@@ -518,7 +517,7 @@ Important data A: I need to be processed!
 Important data B: Me too!
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 
 const dataA = document.field('Important data A');
@@ -533,7 +532,7 @@ document.assertAllTouched({ except: ['Important data B'] });  // passes
 document.assertAllTouched(({ name, value }) =>  // throws an error "Important data B is not ..."
   `${name} is not supported by the application, please contact support if you think it should be`
 );
--- js
+-- javascript
 
 #### parameters
 
@@ -566,7 +565,7 @@ image:
 src = white-roses.jpg
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 
 const images = document.fieldsets('image');
@@ -574,7 +573,7 @@ const images = document.fieldsets('image');
 images.forEach(image => {
   console.log( image.entry('src') );
 });
--- js
+-- javascript
 
 #### parameters
 
@@ -601,13 +600,13 @@ green = 7
 blue = 3
 -- eno
 
--- js
+-- javascript
 section.fieldset('color ratings');   // returns [object Fieldset name="color ratings" entries=3]
 section.fieldset('temperature ratings');   // throws an error
 
 section.fieldset('temperature ratings', { required: false });   // returns null
 section.fieldset('temperature ratings', { enforceElement: true });  // throws an error
--- js
+-- javascript
 
 #### parameters
 
@@ -643,7 +642,7 @@ tags:
 > ...
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 
 document.element('title');  // returns [object Field name="title" value="Artfest 2018"]
@@ -653,7 +652,7 @@ document.element('content');  // returns [object Section name="content" items=14
 document.element('fantasy');  // returns null
 document.element('fantasy', { enforceElement: true });  // throws an error
 document.element('fantasy', { required: true });  // throws an error
--- js
+-- javascript
 
 #### parameters
 
@@ -687,7 +686,7 @@ h1: Hello world
 p: This is my first post, I'm so happy!
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 
 const metadata = {
@@ -702,7 +701,7 @@ for(let element of document.section('page').elements()) {
 }
 
 fs.writeFileSync('index.html', html);
--- js
+-- javascript
 
 #### return value
 
@@ -727,7 +726,7 @@ over time without triggering an error.
 color: blue
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 
 document.field('sound');  // returns null
@@ -736,7 +735,7 @@ document.enforceAllElements();
 
 document.field('sound');  // throws an error
 document.field('sound', { enforceElement: false });  // returns null
--- js
+-- javascript
 
 #### parameters
 
@@ -760,7 +759,7 @@ color: blue
 sound:
 -- eno
 
--- js
+-- javascript
 section.field('color');   // returns 'blue'
 section.field('sound');   // returns null
 
@@ -779,7 +778,7 @@ section.field('color', ({ value }) => {   // throws an error
 
 section.field('color', { withElement: true });
   // returns { element: [object Field name="blue" value="blue"], value: 'blue' }
--- js
+-- javascript
 
 #### parameters
 
@@ -811,7 +810,7 @@ color: red
 color: orange
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 
 const colors = document.fields('color');
@@ -819,7 +818,7 @@ const colors = document.fields('color');
 for(let color of colors) {
   console.log( color.value() );
 }
--- js
+-- javascript
 
 #### parameters
 
@@ -850,7 +849,7 @@ textures:
 -
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 
 document.list('colors');  // returns [ 'pink', 'peach' ]
@@ -876,7 +875,7 @@ document.list('colors', { withElements: true });
   //          { element: [object Field value="pink"], value: 'peach' }]
 
 document.list('colors', { minCount: 3 });  // throws an error
--- js
+-- javascript
 
 #### parameters
 
@@ -921,7 +920,7 @@ route:
 - riga
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 
 const routes = document.lists('route');
@@ -933,7 +932,7 @@ for(let route of routes) {
 // prints ...
 // [ 'vienna', 'paris', 'rome']
 // [ 'moscow', 'riga' ]
--- js
+-- javascript
 
 #### parameters
 
@@ -961,7 +960,7 @@ color: blue
 # notes
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 
 document.lookup(3);  // 'o'
@@ -980,7 +979,7 @@ document.lookup(2, 0);  // '#'
   // returns { element: [object Section name="notes" elements=0], zone: 'sectionOperator' }
 document.lookup(2, 6);  // 's'
   // returns { element: [object Section name="notes" elements=0], zone: 'name' }
--- js
+-- javascript
 
 #### parameters
 
@@ -1031,11 +1030,11 @@ Retrieve a native javascript object representation of the section.
 color: blue
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 
 document.raw();  // returns [{ color: 'blue' }]
--- js
+-- javascript
 
 #### return value
 
@@ -1058,7 +1057,7 @@ title: A Manifest
 # notes
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 
 document.section('content');   // returns [object Section name="content" elements=1]
@@ -1068,7 +1067,7 @@ document.section('metadata');  // throws an error
 document.section('metadata', { required: false });       // returns null
 document.section('notes', { enforceElement: true });     // returns [object Section name="notes" elements=0]
 document.section('metadata', { enforceElement: true });  // throws an error
--- js
+-- javascript
 
 #### parameters
 
@@ -1099,7 +1098,7 @@ Retrieve subsections with the specified name from this current section.
 > ...
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 
 const sections = document.sections('Article');
@@ -1107,7 +1106,7 @@ const sections = document.sections('Article');
 for(let section of sections) {
   // do something with each Article
 }
--- js
+-- javascript
 
 #### parameters
 
@@ -1150,7 +1149,7 @@ occurred or other data is available.
 color: cozy
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 const { element, value } = document.field('color', { withElement: true });
 
@@ -1159,7 +1158,7 @@ const { element, value } = document.field('color', { withElement: true });
 if(value === 'cozy') {
   throw element.error('Postprocessing determined that "cozy" is not a color after all.');
 }
--- js
+-- javascript
 
 #### parameters
 
@@ -1204,14 +1203,14 @@ numbers:
 - 42
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 
 document.element('color').raw();  // returns { color: 'blue' }
 
 const listItems = document.element('numbers').elements();
 listItems[0].raw();  // returns '13'
--- js
+-- javascript
 
 #### return value
 
@@ -1236,7 +1235,7 @@ towel color:
 |
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 
 const flagColor = document.element('flag color');
@@ -1246,7 +1245,7 @@ flagColor.value();  // returns 'beige'
 towelColor.value();  // returns null
 
 flagColor.value(({ value }) => value.replace('eig', 'lu'));  // returns 'blue'
--- js
+-- javascript
 
 #### parameters
 
@@ -1293,12 +1292,12 @@ numbers:
 - 19
 -- eno
 
--- js
+-- javascript
 const list = eno.parse(input).element('numbers');
 
 list.elements();
   // returns [ [object Field value="6"], [object Field value="8"], [object Field value="19"] ]
--- js
+-- javascript
 
 #### return value
 
@@ -1322,12 +1321,12 @@ colors:
 - peach
 -- eno
 
--- js
+-- javascript
 const list = eno.parse(input).element('colors');
 
 list.items();  // returns ['pink', 'peach']
 list.items(({ value }) => `${value}!!`);  // returns ['pink!!', 'peach!!']
--- js
+-- javascript
 
 #### parameters
 
@@ -1359,11 +1358,11 @@ colors:
 - peach
 -- eno
 
--- js
+-- javascript
 const list = eno.parse(input).element('colors');
 
 list.length();  // returns 2
--- js
+-- javascript
 
 #### return value
 
@@ -1383,11 +1382,11 @@ colors:
 - peach
 -- eno
 
--- js
+-- javascript
 const list = eno.parse(input).element('colors');
 
 list.raw();  // returns { colors: ['pink', 'peach'] }
--- js
+-- javascript
 
 #### return value
 
@@ -1429,7 +1428,7 @@ A = I need to be processed!
 B = Me too!
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 const fieldset = document.fieldset('Important data');
 
@@ -1445,7 +1444,7 @@ fieldset.assertAllTouched({ except: ['B'] })  // passes
 fieldset.assertAllTouched(({ name, value }) =>  // throws an error "B is not ..."
   `${name} is not supported by the application, please contact support if you think it should be`
 );
--- js
+-- javascript
 
 #### parameters
 
@@ -1481,14 +1480,14 @@ years:
 2011 = Year of yearning
 -- eno
 
--- js
+-- javascript
 const fieldset = eno.parse(input).fieldset('years');
 
 fieldset.element('2010');  // returns [object Field name="2010" value="Year of the awesome beanstalk"]
 fieldset.element('2020');  // returns null
-fieldset.element('2020', enforceElement: true);  // raises an error
-fieldset.element('2020', required: true);  // raises an error
--- js
+fieldset.element('2020', { enforceElement: true });  // raises an error
+fieldset.element('2020', { required: true });  // raises an error
+-- javascript
 
 #### parameters
 
@@ -1522,7 +1521,7 @@ h1: Hello world
 p: This is my first post, I'm so happy!
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 
 metadata = {
@@ -1537,7 +1536,7 @@ for(let element of document.section('page').elements) {
 }
 
 fs.writeFileSync('index.html', html);
--- js
+-- javascript
 
 #### return value
 
@@ -1564,7 +1563,7 @@ conversions:
 0010 = 2
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 
 const conversions = document.fieldset('conversions');
@@ -1573,7 +1572,7 @@ conversions.enforceAllElements();
 
 conversions.entry('0011');  // throws an error
 conversions.entry('0011', { enforceElement: false });  // returns null
--- js
+-- javascript
 
 #### parameters
 
@@ -1599,7 +1598,7 @@ Green = Yes
 Purpose =
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 const qa = document.fieldset('Q&A');
 
@@ -1621,7 +1620,7 @@ qa.entry('Meaning', ({ value }) => {   // throws an error
 
 qa.entry('Meaning', { withElement: true });
   // returns { element: [object Field name="Meaning" value="42"], value: '42' }
--- js
+-- javascript
 
 #### parameters
 
@@ -1655,12 +1654,12 @@ apple = 100g
 pineapple = 800g
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 
 document.fieldset('weights').raw();
   // returns { weights: [{ apple: '100g' }, { pineapple: '800g' }] }
--- js
+-- javascript
 
 #### return value
 
@@ -1694,7 +1693,7 @@ occurred or other data is available.
 color:
 -- eno
 
--- js
+-- javascript
 const document = eno.parse(input);
 const { element, value } = document.field('color', { withElement: true });
 
@@ -1703,7 +1702,7 @@ const { element, value } = document.field('color', { withElement: true });
 if(value === null) {
   throw element.error('Postprocessing determined that this value needs to be provided.');
 }
--- js
+-- javascript
 
 #### parameters
 
@@ -1731,11 +1730,11 @@ Retrieve a native representation of the empty element.
 color:
 -- eno
 
--- js
+-- javascript
 const empty = eno.parse(input).element('color');
 
 empty.raw();  // returns { color: null }
--- js
+-- javascript
 
 #### return value
 
@@ -1753,11 +1752,11 @@ Retrieve the value (always returns `null`).
 note:
 -- eno
 
--- js
+-- javascript
 const empty = eno.parse(input).element('note');
 
 empty.value();  // returns null
--- js
+-- javascript
 
 #### return value
 
@@ -1772,7 +1771,7 @@ variants (`ParseError` and `ValidationError`). However, you can still
 utilize this generic class in cases where you want to catch both parser and
 validation errors indiscriminately, like so:
 
-```js
+```javascript
 try {
   // ...
 } catch(err) {
@@ -1793,7 +1792,7 @@ where a cursor should be placed if an application wants to offer the user a way
 to move the cursor straight to the error location.
 -- description
 
--- js
+-- javascript
 try {
   // ...
 } catch(err) {
@@ -1801,7 +1800,7 @@ try {
     err.cursor;  // returns [3, 14]
   }
 }
--- js
+-- javascript
 
 #### return value
 
@@ -1817,7 +1816,7 @@ indicating a text range to select if an application wants to offer the user a
 way to get a selection for the error in the input.
 -- description
 
--- js
+-- javascript
 try {
   // ...
 } catch(err) {
@@ -1825,7 +1824,7 @@ try {
     err.selection;  // returns [[3, 14], [3, 23]]
   }
 }
--- js
+-- javascript
 
 #### return value
 
@@ -1843,7 +1842,7 @@ Contains both the error text as well as the snippet. This is also what you
 get in the console when you don't catch the error.
 -- description
 
--- js
+-- javascript
 try {
   // ...
 } catch(err) {
@@ -1851,7 +1850,7 @@ try {
     err.message;  // returns "In line 4 'a' is copied into itself.\n\n   Line | Content\n ..."
   }
 }
--- js
+-- javascript
 
 #### return value
 
@@ -1865,7 +1864,7 @@ syntax: snippet → string
 Returns a formatted excerpt of those passage(s) from the input where the error occurred.
 -- description
 
--- js
+-- javascript
 try {
   // ...
 } catch(err) {
@@ -1882,7 +1881,7 @@ try {
     //      5 |
   }
 }
--- js
+-- javascript
 
 #### return value
 
@@ -1896,7 +1895,7 @@ syntax: text → string
 Returns a one-liner that describes the error in human language.
 -- description
 
--- js
+-- javascript
 try {
   // ...
 } catch(err) {
@@ -1904,7 +1903,7 @@ try {
     err.message;  // returns 'In line 4 'a' is copied into itself.'
   }
 }
--- js
+-- javascript
 
 #### return value
 

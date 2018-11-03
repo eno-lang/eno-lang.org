@@ -9,7 +9,7 @@ Remove or rename the field to see the error output enojs produces!
 Greeting: Hello World
 -- eno
 
--- js
+-- javascript
 const options = {
   locale: 'de',
   reporter: 'html'
@@ -18,7 +18,7 @@ const options = {
 const doc = eno.parse(input, options);
 
 return doc.field('Greeting', { required: true });
--- js
+-- javascript
 
 -- python
 # Emulated mode - code is read-only
@@ -55,7 +55,7 @@ Name: Vienna
 Continent: Europe
 -- eno
 
--- js
+-- javascript
 const doc = eno.parse(input, { reporter: 'html' });
 
 const city = doc.section('City');
@@ -64,7 +64,7 @@ const name = city.field('Name', { required: true });
 const continent = city.field('Continent', { required: true });
 
 return `The city ${name} is in ${continent}`;
--- js
+-- javascript
 
 -- python
 # Emulated mode - code is read-only
@@ -109,7 +109,7 @@ route_coordinates:
 - 48.211004, 16.356364
 -- eno
 
--- js
+-- javascript
 const latLngLoader = ({ value }) => {
   const match = /^(\d+\.\d+),\s*(\d+\.\d+)$/.exec(value);
 
@@ -123,7 +123,7 @@ const latLngLoader = ({ value }) => {
 const doc = eno.parse(input, { reporter: 'html' });
 
 return doc.list('route_coordinates', latLngLoader);
--- js
+-- javascript
 
 -- python
 # Emulated mode - code is read-only
@@ -177,7 +177,7 @@ Los amantes del círculo polar:
 Rating = ⭐⭐⭐⭐⭐   
 -- eno
 
--- js
+-- javascript
 const doc = eno.parse(input, { reporter: 'html' });
 
 // In this example the 'cursor' variable is provided by the demo
@@ -190,7 +190,7 @@ return `
   zone: ${result.zone}
   element: ${result.element}
 `.trim();
--- js
+-- javascript
 
 -- python
 # Emulated mode - code is read-only

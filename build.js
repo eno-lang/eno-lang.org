@@ -110,25 +110,20 @@ glob('src/docs/*.eno', (err, files) => {
           `;
         }
 
-        const js = method.string('js');
-        if(js) {
-          main += `
-            <pre><span class="extension">js</span><code class="language-js">${htmlEscape(js)}</code></pre>
-          `;
-        }
-
-        const python = method.string('python');
-        if(python) {
-          main += `
-            <pre><span class="extension">py</span><code class="language-python">${htmlEscape(python)}</code></pre>
-          `;
-        }
-
-        const ruby = method.string('ruby');
-        if(ruby) {
-          main += `
-            <pre><span class="extension">rb</span><code class="language-ruby">${htmlEscape(ruby)}</code></pre>
-          `;
+        const languages = {
+          'javascript': 'js',
+          'php': 'php',
+          'python': 'py',
+          'ruby': 'rb',
+        };
+        
+        for(let [identifier, label] of Object.entries(languages)) {
+          const code = method.string(identifier);
+          if(code) {
+            main += `
+              <pre><span class="extension">${identifier}</span><code class="language-${identifier}">${htmlEscape(code)}</code></pre>
+            `;
+          }
         }
 
         const parameters = method.section('parameters', { required: false })
