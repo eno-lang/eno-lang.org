@@ -126,7 +126,7 @@ True
 Here's another full example:
 
 ```python
->>> from enopy import loaders, parse
+>>> from enopy import parse
 
 >>> doc = parse("""
 ...   publish: yes
@@ -688,7 +688,7 @@ represent document-like structures (think generic markup) instead of just associ
 
 -- eno
 date: 2018-03-01
-title: 'My blog post'
+title: My blog post
 
 # page
 

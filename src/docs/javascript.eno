@@ -50,7 +50,7 @@ Repository on github - <https://github.com/eno-lang/enojs/>
 -- class description
 The main module. You'll be calling `parse` on this, and possibly supplying a custom
 locale (such as `'de'`, `'es'`, ...), reporter type (`'text'`, `'html'`, `'terminal'` are available)
-or source label (usually to have filename appear in error messages) to that call.
+or source label (usually to have a filename appear in error messages) to that call.
 -- class description
 
 ### parse
@@ -678,7 +678,7 @@ represent document-like structures (think generic markup) instead of just associ
 
 -- eno
 date: 2018-03-01
-title: 'My blog post'
+title: My blog post
 
 # page
 
@@ -697,7 +697,7 @@ const metadata = {
 const html = '';
 
 for(let element of document.section('page').elements()) {
-  html += "<#{element.name}>#{element.value()}</#{element.name}>";
+  html += `<${element.name}>${element.value()}</${element.name}>`;
 }
 
 fs.writeFileSync('index.html', html);
@@ -889,9 +889,9 @@ loader:
 options:
 enforceElement = Whether the list must be present in the document (defaults to `false`)
 enforceValues = Whether empty list items (`- ` in the document, mapping to `null`) are disallowed (defaults to `true`)
-exact_count = Validate that there are exactly `n` items in the list (takes a number, defaults to `null`)
-min_count = Validate that there are at least `n` items in the list (takes a number, defaults to `null`)
-max_count = Validate that there are at most `n` items in the list (takes a number, defaults to `null`)
+exactCount = Validate that there are exactly `n` items in the list (takes a number, defaults to `null`)
+minCount = Validate that there are at least `n` items in the list (takes a number, defaults to `null`)
+maxCount = Validate that there are at most `n` items in the list (takes a number, defaults to `null`)
 required = Alias for `enforceElement` (this exists on many methods and depending on context refers to either element or value)
 withElements = Whether to return an array of objects of the form `{ element: ..., value: ... }` instead of just the values (defaults to `false`)
 
@@ -1513,7 +1513,7 @@ represent document-like structures (think generic markup) instead of just associ
 
 -- eno
 date: 2018-03-01
-title: 'My blog post'
+title: My blog post
 
 # page
 
@@ -1531,8 +1531,8 @@ metadata = {
 
 html = '';
 
-for(let element of document.section('page').elements) {
-  html += "<#{element.name}>#{element.value}</#{element.name}>";
+for(let element of document.section('page').elements()) {
+  html += `<${element.name}>${element.value()}</${element.name}>`;
 }
 
 fs.writeFileSync('index.html', html);
