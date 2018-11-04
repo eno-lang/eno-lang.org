@@ -1,8 +1,8 @@
-title: enopy - The Python eno library
+language: python
+title: enopy
+version: 0.9.1
 
 -- intro
-# <img class="logo" src="/python.svg" /> enopy 0.9.1
-
 > Everyone is welcome to improve this documentation by editing [python.eno](https://github.com/eno-lang/eno-lang.org/blob/master/src/docs/python.eno) and submitting a Pull Request!
 
 

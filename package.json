@@ -3,16 +3,26 @@
   "browserslist": [
     "defaults"
   ],
-  "dependencies": {
+  "devDependencies": {
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
     "ace-builds": "^1.4.1",
     "babel-loader": "^8.0.4",
+    "css-loader": "^1.0.1",
     "enojs": "^0.16.1",
+    "fast-glob": "^2.2.3",
     "file-loader": "^2.0.0",
     "fs-extra": "^7.0.0",
     "http-server": "^0.11.1",
     "markdown-it": "^8.4.2",
+    "markdown-it-prism": "^1.1.2",
+    "mini-css-extract-plugin": "^0.4.4",
+    "node-sass": "^4.9.4",
+    "nodemon": "^1.18.5",
+    "prismjs": "^1.15.0",
+    "sass-loader": "^7.1.0",
+    "speakingurl": "^14.0.1",
+    "style-loader": "^0.23.1",
     "webpack": "^4.24.0",
     "webpack-cli": "^3.1.2"
   },
@@ -23,7 +33,7 @@
     "build": "node build && webpack",
     "deploy": "node deploy.js",
     "release": "npm run build && npm run deploy",
-    "serve": "http-server -a localhost -c-1",
-    "watch": "webpack -w"
+    "serve": "http-server -c-1",
+    "watch": "nodemon --ext css,eno,js,scss --ignore public --exec 'npm run build'"
   }
 }

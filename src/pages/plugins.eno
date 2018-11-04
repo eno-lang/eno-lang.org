@@ -11,9 +11,9 @@ fun and productive by highlighting the elements in a document in different
 colors, improving our visual grasp on our content.
 -- markdown
 
-## split
+## columns-2
 
--- half
+-- markdown
 ## <img class="logo" src="/atom.svg" /> Atom
 
 <a href="/resources/atom.png"><img src="/resources/atom.png" /></a>
@@ -24,9 +24,9 @@ highlighting for eno itself, but also for user-definable embedded languages
 within multiline blocks in eno documents (e.g. markdown).
 
 Visit the [language-eno](https://atom.io/packages/language-eno) package on atom.io.
--- half
+-- markdown
 
--- half
+-- markdown
 ## <img class="logo" src="/vscode.svg" /> Visual Studio Code
 
 <a href="/resources/vscode.png"><img src="/resources/vscode.png" /></a>
@@ -39,9 +39,9 @@ Visual Studio Code.
 Visit the
 [vscode-eno](https://marketplace.visualstudio.com/items?itemName=eno-lang.vscode-eno)
 extension on the Visual Studio Marketplace.
--- half
+-- markdown
 
--- half
+-- markdown
 ## <img class="logo" src="/sublime.svg" /> Sublime Text
 
 <a href="/resources/sublime.png"><img src="/resources/sublime.png" /></a>
@@ -50,9 +50,9 @@ The [sublime-eno](https://packagecontrol.io/packages/eno) package offers syntax
 highlighting for eno with a light and dark theme.
 
 Visit [sublime-eno](https://packagecontrol.io/packages/eno) package on packagecontrol.io.
--- half
+-- markdown
 
--- half
+-- markdown
 ## <img class="logo" src="/prism.svg" /> Prism
 
 ```eno
@@ -76,13 +76,4 @@ date the plugin will be submitted to the prism.js repository, for the time
 being you can use the files straight from the repository.
 
 Visit the [prism-eno](https://github.com/eno-lang/prism-eno) repository on github.
--- half
-
-## single
-
--- markdown
-## Roadmap for further plugin development
-
-[Vim](https://www.vim.org/), [GtkSourceView](https://wiki.gnome.org/Projects/GtkSourceView) (used by [gedit](https://wiki.gnome.org/Apps/Gedit) and others) and [Ace](https://ace.c9.io/) are candidates for upcoming official plugins,
-if you have additional suggestions or requests feel free to get in touch.
 -- markdown

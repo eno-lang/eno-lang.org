@@ -30,7 +30,8 @@ tagline: The eno libraries
 ### pages
 
 /libraries/: Overview
-/javascript/: JavaScript
+/javascript/: JS
+/php/: PHP
 /python/: Python
 /ruby/: Ruby
 

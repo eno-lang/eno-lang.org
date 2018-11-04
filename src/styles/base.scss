@@ -1,0 +1,63 @@
+body {
+  background-color: #fafafa;
+  color: #383a42;
+  font-family: 'Titillium Web';
+  font-weight: 400;
+  margin: 0;
+}
+
+body, textarea { font-size: 18px; }
+
+@media (max-width: 540px) {
+  body, textarea { font-size: 16px; }
+}
+
+@media (max-width: 300px) {
+  body, textarea { font-size: 14px; }
+}
+
+a {
+  color: #cca366;
+  text-decoration: none;
+}
+
+code {
+  font-family: 'Cousine' !important;
+  font-size: 0.8em;
+}
+
+img {
+  max-width: 100%;
+}
+
+h1, h2, h3 {
+  align-items: center;
+  display: flex;
+  font-weight: 600;
+}
+
+h1 { font-size: 1.6em; }
+h2 { font-size: 1.2em; }
+h3 { font-size: 1.1em; }
+
+h1 img,
+h2 img,
+h3 img {
+  padding-right: 0.5em;
+}
+
+p {
+  text-align: justify;
+}
+
+pre {
+  position: relative;
+}
+
+strong {
+  font-weight: 600;
+}
+
+video {
+  max-width: 100%;
+}

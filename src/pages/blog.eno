@@ -5,6 +5,28 @@ title: Blog
 -- markdown
 # Blog
 
+**Sunday, November 4 2018**
+
+- Major refactoring, cleanup and layout corrections on eno-lang.org
+- Detail work and completion of the enophp documentation
+- Many collateral corrections in the enojs/py/rb docs
+- Implement dynamic loader signatures in enophp
+- Wrap up enophp's parse implementation and add specs for it
+
+**Saturday, November 3 2018**
+
+- Initial rough work on the enophp documentation
+- Major refactoring, cleanup and layout corrections on eno-lang.org
+
+**Friday, November 2 2018**
+
+- Implemented all of enophp's built-in loaders and added the complete spec suite for them
+- Added lookup call specs, extended section element specs and various bugfixes for enophp
+
+**Thursday, November 1 2018**
+
+- Added specs for all 43 enophp element type mismatch errors, wrapping up the full error spec suite
+
 **Wednesday, October 31 2018**
 
 - Added a good third of the enophp validation error generator specs
@@ -187,18 +209,18 @@ and by the APIs, but it does not change the way fieldsets/dictionaries work in a
 
 - You can sign up for the brand new [newsletter](http://eepurl.com/dA9LcH) now.
 - Lots and lots of small corrections and updates on the website (big thanks to Michael Schwanzer!).
-- Released enopy 0.6.2 with [string pseudo loaders](https://eno-lang.org/python/#loaders-string), also enopy now maintains a [changelog](https://github.com/eno-lang/enopy/blob/master/CHANGELOG.md).
+- Released enopy 0.6.2 with [string pseudo loaders](/python/#loaders-string), also enopy now maintains a [changelog](https://github.com/eno-lang/enopy/blob/master/CHANGELOG.md).
 
 **Friday, July 13 2018**
 
 - Released the [vscode-eno](https://marketplace.visualstudio.com/items?itemName=eno-lang.vscode-eno) language support package for Visual Studio Code.
-- Released enopy 0.6.1 with a new [date loader](https://eno-lang.org/python/#loaders-date) and various loader corrections.
+- Released enopy 0.6.1 with a new [date loader](/python/#loaders-date) and various loader corrections.
 - Put on some fresh paint and updated the website color scheme, as well as new plugin pages with screenshots.
-- Added a paragraph on language stability and the development plan to the [language](https://eno-lang.org/language/) page.
+- Added a paragraph on language stability and the development plan to the [language](/language/) page.
 
 **Wednesday, July 11 2018**
 
-- Released enorb 0.8.1 with a new [date loader](https://eno-lang.org/ruby/#Eno::Loaders-#date) and corrections for the lat/lng loader.
+- Released enorb 0.8.1 with a new [date loader](/ruby/#Eno::Loaders-#date) and corrections for the lat/lng loader.
 - Adopted the new average ips based perfomance metrics for the enorb optimization tooling and did some housekeeping for the specs suite.
 - Did some speculative research and experimentation on the possibility (or maybe rather, likelihood) of an eno Java library.
 - Graduated enopy and enorb into regular release status due to coverage degree and acquired stability from fixes ported between all implementations.
@@ -206,15 +228,15 @@ and by the APIs, but it does not change the way fieldsets/dictionaries work in a
 
 **Tuesday, July 10 2018**
 
-- Released enojs 0.14.1 with a new [date loader](https://eno-lang.org/javascript/#loaders-date) and corrections for the lat/lng loader.
+- Released enojs 0.14.1 with a new [date loader](/javascript/#loaders-date) and corrections for the lat/lng loader.
 - Completely refactored all specs for the enorb loaders.
 - Rebooted the [enojs-exploaders](https://www.npmjs.com/package/enojs-exploaders/) package as purely experimental sidetrack to the now available core loaders (with a single new 'slug' loader for now).
 
 **Monday, July 9 2018**
 
-- Released enorb 0.8.0 with the new core loader API and dynamic loader signatures, see the [updated documentation](https://eno-lang.org/ruby/#Eno::Loaders).
-- Released enojs 0.14.0 with the new core loader API, see the [updated documentation](https://eno-lang.org/javascript/#loaders).
-- Released enopy 0.6.0 with the new core loader API, see the [updated documentation](https://eno-lang.org/python/#loaders).
+- Released enorb 0.8.0 with the new core loader API and dynamic loader signatures, see the [updated documentation](/ruby/#Eno::Loaders).
+- Released enojs 0.14.0 with the new core loader API, see the [updated documentation](/javascript/#loaders).
+- Released enopy 0.6.0 with the new core loader API, see the [updated documentation](/python/#loaders).
 - Updated the frontpage introduction video to showcase the new core loader API.
 
 **Sunday, July 8 2018**
@@ -227,22 +249,22 @@ and by the APIs, but it does not change the way fieldsets/dictionaries work in a
 
 **Friday, July 6 2018**
 
-- Released enojs 0.13.1 with light optimizations, minor fixes and including the new [commaSeparated core loader](https://eno-lang.org/javascript/#loaders-commaSeparated).
+- Released enojs 0.13.1 with light optimizations, minor fixes and including the new [commaSeparated core loader](/javascript/#loaders-commaSeparated).
 - Added remaining dependency resolution test coverage for enojs and cleaned up some older specs, global coverage is now up at 96%.
 - Published a new eno introduction video on the frontpage.
-- Released enorb 0.7.2 with optimizations for structural validation and the new [CommaSeparated](https://eno-lang.org/ruby/#Eno::Loaders-::CommaSeparated) loader.
+- Released enorb 0.7.2 with optimizations for structural validation and the new [CommaSeparated](/ruby/#Eno::Loaders-::CommaSeparated) loader.
 - Did some research and initial tests for getting branch coverage metrics in enorb.
-- Released enopy 0.5.1 with the new [comma_separated](https://eno-lang.org/python/#enopy.loaders-comma_separated) core loader.
+- Released enopy 0.5.1 with the new [comma_separated](/python/#enopy.loaders-comma_separated) core loader.
 
 **Thursday, July 5 2018**
 
-- Released enopy 0.5.0, now also providing core loaders for important types out-of-the-box, including the new datetime loader. See the [full documentation](https://eno-lang.org/python/#enopy.loaders).
+- Released enopy 0.5.0, now also providing core loaders for important types out-of-the-box, including the new datetime loader. See the [full documentation](/python/#enopy.loaders).
 - Released enorb 0.7.1, which now also offers a datetime core loader.
 - Implemented comma-separated value core loaders for all eno implementations
 
 **Wednesday, July 4 2018**
 
-- Released enojs 0.13.0 and enorb 0.7.0, now providing core loaders for important types out-of-the-box! See the full documentation for [enojs](https://eno-lang.org/javascript/#loaders) and [enorb](https://eno-lang.org/ruby/#Eno::Loaders).
+- Released enojs 0.13.0 and enorb 0.7.0, now providing core loaders for important types out-of-the-box! See the full documentation for [enojs](/javascript/#loaders) and [enorb](/ruby/#Eno::Loaders).
 - The enojs core loaders now also include a datetime loader based on the formats described in <https://www.w3.org/TR/NOTE-datetime>.
 - Resolved some potential bottlenecks around list insertions in the enopy implementation, introduced performance measurements based on average ips instead of total duration.
 
@@ -307,7 +329,7 @@ and by the APIs, but it does not change the way fieldsets/dictionaries work in a
 - Re-evaluated and updated the global benchmark report at [github.com/eno-lang/benchmarks](https://github.com/eno-lang/benchmarks/)
 - More optimizations (enorb 0.4.5, enopy 0.2.6), this time addressing token extraction performance, with [1-2.3x speed gains for ruby](https://github.com/eno-lang/enorb/blob/010be1cdc2efc75ee28b06503a8be8bce1ea1bd6/spec/benchmark/analysis.json) and [1-2.5x speed gains for python](https://github.com/eno-lang/enopy/blob/cb87f11593c87d34c287288ed92004c7893688b8/tests/benchmark/analysis.json), [benchmarks](https://github.com/eno-lang/benchmarks/) updated again.
 - Completed the last missing feature texts on the Advanced Features page.
-- Improved the [interactive demo](https://eno-lang.org/demo/) layout to make better use of screen space, updated some code snippets.
+- Improved the [interactive demo](/demo/) layout to make better use of screen space, updated some code snippets.
 
 **Sunday, June 24 2018**
 
@@ -325,7 +347,7 @@ and by the APIs, but it does not change the way fieldsets/dictionaries work in a
  - **The website now has a dev blog and more contact options. ヽ(^o^)ノ**
  - Two enojs core error implementations (invalid/missing value) have been greatly overhauled and additional tests were added. (0.10.5)
  - enojs now only bundles runtime files
- - The interactive demos at [eno-lang.org/demo](https://eno-lang.org/demo/) now offer emulated, interactive python and ruby code examples as well
+ - The interactive demos at [eno-lang.org/demo](/demo/) now offer emulated, interactive python and ruby code examples as well
  - The benchmark suite at [github.com/eno-lang/benchmarks](https://github.com/eno-lang/benchmarks/) has been expanded from 2 to 5 scenarios, visual fidelity of the full report has been increased
  - The [experimental enojs loaders](https://www.npmjs.com/package/enojs-exploaders/) package now features `color`, `json` and `url` loaders.
 

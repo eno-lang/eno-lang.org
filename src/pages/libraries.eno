@@ -14,47 +14,48 @@ even keeping up with parsers utilizing native C library bindings.
 
 -- markdown
 
-## tripled
+## columns-4
 
--- third
-## <img class="logo" src="/javascript.svg" />  enojs v0.16.1 (JavaScript)
+-- markdown
+## <img class="logo" src="/javascript.svg" /> JavaScript (enojs)
 
-[Complete documentation and API reference](https://eno-lang.org/javascript/)  
-[Package on npm](https://npmjs.com/package/enojs/)  
-[Repository on github](https://github.com/eno-lang/enojs/)
--- third
+[API Documentation](/javascript/)  
+[npm package](https://npmjs.com/package/enojs/)  
+[Github repository](https://github.com/eno-lang/enojs/)
+-- markdown
 
--- third
-## <img class="logo" src="/python.svg" />  enopy v0.9.1 (Python)
+-- markdown
+## <img class="logo" src="/php.svg" />  PHP (enophp)
 
-[Complete documentation and API reference](https://eno-lang.org/python/)  
-[Package on PyPI](https://pypi.org/project/enopy/)  
-[Repository on github](https://github.com/eno-lang/enopy/)
--- third
+Release 5th-11th Nov 2018
 
--- third
-## <img class="logo" src="/ruby.svg" />  enorb v0.10.2 (Ruby)
+[API Documentation](/php/)  
+[Github repository](https://github.com/eno-lang/enophp/)
+-- markdown
 
-[Complete documentation and API reference](https://eno-lang.org/ruby/)  
-[Gem on rubygems](https://rubygems.org/gems/enorb/)  
-[Repository on github](https://github.com/eno-lang/enorb/)
--- third
+-- markdown
+## <img class="logo" src="/python.svg" /> Python (enopy)
 
--- third
-## <img class="logo" src="/php.svg" />  enophp (PHP)
+[API Documentation](/python/)  
+[PyPI package](https://pypi.org/project/enopy/)  
+[Github repository](https://github.com/eno-lang/enopy/)
+-- markdown
 
-Current development focus - targeting november 2018 for release.
+-- markdown
+## <img class="logo" src="/ruby.svg" /> Ruby (enorb)
 
-[Repository on github](https://github.com/eno-lang/enophp/)
--- third
+[API Documentation](/ruby/)  
+[Ruby gem](https://rubygems.org/gems/enorb/)  
+[Github repository](https://github.com/eno-lang/enorb/)
+-- markdown
 
--- third
-## <img class="logo" src="/rust.svg" />  enors (Rust)
+-- markdown
+## <img class="logo" src="/rust.svg" /> Rust (enors)
 
-Early stage development - scheduled to continue december 2018.
+Development continues Dec 2018
 
 [Repository on github](https://github.com/eno-lang/enors/)
--- third
+-- markdown
 
 ## single
 
@@ -72,16 +73,14 @@ This is a work in progress effort to showcase different usecases for eno and the
 eno libraries as interactive demos in the browser. Right now there is only a
 limited selection of early demos and a draft page layout.
 
-[Interactive Demos](https://eno-lang.org/demo/)  
+[Interactive Demos](/demo/)  
 
 ## Experimental loaders
 
 For each of the core eno implementations there is also an additional
-*experimental loaders* project, where new loaders are tested and evaluated. These
-loaders will from time to time migrate into the core libraries if they are found
-to be really useful and well enough implemented. Feel free to use the
-experimental loaders as an expansion package, they are carefully crafted and
-unit-tested just like the core libraries themselves!
+*experimental loaders* project, where new loaders are tested and evaluated. Feel
+free to use the experimental loaders as an expansion package, they are carefully
+crafted and unit-tested just like the core libraries themselves!
 
 [enojs-exploaders (Javascript)](https://github.com/eno-lang/enojs-exploaders/)  
 [enopy-exploaders (Python)](https://github.com/eno-lang/enopy-exploaders/)  

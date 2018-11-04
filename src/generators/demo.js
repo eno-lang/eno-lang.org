@@ -6,8 +6,8 @@ const { markdown } = require('../../lib/loaders.js');
 
 const layout = require('../layout.js');
 
-module.exports = (menu) => {
-  const input = fs.readFileSync(path.join(__dirname, 'demos.eno'), 'utf-8');
+module.exports = async menu => {
+  const input = fs.readFileSync(path.join(__dirname, '../demo/demos.eno'), 'utf-8');
   const demos = eno.parse(input, { reporter: 'terminal' });
 
   let options = '';
@@ -43,11 +43,10 @@ module.exports = (menu) => {
   }
 
   const content = `
+  <h1>Interactive eno library demos</h1>
+
   <div class="split">
-    <div class="hacky-half">
-
-      <h2>Interactive eno library demos</h2>
-
+    <div class="half">
       <select class="demo" style="width: 100%;">
       ${options}
       </select>
@@ -68,20 +67,18 @@ module.exports = (menu) => {
       <div id="code">${first.javascript}</div>
     </div>
 
-    <div class="hacky-half">
-      <h2>&nbsp;</h2>
-
+    <div class="half">
       <textarea id="editor">${first.eno}</textarea>
       <pre id="output"></pre>
     </div>
 
   </div>
 
-  <script src="demo.js"></script>
+  <script src="/demo.js"></script>
   `;
 
-  const html = layout(content, 'Interactive enojs demos', 'demo', menu);
+  const html = layout(content, 'Interactive enojs demos', '/demo/', menu);
 
-  fs.mkdirSync(path.join(__dirname, '../../public/demo'));
-  fs.writeFileSync(path.join(__dirname, '../../public/demo/index.html'), html);
+  await fs.promises.mkdir(path.join(__dirname, '../../public/demo'));
+  await fs.promises.writeFile(path.join(__dirname, '../../public/demo/index.html'), html);
 };

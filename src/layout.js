@@ -13,19 +13,13 @@ module.exports = (content, title, active = null, menu) => {
 
         <title>${title}</title>
 
-        <link rel="stylesheet" href="/eno.css">
         <link rel="stylesheet" href="/styles.css">
-        <link rel="stylesheet" href="/prism.css">
-        <link rel="stylesheet" href="/prism-eno.css">
-
-        <script src="/prism.js"></script>
-        <script src="/prism-eno.js"></script>
       </head>
 
       <body>
         ${header(active, menu)}
 
-        <div ${active !== 'demo' ? 'class="boundary padding"' : ''}>
+        <div class="boundary padding">
           ${content}
         </div>
 

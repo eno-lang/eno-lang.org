@@ -1,4 +1,6 @@
+language: php
 title: enophp
+version: 0.0.0
 
 -- intro
 > **enophp is not yet released - release is scheduled between 5th-11th November 2018**

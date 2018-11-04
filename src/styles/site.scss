@@ -1,0 +1,190 @@
+.boundary {
+  margin: 0 auto;
+  max-width: 1280px;
+}
+
+.logo {
+  max-width: 1.5em;
+  height: auto;
+}
+
+.logo_parade {
+  display: grid;
+  grid-gap: 2em;
+  grid-template-columns: repeat(auto-fit, 5em);
+}
+
+.brand {
+  color: #fcc680;
+  font-weight: 700;
+}
+
+.menu {
+  display: flex;
+}
+
+.menu > * {
+  padding: 0.5em;
+}
+
+.menu__text {
+  color: #999;
+}
+
+@media (max-width: 690px) {
+  .menu__text {
+    display: none;
+  }
+}
+
+.header__primary {
+  background: #955164;
+  font-size: 1.2em;
+}
+
+.header__primary .menu__link {
+  color: #fff;
+}
+
+.header__primary .menu__link.active {
+  font-weight: 600;
+}
+
+.header__secondary {
+  background-color: #ececec;
+  /* font-size:  */
+}
+
+.header__secondary .menu__link {
+  color: #484848;
+}
+
+.header__secondary .menu__link.active {
+  font-weight: 600;
+}
+
+.spacer {
+  flex-grow: 1;
+}
+
+.footer {
+  color: #ccc;
+  font-size: 0.85em;
+  margin: 3em 0;
+  text-align: center;
+}
+
+.footer a {
+  color: #ccc;
+}
+
+#code {
+  height: 300px;
+  width: 100%;
+}
+
+#editor {
+  height: 300px;
+  width: 100%;
+}
+
+div[class^="columns-"] {
+  display: grid;
+  grid-gap: 2em;
+}
+
+@media (min-width: 450px) {
+  .columns-4 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .columns-5 {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (min-width: 720px) {
+  .columns-3 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .columns-4 {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .columns-5 {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media (min-width: 1280px) {
+  .columns-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .columns-3 {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .columns-4 {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  .columns-5 {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+}
+
+.docs {
+  display: grid;
+  grid-gap: 2em;
+  grid-template-columns: 12em auto;
+  margin-top: 2em;
+
+  .class {
+    border-left: 0.25em solid #383a42;
+    margin-top: 3em;
+    padding-left: 0.25em;
+  }
+
+  .main {
+    min-width: 0;
+  }
+
+  .pad {
+    margin: 1em 0;
+  }
+
+  p {
+    line-height: 140%;
+    text-align: justify;
+
+    code {
+      background-color: #eaeaea;
+      padding: 0.25em;
+    }
+  }
+
+  blockquote {
+    background-color: #f8f0e8;
+    margin: 0;
+    padding: 1em;
+
+    p {
+      margin: 0;
+    }
+  }
+}
+
+.extension {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 0.5em 1em;
+  font-size: 0.8em;
+  color: #ccc;
+}
+
+.padding {
+  padding: 0 1em;
+}

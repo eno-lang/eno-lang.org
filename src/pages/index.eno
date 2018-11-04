@@ -2,14 +2,14 @@ title: The eno notation language and libraries
 
 # content
 
-## split
+## columns-2
 
--- half
+-- markdown
 # The eno notation language
 
 A modern plaintext data format, designed from the ground up for file-based
-content - [simple](https://eno-lang.org/introduction/),
-[powerful](https://eno-lang.org/advanced/) and elegant:
+content - [simple](/introduction/),
+[powerful](/advanced/) and elegant:
 
 ```eno
 author: Jane Doe
@@ -46,20 +46,20 @@ Usecases:
 - Large scale textfile-based databases and archives
 - Configuration files, from the simplest to the most complex
 
-Visit [eno-lang.org/language](https://eno-lang.org/language/) for more information.
--- half
+Visit [eno-lang.org/language](/language/) for more information.
+-- markdown
 
---half
+--markdown
 
 # The eno libraries
 
-[Blazing fast](https://github.com/eno-lang/benchmarks/), zero-dependency, [fully documented](https://eno-lang.org/libraries/) eno parsers
-for [JavaScript](https://eno-lang.org/javascript/),
-[Python](https://eno-lang.org/python/), [Ruby](https://eno-lang.org/ruby/) (and
-soon more) - featuring a powerful, expressive API:
+[Blazing fast](https://github.com/eno-lang/benchmarks/), zero-dependency, [fully documented](/libraries/) eno parsers
+for [JavaScript](/javascript/), [PHP](/php/)
+[Python](/python/), [Ruby](/ruby/) (and
+soon also rust) - featuring a powerful, expressive API:
 
 ```ruby
-# Ruby example (JavaScript and Python APIs are identical)
+# Ruby example (JavaScript / PHP / Python APIs are identical)
 require 'enorb'
 
 document = Eno.parse(
@@ -93,8 +93,8 @@ Usecases:
 - Highly reliable app configuration data with minimal development effort
 - Content management tooling for apps, websites, editors, IDEs, ...
 
-Visit [eno-lang.org/libraries](https://eno-lang.org/libraries/) for more information.
--- half
+Visit [eno-lang.org/libraries](/libraries/) for more information.
+-- markdown
 
 ## single
 
@@ -106,11 +106,13 @@ Get development updates and info on new releases through the [newsletter](http:/
 
 # Available for
 
-<a href="/javascript/"><img class="parade-logo" src="/javascript.svg" title="JavaScript" /></a>
-<a href="/python/"><img class="parade-logo" src="/python.svg" title="Python" /></a>
-<a href="/ruby/"><img class="parade-logo" src="/ruby.svg" title="Ruby" /></a>
-<a href="/atom/"><img class="parade-logo" src="/atom.svg" title="Atom" /></a>
-<a href="/sublime/"><img class="parade-logo" src="/sublime.svg" title="Sublime Text" /></a>
-<a href="/vscode/"><img class="parade-logo" src="/vscode.svg" title="Visual Studio Code" /></a>
-
+<div class="logo_parade">
+  <a href="/javascript/"><img src="/javascript.svg" title="JavaScript" /></a>
+  <a href="/php/"><img src="/php.svg" title="PHP" /></a>
+  <a href="/python/"><img src="/python.svg" title="Python" /></a>
+  <a href="/ruby/"><img src="/ruby.svg" title="Ruby" /></a>
+  <a href="/atom/"><img src="/atom.svg" title="Atom" /></a>
+  <a href="/sublime/"><img src="/sublime.svg" title="Sublime Text" /></a>
+  <a href="/vscode/"><img src="/vscode.svg" title="Visual Studio Code" /></a>
+</div>
 -- markdown
