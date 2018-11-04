@@ -34,8 +34,7 @@ console.log( document.field('Greeting') );  // prints 'Hello World!'
 
 ## Interactive code demos
 
-A preview of the enojs demo page, featuring interactive code examples is online at:
-<https://eno-lang.org/demo/>
+A preview of the enojs demo page, featuring interactive code examples is available [here](/demo/).
 
 ## Links
 
@@ -383,7 +382,7 @@ document.json('json payload');  // returns { status: 500 }
 ### latLng
 
 -- description
-Accepts lat/lng coordinates of the form `dd.ddddd, dd.ddddd`, returns an object (see example below) (or throws an error for invalid values).
+Accepts lat/lng coordinates of the form `dd.ddddd, dd.ddddd` (but with any number of decimal digits), returns an object (see example below) (or throws an error for invalid values).
 -- description
 
 syntax:
@@ -504,7 +503,7 @@ syntax:
 - assertAllTouched(messageFunction, options)
 
 -- description
-Assert that all elements of this section (and also, recursively, all
+Assert that all elements of this section (and also, recursively, of all
 subsections) that were present in the parsed eno document were also queried (and
 therefore *touched*) by the application. This, combined with eno's query
 methods, serves to ensure a two-way guarantee for both users and developers: No
@@ -1120,7 +1119,7 @@ description: An array of `Section`s.
 
 -- class description
 All values in an eno document, such as the value of a field like `name: value`, the value of a block,
-the value of a list item, the value of a fieldset entry, and so on, map to an `Field`. Usually you
+the value of a list item, the value of a fieldset entry, and so on, map to a `Field`. Usually you
 don't interact with this because you directly get the values from a section or fieldset in most cases.
 When you, for instance, sequentially iterate a section (with `Section`'s '`elements` method) or explicitly ask
 for the `Field` by using an accessor with the `{ withElement: true }` option (for delayed error triggering)
@@ -1171,7 +1170,7 @@ message or messageFunction:
 #### return value
 
 description:
-| An `ValidationError` in the context of the element's value
+| A `ValidationError` in the context of the element's value
 | (and with an optional custom message).
 
 ### isEmpty
@@ -1225,7 +1224,7 @@ syntax:
 - value(loader, options) → value or null
 
 -- description
-Retrieve the value of an `Field`, optionally passing it through a loader
+Retrieve the value of a `Field`, optionally passing it through a loader
 function and/or supplying options.
 -- description
 
@@ -1330,9 +1329,11 @@ list.items(({ value }) => `${value}!!`);  // returns ['pink!!', 'peach!!']
 
 #### parameters
 
-loader:
-| A function returning the transformed/validated value or throwing an error.
-| (The `Proc` or block is applied to each list item on its own, being passed the arguments `name` and `value`)
+-- loader
+A function returning the transformed/validated value or throwing an error. (The
+function is applied to each list item on its own and is passed `name` and
+`value` inside a single object parameter.
+-- loader
 
 options:
 elements = Whether to return the elements (as `Field`) instead of the values of the list items. (defaults to `false`)
@@ -1395,7 +1396,7 @@ description: A native javascript representation of the list.
 ## Fieldset
 
 -- class description
-Fieldsets are represented as an `Fieldset`:
+Fieldsets are represented as a `Fieldset`:
 
 ```eno
 rated things:
@@ -1506,33 +1507,28 @@ description: An element (e.g. `Field`, `List`, etc.) or `null`.
 syntax: elements() → array
 
 -- description
-Retrieve the elements of this section in sequential order. This seamlessly lets you switch from
-associative readout to sequential readout, allowing sections within, or the whole document, to
-represent document-like structures (think generic markup) instead of just associative data stores.
+Retrieve the entries of this fieldset as `Field` elements (instead of
+their direct values) in sequential order. This seamlessly lets you switch from
+associative readout to sequential readout, allowing fieldsets to also represent
+document-like structures instead of just associative data.
 -- description
 
 -- eno
-date: 2018-03-01
-title: My blog post
-
-# page
-
-h1: Hello world
-p: This is my first post, I'm so happy!
+dialogue:
+alice = hi
+bob = hey
+alice = sup?
+bob = nothin'
 -- eno
 
 -- javascript
 const document = eno.parse(input);
+const dialogue = document.fieldset('dialogue');
 
-metadata = {
-  date: document.field('date', myDateLoaderFunction),
-  title: document.field('title')
-};
+let html = '<h1>Observe this fascinating dialogue, presented in html!</h1>';
 
-html = '';
-
-for(let element of document.section('page').elements()) {
-  html += `<${element.name}>${element.value()}</${element.name}>`;
+for(let element of dialogue.elements()) {
+  html += `<strong>${element.name}</strong>: "${element.value()}"`;
 }
 
 fs.writeFileSync('index.html', html);
@@ -1715,7 +1711,7 @@ message or messageFunction:
 #### return value
 
 description:
-| An `ValidationError` in the context of the element's value
+| A `ValidationError` in the context of the element's value
 | (and with an optional custom message).
 
 ### raw

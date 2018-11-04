@@ -385,7 +385,7 @@ syntax:
 ### lat_lng
 
 -- description
-Accepts lat/lng coordinates of the form `dd.ddddd, dd.ddddd`, returns a `dict` (see example below) (or raises an error for invalid values).
+Accepts lat/lng coordinates of the form `dd.ddddd, dd.ddddd` (but with any number of decimal digits), returns a `dict` (see example below) (or raises an error for invalid values).
 -- description
 
 syntax:
@@ -508,7 +508,7 @@ syntax:
 - assert_all_touched(message_function, options)
 
 -- description
-Assert that all elements of this section (and also, recursively, all
+Assert that all elements of this section (and also, recursively, of all
 subsections) that were present in the parsed eno document were also queried (and
 therefore *touched*) by the application. This, combined with eno's query
 methods, serves to ensure a two-way guarantee for both users and developers: No
@@ -1246,7 +1246,7 @@ syntax:
 - value(loader, options) → value or None
 
 -- description
-Retrieve the value of an `Field`, optionally passing it through a loader and/or supplying options.
+Retrieve the value of a `Field`, optionally passing it through a loader and/or supplying options.
 -- description
 
 -- eno
