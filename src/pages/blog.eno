@@ -5,6 +5,10 @@ title: Blog
 -- markdown
 # Blog
 
+**Monday, November 5 2018**
+
+- [Progress](https://github.com/eno-lang/eno/pull/4) on the ABNF eno specification document - many thanks go to nzen / Nicholas for the contribution!
+
 **Sunday, November 4 2018**
 
 - Major refactoring, cleanup and layout corrections on eno-lang.org
