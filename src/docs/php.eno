@@ -1,15 +1,15 @@
 language: php
 title: enophp
-version: 0.0.0
+version: 0.1.1
 
 -- intro
-> **enophp is not yet released - release is scheduled between 5th-11th November 2018**
-
-&nbsp;
-
 > Everyone is welcome to improve this documentation by editing [php.eno](https://github.com/eno-lang/eno-lang.org/blob/master/src/docs/php.eno) and submitting a Pull Request!
 
-Installation tbd
+Installation via Composer
+
+```shell
+composer require eno-lang/enophp
+```
 
 ## Getting started
 
@@ -33,7 +33,7 @@ echo( $document->field('Greeting') );  // prints 'Hello World!'
 
 ## Links
 
-Package on npm - <https://npmjs.com/package/enophp/>\
+Package on packagist - <https://packagist.org/packages/eno-lang/enophp>\
 Repository on github - <https://github.com/eno-lang/enophp/>
 -- intro
 

@@ -5,6 +5,10 @@ title: Blog
 -- markdown
 # Blog
 
+**Thursday, November 8 2018**
+
+- Today [enophp](https://github.com/eno-lang/enophp) was publicly released on [packagist.org](https://packagist.org/packages/eno-lang/enophp)! 🚀
+
 **Monday, November 5 2018**
 
 - [Progress](https://github.com/eno-lang/eno/pull/4) on the ABNF eno specification document - many thanks go to nzen / Nicholas for the contribution!
@@ -88,6 +92,10 @@ with the enors (rust) implementation coming up next on the roadmap, likely to co
 - Heavily improved the still lacking snapshot testing feature basis for the [enophp](https://github.com/eno-lang/enophp) implementation and testsuite.
 - Implemented 90% of the standard eno tokenizer testsuite for enophp, plus a handful of bugfixes and general cleanup work
 - Added missing support for non-section "noop deep copy" operators for enophp's tokenizer
+
+**Sunday, September 25 2018**
+
+- [enophp](https://github.com/eno-lang/enophp) (in its early stage) received a quick PHP expert audit from Alexander Sulz - thanks! 
 
 **Sunday, September 9 2018**
 

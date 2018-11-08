@@ -19,33 +19,32 @@ even keeping up with parsers utilizing native C library bindings.
 -- markdown
 ## <img class="logo" src="/javascript.svg" /> JavaScript (enojs)
 
-[API Documentation](/javascript/)  
-[npm package](https://npmjs.com/package/enojs/)  
+[API Documentation](/javascript/)\
+[npm package](https://npmjs.com/package/enojs/)\
 [Github repository](https://github.com/eno-lang/enojs/)
 -- markdown
 
 -- markdown
 ## <img class="logo" src="/php.svg" />  PHP (enophp)
 
-Release 5th-11th Nov 2018
-
-[API Documentation](/php/)  
+[API Documentation](/php/)\
+[Packagist page](https://packagist.org/packages/eno-lang/enophp)\
 [Github repository](https://github.com/eno-lang/enophp/)
 -- markdown
 
 -- markdown
 ## <img class="logo" src="/python.svg" /> Python (enopy)
 
-[API Documentation](/python/)  
-[PyPI package](https://pypi.org/project/enopy/)  
+[API Documentation](/python/)\
+[PyPI package](https://pypi.org/project/enopy/)\
 [Github repository](https://github.com/eno-lang/enopy/)
 -- markdown
 
 -- markdown
 ## <img class="logo" src="/ruby.svg" /> Ruby (enorb)
 
-[API Documentation](/ruby/)  
-[Ruby gem](https://rubygems.org/gems/enorb/)  
+[API Documentation](/ruby/)\
+[Ruby gem](https://rubygems.org/gems/enorb/)\
 [Github repository](https://github.com/eno-lang/enorb/)
 -- markdown
 
