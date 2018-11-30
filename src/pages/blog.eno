@@ -5,6 +5,10 @@ title: Blog
 -- markdown
 # Blog
 
+**Friday, November 30 2018**
+
+- Development of [enors](https://github.com/eno-lang/enors) (Rust) officially continues; a rough release schedule will be announced as soon as there is a basis to estimate from. Let's see if there'll be one more present under the christmas tree! 🎄
+
 **Thursday, November 8 2018**
 
 - Today [enophp](https://github.com/eno-lang/enophp) was publicly released on [packagist.org](https://packagist.org/packages/eno-lang/enophp)! 🚀
