@@ -5,6 +5,23 @@ title: Blog
 -- markdown
 # Blog
 
+**Wednesday, December 5 2018**
+
+- Adaptations on the frontpage to improve understandability of some of eno's concepts (based on insights from HN - thanks to all commenters!)
+- Added the first two RFCs for the final eno specification to the [eno language repository](https://github.com/eno-lang/eno)
+
+**Tuesday, December 4 2018**
+
+- Research and studying on Rust specific issues for [enors](https://github.com/eno-lang/enors)
+
+**Sunday, December 2 2018**
+
+- Quality time with and some package preparation tasks for [enors](https://github.com/eno-lang/enors)
+
+**Saturday, December 1 2018**
+
+- Foundational development work on [enors](https://github.com/eno-lang/enors)
+
 **Friday, November 30 2018**
 
 - Development of [enors](https://github.com/eno-lang/enors) (Rust) officially continues; a rough release schedule will be announced as soon as there is a basis to estimate from. Let's see if there'll be one more present under the christmas tree! 🎄

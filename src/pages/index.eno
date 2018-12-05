@@ -56,7 +56,7 @@ Visit [eno-lang.org/language](/language/) for more information.
 [Blazing fast](https://github.com/eno-lang/benchmarks/), zero-dependency, [fully documented](/libraries/) eno parsers
 for [JavaScript](/javascript/), [PHP](/php/)
 [Python](/python/), [Ruby](/ruby/) (and
-soon also rust) - featuring a powerful, expressive API:
+soon also [Rust](https://github.com/eno-lang/enors/)) - featuring a powerful, expressive API:
 
 ```ruby
 # Ruby example (JavaScript / PHP / Python APIs are identical)
@@ -65,10 +65,10 @@ require 'enorb'
 document = Eno.parse(
   File.read('example.eno'),
   locale: :es,                   # Fully localized error messages
-  reporter: Eno::Reporters::HTML # Text, Terminal also available
+  reporter: Eno::Reporters::HTML # Multi-format error messages
 )
 
-document.string('author', required: true)  # query and validate
+document.string('author', required: true)  # accessing = validating
   #=> 'Jane Doe'
 document.section('cities').lat_lng('Málaga')  # high-level types
   #=> { lat: 36.721447, lng: -4.421291 }
@@ -80,9 +80,9 @@ document.lookup(9, 12)  # "What's at line 9, column 12?"
 ```
 
 Libraries Overview:
-- Automatic implicit document structure and value type validation
+- Data access = Data validation = Guaranteed data structure and type-safety
 - High-level types for emails, urls, colors, ... included out of the box
-- Custom types can be easily defined with simple loader functions
+- Custom type loaders can be easily defined with simple closures/functions
 - Fully localized, handwritten, human language error messages everywhere
 - Rich error metadata - message, snippet, cursor position, selection range
 - Both ordered and associative access to all data in the document
