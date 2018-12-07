@@ -59,9 +59,14 @@ In Development - release schedule **tba**
 ## single
 
 -- markdown
+## Community projects
+
+[enotcl](https://github.com/bef/enotcl) - Tcl parser\
+[Enohar](https://github.com/Nzen/Enohar) - (Incomplete) Java library for parsing and emitting Eno documents 
+
 ## Benchmarks
 
-The eno benchmark suite evaluates the performance of all eno libraries, also in comparison
+The eno benchmark suite evaluates the performance of the official eno libraries, also in comparison
 against other popular libraries for parsing yaml and toml.
 
 Visit [github.com/eno-lang/benchmarks](https://github.com/eno-lang/benchmarks/) to study these.
@@ -81,13 +86,7 @@ For each of the core eno implementations there is also an additional
 free to use the experimental loaders as an expansion package, they are carefully
 crafted and unit-tested just like the core libraries themselves!
 
-[enojs-exploaders (Javascript)](https://github.com/eno-lang/enojs-exploaders/)  
-[enopy-exploaders (Python)](https://github.com/eno-lang/enopy-exploaders/)  
-[enorb-exploaders (Ruby)](https://github.com/eno-lang/enorb-exploaders/)  
-
-## Dive deeper
-
-Explore all repositories where the development work is currently happening at the eno umbrella organization on github.
-
-[github.com/eno-lang](https://github.com/eno-lang/)
+[enojs-exploaders (Javascript)](https://github.com/eno-lang/enojs-exploaders/)\
+[enopy-exploaders (Python)](https://github.com/eno-lang/enopy-exploaders/)\
+[enorb-exploaders (Ruby)](https://github.com/eno-lang/enorb-exploaders/)
 -- markdown
