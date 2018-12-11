@@ -13,7 +13,7 @@ module.exports = (active = null, menu) => {
   return `
     <header>
       <div class="header__primary">
-        <div ${active !== 'demo' ? 'class="boundary"' : ''}>
+        <div class="boundary">
           <div class="menu">
 
             <a class="brand" href="/">eno</a>
@@ -23,7 +23,6 @@ module.exports = (active = null, menu) => {
             ${sections.filter(section => section.name !== '/').map(section => `
               <a class="menu__link ${section === currentSection ? 'active' : ''}" href="${section.name}">${section.string('label')}</a>
             `).join('')}
-
           </div>
         </div>
       </div>
