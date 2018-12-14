@@ -5,6 +5,23 @@ title: Blog
 -- markdown
 # Blog
 
+**Friday, December 14 2018**
+
+- Corrected a [non-spec-compliant example](https://github.com/eno-lang/enojs/issues/4) in the library documentation (Thanks to Brayden Banks for reporting!)
+
+**Tuesday, December 11 2018**
+
+- Fleshing out the [enors](https://github.com/eno-lang/enors) error reporter implementation basis
+- Optimizations for line classification in [enojs](https://github.com/eno-lang/enojs), plus cleaning out stale code
+
+**Saturday, December 9 2018**
+
+- Development and studying for [enors](https://github.com/eno-lang/enors)
+
+**Saturday, December 8 2018**
+
+- Research and adaptions in [enors](https://github.com/eno-lang/enors) for the Rust 2018 edition
+
 **Friday, December 7 2018**
 
 - Added the third RFC for the final eno specification to the [eno language repository](https://github.com/eno-lang/eno)
