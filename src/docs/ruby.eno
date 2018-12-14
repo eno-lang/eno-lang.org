@@ -1546,21 +1546,21 @@ document-like structures instead of just associative data.
 -- description
 
 -- eno
-dialogue:
-alice = hi
-bob = hey
-alice = sup?
-bob = nothin'
+preferences:
+alice = icetea
+bob = peppermint tea
+jane = no tea at all
+ann = earl grey
 -- eno
 
 -- ruby
 document = Eno.parse(input)
-dialogue = document.fieldset('dialogue')
+preferences = document.fieldset('preferences')
 
-html = '<h1>Observe this fascinating dialogue, presented in html!</h1>'
+html = '<h1>Observe these fascinating tea preferences, presented in html!</h1>'
 
-dialogue.elements.each do |element|
-  html += "<strong>#{element.name}</strong>: \"#{element.value}\""
+preferences.elements.each do |element|
+  html += "<strong>#{element.name}</strong> likes #{element.value}.<br>"
 end
 
 File.write('index.html', html)

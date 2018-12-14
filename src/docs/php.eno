@@ -1520,21 +1520,21 @@ document-like structures instead of just associative data.
 -- description
 
 -- eno
-dialogue:
-alice = hi
-bob = hey
-alice = sup?
-bob = nothin'
+preferences:
+alice = icetea
+bob = peppermint tea
+jane = no tea at all
+ann = earl grey
 -- eno
 
 -- php
 $document = Parser::parse($input);
-$dialogue = $document->fieldset('dialogue');
+$preferences = $document->fieldset('preferences');
 
-$html = '<h1>Observe this fascinating dialogue, presented in html!</h1>';
+$html = '<h1>Observe these fascinating tea preferences, presented in html!</h1>';
 
-foreach($dialogue->elements() as $element) {
-  $html .= "<strong>{$element->name}</strong>: \"{$element->value()}\"";
+foreach($preferences->elements() as $element) {
+  $html .= "<strong>{$element->name}</strong> likes {$element->value()}.<br>";
 }
 
 file_put_contents('index.html', $html);

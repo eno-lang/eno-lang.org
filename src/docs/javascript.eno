@@ -1514,21 +1514,21 @@ document-like structures instead of just associative data.
 -- description
 
 -- eno
-dialogue:
-alice = hi
-bob = hey
-alice = sup?
-bob = nothin'
+preferences:
+alice = icetea
+bob = peppermint tea
+jane = no tea at all
+ann = earl grey
 -- eno
 
 -- javascript
 const document = eno.parse(input);
-const dialogue = document.fieldset('dialogue');
+const preferences = document.fieldset('preferences');
 
-let html = '<h1>Observe this fascinating dialogue, presented in html!</h1>';
+let html = '<h1>Observe these fascinating tea preferences, presented in html!</h1>';
 
-for(let element of dialogue.elements()) {
-  html += `<strong>${element.name}</strong>: "${element.value()}"`;
+for(let element of preferences.elements()) {
+  html += `<strong>${element.name}</strong> likes ${element.value()}.<br>`;
 }
 
 fs.writeFileSync('index.html', html);
