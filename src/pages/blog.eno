@@ -8,6 +8,7 @@ title: Blog
 **Saturday, December 15 2018**
 
 - Implemented a better scaling responsive subnavigation in preparation for upcoming website additions
+- There is now a page to interactively [try out the language](https://eno-lang.org/try/) by itself (Thanks to Matt Lewis for his PR and feedback that got this started!)
 
 **Friday, December 14 2018**
 
