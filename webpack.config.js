@@ -3,7 +3,11 @@
 const path = require('path');
 
 module.exports = {
-  entry: path.resolve(__dirname, 'src/demo/demo.js'),
+  devtool: 'source-map',
+  entry: {
+    demo: path.resolve(__dirname, 'src/demo/libraries.js'),
+    try: path.resolve(__dirname, 'src/demo/language.js')
+  },
   mode: 'production',
   module: {
     rules: [
@@ -15,7 +19,7 @@ module.exports = {
     ]
   },
   output: {
-    filename: 'demo.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'public')
   }
 };

@@ -7,7 +7,7 @@ const { markdown } = require('../../lib/loaders.js');
 const layout = require('../layout.js');
 
 module.exports = async menu => {
-  const input = fs.readFileSync(path.join(__dirname, '../demo/demos.eno'), 'utf-8');
+  const input = fs.readFileSync(path.join(__dirname, '../demo/libraries.eno'), 'utf-8');
   const demos = eno.parse(input, { reporter: 'terminal' });
 
   let options = '';

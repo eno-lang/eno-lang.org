@@ -13,7 +13,6 @@ import { attrUnescape, htmlEscape } from '../../lib/escape.js';
 
 const code = document.querySelector('#code');
 const editor = document.querySelector('#editor');
-const lookupLog = document.querySelector('#lookup');
 const output = document.querySelector('#output');
 const select = document.querySelector('.demo');
 const selectLanguage = document.querySelector('.language');

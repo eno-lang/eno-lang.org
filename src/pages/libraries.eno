@@ -51,7 +51,8 @@ even keeping up with parsers utilizing native C library bindings.
 -- markdown
 ## <img class="logo" src="/rust.svg" /> Rust (enors)
 
-In Development - release schedule **tba**
+In Development\
+Release schedule **tba**
 
 [Repository on github](https://github.com/eno-lang/enors/)
 -- markdown

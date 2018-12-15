@@ -1,0 +1,324 @@
+# Starters
+
+## Hello World
+
+-- markdown
+A simple single field named "Hello" with the value "World".
+-- markdown
+
+-- eno
+> This is an interactive demo, change anything you like and observe the output below.
+
+Hello: World
+-- eno
+
+
+# Reference examples
+
+## Comments
+
+-- markdown
+The example is explained through comments within the document below.
+-- markdown
+
+-- eno
+> This is a comment
+
+> A comment always has its own line
+  
+  > Nothing except whitespace can come before a comment
+  
+      > There can be any number of whitespace before a comment
+
+> Comments can also be empty:
+>
+
+-- eno
+
+## Fields
+
+-- markdown
+The example is explained through comments within the document below.
+-- markdown
+
+-- eno
+> A field has a name and a value
+language: eno
+
+> The value does not reach beyond the line
+language:|<--- eno --->|
+
+> The value can be empty
+language:
+
+> Whitespace outside of and between name, operator and value is ignored
+language:eno
+  language  :  eno  
+  
+> As you see above, multiple fields with the same name are possible,
+> whether they are allowed is decided by the application.
+
+> Anything goes after the name operator (:)
+This is a sentence: It was a night full of ⭐s and 🤖s in 서울특별시!
+
+> Almost anything goes before the name operator too
+It was a night full of ⭐s and 🤖s in 서울특별시!: That was a sentence.
+
+> Some things are not allowed in the name, they need to be escaped
+`The : in a name needs to be escaped`: The : in a value is fine
+
+> Here's everything that needs to be escaped in a name, and why:
+
+`1:0`: At the first : the name ends, it always needs to be escaped
+
+A-Z: The - is fine when it's preceded by something else
+`-AZ`: The - at the start would start a list item
+
+A # of things : The # is fine if it does not start the name
+`# of things`: The # at the start would start a section
+
+Php\Namespace : The \ is fine if it's not the first non-whitespace character
+`\Php\Namespace`: The \ at the start would start a line continuation
+
+Left|Right : The | is fine if it's not the first character in the name
+`|Right`: The | at the start would start a newline continuation
+
+Greater > Smaller: The > is fine if it's not the first thing in the name
+`> Smaller`: The > at the start would start a comment
+-- eno
+
+## Lists
+
+-- markdown
+The example is explained through comments within the document below.
+-- markdown
+
+-- eno
+> An empty list
+my_list:
+
+
+> A list with a single value
+my_list:
+- my value
+
+
+> A list with two values
+my_list:
+- my value
+- my value
+
+
+my_list:
+
+> There can be comments and any number of empty lines between list items
+- my value
+
+- my value
+
+
+my_list:
+- my value
+> You can use line and newline continuations for list items just like with fields
+\ continued
+
+
+> Just for clarity, this is NOT a list, but a field with the value "- my value"
+NOT_a_list: - my value
+
+-- eno
+
+## Sections
+
+-- markdown
+The example is explained through comments within the document below.
+-- markdown
+
+-- eno
+> A section called my_section
+# my_section
+
+
+> There is no syntactic differentiation between a section and a list of
+> sections, you just provide multiple sections with the same name if you need
+> multiple sections (applications define and validate the structure of your
+> document through the eno library API, so they know what they get anyway)
+# my_section
+# my_section
+
+
+> A section nested within the last my_section above
+## my_subsection
+
+
+> A section that is sibling to my_subsection above
+## my_sibling_subsection
+
+
+> A section that is nested within my_sibling_subsection
+### my_subsection
+
+> You can go indefintely deeper, but only one layer (#)
+> deeper at a time, the following would be an error:
+> ##### my_subsection
+
+
+> A section that is sibling to my_section above
+# my_sibling_section
+
+
+> This is possible - a section called #my_section
+# #my_section
+
+
+> This would be a nested section called my_section however
+##my_section
+
+-- eno
+
+# Real usecase examples
+
+## eno's javascript benchmark suite data
+
+-- markdown
+This (generated) file just stores a simple hierarchy with numerical data,
+there is a top-level section 'javascript' with some metadata
+('iterations', 'evaluated'), as well as a number of subsections,
+whose names ('abstract_hierarchy', ...) identify the respective
+benchmark scenario and contain a mapping between library name
+and measured time, represented as fields.
+
+The rendered markdown report generated on the basis of this data can be studied at:
+https://github.com/eno-lang/benchmarks/blob/master/README.md
+-- markdown
+
+-- eno
+# javascript
+
+iterations: 100000
+evaluated: Fri Jul 06 2018 09:46:48 GMT+0200 (Central European Summer Time)
+
+## abstract_hierarchy
+
+enojs 0.13.1: 1.5550807799994946
+js-yaml 3.12.0: 1.694576124000363
+toml 2.3.3: 65.55331487999298
+toml-j0.4 1.1.1: 6.312734825999476
+
+## content_heavy
+
+enojs 0.13.1: 0.9270273759998381
+js-yaml 3.12.0: 7.022947545999661
+toml 2.3.3: 7908.529771699942
+toml-j0.4 1.1.1: 322.25691260000696
+
+## invented_server_configuration
+
+enojs 0.13.1: 2.3261210409998894
+js-yaml 3.12.0: 1.6458558410005644
+toml 2.3.3: 100.17921198000201
+toml-j0.4 1.1.1: 9.905643093000165
+
+## jekyll_post_example
+
+enojs 0.13.1: 0.8634771769996733
+js-yaml 3.12.0: 0.8431343219997361
+toml 2.3.3: 150.86338325999677
+toml-j0.4 1.1.1: 11.36234141800087
+
+## journey_route_data
+
+enojs 0.13.1: 3.548835017999634
+js-yaml 3.12.0: 3.791881393999793
+toml 2.3.3: 100.99689596000127
+toml-j0.4 1.1.1: 15.330702254999428
+
+## yaml_invoice_example
+
+enojs 0.13.1: 3.9504174440000206
+js-yaml 3.12.0: 2.61872482699994
+toml 2.3.3: 55.12786359500047
+toml-j0.4 1.1.1: 12.161507735999301
+
+-- eno
+
+## A record for an institution from the file-based dérive (http://derive.at/) research database
+
+-- markdown
+This specific record is from an archive collection documenting players in the
+field of urban studies. There are simple fields for the name, place and
+website, a list element with tags, and at the bottom two blocks that embed
+longer text descriptions. The field names are german because the database
+principally consists of german language content and is maintained by german
+native speakers - eno allows working with documents that can be fully authored
+in any language, as it allows the full unicode range in keys too.
+-- markdown
+
+-- eno
+Name: WE THE PEOPLE OF DETROIT COMMUNITY RESEARCH COLLECTIVE
+Vorname:
+Nachname:
+Land: United States
+Stadt: Detroit
+
+Tags:
+- Detroit
+- Community
+- Research
+
+Website: https://wethepeopleofdetroit.com/
+Permalink: we-the-people-of-detroit-community-research-collective
+
+-- Biographie
+We the People of Detroit Community Research Collective (WTP CRC) is a
+collaboration between community activists, academics, researchers and designers.
+-- Biographie
+
+-- Text
+We the People of Detroit Community Research Collective (WTP CRC) is a
+collaboration between community activists, academics, researchers and designers.
+Our research is produced with and for the citizens of Detroit. This research has
+been used in a wide range of settings, from community organizing to legal and
+legislative work. We hope that our work will be of further use to Detroiters in
+their efforts to build a more democratic city.
+-- Text
+
+-- eno
+
+## Deployment configuration for an automated publishing system (anonymized)
+
+-- markdown
+This configuration file specifies a `defaults` section
+which holds a 'host' and 'user' field. The 'defaults' are
+copied into the actual deployment configuration entries,
+so they don't need to be repeated, while still remaining
+customizable for single entries too.
+-- markdown
+
+-- eno
+# defaults
+host: x71947-ssh.services.example-host.com
+user: x71947
+
+# backup.example.com < defaults
+directory: /data/web/x71947/html/backup.example.com
+
+# city.example-event.com < defaults
+directory: /data/web/x71947/html/city.example-event.com
+
+# example.com < defaults
+directory: /data/web/x71947/html/example.com
+
+# staging.example.com < defaults
+directory: /data/web/x71947/html/staging.example.com
+
+# staging.example-event.com < defaults
+directory: /data/web/x71947/html/staging.example-event.com
+
+# staging.city.example-event.com < defaults
+directory: /data/web/x71947/html/staging.city.example-event.com
+
+# example-event.com < defaults
+directory: /data/web/x71947/html/example-event.com
+
+-- eno

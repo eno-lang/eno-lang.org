@@ -6,6 +6,7 @@ const path = require('path');
 const generateDemo = require('./src/generators/demo.js');
 const generateDocs = require('./src/generators/docs.js');
 const generatePages = require('./src/generators/pages.js');
+const generateTryPage = require('./src/generators/try.js');
 
 const build = async () => {
   await fsExtra.emptyDir(path.join(__dirname, 'public'));
@@ -18,7 +19,8 @@ const build = async () => {
   await Promise.all([
     generateDemo(menu),
     generateDocs(menu),
-    generatePages(menu)
+    generatePages(menu),
+    generateTryPage(menu)
   ]);
 
   menu.assertAllTouched({ except: '/' });
