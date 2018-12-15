@@ -15,7 +15,8 @@ const LANGUAGES = {
   javascript: 'js',
   php: 'php',
   python: 'py',
-  ruby: 'rb'
+  ruby: 'rb',
+  rust: 'rs'
 };
 
 loadLanguages(Object.keys(LANGUAGES));

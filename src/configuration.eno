@@ -34,6 +34,7 @@ tagline: The eno libraries
 /php/: PHP
 /python/: Python
 /ruby/: Ruby
+/rust/: Rust
 
 ## /plugins/
 
