@@ -1,7 +1,10 @@
 @import '../../node_modules/prismjs/themes/prism';
 
-@import './base.scss';
 @import './fonts.scss';
+@import './icons.scss';
+
+@import './base.scss';
 @import './eno.scss';
+@import './header.scss';
 @import './prism-eno.scss';
 @import './site.scss';

@@ -5,6 +5,10 @@ title: Blog
 -- markdown
 # Blog
 
+**Saturday, December 15 2018**
+
+- Implemented a better scaling responsive subnavigation in preparation for upcoming website additions
+
 **Friday, December 14 2018**
 
 - Corrected a [non-spec-compliant example](https://github.com/eno-lang/enojs/issues/4) in the library documentation (Thanks to Brayden Banks for reporting!)

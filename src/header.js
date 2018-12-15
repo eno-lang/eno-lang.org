@@ -10,6 +10,11 @@ module.exports = (active = null, menu) => {
     return section.section('pages').field(active) !== null;
   });
 
+  let currentPage;
+  if(currentSection) {
+    currentPage = currentSection.section('pages').field(active, { element: true });
+  }
+
   return `
     <header>
       <div class="header__primary">
@@ -18,10 +23,13 @@ module.exports = (active = null, menu) => {
 
             <a class="brand" href="/">eno</a>
 
-            <div class="spacer"></div>
+            <div class="menu__spacer"></div>
 
             ${sections.filter(section => section.name !== '/').map(section => `
-              <a class="menu__link ${section === currentSection ? 'active' : ''}" href="${section.name}">${section.string('label')}</a>
+              <a class="menu__link ${section === currentSection ? 'active' : ''}"
+                 href="${section.name}">
+                ${section.string('label')}
+              </a>
             `).join('')}
           </div>
         </div>
@@ -30,13 +38,38 @@ module.exports = (active = null, menu) => {
       ${currentSection ? `
         <div class="header__secondary">
           <div class="boundary">
-            <div class="menu">
+            <div class="menu compact">
+              <a class="menu__link menu__toggle">
+                ${currentPage.value()} <span class="icon-dropdown"></span>
+              </a>
+            </div>
+
+            <div class="menu__dropdown">
+              ${currentSection.section('pages').elements().map(page => `
+                <a class="menu__link ${page.name === active ? 'active' : ''}"
+                   href="${page.name}">
+                  ${page.value()}
+                </a>
+              `).join('')}
+            </div>
+
+            <script>
+              document.querySelector('.menu__toggle').addEventListener('click', function(event) {
+                event.preventDefault();
+                document.querySelector('.menu__dropdown').classList.toggle('active');
+              });
+            </script>
+
+            <div class="menu wide">
               <span class="menu__text">${currentSection.string('tagline')}</span>
 
-              <div class="spacer"></div>
+              <div class="menu__spacer"></div>
 
               ${currentSection.section('pages').elements().map(page => `
-                <a class="menu__link ${page.name === active ? 'active' : ''}" href="${page.name}">${page.value()}</a>
+                <a class="menu__link ${page.name === active ? 'active' : ''}"
+                   href="${page.name}">
+                  ${page.value()}
+                </a>
               `).join('')}
             </div>
           </div>
