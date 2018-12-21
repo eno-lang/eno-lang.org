@@ -38,7 +38,7 @@
     }
 
     &:hover {
-      background-color: #f0f0f0;
+      background-color: $color_header_secondary_dropdown_background;
     }
   }
 }
@@ -48,7 +48,7 @@
 }
 
 .menu__text {
-  color: #999;
+  color: $color_header_secondary_text;
 }
 
 .menu__toggle {
@@ -62,12 +62,12 @@
 }
 
 .header__primary {
-  background-color: #955164;
+  background-color: $color_header_primary_background;
   font-size: 1.2em;
 }
 
 .header__primary .menu__link {
-  color: #fff;
+  color: $color_header_primary_link;
 }
 
 .header__primary .menu__link.active {
@@ -75,11 +75,11 @@
 }
 
 .header__secondary {
-  background-color: #ececec;
+  background-color: $color_header_secondary_background;
 }
 
 .header__secondary .menu__link {
-  color: #484848;
+  color: $color_header_secondary_link;
 }
 
 .header__secondary .menu__link.active {

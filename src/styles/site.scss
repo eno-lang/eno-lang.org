@@ -1,3 +1,5 @@
+@import './colors.scss';
+
 .boundary {
   margin: 0 auto;
   max-width: 1280px;
@@ -15,19 +17,19 @@
 }
 
 .brand {
-  color: #fcc680;
+  color: $color_brand;
   font-weight: 700;
 }
 
 .footer {
-  color: #ccc;
+  color: $color_text_faded;
   font-size: 0.85em;
   margin: 3em 0;
   text-align: center;
 }
 
 .footer a {
-  color: #ccc;
+  color: $color_text_faded;
 }
 
 #code {
@@ -94,7 +96,7 @@ div[class^="columns-"] {
   margin-top: 2em;
 
   .class {
-    border-left: 0.25em solid #383a42;
+    border-left: 0.25em solid $color_text;
     margin-top: 3em;
     padding-left: 0.25em;
   }
@@ -112,13 +114,13 @@ div[class^="columns-"] {
     text-align: justify;
 
     code {
-      background-color: #eaeaea;
+      background-color: $color_code_background;
       padding: 0.25em;
     }
   }
 
   blockquote {
-    background-color: #f8f0e8;
+    background-color: $color_info_badge;
     margin: 0;
     padding: 1em;
 
@@ -134,7 +136,7 @@ div[class^="columns-"] {
   top: 0;
   padding: 0.5em 1em;
   font-size: 0.8em;
-  color: #ccc;
+  color: $color_text_faded;
 }
 
 .padding {

@@ -1,6 +1,8 @@
+@import './colors.scss';
+
 body {
-  background-color: #fafafa;
-  color: #383a42;
+  background-color: $color_background;
+  color: $color_text;
   font-family: 'Titillium Web';
   font-weight: 400;
   margin: 0;
@@ -17,7 +19,7 @@ body, textarea { font-size: 18px; }
 }
 
 a {
-  color: #cca366;
+  color: $color_link;
   cursor: pointer;
   text-decoration: none;
 }
@@ -57,6 +59,12 @@ pre {
 
 strong {
   font-weight: 600;
+}
+
+textarea {
+  background-color: $color_code_background;
+  border: none;
+  color: $color_text;
 }
 
 video {
