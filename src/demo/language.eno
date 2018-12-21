@@ -2,24 +2,15 @@
 
 ## Hello World
 
--- markdown
-A simple single field named "Hello" with the value "World".
--- markdown
-
 -- eno
-> This is an interactive demo, change anything you like and observe the output below.
+> A simple single field named 'Hello' with the value 'World'.
 
 Hello: World
 -- eno
 
-
 # Reference examples
 
 ## Comments
-
--- markdown
-The example is explained through comments within the document below.
--- markdown
 
 -- eno
 > This is a comment
@@ -36,10 +27,6 @@ The example is explained through comments within the document below.
 -- eno
 
 ## Fields
-
--- markdown
-The example is explained through comments within the document below.
--- markdown
 
 -- eno
 > A field has a name and a value
@@ -89,10 +76,6 @@ Greater > Smaller: The > is fine if it's not the first thing in the name
 
 ## Lists
 
--- markdown
-The example is explained through comments within the document below.
--- markdown
-
 -- eno
 > An empty list
 my_list:
@@ -129,10 +112,6 @@ NOT_a_list: - my value
 -- eno
 
 ## Sections
-
--- markdown
-The example is explained through comments within the document below.
--- markdown
 
 -- eno
 > A section called my_section
@@ -180,19 +159,16 @@ The example is explained through comments within the document below.
 
 ## eno's javascript benchmark suite data
 
--- markdown
-This (generated) file just stores a simple hierarchy with numerical data,
-there is a top-level section 'javascript' with some metadata
-('iterations', 'evaluated'), as well as a number of subsections,
-whose names ('abstract_hierarchy', ...) identify the respective
-benchmark scenario and contain a mapping between library name
-and measured time, represented as fields.
-
-The rendered markdown report generated on the basis of this data can be studied at:
-https://github.com/eno-lang/benchmarks/blob/master/README.md
--- markdown
-
 -- eno
+> This (generated) file just stores a simple hierarchy with numerical data, there
+> is a top-level section 'javascript' with some metadata ('iterations',
+> 'evaluated'), as well as a number of subsections, whose names
+> ('abstract_hierarchy', ...) identify the respective benchmark scenario and
+> contain a mapping between library name and measured time, represented as fields.
+> 
+> The rendered markdown report generated on the basis of this data can be studied
+> at: https://github.com/eno-lang/benchmarks/blob/master/README.md
+
 # javascript
 
 iterations: 100000
@@ -244,17 +220,15 @@ toml-j0.4 1.1.1: 12.161507735999301
 
 ## A record for an institution from the file-based dérive (http://derive.at/) research database
 
--- markdown
-This specific record is from an archive collection documenting players in the
-field of urban studies. There are simple fields for the name, place and
-website, a list element with tags, and at the bottom two blocks that embed
-longer text descriptions. The field names are german because the database
-principally consists of german language content and is maintained by german
-native speakers - eno allows working with documents that can be fully authored
-in any language, as it allows the full unicode range in keys too.
--- markdown
-
 -- eno
+> This specific record is from an archive collection documenting players in the
+> field of urban studies. There are simple fields for the name, place and website,
+> a list element with tags, and at the bottom two blocks that embed longer text
+> descriptions. The field names are german because the database principally
+> consists of german language content and is maintained by german native speakers.
+> eno allows working with documents that can be fully authored in any language,
+> as it allows the full unicode range in keys too.
+
 Name: WE THE PEOPLE OF DETROIT COMMUNITY RESEARCH COLLECTIVE
 Vorname:
 Nachname:
@@ -287,15 +261,12 @@ their efforts to build a more democratic city.
 
 ## Deployment configuration for an automated publishing system (anonymized)
 
--- markdown
-This configuration file specifies a `defaults` section
-which holds a 'host' and 'user' field. The 'defaults' are
-copied into the actual deployment configuration entries,
-so they don't need to be repeated, while still remaining
-customizable for single entries too.
--- markdown
-
 -- eno
+> This configuration file specifies a 'defaults' section which holds a 'host' and
+> 'user' field. The 'defaults' are copied into the actual deployment configuration
+> entries, so they don't need to be repeated, while still remaining customizable
+> for single entries too.
+
 # defaults
 host: x71947-ssh.services.example-host.com
 user: x71947

@@ -2,7 +2,6 @@ const eno = require('enojs');
 const fs = require('fs');
 const path = require('path');
 const { attrEscape } = require('../../lib/escape.js');
-const { markdown } = require('../../lib/loaders.js');
 
 const layout = require('../layout.js');
 
@@ -19,11 +18,9 @@ module.exports = async menu => {
     for(let demo of group.elements()) {
       const title = demo.name;
       const eno = demo.string('eno', { required: true });
-      const text = demo.field('markdown', markdown, { required: true });
 
       options += `
-        <option data-eno="${attrEscape(eno)}"
-                data-text="${attrEscape(text)}">
+        <option data-eno="${attrEscape(eno)}">
           ${title}
         </option>
       `;
@@ -31,7 +28,6 @@ module.exports = async menu => {
       if(!first) {
         first = {
           eno,
-          text,
           title
         };
       }
@@ -45,15 +41,12 @@ module.exports = async menu => {
 
   <div class="split">
     <div class="half">
+      These are interactive demos, change anything you like and observe the output below!<br><br>
 
       Browse demos here, or just interactively try out things below right away.<br>
       <select class="demo" style="width: 100%;">
         ${options}
       </select>
-
-      <div id="text">
-        ${first.text}
-      </div>
 
       The official eno parsers are fully localized, if errors occur they will be in the language of your choice.<br>
       <select class="locale" style="width: 100%;">

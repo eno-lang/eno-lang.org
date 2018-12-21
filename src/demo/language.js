@@ -34,7 +34,6 @@ const updateDemo = changed => {
 
   if(changed === 'demo') {
     editor.value = attrUnescape(demoOption.dataset.eno);
-    document.querySelector('#text').innerHTML = attrUnescape(demoOption.dataset.text);
   }
 
   refresh();
