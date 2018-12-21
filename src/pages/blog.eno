@@ -5,6 +5,12 @@ title: Blog
 -- markdown
 # Blog
 
+**Friday, December 21 2018**
+
+- Added *what if ... ?* demos (Cargo.eno, package.eno, .gitlab-ci.eno) to the [language demo page](https://eno-lang.org/try/)
+- Began work on eno syntax highlighting support in Ace editor for usage on eno-lang.org - [ace-eno](https://github.com/eno-lang/ace-eno) 🎉
+- Some refactoring and maintenance on the website internals
+
 **Saturday, December 15 2018**
 
 - Implemented a better scaling responsive subnavigation in preparation for upcoming website additions
