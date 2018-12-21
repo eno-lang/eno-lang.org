@@ -293,3 +293,496 @@ directory: /data/web/x71947/html/staging.city.example-event.com
 directory: /data/web/x71947/html/example-event.com
 
 -- eno
+
+# What if ... ? examples
+
+## Cargo.eno
+
+-- eno
+> This is a hypothetical example demonstrating how a Cargo.toml file (Rust's
+> package definition standard) could look like if it were authored in eno. It is
+> provided not to proclaim that Rust's packages should be specified in eno, but as
+> a way to learn about how eno represents a data structure that you might be
+> familiar with already.
+>
+> This content was adapted from the `regex` crate
+> (https://github.com/rust-lang/regex/blob/master/Cargo.toml),
+> all credits and many thanks go to its authors.
+
+# package
+name: regex
+version: 1.1.0
+authors:
+- The Rust Project Developers
+license: MIT/Apache-2.0
+readme: README.md
+repository: https://github.com/rust-lang/regex
+documentation: https://docs.rs/regex
+homepage: https://github.com/rust-lang/regex
+
+-- description
+An implementation of regular expressions for Rust. This implementation uses
+finite automata and guarantees linear time matching on all inputs.
+-- description
+
+categories:
+- text-processing
+autotests: false
+exclude:
+- /.travis.yml
+- /appveyor.yml
+- /ci/*
+- /scripts/*
+
+# badges
+travis-ci:
+repository = rust-lang/regex
+appveyor:
+repository = rust-lang-libs/regex
+
+# workspace
+members:
+- bench
+- regex-capi
+- regex-debug
+- regex-syntax
+
+# dependencies
+> For very fast prefix literal matching.
+aho-corasick: 0.6.7
+> For skipping along search text quickly when a leading byte is known.
+memchr: 2.0.2
+> For managing regex caches quickly across multiple threads.
+thread_local: 0.3.6
+> For parsing regular expressions.
+regex-syntax:
+path = regex-syntax
+version = 0.6.2
+> For compiling UTF-8 decoding into automata.
+utf8-ranges: 1.0.1
+
+# dev-dependencies
+> For examples.
+lazy_static: 1
+> For property based tests.
+quickcheck:
+version = 0.7
+default-features = false
+> For generating random test data.
+rand: 0.5
+
+# features
+default:
+- use_std
+> The 'use_std' feature permits the regex crate to use the standard library.
+> This is intended to support future use cases where the regex crate may be
+> able to compile without std, and instead just rely on 'core' and 'alloc'
+> (for example). Currently, this isn't supported, and removing the 'use_std'
+> feature will prevent regex from compiling.
+use_std:
+> A blanket feature that governs whether unstable features are enabled or not.
+> Unstable features are disabled by default, and typically rely on unstable
+> features in rustc itself.
+unstable:
+- pattern
+> Enable to use the unstable pattern traits defined in std. This is enabled
+> by default if the unstable feature is enabled.
+pattern:
+
+# lib
+> There are no benchmarks in the library code itself
+bench: false
+
+> Run the test suite on the default behavior of Regex::new.
+> This includes a mish mash of NFAs and DFAs, which are chosen automatically
+> based on the regex. We test both of the NFA implementations by forcing their
+> usage with the test definitions below. (We can't test the DFA implementations
+> in the same way since they can't be used for every regex tested.)
+# test
+path: tests/test_default.rs
+name: default
+
+> The same as the default tests, but run on bytes::Regex.
+# test
+path: tests/test_default_bytes.rs
+name: default-bytes
+
+> Run the test suite on the NFA algorithm over Unicode codepoints.
+# test
+path: tests/test_nfa.rs
+name: nfa
+
+> Run the test suite on the NFA algorithm over bytes that match UTF-8 only.
+# test
+path: tests/test_nfa_utf8bytes.rs
+name: nfa-utf8bytes
+
+> Run the test suite on the NFA algorithm over arbitrary bytes.
+# test
+path: tests/test_nfa_bytes.rs
+name: nfa-bytes
+
+> Run the test suite on the backtracking engine over Unicode codepoints.
+# test
+path: tests/test_backtrack.rs
+name: backtrack
+
+> Run the test suite on the backtracking engine over bytes that match UTF-8
+> only.
+# test
+path: tests/test_backtrack_utf8bytes.rs
+name: backtrack-utf8bytes
+
+> Run the test suite on the backtracking engine over arbitrary bytes.
+# test
+path: tests/test_backtrack_bytes.rs
+name: backtrack-bytes
+
+> Run all backends against each regex found on crates.io and make sure
+> that they all do the same thing.
+# test
+path: tests/test_crates_regex.rs
+name: crates-regex
+
+# profile
+
+## release
+debug: true
+
+## bench
+debug: true
+
+## test
+debug: true
+-- eno
+
+## package.eno
+
+-- eno
+> This is a hypothetical example demonstrating how a package.json file (node's
+> package definition standard) could look like if it were authored in eno. It is
+> provided not to proclaim that node's packages should be specified in eno, but as
+> a way to learn about how eno represents a data structure that you might be
+> familiar with already.
+>
+> This content was adapted from the `js-yaml` package
+> (https://github.com/nodeca/js-yaml/blob/master/package.json),
+> all credits and many thanks go to its authors.
+
+name: js-yaml
+version: 3.12.0
+description: YAML 1.2 parser and serializer
+
+keywords:
+- yaml
+- parser
+- serializer
+- pyyaml
+
+homepage: https://github.com/nodeca/js-yaml
+author: Vladimir Zapparov <dervus.grim@gmail.com>
+
+contributors:
+- Aleksey V Zapparov <ixti@member.fsf.org> (http://www.ixti.net/)
+- Vitaly Puzrin <vitaly@rcdesign.ru> (https://github.com/puzrin)
+- Martin Grenfell <martin.grenfell@gmail.com> (http://got-ravings.blogspot.com)
+
+license: MIT
+repository: nodeca/js-yaml
+
+files:
+- index.js
+- lib/
+- bin/
+- dist/
+
+bin:
+js-yaml = bin/js-yaml.js
+
+dependencies:
+argparse = ^1.0.7
+esprima = ^4.0.0
+
+devDependencies:
+ansi = ^0.3.1
+benchmark = ^2.1.4
+browserify = ^16.2.2
+codemirror = ^5.13.4
+eslint = ^4.1.1
+fast-check = 1.1.3
+istanbul = ^0.4.5
+mocha = ^5.2.0
+uglify-js = ^3.0.1
+
+scripts:
+test = make test
+-- eno
+
+## .gitlab-ci.eno
+
+-- eno
+> This is a hypothetical example demonstrating how a .gitlab-ci.yml file (gitlab's
+> CI configuration standard) could look like if it were authored in eno. It is
+> provided not to proclaim that gitlab's CI config should be specified in eno, but as
+> a way to learn about how eno represents a data structure that you might be
+> familiar with already.
+>
+> This content was adapted from the `inkscape` repository
+> (https://gitlab.com/inkscape/inkscape/blob/master/.gitlab-ci.yml),
+> all credits and many thanks go to its authors.
+
+> Dependencies are managed in the Dockerfile in the inkscape-ci-docker
+> Git repository. Change them there, wait a bit, and then we'll use
+> the new ones here in these builds.
+image: registry.gitlab.com/inkscape/inkscape-ci-docker/master
+
+variables:
+GIT_DEPTH = 10
+GIT_SUBMODULE_STRATEGY = recursive
+
+> Building inkscape
+# inkscape:linux
+
+stage: build
+
+except:
+- schedules
+    
+before_script:
+> CCache Config
+- mkdir -p ccache
+- export CCACHE_BASEDIR=${PWD}
+- export CCACHE_DIR=${PWD}/ccache
+
+script:
+- mkdir -p build/conf
+- ln -s . share/inkscape
+- cd build
+- cmake .. -DCMAKE_C_COMPILER_LAUNCHER=ccache
+\          -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
+\          -DCMAKE_BUILD_TYPE=Debug
+\          -DCMAKE_INSTALL_PREFIX:PATH=$PWD/install_dir/
+- make -j3 install
+- make -j3 tests
+- cpack -G DEB
+- cd ..
+
+## artifacts
+expire_in: 1 year
+paths:
+  - build/
+    
+## cache
+key: cache-linux
+paths:
+  - ccache/
+
+# inkscape:mac
+
+stage: build
+
+tags:
+- mac
+
+only:
+- branches@inkscape/inkscape
+
+except:
+- schedules
+
+before_script:
+- brew update
+- brew upgrade
+> Tools
+- brew install cmake intltool libtool pkg-config ccache
+> Libraries
+- brew install bdw-gc boost gdl gettext gsl gtkmm3 gtkspell3 imagemagick@6 jemalloc libcdr libvisio libyaml libwpg pango popt poppler potrace libsoup
+> Testing tools
+> TODO
+> Cleanup
+- brew cleanup
+> CCache Config
+- mkdir -p ccache
+- export CCACHE_BASEDIR=${PWD}
+- export CCACHE_DIR=${PWD}/ccache
+  
+script:
+- mkdir -p build
+- cd build
+- cmake .. -DCMAKE_PREFIX_PATH="/usr/local/opt/gettext;/usr/local/opt/imagemagick@6/;/usr/local/opt/icu4c/"
+\          -DWITH_OPENMP=OFF
+\          -DCMAKE_C_COMPILER_LAUNCHER=ccache
+\          -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
+\          -DCMAKE_BUILD_TYPE=Debug
+- make -j1
+- cd ..
+
+allow_failure: true
+
+## artifacts
+expire_in: 1 year
+paths:
+- build/
+
+## cache
+key: cache-mac
+paths:
+- ccache/
+
+> uh uh
+
+# codequality
+
+stage: build
+
+except:
+- schedules
+
+script:
+- git fetch https://gitlab.com/inkscape/inkscape.git
+- echo "Your commit does not comply exactly with the clang-format style checker.\nPlease review the following diff or apply it with\n \$ git apply <<EOF"
+- git diff FETCH_HEAD -U0 --no-color | clang-format-diff-6.0 -p1 -style file | tee clang_format_diff
+- echo "EOF"
+- if [[ -s clang_format_diff ]]; then false; fi
+
+allow_failure: true
+
+# codeprotect
+
+stage: build
+
+except:
+- schedules
+
+script:
+- git fetch https://gitlab.com/inkscape/inkscape.git
+- git diff FETCH_HEAD -U0 --no-color src/2geom/ src/3rdparty/adaptagrams/ src/3rdparty/libdepixelize src/3rdparty/libuemf | tee forbidden
+- if [[ -s forbidden ]]; then echo "This commit modifies files that are in an dependency library. Make sure you update upstream first, *then* force the merge in Inkscape."; false; fi
+
+# source-doc
+
+stage: build
+
+script:
+- cd buildtools
+- doxygen Doxyfile
+- doxygen Doxyfile-extensions
+- cd ..
+
+## artifacts
+paths:
+- doc/doxygen
+- doc/doxygen-extensions
+
+## only
+variables:
+- $SCHEDULED_JOB_NAME == "source-doc"
+
+> This job is a static analysis build by clang.
+> It takes MORE THAN 3 HOURS, and depending on worker sometimes 4 hours.
+> Make sure the timeout of the build is big enough
+# clang
+
+stage: build
+
+script:
+- apt-get update -yqq && apt-get install -y clang
+- mkdir -p clang-build
+- cd clang-build
+- scan-build cmake .. -DCMAKE_BUILD_TYPE=Debug
+- VERBOSE=1 scan-build -o ../scan make -j2
+  
+## artifacts
+paths:
+- scan/
+
+## only
+variables:
+- $SCHEDULED_JOB_NAME == "clang"
+
+#test:linux
+
+stage: test
+
+except:
+- schedules
+
+dependencies:
+- inkscape:linux
+
+script:
+- cd build
+- ctest -V
+
+# check-license-headers
+
+stage: build
+
+except:
+- schedules
+
+script:
+- python buildtools/check_license_headers.py
+
+# translations
+stage: build
+
+except:
+- schedules
+
+-- script
+# make sure dependencies for inkscape.pot are up-to-date
+mkdir build && cd build && cmake .. && make inkscape_pot && cd ..
+cd po/
+
+# update POTFILES.in
+grep -v "^#" POTFILES.in > POTFILES.in.1
+./generate_POTFILES.sh
+grep -v "^#" POTFILES.in > POTFILES.in.2
+
+# update inkscape.pot and sync all .po files
+intltool-update --pot && mv untitled.pot inkscape.pot
+./update_po_files.sh
+
+# check if POTFILES.in should be updated in the repo (shall we automate this?)
+if [ -n "$(diff POTFILES.in.1 POTFILES.in.2)" ]; then
+  git diff POTFILES.in;
+  echo "New translatable strings in source files found.";
+  echo "Please add the paths to POTFILES.in so they can be translated";
+  echo "(or add them to POTFILES.skip to exlude them from translations).";
+  exit 1;
+fi
+
+rm POTFILES.in.1 POTFILES.in.2
+-- script
+
+## artifacts
+name: translations
+paths:
+- po/
+when: always
+
+> uploads the clang scan to user.gitlab.io/inkscape/
+# pages
+
+stage: deploy
+
+only:
+  - schedules
+  
+dependencies:
+  - source-doc
+  - clang
+  
+script:
+- mkdir -p public/
+- sed "s/%DATE%/$(date '+%B %d, %Y')/" buildtools/ci-index.html > public/index.html
+- if test -e scan; then cp -rv scan/* public/scan-build; fi
+- if test -e doc/doxygen; then cp -rv doc/doxygen/html public/doxygen; fi
+- if test -e doc/doxygen-extensions; then cp -rv doc/doxygen-extensions/html public/doxygen-extensions; fi
+
+## artifacts
+paths:
+- public
+
+-- eno
