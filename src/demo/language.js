@@ -3,13 +3,25 @@ import eno, { parse, EnoParseError } from 'enojs';
 import { attrUnescape, htmlEscape } from '../../lib/escape.js';
 import explain from '../../lib/explain.js';
 
-const editor = document.querySelector('#editor');
 const output = document.querySelector('#output');
 const selectDemo = document.querySelector('.demo');
 const selectLocale = document.querySelector('.locale');
 
+import ace from 'ace-builds';
+import 'ace-builds/src-noconflict/theme-tomorrow';
+
+const editor = ace.edit(
+  document.querySelector('#editor'),
+  {
+    fontFamily: 'Cousine',
+    fontSize: '18px',
+    mode: 'ace/mode/text',
+    theme: 'ace/theme/tomorrow'
+  }
+);
+
 const refresh = () => {
-  const input = editor.value;
+  const input = editor.getValue();
 
   try {
     const demoOption = selectDemo.selectedOptions[0];
@@ -33,7 +45,9 @@ const updateDemo = changed => {
   const localeOption = selectLocale.selectedOptions[0].value;
 
   if(changed === 'demo') {
-    editor.value = attrUnescape(demoOption.dataset.eno);
+    // TODO: Solve data attribute encoding by embedding data in a script tag
+    editor.setValue(attrUnescape(demoOption.dataset.eno));
+    editor.gotoLine(1);
   }
 
   refresh();
@@ -42,13 +56,6 @@ const updateDemo = changed => {
 selectDemo.addEventListener('change', () => updateDemo('demo'));
 selectLocale.addEventListener('change', () => updateDemo('locale'));
 
-editor.addEventListener('click', refresh);
-editor.addEventListener('focus', refresh);
-editor.addEventListener('input', refresh);
-editor.addEventListener('keyup', event => {
-  if(['ArrowLeft', 'ArrowRight', 'ArrowDown', 'ArrowUp'].includes(event.key)) {
-    refresh();
-  }
-});
+editor.on('change', refresh);
 
 refresh();

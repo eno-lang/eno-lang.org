@@ -57,7 +57,7 @@ module.exports = async menu => {
 
       <br><br>
 
-      <textarea id="editor">${first.eno}</textarea>
+      <div id="editor">${first.eno}</div>
     </div>
 
     <div class="half">
