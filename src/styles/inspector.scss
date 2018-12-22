@@ -1,0 +1,22 @@
+@import './colors.scss';
+
+.inspector {
+  background-color: $color_inspector_background;
+  padding: 0.5em;
+}
+
+.inspector__element_type {
+  color: $color_inspector_element_type;
+}
+
+.inspector__indented {
+  padding-left: 1em;
+}
+
+.inspector__node {
+  color: $color_inspector_node;
+}
+
+.inspector__value {
+  color: #49960b;
+}

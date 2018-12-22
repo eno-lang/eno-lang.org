@@ -1,14 +1,17 @@
 import eno, { parse, HtmlReporter, ParseError } from 'enojs';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 import { attrUnescape, htmlEscape } from '../../lib/escape.js';
-import explain from '../../lib/explain.js';
 
-const output = document.querySelector('#output');
+const inspector = document.querySelector('.inspector');
 const selectDemo = document.querySelector('.demo');
 const selectLocale = document.querySelector('.locale');
 
 import ace from 'ace-builds';
 import 'ace-builds/src-noconflict/theme-tomorrow';
+
+import Inspector from '../../components/inspector.js';
 
 const editor = ace.edit(
   document.querySelector('#editor'),
@@ -27,15 +30,14 @@ const refresh = () => {
     const demoOption = selectDemo.selectedOptions[0];
     const localeOption = selectLocale.selectedOptions[0].value;
 
-    const result = explain(doc);
     const doc = eno.parse(input, { locale: localeOption, reporter: HtmlReporter });
 
-    output.innerHTML = htmlEscape(result);
+    ReactDOM.render(<Inspector document={doc} />, document.querySelector('.inspector'));
   } catch(err) {
-    if(err instanceof EnoParseError) {
-      output.innerHTML = err;
+    if(err instanceof ParseError) {
+      ReactDOM.render(<Inspector error={err} />, document.querySelector('.inspector'));
     } else {
-      output.innerHTML = err;
+      throw err;
     }
   }
 };

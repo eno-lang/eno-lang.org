@@ -17,6 +17,8 @@
     "nodemon": "^1.18.9",
     "parcel-bundler": "^1.11.0",
     "prismjs": "^1.15.0",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
     "speakingurl": "^14.0.1"
   },
   "description": "The eno-lang.org website",

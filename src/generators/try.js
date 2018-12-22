@@ -62,12 +62,9 @@ module.exports = async menu => {
     </div>
 
     <div class="half">
-      <pre id="output" style="background-color: #f0f0f0; padding: 0.5em;"></pre>
+      <br>
 
-      <div>
-        <strong>Note:</strong> Eno documents are a form of <em>ordered hash structures</em> - their data can be queried both sequentially and associatively.
-        Given that JSON can not adequately represent this concept, a debug representation of the AST (abstract syntax tree), as constructed by the parser (in this case enojs) is shown instead.
-      </div>
+      <div class="inspector"></div>
     </div>
   </div>
 

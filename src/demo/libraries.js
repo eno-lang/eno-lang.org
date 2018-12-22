@@ -3,8 +3,6 @@ import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/mode-python';
 import 'ace-builds/src-noconflict/mode-ruby';
 import 'ace-builds/src-noconflict/theme-tomorrow';
-import jsWorkerUrl from 'file-loader!ace-builds/src-noconflict/worker-javascript';
-ace.config.setModuleUrl('ace/mode/javascript_worker', jsWorkerUrl)
 
 import { parse, ParseError } from 'enojs';
 import eno, { HtmlReporter, TerminalReporter, TextReporter } from 'enojs';
@@ -16,6 +14,8 @@ const editor = document.querySelector('#editor');
 const output = document.querySelector('#output');
 const select = document.querySelector('.demo');
 const selectLanguage = document.querySelector('.language');
+
+ace.config.setModuleUrl('ace/mode/javascript_worker', '/ace/worker-javascript.js');
 
 const aceEditor = ace.edit('code', {
   fontFamily: 'Cousine',
