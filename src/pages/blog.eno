@@ -5,6 +5,23 @@ title: Blog
 -- markdown
 # Blog
 
+**Saturday, December 22 2018**
+
+- Deployed the shiny new document inspector on the [language demo page](https://eno-lang.org/try/), this should provide great insight into the examples and an easy jumpstart to interactively explore how eno documents work - browse away and enjoy the magic! 🧙
+
+- Released [enojs](https://github.com/eno-lang/ace-eno) 0.17.0 🚢
+  
+  This release introduces a dependency-injection based reporter architecture, which is a **breaking change
+  in case you are specifying a custom reporter in your code** - the [changelog](https://github.com/eno-lang/enojs/blob/master/CHANGELOG.md)
+  provides instructions on what needs to be changed in that case.
+  
+  The gain of this is the possibility for users to implement custom reporters, consistency with the other eno libraries (which all use
+  dependency injection for their reporters) and as a collateral bonus it resolves an issue when using [parcel](https://parceljs.org/)
+  to bundle up eno in a web stack.
+
+- Yet another enojs release (0.17.1) fixing an issue in the grammar matching core which can lead to a specific invalid line pair getting faultily tokenized instead of triggering an error. The patch will be ported to enophp, enopy and enorb in the next days, which also employ the flawed matching pattern.
+- More refactoring and maintenance on the website internals 
+
 **Friday, December 21 2018**
 
 - Added *what if ... ?* demos (Cargo.eno, package.eno, .gitlab-ci.eno) to the [language demo page](https://eno-lang.org/try/)
