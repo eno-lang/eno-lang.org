@@ -1,4 +1,4 @@
-import eno, { parse, EnoParseError } from 'enojs';
+import eno, { parse, HtmlReporter, ParseError } from 'enojs';
 
 import { attrUnescape, htmlEscape } from '../../lib/escape.js';
 import explain from '../../lib/explain.js';
@@ -27,8 +27,8 @@ const refresh = () => {
     const demoOption = selectDemo.selectedOptions[0];
     const localeOption = selectLocale.selectedOptions[0].value;
 
-    const doc = eno.parse(input, { locale: localeOption, reporter: 'html' });
     const result = explain(doc);
+    const doc = eno.parse(input, { locale: localeOption, reporter: HtmlReporter });
 
     output.innerHTML = htmlEscape(result);
   } catch(err) {

@@ -6,8 +6,8 @@ import 'ace-builds/src-noconflict/theme-tomorrow';
 import jsWorkerUrl from 'file-loader!ace-builds/src-noconflict/worker-javascript';
 ace.config.setModuleUrl('ace/mode/javascript_worker', jsWorkerUrl)
 
-import { parse, EnoParseError } from 'enojs';
-import eno from 'enojs';
+import { parse, ParseError } from 'enojs';
+import eno, { HtmlReporter, TerminalReporter, TextReporter } from 'enojs';
 
 import { attrUnescape, htmlEscape } from '../../lib/escape.js';
 
@@ -25,6 +25,7 @@ const aceEditor = ace.edit('code', {
   theme: 'ace/theme/tomorrow'
 });
 
+
 const refresh = () => {
   const input = editor.value;
 
@@ -39,9 +40,9 @@ const refresh = () => {
       js = attrUnescape(demoOption.dataset.javascript);
     }
 
-    const evaluate = new Function('input', 'eno', 'cursor', js);
+    const evaluate = new Function('input', 'eno', 'HtmlReporter', 'TerminalReporter', 'TextReporter', 'cursor', js);
 
-    const result = evaluate(input, eno, editor.selectionStart);
+    const result = evaluate(input, eno, HtmlReporter, TerminalReporter, TextReporter, editor.selectionStart);
 
     if(typeof result === 'object') {
       output.innerHTML = htmlEscape(JSON.stringify(result, null, 2));
@@ -49,7 +50,7 @@ const refresh = () => {
       output.innerHTML = htmlEscape(result);
     }
   } catch(err) {
-    if(err instanceof EnoParseError) {
+    if(err instanceof ParseError) {
       output.innerHTML = err;
     } else {
       output.innerHTML = err;

@@ -1,6 +1,6 @@
 language: javascript
 title: enojs
-version: 0.16.1
+version: 0.17.1
 
 -- intro
 > Everyone is welcome to improve this documentation by editing [javascript.eno](https://github.com/eno-lang/eno-lang.org/blob/master/src/docs/javascript.eno) and submitting a Pull Request!
@@ -48,7 +48,7 @@ Repository on github - <https://github.com/eno-lang/enojs/>
 
 -- class description
 The main module. You'll be calling `parse` on this, and possibly supplying a custom
-locale (such as `'de'`, `'es'`, ...), reporter type (`'text'`, `'html'`, `'terminal'` are available)
+locale (such as `'de'`, `'es'`, ...), reporter (`TextReporter`, `HtmlReporter`, `TerminalReporter` are available)
 or source label (usually to have a filename appear in error messages) to that call.
 -- class description
 
@@ -67,12 +67,15 @@ color: blue
 -- eno
 
 -- javascript
+const eno = require('enojs');
+const { HtmlReporter, TerminalReporter} = require('enojs');  // if you want to use something else than the default TextReporter
+
 eno.parse(input);  // returns [object Section document elements=1]
 
                                                    // Errors will be ...
 eno.parse(input, { locale: 'es' });                // In spanish - ¡hola!
-eno.parse(input, { reporter: 'html' });            // HTML for e.g. web integration
-eno.parse(input, { reporter: 'terminal' });        // Colored for terminal output
+eno.parse(input, { reporter: HtmlReporter });      // HTML for e.g. web integration
+eno.parse(input, { reporter: TerminalReporter });  // Colored for terminal output
 eno.parse(input, { sourceLabel: 'my-file.eno' });  // Annotated with a label as context
 eno.parse(input, { zeroIndexing: true });          // Counting line and column numbers from 0
 -- javascript
@@ -82,7 +85,7 @@ eno.parse(input, { zeroIndexing: true });          // Counting line and column n
 input: A string containing text in eno notation.
 options:
 locale = A string specifying the code of the locale to use for error messages (e.g. `'de'`, `'es'`), by default `'en'`.
-reporter = One of `'text'`, `'html'`, `'terminal'`.
+reporter = One of `TextReporter` (default), `HtmlReporter`, `TerminalReporter`, all three available as named exports from `require('enojs')`.
 source_label = A string that labels where the input comes from (e.g. a filename), this is included with error messages to help the user located the file.
 zeroIndexing = `true` or `false` (default), set `true` to display `0,1,2,..` line and column numbers in all error messages instead of the default `1,2,3,..` indexing.
 

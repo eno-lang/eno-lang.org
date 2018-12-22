@@ -12,7 +12,7 @@ Greeting: Hello World
 -- javascript
 const options = {
   locale: 'de',
-  reporter: 'html'
+  reporter: HtmlReporter
 };
 
 const doc = eno.parse(input, options);
@@ -56,7 +56,7 @@ Continent: Europe
 -- eno
 
 -- javascript
-const doc = eno.parse(input, { reporter: 'html' });
+const doc = eno.parse(input, { reporter: HtmlReporter });
 
 const city = doc.section('City');
 
@@ -120,7 +120,7 @@ const latLngLoader = ({ value }) => {
   throw 'Coordinates must be formatted xx.xxxxxx, xx.xxxxxx';
 };
 
-const doc = eno.parse(input, { reporter: 'html' });
+const doc = eno.parse(input, { reporter: HtmlReporter });
 
 return doc.list('route_coordinates', latLngLoader);
 -- javascript
@@ -178,7 +178,7 @@ Rating = ⭐⭐⭐⭐⭐
 -- eno
 
 -- javascript
-const doc = eno.parse(input, { reporter: 'html' });
+const doc = eno.parse(input, { reporter: HtmlReporter });
 
 // In this example the 'cursor' variable is provided by the demo
 // to contain the numerical index of the cursor inside the textarea

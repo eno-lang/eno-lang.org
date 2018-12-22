@@ -1,4 +1,5 @@
 const eno = require('enojs');
+const { TerminalReporter } = require('enojs');
 const fs = require('fs');
 const fsExtra = require('fs-extra');
 const path = require('path');
@@ -13,7 +14,7 @@ const build = async () => {
   await fsExtra.copy(path.join(__dirname, 'static/'), path.join(__dirname, 'public/'));
 
   const configFile = await fs.promises.readFile(path.join(__dirname, 'src/configuration.eno'), 'utf-8');
-  const config = eno.parse(configFile, { reporter: 'terminal', sourceLabel: 'src/configuration.eno' });
+  const config = eno.parse(configFile, { reporter: TerminalReporter, sourceLabel: 'src/configuration.eno' });
   const menu = config.section('menu');
 
   await Promise.all([

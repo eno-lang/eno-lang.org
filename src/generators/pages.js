@@ -1,4 +1,5 @@
 const eno = require('enojs');
+const { TerminalReporter } = require('enojs');
 const fastGlob = require('fast-glob');
 const fs = require('fs');
 const { markdown } = require('../../lib/loaders.js');
@@ -11,7 +12,7 @@ module.exports = async menu => {
 
   for(let file of files) {
     const input = await fs.promises.readFile(file, 'utf-8');
-    const page = eno.parse(input, { reporter: 'terminal', sourceLabel: file });
+    const page = eno.parse(input, { reporter: TerminalReporter, sourceLabel: file });
 
     let rendered = '';
 

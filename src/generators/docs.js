@@ -1,5 +1,5 @@
 const eno  = require('enojs');
-const { Fieldset, List }  = require('enojs');
+const { Fieldset, List, TerminalReporter }  = require('enojs');
 const fastGlob = require('fast-glob');
 const fs = require('fs');
 const fsExtra = require('fs-extra');
@@ -179,7 +179,7 @@ module.exports = async menu => {
 
   for(let file of files) {
     const input = await fs.promises.readFile(file, 'utf-8');
-    const documentation = eno.parse(input, { reporter: 'terminal', sourceLabel: file });
+    const documentation = eno.parse(input, { reporter: TerminalReporter, sourceLabel: file });
 
     await generateLanguage(path.basename(file, '.eno'), documentation, menu);
   }

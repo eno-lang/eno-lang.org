@@ -1,4 +1,5 @@
 const eno = require('enojs');
+const { TerminalReporter } = require('enojs');
 const fs = require('fs');
 const path = require('path');
 const { attrEscape } = require('../../lib/escape.js');
@@ -8,7 +9,7 @@ const layout = require('../layout.js');
 
 module.exports = async menu => {
   const input = fs.readFileSync(path.join(__dirname, '../demo/libraries.eno'), 'utf-8');
-  const demos = eno.parse(input, { reporter: 'terminal' });
+  const demos = eno.parse(input, { reporter: TerminalReporter });
 
   let options = '';
   let first = null;
