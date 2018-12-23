@@ -1,6 +1,9 @@
 import React from 'react';
 
 const formatValue = value => {
+  if(value === null)
+    return 'null'
+
   value = value.replace('\n', '\\n');
 
   if(value.length > 72) {
