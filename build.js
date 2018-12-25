@@ -16,7 +16,7 @@ const build = async () => {
   // ace dynamic components
   await fsExtra.copy(
     path.join(__dirname, 'node_modules/ace-eno/builds/src-min-noconflict/worker-javascript.js'),
-    path.join(__dirname, 'public/ace/worker-javascript.js')
+    path.join(__dirname, 'public/ace-worker-javascript.js')
   );
 
   const configFile = await fs.promises.readFile(path.join(__dirname, 'src/configuration.eno'), 'utf-8');

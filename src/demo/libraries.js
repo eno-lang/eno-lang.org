@@ -15,7 +15,7 @@ const output = document.querySelector('#output');
 const select = document.querySelector('.demo');
 const selectLanguage = document.querySelector('.language');
 
-ace.config.setModuleUrl('ace/mode/javascript_worker', '/ace/worker-javascript.js');
+ace.config.setModuleUrl('ace/mode/javascript_worker', '/ace-worker-javascript.js');
 
 const aceEditor = ace.edit('code', {
   fontFamily: 'Cousine',
