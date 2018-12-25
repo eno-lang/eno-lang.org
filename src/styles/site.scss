@@ -10,6 +10,12 @@
   height: auto;
 }
 
+.logo_headline {
+  @extend h2;
+
+  color: $color_text;
+}
+
 .logo_parade {
   display: grid;
   grid-gap: 2em;
