@@ -8,8 +8,9 @@ const inspector = document.querySelector('.inspector');
 const selectDemo = document.querySelector('.demo');
 const selectLocale = document.querySelector('.locale');
 
-import ace from 'ace-builds';
-import 'ace-builds/src-noconflict/theme-tomorrow';
+import ace from 'ace-eno/builds/src-noconflict/ace';
+import 'ace-eno/builds/src-noconflict/mode-eno';
+import 'ace-eno/builds/src-noconflict/theme-tomorrow';
 
 import Inspector from '../../components/inspector.js';
 
@@ -18,7 +19,7 @@ const editor = ace.edit(
   {
     fontFamily: 'Cousine',
     fontSize: '18px',
-    mode: 'ace/mode/text',
+    mode: 'ace/mode/eno',
     theme: 'ace/theme/tomorrow'
   }
 );

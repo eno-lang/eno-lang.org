@@ -1,8 +1,8 @@
-import ace from 'ace-builds';
-import 'ace-builds/src-noconflict/mode-javascript';
-import 'ace-builds/src-noconflict/mode-python';
-import 'ace-builds/src-noconflict/mode-ruby';
-import 'ace-builds/src-noconflict/theme-tomorrow';
+import ace from 'ace-eno/builds/src-noconflict/ace';
+import 'ace-eno/builds/src-noconflict/mode-javascript';
+import 'ace-eno/builds/src-noconflict/mode-python';
+import 'ace-eno/builds/src-noconflict/mode-ruby';
+import 'ace-eno/builds/src-noconflict/theme-tomorrow';
 
 import { parse, ParseError } from 'enojs';
 import eno, { HtmlReporter, TerminalReporter, TextReporter } from 'enojs';
