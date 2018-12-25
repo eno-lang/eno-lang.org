@@ -5,11 +5,24 @@ title: Blog
 -- markdown
 # Blog
 
+**Tuesday, December 25 2018**
+
+- Released [enopy](https://github.com/eno-lang/enopy) 0.9.2 with patches to the grammar matching core
+- Ported enojs' extensive grammar matching test suite to enopy as well
+- Released [language-eno](https://github.com/eno-lang/language-eno) 0.3.4 removing a faulty stray asterisk from a syntax matching rule
+- Packaged the completed [ace editor eno extension](https://github.com/eno-lang/ace-eno) and integrated it on the website 🎉
+
+**Sunday, December 23 2018**
+
+- The [language demos](https://eno-lang.org/try/) now utitilize the freshly finished eno support for Ace editor - enjoy full syntax highlighting inside the in-browser editor!
+- Released [enorb](https://github.com/eno-lang/enorb) 0.10.3 with patches and improvements to the grammar matching core
+- Released [enojs](https://github.com/eno-lang/enojs) 0.17.2 with an edge case block pattern fix and some escape matching pattern hardening
+
 **Saturday, December 22 2018**
 
 - Deployed the shiny new document inspector on the [language demo page](https://eno-lang.org/try/), this should provide great insight into the examples and an easy jumpstart to interactively explore how eno documents work - browse away and enjoy the magic! 🧙
 
-- Released [enojs](https://github.com/eno-lang/ace-eno) 0.17.0 🚢
+- Released [enojs](https://github.com/eno-lang/enojs) 0.17.0 🚢
   
   This release introduces a dependency-injection based reporter architecture, which is a **breaking change
   in case you are specifying a custom reporter in your code** - the [changelog](https://github.com/eno-lang/enojs/blob/master/CHANGELOG.md)

@@ -1,6 +1,6 @@
 language: ruby
 title: enorb
-version: 0.10.2
+version: 0.10.3
 
 -- intro
 > Everyone is welcome to improve this documentation by editing [ruby.eno](https://github.com/eno-lang/eno-lang.org/blob/master/src/docs/ruby.eno) and submitting a Pull Request!

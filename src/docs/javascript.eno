@@ -1,6 +1,6 @@
 language: javascript
 title: enojs
-version: 0.17.1
+version: 0.17.2
 
 -- intro
 > Everyone is welcome to improve this documentation by editing [javascript.eno](https://github.com/eno-lang/eno-lang.org/blob/master/src/docs/javascript.eno) and submitting a Pull Request!
