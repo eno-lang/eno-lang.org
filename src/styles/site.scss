@@ -20,6 +20,11 @@
   display: grid;
   grid-gap: 2em;
   grid-template-columns: repeat(auto-fit, 5em);
+
+  a {
+    align-items: center;
+    display: flex;
+  }
 }
 
 .brand {

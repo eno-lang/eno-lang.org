@@ -1,0 +1,13 @@
+title: Ace Plugin
+
+# content
+
+-- markdown
+# <img src="/ace.png" style="max-width: 36px; height: auto;" /> Ace
+
+The [ace-eno](https://github.com/eno-lang/ace-eno) repository provides a custom mode implementation for eno in [Ace editor](https://ace.c9.io/). You can directly use full, extended ace builds from the repository by downloading them or installing them through npm, or pick up the two source files and integrate them in you own ace builds.
+
+Visit the [ace-eno](https://github.com/eno-lang/ace-eno) repository on github.
+
+<img src="/resources/ace.png" />
+-- markdown
