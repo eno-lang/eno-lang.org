@@ -19,19 +19,21 @@
     "prismjs": "^1.15.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
-    "speakingurl": "^14.0.1"
+    "speakingurl": "^14.0.1",
+    "turbolinks": "^5.2.0"
   },
   "description": "The eno-lang.org website",
   "name": "eno-lang.org",
   "private": true,
   "repository": "https://github.com/eno-lang/eno-lang.org",
   "scripts": {
-    "build": "node build.js && npm run styles && npm run language-demos && npm run libraries-demos",
+    "build": "node build.js && npm run styles && npm run scripts && npm run language-demos && npm run libraries-demos",
     "deploy": "node deploy.js",
     "language-demos": "parcel build src/demo/language.js --no-cache --no-source-maps --out-dir public --out-file try.js",
     "libraries-demos": "parcel build src/demo/libraries.js --no-cache --no-source-maps --out-dir public --out-file demo.js",
     "release": "npm run build && npm run deploy",
     "serve": "http-server -c-1",
+    "scripts": "parcel build src/scripts.js --no-cache --no-source-maps --out-dir public --out-file scripts.js",
     "styles": "node-sass --output-style compressed src/styles/main.scss public/styles.css",
     "watch": "nodemon --ext css,eno,js,scss --ignore public --exec 'npm run build && npm run serve'"
   }

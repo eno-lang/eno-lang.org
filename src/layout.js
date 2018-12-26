@@ -14,6 +14,7 @@ module.exports = (content, title, active = null, menu) => {
         <title>${title}</title>
 
         <link rel="stylesheet" href="/styles.css">
+        <script src="/scripts.js"></script>
       </head>
 
       <body>
