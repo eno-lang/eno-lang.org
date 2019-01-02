@@ -1,6 +1,6 @@
 language: php
 title: enophp
-version: 0.1.1
+version: 0.1.2
 
 -- intro
 > Everyone is welcome to improve this documentation by editing [php.eno](https://github.com/eno-lang/eno-lang.org/blob/master/src/docs/php.eno) and submitting a Pull Request!

@@ -5,6 +5,23 @@ title: Blog
 -- markdown
 # Blog
 
+**Wednesday, January 2 2019**
+
+- Released [enophp](https://github.com/eno-lang/enophp) 0.1.2 with pattern matching core patches and improvements
+
+**Tuesday, January 1 2019**
+
+- Work on the upcoming [enophp](https://github.com/eno-lang/enophp) stability release
+
+**Monday, December 31 2018**
+
+- Design research and tooling improvements for [plugin color schemes](https://github.com/eno-lang/color-schemes)
+
+**Sunday, December 30 2018**
+
+- Began porting recent library patches and extending specs for [enophp](https://github.com/eno-lang/enophp)
+- Iterative work on refining syntax scopes and matching rules for the atom/sublime eno grammars, including color scheme adaptions
+
 **Tuesday, December 25 2018**
 
 - Released [enopy](https://github.com/eno-lang/enopy) 0.9.2 with patches to the grammar matching core
