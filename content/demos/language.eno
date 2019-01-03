@@ -100,6 +100,43 @@ Greater > Smaller: The > is fine if it's not the first thing in the name
 `> Smaller`: The > at the start would start a comment
 -- eno
 
+## Fieldsets
+
+-- eno
+> An empty fieldset
+my_fieldset:
+
+
+> A fieldset with a single entry
+my_fieldset:
+my_entry = my value
+
+
+> A fieldset with two entries
+> (note that unlike fields in sections, entry names in a fieldset MUST be unique)
+my_fieldset:
+my_entry_a = my value
+my_entry_b = my value
+
+
+my_fieldset:
+
+> There can be comments and any number of empty lines between fieldset entries
+my_entry_a =  my value
+
+my_entry_b = my value
+
+
+my_fieldset:
+my_entry = my value
+> You can use line and newline continuations for fieldset entries just like with regular fields
+\ continued
+
+
+> Just for clarity, this is NOT a fieldset, but a field with the value "my_entry = my value"
+NOT_a_fieldset: my_entry = my value
+-- eno
+
 ## Lists
 
 -- eno
@@ -134,7 +171,6 @@ my_list:
 
 > Just for clarity, this is NOT a list, but a field with the value "- my value"
 NOT_a_list: - my value
-
 -- eno
 
 ## Sections
