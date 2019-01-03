@@ -9,8 +9,11 @@ const generateDemo = require('./src/generators/demo.js');
 const generateDocs = require('./src/generators/docs.js');
 const generatePages = require('./src/generators/pages.js');
 const generateTryPage = require('./src/generators/try.js');
+const source = require('./source.js');
 
 const build = async () => {
+  const data = await source();
+
   await fsExtra.emptyDir(path.join(__dirname, 'public'));
   await fsExtra.copy(path.join(__dirname, 'static/'), path.join(__dirname, 'public/'));
 
@@ -20,19 +23,13 @@ const build = async () => {
     path.join(__dirname, 'public/ace-worker-javascript.js')
   );
 
-  const configFile = await fs.promises.readFile(path.join(__dirname, 'src/configuration.eno'), 'utf-8');
-  const config = eno.parse(configFile, { reporter: TerminalReporter, sourceLabel: 'src/configuration.eno' });
-  const menu = config.section('menu');
-
   await Promise.all([
-    generateBlog(menu),
-    generateDemo(menu),
-    generateDocs(menu),
-    generatePages(menu),
-    generateTryPage(menu)
+    generateBlog(data),
+    generateDemo(data),
+    generateDocs(data),
+    generatePages(data),
+    generateTryPage(data)
   ]);
-
-  menu.assertAllTouched({ except: '/' });
 }
 
 build();

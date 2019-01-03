@@ -1,7 +1,7 @@
 const footer = require('./footer.js');
 const header = require('./header.js');
 
-module.exports = (content, title, active = null, menu) => {
+module.exports = (data, content, title, activeUrl = null) => {
   const html = `
     <!doctype html>
     <html>
@@ -18,7 +18,7 @@ module.exports = (content, title, active = null, menu) => {
       </head>
 
       <body>
-        ${header(active, menu)}
+        ${header(data, activeUrl)}
 
         <div class="boundary padding">
           ${content}

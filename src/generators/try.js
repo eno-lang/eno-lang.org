@@ -6,7 +6,7 @@ const { attrEscape } = require('../../lib/escape.js');
 
 const layout = require('../layout.js');
 
-module.exports = async menu => {
+module.exports = async data => {
   const input = fs.readFileSync(path.join(__dirname, '../demo/language.eno'), 'utf-8');
   const demos = eno.parse(input, { reporter: TerminalReporter });
 
@@ -71,7 +71,7 @@ module.exports = async menu => {
   <script src="/try.js"></script>
   `;
 
-  const html = layout(content, 'Try the language', '/try/', menu);
+  const html = layout(data, content, 'Try the language', '/try/');
 
   await fs.promises.mkdir(path.join(__dirname, '../../public/try'));
   await fs.promises.writeFile(path.join(__dirname, '../../public/try/index.html'), html);

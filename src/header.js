@@ -4,15 +4,15 @@
 
 // TODO: Sequential accessor for fieldsets (see below usecase for secondary header) (implemented but reevaluate in this context)
 
-module.exports = (active = null, menu) => {
-  const sections = menu.elements();
-  const currentSection = sections.find(section => {
-    return section.section('pages').field(active) !== null;
-  });
+module.exports = (data, activeUrl = null) => {
+  let currentPage, currentSection;
+  for(let section of data.menu) {
+    currentPage = section.pages.find(page => page.url === activeUrl);
 
-  let currentPage;
-  if(currentSection) {
-    currentPage = currentSection.section('pages').field(active, { element: true });
+    if(currentPage) {
+      currentSection = section;
+      break;
+    }
   }
 
   return `
@@ -25,10 +25,10 @@ module.exports = (active = null, menu) => {
 
             <div class="menu__spacer"></div>
 
-            ${sections.filter(section => section.name !== '/').map(section => `
+            ${data.menu.filter(section => section.url !== '/').map(section => `
               <a class="menu__link ${section === currentSection ? 'active' : ''}"
-                 href="${section.name}">
-                ${section.string('label')}
+                 href="${section.url}">
+                ${section.name}
               </a>
             `).join('')}
           </div>
@@ -40,15 +40,15 @@ module.exports = (active = null, menu) => {
           <div class="boundary">
             <div class="menu compact">
               <a class="menu__link menu__toggle">
-                ${currentPage.value()} <span class="icon-dropdown"></span>
+                ${currentPage.name} <span class="icon-dropdown"></span>
               </a>
             </div>
 
             <div class="menu__dropdown">
-              ${currentSection.section('pages').elements().map(page => `
-                <a class="menu__link ${page.name === active ? 'active' : ''}"
-                   href="${page.name}">
-                  ${page.value()}
+              ${currentSection.pages.map(page => `
+                <a class="menu__link ${page.url === activeUrl ? 'active' : ''}"
+                   href="${page.url}">
+                  ${page.name}
                 </a>
               `).join('')}
             </div>
@@ -61,14 +61,14 @@ module.exports = (active = null, menu) => {
             </script>
 
             <div class="menu wide">
-              <span class="menu__text">${currentSection.string('tagline')}</span>
+              <span class="menu__text">${currentSection.tagline}</span>
 
               <div class="menu__spacer"></div>
 
-              ${currentSection.section('pages').elements().map(page => `
-                <a class="menu__link ${page.name === active ? 'active' : ''}"
-                   href="${page.name}">
-                  ${page.value()}
+              ${currentSection.pages.map(page => `
+                <a class="menu__link ${page.url === activeUrl ? 'active' : ''}"
+                   href="${page.url}">
+                  ${page.name}
                 </a>
               `).join('')}
             </div>

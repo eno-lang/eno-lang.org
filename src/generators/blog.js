@@ -7,23 +7,17 @@ const path = require('path');
 
 const layout = require('../layout.js');
 
-module.exports = async menu => {
-  const input = await fs.promises.readFile(path.join(__dirname, '../../content/blog.eno'), 'utf-8');
-  const blog = eno.parse(input, { reporter: TerminalReporter, sourceLabel: 'content/blog.eno' });
+module.exports = async data => {
+  let content = `
+    <h1>Blog</h1>
 
-  let rendered = '<h1>Blog</h1>';
+    ${data.blog.map(entry =>
+      `<p><strong>${moment(entry.date).format('dddd, MMMM D YYYY')}</strong></p>${entry.html}`
+    ).join('')}
+  `;
 
-  for(let entry of blog.elements()) {  // TODO: Would need fields() accessor without name option here
-    const date = moment(entry.name);  // TODO: Loader for name would be great here to validate date the eno way :)
-
-    rendered += `<p><strong>${date.format('dddd, MMMM D YYYY')}</strong></p>`;
-    rendered += entry.value(markdown);
-  }
-
-  const html = layout(rendered, 'Blog', '/blog/', menu);
+  const html = layout(data, content, 'Blog', '/blog/');
 
   await fs.promises.mkdir(path.join(__dirname, `../../public/blog`));
   await fs.promises.writeFile(path.join(__dirname, `../../public/blog/index.html`), html);
-
-  blog.assertAllTouched();
 };

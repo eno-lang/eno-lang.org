@@ -7,7 +7,7 @@ const path = require('path');
 
 const layout = require('../layout.js');
 
-module.exports = async menu => {
+module.exports = async data => {
   const files = await fastGlob('src/pages/*.eno');
 
   for(let file of files) {
@@ -36,7 +36,7 @@ module.exports = async menu => {
 
     const fileName = path.basename(file, '.eno');
 
-    const html = layout(rendered, page.string('title'), fileName === 'index' ? '/' : `/${fileName}/`, menu);
+    const html = layout(data, rendered, page.string('title'), fileName === 'index' ? '/' : `/${fileName}/`);
 
     if(fileName === 'index') {
       await fs.promises.writeFile(path.join(__dirname, `../../public/index.html`), html);

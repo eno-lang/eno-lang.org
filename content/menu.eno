@@ -1,0 +1,42 @@
+# /
+
+label: eno
+tagline: The eno notation language and libraries
+pages:
+/ = Home
+/about/ = About
+/blog/ = Blog
+
+# /language/
+
+label: Language
+tagline: The eno notation language
+pages:
+/language/ = Overview
+/introduction/ = Introduction
+/advanced/ = Advanced
+/try/ = Demos
+
+# /libraries/
+
+label: Libraries
+tagline: The eno libraries
+pages:
+/libraries/ = Overview
+/javascript/ = JS
+/php/ = PHP
+/python/ = Python
+/ruby/ = Ruby
+/rust/ = Rust
+
+# /plugins/
+
+label: Plugins
+tagline: IDE and editor plugins for eno
+pages:
+/plugins/ = Overview
+/ace/ = Ace
+/atom/ = Atom
+/prism/ = Prism
+/sublime/ = Sublime
+/vscode/ = VSCode

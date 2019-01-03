@@ -23,7 +23,7 @@ loadLanguages(Object.keys(LANGUAGES));
 
 const layout = require('../layout.js');
 
-const docsLayout = (content, title, active, menu, sidebar) => {
+const docsLayout = (data, content, title, activeUrl, sidebar) => {
   const html = `
     <div class="docs">
       <div class="sidebar">
@@ -35,21 +35,21 @@ const docsLayout = (content, title, active, menu, sidebar) => {
     </div>
   `;
 
-  return layout(html, title, active, menu);
+  return layout(data, html, title, activeUrl);
 };
 
-const generateIndex = async (documentation, sidebar, menu) => {
+const generateIndex = async (data, documentation, sidebar) => {
   const language = documentation.field('language', { required: true });
 
   const html = documentation.field('intro', markdown);
 
-  const content = docsLayout(html, documentation.field('title'), `/${language}/`, menu, sidebar);
+  const content = docsLayout(data, html, documentation.field('title'), `/${language}/`, sidebar);
 
   await fsExtra.ensureDir(path.join(__dirname, `../../public/${language}`));
   await fs.promises.writeFile(path.join(__dirname, `../../public/${language}/index.html`), content);
 };
 
-const generateMethod = async (language, collection, member, sidebar, menu) => {
+const generateMethod = async (data, language, collection, member, sidebar) => {
   let html = `<h1>${collection.name} » ${member.name}</h1>`;
 
   const syntaxElement = member.element('syntax');
@@ -111,14 +111,14 @@ const generateMethod = async (language, collection, member, sidebar, menu) => {
 
   const collectionSlug = slug(collection.name);
   const methodSlug = slug(member.name);
-  const content = docsLayout(html, collection.name, `/${language}/`, menu, sidebar);
+  const content = docsLayout(data, html, collection.name, `/${language}/`, sidebar);
 
   await fsExtra.ensureDir(path.join(__dirname, `../../public/${language}/${collectionSlug}`));
   await fsExtra.ensureDir(path.join(__dirname, `../../public/${language}/${collectionSlug}/${methodSlug}`));
   await fs.promises.writeFile(path.join(__dirname, `../../public/${language}/${collectionSlug}/${methodSlug}/index.html`), content);
 };
 
-const generateCollection = async (language, collection, sidebar, menu) => {
+const generateCollection = async (data, language, collection, sidebar) => {
   let html = `<h1>${collection.name}</h1>`;
 
   for(let member of collection.elements()) {
@@ -126,12 +126,12 @@ const generateCollection = async (language, collection, sidebar, menu) => {
       html += member.value(markdown);
       continue;
     } else {
-      await generateMethod(language, collection, member, sidebar, menu);
+      await generateMethod(data, language, collection, member, sidebar);
     }
   }
 
   const collectionSlug = slug(collection.name);
-  const content = docsLayout(html, collection.name, `/${language}/`, menu, sidebar);
+  const content = docsLayout(data, html, collection.name, `/${language}/`, sidebar);
 
   await fsExtra.ensureDir(path.join(__dirname, `../../public/${language}`));
   await fsExtra.ensureDir(path.join(__dirname, `../../public/${language}/${collectionSlug}`));
@@ -162,25 +162,25 @@ const generateSidebar = documentation => {
   return html;
 };
 
-const generateLanguage = async (language, documentation, menu) => {
+const generateLanguage = async (data, language, documentation) => {
   const sidebar = generateSidebar(documentation);
 
-  await generateIndex(documentation, sidebar, menu);
+  await generateIndex(data, documentation, sidebar);
 
   for(let collection of documentation.section('Modules').elements()) {
-    await generateCollection(language, collection, sidebar, menu);
+    await generateCollection(data, language, collection, sidebar);
   }
 
   documentation.assertAllTouched();
 };
 
-module.exports = async menu => {
+module.exports = async data => {
   const files = await fastGlob('src/docs/*.eno');
 
   for(let file of files) {
     const input = await fs.promises.readFile(file, 'utf-8');
     const documentation = eno.parse(input, { reporter: TerminalReporter, sourceLabel: file });
 
-    await generateLanguage(path.basename(file, '.eno'), documentation, menu);
+    await generateLanguage(data, path.basename(file, '.eno'), documentation);
   }
 };
