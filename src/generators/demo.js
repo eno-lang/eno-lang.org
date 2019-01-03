@@ -1,55 +1,27 @@
-const eno = require('enojs');
-const { TerminalReporter } = require('enojs');
 const fs = require('fs');
 const path = require('path');
 const { attrEscape } = require('../../lib/escape.js');
-const { markdown } = require('../../lib/loaders.js');
 
 const layout = require('../layout.js');
 
+// TODO: PHP examples ?!
+
 module.exports = async data => {
-  const input = fs.readFileSync(path.join(__dirname, '../demo/libraries.eno'), 'utf-8');
-  const demos = eno.parse(input, { reporter: TerminalReporter });
-
-  let options = '';
-  let first = null;
-
-  for(let demo of demos.elements()) {
-    const title = demo.name;
-    const eno = demo.string('eno', { required: true });
-    const javascript = demo.string('javascript', { required: true });
-    const python = demo.string('python', { required: true });
-    const ruby = demo.string('ruby', { required: true });
-    const text = demo.field('markdown', markdown, { required: true });
-
-    options += `
-      <option data-eno="${attrEscape(eno)}"
-              data-javascript="${attrEscape(javascript)}"
-              data-python="${attrEscape(python)}"
-              data-ruby="${attrEscape(ruby)}"
-              data-text="${attrEscape(text)}">
-        ${title}
-      </option>
-    `;
-
-    if(!first) {
-      first = {
-        eno: eno,
-        javascript: javascript,
-        python: python,
-        ruby: ruby,
-        text: text
-      };
-    }
-  }
-
   const content = `
   <h1>Interactive eno library demos</h1>
 
   <div class="split">
     <div class="half">
       <select class="demo" style="width: 100%;">
-      ${options}
+        ${data.demos.libraries.map(demo => `
+          <option data-eno="${attrEscape(demo.eno)}"
+                  data-javascript="${attrEscape(demo.javascript)}"
+                  data-python="${attrEscape(demo.python)}"
+                  data-ruby="${attrEscape(demo.ruby)}"
+                  data-text="${attrEscape(demo.text)}">
+            ${demo.title}
+          </option>
+        `).join('')}
       </select>
 
       <br/>
@@ -62,14 +34,14 @@ module.exports = async data => {
       </select>
 
       <div id="text">
-        ${first.text}
+        ${data.demos.libraries[0].text}
       </div>
 
-      <div id="code">${first.javascript}</div>
+      <div id="code">${data.demos.libraries[0].javascript}</div>
     </div>
 
     <div class="half">
-      <textarea id="editor">${first.eno}</textarea>
+      <textarea id="editor">${data.demos.libraries[0].eno}</textarea>
       <pre id="output"></pre>
     </div>
 
@@ -78,7 +50,7 @@ module.exports = async data => {
   <script src="/demo.js"></script>
   `;
 
-  const html = layout(data, content, 'Interactive enojs demos', '/demo/');
+  const html = layout(data, content, 'Interactive library demos', '/demo/');
 
   await fs.promises.mkdir(path.join(__dirname, '../../public/demo'));
   await fs.promises.writeFile(path.join(__dirname, '../../public/demo/index.html'), html);

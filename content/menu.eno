@@ -1,6 +1,6 @@
 # /
 
-label: eno
+name: eno
 tagline: The eno notation language and libraries
 pages:
 / = Home
@@ -9,7 +9,7 @@ pages:
 
 # /language/
 
-label: Language
+name: Language
 tagline: The eno notation language
 pages:
 /language/ = Overview
@@ -19,7 +19,7 @@ pages:
 
 # /libraries/
 
-label: Libraries
+name: Libraries
 tagline: The eno libraries
 pages:
 /libraries/ = Overview
@@ -31,7 +31,7 @@ pages:
 
 # /plugins/
 
-label: Plugins
+name: Plugins
 tagline: IDE and editor plugins for eno
 pages:
 /plugins/ = Overview

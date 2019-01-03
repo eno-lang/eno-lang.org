@@ -1,5 +1,3 @@
-const eno = require('enojs');
-const { TerminalReporter } = require('enojs');
 const fs = require('fs');
 const path = require('path');
 const { attrEscape } = require('../../lib/escape.js');
@@ -7,36 +5,6 @@ const { attrEscape } = require('../../lib/escape.js');
 const layout = require('../layout.js');
 
 module.exports = async data => {
-  const input = fs.readFileSync(path.join(__dirname, '../demo/language.eno'), 'utf-8');
-  const demos = eno.parse(input, { reporter: TerminalReporter });
-
-  let options = '';
-  let first = null;
-
-  for(let group of demos.elements()) {
-    options += `<optgroup label="${group.name}">`;
-
-    for(let demo of group.elements()) {
-      const title = demo.name;
-      const eno = demo.string('eno', { required: true });
-
-      options += `
-        <option data-eno="${attrEscape(eno)}">
-          ${title}
-        </option>
-      `;
-
-      if(!first) {
-        first = {
-          eno,
-          title
-        };
-      }
-    }
-
-    options += '</optgroup>';
-  }
-
   const content = `
   <h1>Try the language</h1>
 
@@ -46,7 +14,15 @@ module.exports = async data => {
 
       Browse demos here, or just interactively try out things below right away.<br>
       <select class="demo" style="width: 100%;">
-        ${options}
+        ${data.demos.language.map(group => `
+          <optgroup label="${group.title}">
+            ${group.examples.map(example => `
+              <option data-eno="${attrEscape(example.eno)}">
+                ${example.title}
+              </option>
+            `).join('')}
+          </optgroup>
+        `).join('')}
       </select>
 
       The official eno parsers are fully localized, if errors occur they will be in the language of your choice.<br>
@@ -58,7 +34,7 @@ module.exports = async data => {
 
       <br><br>
 
-      <div id="editor">${first.eno}</div>
+      <div id="editor">${data.demos.language[0].examples[0].eno}</div>
     </div>
 
     <div class="half">
