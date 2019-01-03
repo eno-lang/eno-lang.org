@@ -1,5 +1,6 @@
 const eno = require('enojs');
 const { TerminalReporter } = require('enojs');
+const fastGlob = require('fast-glob');
 const fs = require('fs');
 const { markdown } = require('./lib/loaders.js');
 const path = require('path');
@@ -72,6 +73,42 @@ const menu = async () => {
   return menu;
 };
 
+const pages = async () => {
+  const pages = [];
+  const files = await fastGlob(path.join(__dirname, 'content/pages/*.eno'));
+
+  for(let file of files) {
+    const input = await fs.promises.readFile(file, 'utf-8');
+    const document = eno.parse(input, { reporter: TerminalReporter, sourceLabel: file });
+
+    let html = document.section('content').elements().map(block => {
+      if(block.name === 'markdown') {
+        return block.value(markdown);
+      } else if(block.name === 'single') {
+        return block.field('markdown', markdown);
+      } else if(block.name.startsWith('columns-')) {
+        return `
+          <div class="${block.name}">
+            ${block.elements().map(column => `
+              <div>${column.value(markdown)}</div>
+            `).join('')}
+          </div>
+        `;
+      }
+    }).join('');
+
+    pages.push({
+      html,
+      permalink: path.basename(file, '.eno'),
+      title: document.string('title')
+    });
+
+    document.assertAllTouched();
+  }
+
+  return pages;
+};
+
 module.exports = async () => {
   const data = {
     blog: await blog(),
@@ -79,7 +116,8 @@ module.exports = async () => {
       language: await languageDemos(),
       libraries: await librariesDemos()
     },
-    menu: await menu()
+    menu: await menu(),
+    pages: await pages()
   };
 
   return data;
