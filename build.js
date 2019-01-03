@@ -4,6 +4,7 @@ const fs = require('fs');
 const fsExtra = require('fs-extra');
 const path = require('path');
 
+const generateBlog = require('./src/generators/blog.js');
 const generateDemo = require('./src/generators/demo.js');
 const generateDocs = require('./src/generators/docs.js');
 const generatePages = require('./src/generators/pages.js');
@@ -24,6 +25,7 @@ const build = async () => {
   const menu = config.section('menu');
 
   await Promise.all([
+    generateBlog(menu),
     generateDemo(menu),
     generateDocs(menu),
     generatePages(menu),

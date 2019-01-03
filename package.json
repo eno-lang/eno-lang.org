@@ -13,6 +13,7 @@
     "http-server": "^0.11.1",
     "markdown-it": "^8.4.2",
     "markdown-it-prism": "^2.0.1",
+    "moment": "^2.23.0",
     "node-sass": "^4.11.0",
     "nodemon": "^1.18.9",
     "parcel-bundler": "^1.11.0",

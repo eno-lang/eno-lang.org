@@ -1,42 +1,39 @@
-title: Blog
+-- 2019-01-03
+- Upgraded the blog from a generic markup page to a dedicated page generated with semantic data as a prerequisite for further website changes
+-- 2019-01-03
 
-# content
-
--- markdown
-# Blog
-
-**Wednesday, January 2 2019**
-
+-- 2019-01-02
 - Released [enophp](https://github.com/eno-lang/enophp) 0.1.2 with pattern matching core patches and improvements
+- Released [language-eno](https://github.com/eno-lang/language-eno) 0.4.0 with redesigned custom highlighting based on syntax theme variables and an improved grammar
+-- 2019-01-02
 
-**Tuesday, January 1 2019**
-
+-- 2019-01-01
 - Work on the upcoming [enophp](https://github.com/eno-lang/enophp) stability release
+-- 2019-01-01
 
-**Monday, December 31 2018**
-
+-- 2018-12-31
 - Design research and tooling improvements for [plugin color schemes](https://github.com/eno-lang/color-schemes)
+-- 2018-12-31
 
-**Sunday, December 30 2018**
-
+-- 2018-12-30
 - Began porting recent library patches and extending specs for [enophp](https://github.com/eno-lang/enophp)
 - Iterative work on refining syntax scopes and matching rules for the atom/sublime eno grammars, including color scheme adaptions
+-- 2018-12-30
 
-**Tuesday, December 25 2018**
-
+-- 2018-12-25
 - Released [enopy](https://github.com/eno-lang/enopy) 0.9.2 with patches to the grammar matching core
 - Ported enojs' extensive grammar matching test suite to enopy as well
 - Released [language-eno](https://github.com/eno-lang/language-eno) 0.3.4 removing a faulty stray asterisk from a syntax matching rule
 - Packaged the completed [ace editor eno extension](https://github.com/eno-lang/ace-eno) and integrated it on the website 🎉
+-- 2018-12-25
 
-**Sunday, December 23 2018**
-
+-- 2018-12-23
 - The [language demos](https://eno-lang.org/try/) now utitilize the freshly finished eno support for Ace editor - enjoy full syntax highlighting inside the in-browser editor!
 - Released [enorb](https://github.com/eno-lang/enorb) 0.10.3 with patches and improvements to the grammar matching core
 - Released [enojs](https://github.com/eno-lang/enojs) 0.17.2 with an edge case block pattern fix and some escape matching pattern hardening
+-- 2018-12-23
 
-**Saturday, December 22 2018**
-
+-- 2018-12-22
 - Deployed the shiny new document inspector on the [language demo page](https://eno-lang.org/try/), this should provide great insight into the examples and an easy jumpstart to interactively explore how eno documents work - browse away and enjoy the magic! 🧙
 
 - Released [enojs](https://github.com/eno-lang/enojs) 0.17.0 🚢
@@ -51,99 +48,99 @@ title: Blog
 
 - Yet another enojs release (0.17.1) fixing an issue in the grammar matching core which can lead to a specific invalid line pair getting faultily tokenized instead of triggering an error. The patch will be ported to enophp, enopy and enorb in the next days, which also employ the flawed matching pattern.
 - More refactoring and maintenance on the website internals 
+-- 2018-12-22
 
-**Friday, December 21 2018**
-
+-- 2018-12-21
 - Added *what if ... ?* demos (Cargo.eno, package.eno, .gitlab-ci.eno) to the [language demo page](https://eno-lang.org/try/)
 - Began work on eno syntax highlighting support in Ace editor for usage on eno-lang.org - [ace-eno](https://github.com/eno-lang/ace-eno) 🎉
 - Some refactoring and maintenance on the website internals
+-- 2018-12-21
 
-**Saturday, December 15 2018**
-
+-- 2018-12-15
 - Implemented a better scaling responsive subnavigation in preparation for upcoming website additions
 - There is now a page to interactively [try out the language](https://eno-lang.org/try/) by itself (Thanks to Matt Lewis for his PR and feedback that got this started!)
+-- 2018-12-15
 
-**Friday, December 14 2018**
-
+-- 2018-12-14
 - Corrected a [non-spec-compliant example](https://github.com/eno-lang/enojs/issues/4) in the library documentation (Thanks to Brayden Banks for reporting!)
+-- 2018-12-14
 
-**Tuesday, December 11 2018**
-
+-- 2018-12-11
 - Fleshing out the [enors](https://github.com/eno-lang/enors) error reporter implementation basis
 - Optimizations for line classification in [enojs](https://github.com/eno-lang/enojs), plus cleaning out stale code
+-- 2018-12-11
 
-**Saturday, December 9 2018**
-
+-- 2018-12-09
 - Development and studying for [enors](https://github.com/eno-lang/enors)
+-- 2018-12-09
 
-**Saturday, December 8 2018**
-
+-- 2018-12-08
 - Research and adaptions in [enors](https://github.com/eno-lang/enors) for the Rust 2018 edition
+-- 2018-12-08
 
-**Friday, December 7 2018**
-
+-- 2018-12-07
 - Added the third RFC for the final eno specification to the [eno language repository](https://github.com/eno-lang/eno)
 - Released [language-eno](https://atom.io/packages/language-eno) 0.3.3 for Atom which patches a discovered syntax highlighting irregularity.  
+-- 2018-12-07
 
-**Wednesday, December 5 2018**
-
+-- 2018-12-05
 - Adaptations on the frontpage to improve understandability of some of eno's concepts (based on insights from HN - thanks to all commenters!)
 - Added the first two RFCs for the final eno specification to the [eno language repository](https://github.com/eno-lang/eno)
 - Arrived at a breakthrough for the first major blocker in the [enors](https://github.com/eno-lang/enors) implementation 🎉
+-- 2018-12-05
 
-**Tuesday, December 4 2018**
-
+-- 2018-12-04
 - Research and studying on Rust specific issues for [enors](https://github.com/eno-lang/enors)
+-- 2018-12-04
 
-**Sunday, December 2 2018**
-
+-- 2018-12-02
 - Quality time with and some package preparation tasks for [enors](https://github.com/eno-lang/enors)
+-- 2018-12-02
 
-**Saturday, December 1 2018**
-
+-- 2018-12-01
 - Foundational development work on [enors](https://github.com/eno-lang/enors)
+-- 2018-12-01
 
-**Friday, November 30 2018**
-
+-- 2018-11-30
 - Development of [enors](https://github.com/eno-lang/enors) (Rust) officially continues; a rough release schedule will be announced as soon as there is a basis to estimate from. Let's see if there'll be one more present under the christmas tree! 🎄
+-- 2018-11-30
 
-**Thursday, November 8 2018**
-
+-- 2018-11-08
 - Today [enophp](https://github.com/eno-lang/enophp) was publicly released on [packagist.org](https://packagist.org/packages/eno-lang/enophp)! 🚀
+-- 2018-11-08
 
-**Monday, November 5 2018**
-
+-- 2018-11-05
 - [Progress](https://github.com/eno-lang/eno/pull/4) on the ABNF eno specification document - many thanks go to nzen / Nicholas for the contribution!
+-- 2018-11-05
 
-**Sunday, November 4 2018**
-
+-- 2018-11-04
 - Major refactoring, cleanup and layout corrections on eno-lang.org
 - Detail work and completion of the enophp documentation
 - Many collateral corrections in the enojs/py/rb docs
 - Implement dynamic loader signatures in enophp
 - Wrap up enophp's parse implementation and add specs for it
+-- 2018-11-04
 
-**Saturday, November 3 2018**
-
+-- 2018-11-03
 - Initial rough work on the enophp documentation
 - Major refactoring, cleanup and layout corrections on eno-lang.org
+-- 2018-11-03
 
-**Friday, November 2 2018**
-
+-- 2018-11-02
 - Implemented all of enophp's built-in loaders and added the complete spec suite for them
 - Added lookup call specs, extended section element specs and various bugfixes for enophp
+-- 2018-11-02
 
-**Thursday, November 1 2018**
-
+-- 2018-11-01
 - Added specs for all 43 enophp element type mismatch errors, wrapping up the full error spec suite
+-- 2018-11-01
 
-**Wednesday, October 31 2018**
-
+-- 2018-10-31
 - Added a good third of the enophp validation error generator specs
 - Various bugfixes around enophp's error generation
+-- 2018-10-31
 
-**Tuesday, October 30 2018**
-
+-- 2018-10-30
 Today [enophp](https://github.com/eno-lang/enophp) reached feature-complete
 state! In the coming days the remaining missing parts of the testsuite will be
 implemented (which will likely entail some bugfixing), alongside some detail
@@ -154,36 +151,36 @@ on eno-lang.org will be set up. After that it's release time!
 - Added complete specs for all element implementations in enophp
 - Various fixes and tweaks throughout the enophp implementation
 - Small update to the eno-lang.org api documentation format and generator
+-- 2018-10-30
 
-**Sunday, October 28 2018**
-
+-- 2018-10-28
 - Spent some time working on line continuations for the future second/final eno spec
 - Completed enophp's EmptyElement implementation including full specs
 - Implementation of all enophp validation error generators
 - Finish Field implementation in enophp including complete specs
 - Complete ListElement implementation in enophp
 - Added typehints throughout the enophp codebase
+-- 2018-10-28
 
-**Saturday, October 27 2018**
-
+-- 2018-10-27
 - Implemented enophp's resolver component and all error generators
 - Added construction/verification scaffolding for all enophp element implementations
 - Added a full testsuite for both the resolver and all error generators in enophp
+-- 2018-10-27
 
-**Friday, October 26 2018**
-
+-- 2018-10-26
 - Fully implemented enophp's analyzer component and all analysis error generators
 - Added complete specs for all analysis error types in enophp
 - Research and major refactoring to accomodate for php language idiosyncracies
+-- 2018-10-26
 
-**Wednesday, October 24 2018**
-
+-- 2018-10-24
 - Completed the full enophp tokenizer implementation and testsuite
 - Various critical bugfixes around enophp's reporter implementations
 - Implemented all enophp tokenization error generators plus the complete testsuite
+-- 2018-10-24
 
-**Tuesday, October 23 2018**
-
+-- 2018-10-23
 After some time off to a) earn money and thereby cross-finance the next months of eno development,
 b) gather more insights in the currently largest production usecase of eno and c) recharge batteries :)
 development is now continuing!
@@ -194,92 +191,92 @@ with the enors (rust) implementation coming up next on the roadmap, likely to co
 - Heavily improved the still lacking snapshot testing feature basis for the [enophp](https://github.com/eno-lang/enophp) implementation and testsuite.
 - Implemented 90% of the standard eno tokenizer testsuite for enophp, plus a handful of bugfixes and general cleanup work
 - Added missing support for non-section "noop deep copy" operators for enophp's tokenizer
+-- 2018-10-23
 
-**Sunday, September 25 2018**
-
+-- 2018-09-25
 - [enophp](https://github.com/eno-lang/enophp) (in its early stage) received a quick PHP expert audit from Alexander Sulz - thanks! 
+-- 2018-09-25
 
-**Sunday, September 9 2018**
-
+-- 2018-09-09
 - Implemented all exception types (Error, ParseError, ValidationError) for [enophp](https://github.com/eno-lang/enophp).
+-- 2018-09-09
 
-**Sunday, September 2 2018**
-
+-- 2018-09-02
 - Implemented HTML & Terminal reporting, as well as most of the empty element implementation for [enophp](https://github.com/eno-lang/enophp).
+-- 2018-09-02
 
-**Sunday, August 26 2018**
-
+-- 2018-08-26
 - Implemented base text reporting for [enophp](https://github.com/eno-lang/enophp), plus some essential snapshot testing prerequisites.
+-- 2018-08-26
 
-**Wednesday, August 22 2018**
-
+-- 2018-08-22
 - Multiple documented real usecase examples and a Q&A document added to the [core repository](https://github.com/eno-lang/eno).
+-- 2018-08-22
 
-**Sunday, August 19 2018**
-
+-- 2018-08-19
 - More work on the [core language documentation](https://github.com/eno-lang/eno) (ABNF progress, examples collection, details in textual form).
+-- 2018-08-19
 
-**Saturday, August 18 2018**
-
+-- 2018-08-18
 - Released enorb 0.10.2 with fixes to ensure compatibility with the ruby 2.3 and 2.4 series ([changelog](https://github.com/eno-lang/enorb/blob/master/CHANGELOG.md)) - thanks to Ralf Ebert for reporting the issues!
 - Added info badges to the library documentation pages to indicate how the docs can be edited by everyone who'd like to contribute.
 - Some work towards completing the eno ABNF [specification document](https://github.com/eno-lang/eno/blob/master/eno.abnf).
+-- 2018-08-18
 
-**Thursday 16/Friday 17, August 2018**
+-- 2018-08-17
+- eno was on the HN frontpage and gained important public exposure - I'd like to say thanks to everyone who helped spread the word, asked fantastic questions and all the encouragement, PRs and reports that followed in the wake! These were intense and important 48 hours, now the steady work on eno and the ecosystem continues.
+-- 2018-08-17
 
-eno was on the HN frontpage and gained important public exposure - I'd like to say thanks to everyone who helped spread the word, asked fantastic questions and all the encouragement, PRs and reports that followed in the wake! These were intense and important 48 hours, now the steady work on eno and the ecosystem continues.
-
-**Wednesday, August 15 2018**
-
+-- 2018-08-15
 - Released [enojs-exploaders](https://github.com/eno-lang/enojs-exploaders) 0.2.2 with a new `htmlEscaped` loader ([changelog](https://github.com/eno-lang/enojs-exploaders/blob/master/CHANGELOG.md)).
+-- 2018-08-15
 
-**Monday, August 13 2018**
-
+-- 2018-08-13
 - Released enorb 0.10.1 with a bugfix addressing an undefined element link for block lookups ([changelog](https://github.com/eno-lang/enorb/blob/master/CHANGELOG.md)).
 - Released enopy 0.9.1 with a bugfix addressing an undefined element link for block lookups, as well as yet unreleased optimizations ([changelog](https://github.com/eno-lang/enopy/blob/master/CHANGELOG.md)).
+-- 2018-08-13
 
-**Thursday, August 9 2018**
-
+-- 2018-08-09
 - Released enojs 0.16.1 with a bugfix addressing an undefined element link for block lookups, as well as yet unreleased optimizations ([changelog](https://github.com/eno-lang/enojs/blob/master/CHANGELOG.md)).
+-- 2018-08-09
 
-**Saturday, August 4 2018**
-
+-- 2018-08-04
 - Released [enojs-exploaders](https://github.com/eno-lang/enojs-exploaders) 0.2.1 with a new `enum` loader, the project now also has a [changelog](https://github.com/eno-lang/enojs-exploaders/blob/master/CHANGELOG.md).
+-- 2018-08-04
 
-**Sunday, July 28 2018**
-
+-- 2018-07-28
 - Officially kicked off development for the rust library implementation - [enors](https://github.com/eno-lang/enors).
+-- 2018-07-28
 
-**Saturday, July 28 2018**
-
+-- 2018-07-28
 - Rebooted the [eno](https://github.com/eno-lang/eno) core language repository as the central collection point for all specification documents.
 - Authored a new [terminology](https://github.com/eno-lang/eno/blob/master/TERMINOLOGY.md) document, describing the entire terminology employed by the eno language.
 - Some more rust implementation basic research.
+-- 2018-07-28
 
-**Friday, July 27 2018**
-
+-- 2018-07-27
 - Some early research for the planned rust implementation.
+-- 2018-07-27
 
-**Thursday, July 26 2018**
-
+-- 2018-07-26
 - [sublime-eno](https://packagecontrol.io/packages/eno) is now available on [packagecontrol.io](https://packagecontrol.io/) - big kudos to them, every package gets hand-reviewed (!!).
+-- 2018-07-26
 
-**Wednesday, July 25 2018**
-
+-- 2018-07-25
 - Did a first production study of one of the eno logo designs in [blender](https://blender.org).
+-- 2018-07-25
 
-**Tuesday, July 24 2018**
-
+-- 2018-07-24
 - Added some light performance optimizations for structural validation in enojs and enopy.
 - Spent a late hour sketching possible eno logo designs.
+-- 2018-07-24
 
-**Sunday, July 22 2018**
-
+-- 2018-07-22
 - Released enojs 0.16.0 ([Changelog](https://github.com/eno-lang/enojs/blob/master/CHANGELOG.md)), enopy 0.9.0 ([Changelog](https://github.com/eno-lang/enopy/blob/master/CHANGELOG.md)) and enorb 0.10.0 ([Changelog](https://github.com/eno-lang/enorb/blob/master/CHANGELOG.md)).
 - More work on [color schemes](https://github.com/eno-lang/color-schemes), bringing [enokai](https://rawgit.com/eno-lang/color-schemes/master/dist/html/enokai.html) and [enorphin](https://rawgit.com/eno-lang/color-schemes/master/dist/html/enorphin.html) up to release quality and adding a sublime generator.
+-- 2018-07-22
 
-**Saturday, July 21 2018**
-
+-- 2018-07-21
 **`Dictionary` elements are now called `Fieldset` elements.** This change was
 long in the making, addressing a few issues and improving a few aspects of the
 original terminology, e.g.: Conceptually, sections are dictionaries as well (in
@@ -298,124 +295,124 @@ and by the APIs, but it does not change the way fieldsets/dictionaries work in a
 - Released enorb 0.9.0 with the new message catalog, fieldset API methods and a shorter base error class name - see [changelog](https://github.com/eno-lang/enorb/blob/master/CHANGELOG.md).
 - Released enopy 0.8.0 with the new message catalog and fieldset API methods - see [changelog](https://github.com/eno-lang/enopy/blob/master/CHANGELOG.md).
 - Released enojs 0.15.0 with the new message catalog and fieldset API methods - see [changelog](https://github.com/eno-lang/enojs/blob/master/CHANGELOG.md).
+-- 2018-07-21
 
-**Friday, July 20 2018**
-
+-- 2018-07-20
 - Released enopy 0.7.0 with stability contributions from Dan Haiduc and a name change for the base error class - see [changelog](https://github.com/eno-lang/enopy/blob/master/CHANGELOG.md).
+-- 2018-07-20
 
-**Wednesday, July 17 2018**
-
+-- 2018-07-18
 - Published the [color schemes](https://github.com/eno-lang/color-schemes) repository, with further work on the color scheme meta format and a sublime generator.
 - Research and experimentation on how to circumvent Atom's missing generic support for syntax-specific color scheme support.
+-- 2018-07-18
 
-**Tuesday, July 17 2018**
-
+-- 2018-07-17
 - Started work on a themes project for unified eno syntax theme development for all editors, drafted an *enokai* theme.
+-- 2018-07-17
 
-**Sunday, July 15 2018**
-
+-- 2018-07-15
 - Rebooted [enorb-exploaders](https://github.com/eno-lang/enorb-exploaders) as 0.2.0 with a new ipv4 loader, the project now maintains a [changelog](https://github.com/eno-lang/enorb-exploaders/blob/master/CHANGELOG.md).
 - Released [vscode-eno](https://marketplace.visualstudio.com/items?itemName=eno-lang.vscode-eno) 0.1.1 with improved syntax scopes for generic theme coloring.
 - Rebooted [enopy-exploaders](https://github.com/eno-lang/enopy-exploaders) as 0.2.0 with a new enum loader, the project now maintains a [changelog](https://github.com/eno-lang/enopy-exploaders/blob/master/CHANGELOG.md).
 - Updated [sublime-eno](https://github.com/eno-lang/sublime-eno) for the initial 0.1.0 release, submission to [packagecontrol.io](https://packagecontrol.io) is now pending and the package should be officially available there soon.
+-- 2018-07-15
 
-**Saturday, July 14 2018**
-
+-- 2018-07-14
 - You can sign up for the brand new [newsletter](http://eepurl.com/dA9LcH) now.
 - Lots and lots of small corrections and updates on the website (big thanks to Michael Schwanzer!).
 - Released enopy 0.6.2 with [string pseudo loaders](/python/#loaders-string), also enopy now maintains a [changelog](https://github.com/eno-lang/enopy/blob/master/CHANGELOG.md).
+-- 2018-07-14
 
-**Friday, July 13 2018**
-
+-- 2018-07-13
 - Released the [vscode-eno](https://marketplace.visualstudio.com/items?itemName=eno-lang.vscode-eno) language support package for Visual Studio Code.
 - Released enopy 0.6.1 with a new [date loader](/python/#loaders-date) and various loader corrections.
 - Put on some fresh paint and updated the website color scheme, as well as new plugin pages with screenshots.
 - Added a paragraph on language stability and the development plan to the [language](/language/) page.
+-- 2018-07-13
 
-**Wednesday, July 11 2018**
-
+-- 2018-07-11
 - Released enorb 0.8.1 with a new [date loader](/ruby/#Eno::Loaders-#date) and corrections for the lat/lng loader.
 - Adopted the new average ips based perfomance metrics for the enorb optimization tooling and did some housekeeping for the specs suite.
 - Did some speculative research and experimentation on the possibility (or maybe rather, likelihood) of an eno Java library.
 - Graduated enopy and enorb into regular release status due to coverage degree and acquired stability from fixes ported between all implementations.
 - Major website update: New frontpage, structural changes, some new quick tour content for the language, mobile version layout improvements and fixes.
+-- 2018-07-11
 
-**Tuesday, July 10 2018**
-
+-- 2018-07-10
 - Released enojs 0.14.1 with a new [date loader](/javascript/#loaders-date) and corrections for the lat/lng loader.
 - Completely refactored all specs for the enorb loaders.
 - Rebooted the [enojs-exploaders](https://www.npmjs.com/package/enojs-exploaders/) package as purely experimental sidetrack to the now available core loaders (with a single new 'slug' loader for now).
+-- 2018-07-10
 
-**Monday, July 9 2018**
-
+-- 2018-07-09
 - Released enorb 0.8.0 with the new core loader API and dynamic loader signatures, see the [updated documentation](/ruby/#Eno::Loaders).
 - Released enojs 0.14.0 with the new core loader API, see the [updated documentation](/javascript/#loaders).
 - Released enopy 0.6.0 with the new core loader API, see the [updated documentation](/python/#loaders).
 - Updated the frontpage introduction video to showcase the new core loader API.
+-- 2018-07-09
 
-**Sunday, July 8 2018**
-
+-- 2018-07-08
 - Worked on the internal architecture for the upcoming new core loader APIs, allowing e.g. calls like `document.boolean('publish')`.
+-- 2018-07-08
 
-**Saturday, July 7 2018**
-
+-- 2018-07-07
 - Started early experimental development and research for an [eno PHP implementation](https://github.com/eno-lang/enophp/).
+-- 2018-07-07
 
-**Friday, July 6 2018**
-
+-- 2018-07-06
 - Released enojs 0.13.1 with light optimizations, minor fixes and including the new [commaSeparated core loader](/javascript/#loaders-commaSeparated).
 - Added remaining dependency resolution test coverage for enojs and cleaned up some older specs, global coverage is now up at 96%.
 - Published a new eno introduction video on the frontpage.
 - Released enorb 0.7.2 with optimizations for structural validation and the new [CommaSeparated](/ruby/#Eno::Loaders-::CommaSeparated) loader.
 - Did some research and initial tests for getting branch coverage metrics in enorb.
 - Released enopy 0.5.1 with the new [comma_separated](/python/#enopy.loaders-comma_separated) core loader.
+-- 2018-07-06
 
-**Thursday, July 5 2018**
-
+-- 2018-07-05
 - Released enopy 0.5.0, now also providing core loaders for important types out-of-the-box, including the new datetime loader. See the [full documentation](/python/#enopy.loaders).
 - Released enorb 0.7.1, which now also offers a datetime core loader.
 - Implemented comma-separated value core loaders for all eno implementations
+-- 2018-07-05
 
-**Wednesday, July 4 2018**
-
+-- 2018-07-04
 - Released enojs 0.13.0 and enorb 0.7.0, now providing core loaders for important types out-of-the-box! See the full documentation for [enojs](/javascript/#loaders) and [enorb](/ruby/#Eno::Loaders).
 - The enojs core loaders now also include a datetime loader based on the formats described in <https://www.w3.org/TR/NOTE-datetime>.
 - Resolved some potential bottlenecks around list insertions in the enopy implementation, introduced performance measurements based on average ips instead of total duration.
+-- 2018-07-04
 
-**Tuesday, July 3 2018**
-
+-- 2018-07-03
 - Released enojs 0.12.0, enopy 0.4.0 and enorb 0.5.0, which implement eno's added language support for (new)line continuations on dictionary entries and list items.
 - Added complete test coverage for enorb's tokenization as isolated snapshot tests.
 - Released enorb 0.6.0 which also adopts the same regex-based tokenization logic used by enojs and enopy - no performance changes found but it fixes multiple issues.
 - Released enopy 0.4.1 with fixes for older tokenization regressions.
+-- 2018-07-03
 
-**Moday, July 2 2018**
-
+-- 2018-07-02
 - Released enopy 0.3.1 with a few fixes for section methods.
 - Further extended the enopy test suite, bringing coverage up to 90%.
+-- 2018-07-02
 
-**Sunday, July 1 2018**
-
+-- 2018-07-01
 - Added more isolated tokenizer snapshot tests and element implementation tests for enojs, coverage now up at 95%.
 - Released enojs 0.11.1 with some small fixes for older undiscovered range indexing glitches
 - Added more isolated tokenizer snapshot tests for enopy, coverage now up at 87%.
 - Released enopy 0.3.0 which adopts the unified regex grammar tokenizer architecture from enojs, resulting in [1-1.2x speed gains](https://github.com/eno-lang/enopy/blob/1b6d6dcc6b610b3f7819d3056d9057cdc7ef0c4a/performance/analysis.json).
 - Updated [benchmarks](https://github.com/eno-lang/benchmarks/) with enopy 0.3.0 and ruamel.yaml 0.15.42, with the latter now explicitly using the libyaml based engine.
+-- 2018-07-01
 
-**Saturday, June 30 2018**
-
+-- 2018-06-30
 - Released enojs 0.11.0 with a new single-pass tokenizer and much lighter memory and allocation footprint
 - Added more isolated tokenizer snapshot tests for enojs to ensure regression-safety.
 - Re-run the [benchmarks](https://github.com/eno-lang/benchmarks/), enojs now performs 7x faster than the fastest yaml parser in the content heavy benchmark.
+-- 2018-06-30
 
-**Friday, June 29 2018**
-
+-- 2018-06-29
 - Brought test coverage for enopy up to 83% with tons of tests added for error implementations, dependency resolution, reporters, and more.
 - Graduated enopy from Alpha to Beta with release 0.2.10, which includes collected fixes from the last two days.
 - Added the last missing validation error implementations for enorb, alongside specs - released with 0.4.8.
+-- 2018-06-29
 
-**Thursday, June 28 2018**
-
+-- 2018-06-28
 - Added unit tests for enopy's tokenization, analysis and resolution error implementations and the Dictionary element implementation, coverage is now up at 52%.
 - Fixed a minor issue in enopy's duplicate dictionary entry error implementation.
 - Added tons of unit tests to enojs (especially covering error implementations), test suite coverage is now up at 93%.
@@ -423,49 +420,49 @@ and by the APIs, but it does not change the way fieldsets/dictionaries work in a
 - Updated the [benchmark report](https://github.com/eno-lang/benchmarks/) with better visual scaling at the top ranking performance field, as well as added explanations.
 - Added some test scenarios with wide effect for enorb's html and terminal reporters, catalog messages, as well as the dependency resolver, coverage now up at 93%.
 - Released enorb 0.4.7 with a critical fix for the html reporter.
+-- 2018-06-28
 
-**Wednesday, June 27 2018**
-
+-- 2018-06-27
 - Performance optimization release enorb 0.4.6, adressing post-opening block consumption and later allocation with [1.25x speed decreases-3x speed gains](https://github.com/eno-lang/enorb/blob/638261d191649b317225a20b1f53abfbef3fdedb/spec/performance/analysis.json), updated [benchmarks](https://github.com/eno-lang/benchmarks/).
 - Released enopy 0.2.8 with a fix for a regression in enopy tokenization, set up a tokenization snapshot test scenario for future prevention.
 - Added comprehensive unit tests for enopy's `List` class, released yet another enopy patch release (0.2.9) addressing an older, undiscovered regression.
+-- 2018-06-27
 
-**Tuesday, June 26 2018**
-
+-- 2018-06-26
 - Started collecting and evaluating test coverage for all eno implementations (currently 66% for enojs, 37% for enopy and 80% for enorb)
 - Added some specs for enojs' `Value` class and a fix for a discovered regression.
 - Officially graduated enorb from Alpha to Beta status due to coverage and observed stability during usage in the last week.
 - Performance optimization release enopy 0.2.7, adressing post-opening block consumption and later allocation with [1-2.7x speed gains](https://github.com/eno-lang/enopy/blob/b884b80011c8af0301dd521396140a240a9eac96/tests/benchmark/analysis.json), updated [benchmarks](https://github.com/eno-lang/benchmarks/).
+-- 2018-06-26
 
-**Monday, June 25 2018**
-
+-- 2018-06-25
 - Performance optimization releases enorb 0.4.4 and enopy 0.2.5, both addressing block content parser performance, with [1-16x speed gains for ruby](https://github.com/eno-lang/enorb/blob/4b8332a2a94061c586084c92bb229be6678d77e4/spec/benchmark/analysis.json) and [1-39x speed gains for python](https://github.com/eno-lang/enopy/blob/64fb14979ea881969a317463b37c4f755bfaa497/tests/benchmark/analysis.json)
 - Re-evaluated and updated the global benchmark report at [github.com/eno-lang/benchmarks](https://github.com/eno-lang/benchmarks/)
 - More optimizations (enorb 0.4.5, enopy 0.2.6), this time addressing token extraction performance, with [1-2.3x speed gains for ruby](https://github.com/eno-lang/enorb/blob/010be1cdc2efc75ee28b06503a8be8bce1ea1bd6/spec/benchmark/analysis.json) and [1-2.5x speed gains for python](https://github.com/eno-lang/enopy/blob/cb87f11593c87d34c287288ed92004c7893688b8/tests/benchmark/analysis.json), [benchmarks](https://github.com/eno-lang/benchmarks/) updated again.
 - Completed the last missing feature texts on the Advanced Features page.
 - Improved the [interactive demo](/demo/) layout to make better use of screen space, updated some code snippets.
+-- 2018-06-25
 
-**Sunday, June 24 2018**
-
+-- 2018-06-24
 - An [enorb-exploaders](https://rubygems.org/gems/enorb-exploaders) gem is now available as well (with the same featureset as its js/py siblings).
 - Improved clarity for some first impression texts on the frontpage (thanks to Dan Haiduc for feedback!).
 - New benchmark report at [github.com/eno-lang/benchmarks](https://github.com/eno-lang/benchmarks/) with an additional scenario added that evaluates performance for content-heavy data.
+-- 2018-06-24
 
-**Saturday, June 23 2018**
-
+-- 2018-06-23
 - An [experimental enopy loaders](https://test.pypi.org/project/enopy-exploaders/) package is now available too (with the same featureset as its js sibling).
 - Refactored the test structure for enopy, test coverage for enopy's `Value` class added, released 0.2.4 with small fixes.
+-- 2018-06-23
 
- **Friday, June 22 2018**
-
+ -- 2018-06-22
  - **The website now has a dev blog and more contact options. ヽ(^o^)ノ**
  - Two enojs core error implementations (invalid/missing value) have been greatly overhauled and additional tests were added. (0.10.5)
  - enojs now only bundles runtime files
  - The interactive demos at [eno-lang.org/demo](/demo/) now offer emulated, interactive python and ruby code examples as well
  - The benchmark suite at [github.com/eno-lang/benchmarks](https://github.com/eno-lang/benchmarks/) has been expanded from 2 to 5 scenarios, visual fidelity of the full report has been increased
  - The [experimental enojs loaders](https://www.npmjs.com/package/enojs-exploaders/) package now features `color`, `json` and `url` loaders.
+ -- 2018-06-22
 
- **Thursday, June 21 2018**
-
+ -- 2018-06-21
  - An extensive benchmark suite is now available at [github.com/eno-lang/benchmarks](https://github.com/eno-lang/benchmarks/), it evaluates eno library performance across all supported languages, also in relation to popular yaml and toml parsers
--- markdown
+ -- 2018-06-21
