@@ -24,8 +24,8 @@ module.exports = async data => {
         `).join('')}
       </select>
 
-      <br/>
-      <br/>
+      <br>
+      <br>
 
       <select class="language" style="width: 100%;">
         <option value="javascript">JavaScript - interactive enojs code and demo</option>

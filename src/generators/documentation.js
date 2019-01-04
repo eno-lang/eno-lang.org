@@ -86,6 +86,12 @@ const generateCollection = async (data, documentation, collection, sidebar) => {
     <h1>${collection.name}</h1>
 
     ${collection.description}
+
+    ${collection.members.length > 0 ? `<h3>Subpages</h3>` : ''}
+
+    ${collection.members.map(member => `
+      <a href="/${documentation.language}/${collection.slug}/${member.slug}">${member.name}</a><br>
+    `).join('')}
   `;
 
   const content = docsLayout(data, html, collection.name, `/${documentation.language}/`, sidebar);
@@ -109,7 +115,7 @@ const generateSidebar = documentation => {
       </div>
 
       ${collection.members.map(member => `
-        <a href="/${documentation.language}/${collection.slug}/${member.slug}">${member.name}</a><br/>
+        <a href="/${documentation.language}/${collection.slug}/${member.slug}">${member.name}</a><br>
       `).join('')}
     `).join('')}
   `;
