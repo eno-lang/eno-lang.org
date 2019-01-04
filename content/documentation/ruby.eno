@@ -54,17 +54,19 @@ Gem on rubygems - <https://rubygems.org/gems/enorb/>
 Repository on github - <https://github.com/eno-lang/enorb/>
 -- intro
 
-# Modules
+# collections
 
 ## Eno
 
--- class description
+-- description
 The main module. You'll be calling `parse` on this, and possibly supplying a custom
 locale (such as `'de'`, `'es'`, ...), reporter type (`Eno::Reporters::Text`, `Eno::Reporters::HTML`, `Eno::Reporters::Terminal` are available)
 or source label (usually to have filename appear in error messages) to that call.
--- class description
+-- description
 
-### ::parse
+### members
+
+#### ::parse
 
 syntax:
 - parse(input) → Eno::Section
@@ -89,7 +91,7 @@ Eno.parse(input, source_label: 'my-file.eno')         # Annotated with a label a
 Eno.parse(input, zero_indexing: true)                 # Counting line and column numbers from 0
 -- ruby
 
-#### parameters
+##### parameters
 
 input: A string containing text in eno notation.
 
@@ -99,13 +101,13 @@ reporter = One of `Eno::Reporters::Text`, `Eno::Reporters::HTML`, `Eno::Reporter
 source_label = A string that labels where the input comes from (e.g. a filename), this is included with error messages to help the user located the file.
 zero_indexing = `true` or `false` (default), set `true` to display `0,1,2,..` line and column numbers in all error messages instead of the default `1,2,3,..` indexing.
 
-#### return value
+##### returns
 
 description: An `Eno::Section` representing the document.
 
 ## Eno::Loaders
 
--- class description
+-- description
 enorb provides a set of core loaders for important types that are available
 out of the box (in addition to the possiblity to define your own custom loaders, which can
 be bootstrapped and made accessible directly through the core loader API or be passed as
@@ -169,9 +171,11 @@ doc.email('contact')
 Note that some loaders only perform validation and return their input unaltered
 as string (e.g. `color`, `email`), while others both validate and transform the
 value into a new type (e.g. `float`, `boolean`) or even object (e.g. `lat_lng`).
--- class description
+-- description
 
-### #boolean
+### members
+
+#### #boolean
 
 -- description
 Accepts `true`, `false`, `yes` and `no`, returns a `boolean` (or raises an error for invalid values).
@@ -203,7 +207,7 @@ document.boolean('visible')
   # raises an error: 'visible' must contain a boolean - allowed values are 'true', 'false', 'yes' and 'no'.
 -- ruby
 
-### #color
+#### #color
 
 -- description
 Accepts values formatted as `#RRGGBB` or `#RGB` (case insensitive), returns the value unchanged (or raises an error for invalid values).
@@ -231,7 +235,7 @@ states.color('focus')
   # raises an error: 'focus' must contain a color, for instance '#B6D918', '#fff' or '#01b'.
 -- ruby
 
-### #comma_separated
+#### #comma_separated
 
 -- description
 Splits a comma-separated listing (single line, think a list of tags e.g.) into an array and strips whitespace.
@@ -255,7 +259,7 @@ document.comma_separated('Tags')  #=> ['Coffee', 'Desk', 'Flavor']
 document.comma_separated('Categories')  #=> ['Computing', 'High performance', 'Cluster']
 -- ruby
 
-### #date
+#### #date
 
 -- description
 Accepts `YYYY-MM-DD` and returns a Ruby `Time` object (or raises an error for invalid values).
@@ -282,7 +286,7 @@ document.date('invalid')
   # raises an error: 'invalid' must contain a valid date, for instance '1993-11-18'.
 -- ruby
 
-### #datetime
+#### #datetime
 
 -- description
 Accepts a subset of ISO 8601 date/time formats described in this W3C note: <https://www.w3.org/TR/NOTE-datetime>
@@ -326,7 +330,7 @@ document.datetime('invalid')
   # raises an error: 'invalid' must contain a valid date or date and time, for instance '1997-07-16' or '1994-11-05T13:15Z' (see https://www.w3.org/TR/NOTE-datetime).
 -- ruby
 
-### #float
+#### #float
 
 -- description
 Accepts floats (decimal part can be missing though), returns a float (or raises an error for malformed values).
@@ -353,7 +357,7 @@ document.float('bad')
   # raises an error: 'bad' must contain a decimal number, for instance '13.0', '-9.159' or '42'.
 -- ruby
 
-### #integer
+#### #integer
 
 -- description
 Accepts integers only (float is not clipped but triggers an error), returns an integer.
@@ -378,7 +382,7 @@ document.integer('bad')
   # raises an error: 'bad' must contain an integer, for instance '42' or '-21'.
 -- ruby
 
-### #json
+#### #json
 
 -- description
 Parses the value as JSON and returns the result (or passes on the parser error for malformed JSON).
@@ -403,7 +407,7 @@ document = Eno.parse(input)
 document.json('json payload')  #=> { status: 500 }
 -- ruby
 
-### #lat_lng
+#### #lat_lng
 
 -- description
 Accepts lat/lng coordinates of the form `dd.ddddd, dd.ddddd` (but with any number of decimal digits), returns a `Hash` (see example below) (or raises an error for invalid values).
@@ -429,7 +433,7 @@ document.lat_lng('location')
   # }
 -- ruby
 
-### #number
+#### #number
 
 -- description
 An alias for the `integer` loader.
@@ -454,7 +458,7 @@ document.number('bad')
   # raises an error: 'bad' must contain an integer, for instance '42' or '-21'.
 -- ruby
 
-### #string
+#### #string
 
 -- description
 Technically not a loader, but an alias for the standard accessors (which always
@@ -486,7 +490,7 @@ document.field('name')  #=> 'Alice'
 document.field('number')  #=> '13'
 -- ruby
 
-### #url
+#### #url
 
 -- description
 Validates a URL and returns it unaltered (or raises an error for an invalid URL).
@@ -513,13 +517,15 @@ document.url('bad')
 
 ## Eno::Section
 
--- class description
+-- description
 Every section in an eno document, such as for instance `# notes` or `### Appendix`, maps to an `Eno::Section`.
 More prominently though **the document itself is represented as an `Eno::Section`**,
 consequently this is the interface you'll be utilizing most for many usecases.
--- class description
+-- description
 
-### #assert_all_touched
+### members
+
+#### #assert_all_touched
 
 syntax:
 - assert_all_touched
@@ -559,7 +565,7 @@ document.assert_all_touched do |name, value|  # raises an error "Important data 
 end  
 -- ruby
 
-#### parameters
+##### parameters
 
 -- message, message_proc or message_block
 Optional, usually the default message (*An excess element named [NAME] was
@@ -573,7 +579,7 @@ options:
 only = An array of strings, e.g. `['name', 'email']`, which specifies to only check these elements for whether they've been touched.  
 except = An array of strings, e.g. `['phone number']`, which specifies to exclude these elements from checking whether they've been touched.  
 
-### #fieldsets
+#### #fieldsets
 
 syntax: fieldsets(name) → array
 
@@ -599,15 +605,15 @@ images.each do |image|
 end
 -- ruby
 
-#### parameters
+##### parameters
 
 name: A string specifying the name of the fieldsets to retrieve.
 
-#### return value
+##### returns
 
 description: An array of `Eno::Fieldset`s.
 
-### #fieldset
+#### #fieldset
 
 syntax:
 - fieldset(name) → Eno::Fieldset or nil
@@ -632,7 +638,7 @@ section.fieldset('temperature ratings', required: false)        #=> nil
 section.fieldset('temperature ratings', enforce_element: true)  # raises an error
 -- ruby
 
-#### parameters
+##### parameters
 
 name: A string representing the name of the field to return.
 
@@ -640,11 +646,11 @@ options:
 enforce_element = A boolean stating whether the fieldset must exist in the document. (defaults to `false`)
 required = Alias for `enforce_element` (this exists on many methods and depending on context refers to either element or value)
 
-#### return value
+##### returns
 
 description: An `Eno::Fieldset`, or `nil`.
 
-### #element
+#### #element
 
 syntax:
 - element(name) → element or nil
@@ -678,7 +684,7 @@ document.element('fantasy', enforce_element: true)  #=> raises an error
 document.element('fantasy', required: true)  #=> raises an error
 -- ruby
 
-#### parameters
+##### parameters
 
 name: The name of the element to fetch from the section as a string.
 
@@ -686,11 +692,11 @@ options:
 enforce_element = Whether the element must be present in the document (`true` or `false`, defaults to `false`)  
 required = Alias for `enforce_element` (this exists on many methods and depending on context refers to either element or value)
 
-#### return value
+##### returns
 
 description: An element (e.g. `Eno::List`, `Eno::Field`, etc.) or `nil`.
 
-### #elements
+#### #elements
 
 syntax: elements → array
 
@@ -727,11 +733,11 @@ end
 File.write('index.html', html)
 -- ruby
 
-#### return value
+##### returns
 
 description: An array containing the elements of this section.
 
-### #enforce_all_elements
+#### #enforce_all_elements
 
 syntax:
 - enforce_all_elements
@@ -761,11 +767,11 @@ document.field('sound')  # raises an error
 document.field('sound', enforce_element: false)  #=> nil
 -- ruby
 
-#### parameters
+##### parameters
 
 enforce: An optional boolean indicating whether to enforce or not. (otherwise `true` is assumed)
 
-### #field
+#### #field
 
 syntax:
 - field(name) → value or nil
@@ -803,7 +809,7 @@ section.field('color', with_element: true)
   #=> [ #<Eno::Field name="color" value="blue">, 'blue' ]
 -- ruby
 
-#### parameters
+##### parameters
 
 name: A string representing the name of the field to return.
 loader_block or loader_proc: A block or `Proc` returning the transformed/validated value or raising an error.
@@ -813,13 +819,13 @@ enforce_value = Whether there must be a value or the field is allowed to be empt
 required = Alias for `enforce_value` (this exists on many methods and depending on context refers to either element or value)
 with_element = Whether to return an array of the form `[element, value]` instead of just the value (default `false`)
 
-#### return value
+##### returns
 
 description:
 | The value of the field, or `nil` if empty, or an array of the form `[element, value]`
 | when the option `with_element` is specified.
 
-### #fields
+#### #fields
 
 syntax: fields(name) → array
 
@@ -843,15 +849,15 @@ colors.each do |color|
 end
 -- ruby
 
-#### parameters
+##### parameters
 
 name: A string specifying the name of the fields to retrieve.
 
-#### return value
+##### returns
 
 description: An array of `Eno::Field`s.
 
-### #list
+#### #list
 
 syntax:
 - list(name) → array
@@ -898,7 +904,7 @@ document.list('colors', with_elements: true)
 document.list('colors', min_count: 3)  # raises an error
 -- ruby
 
-#### parameters
+##### parameters
 
 name: The name of the list to return as a string.
 
@@ -916,13 +922,13 @@ max_count = Validate that there are at most `n` items in the list (takes a numbe
 required = Alias for `enforce_element` (this exists on many methods and depending on context refers to either element or value)
 with_elements = Whether to return an array of arrays of the form `[element, value]` instead of just the values (defaults to `false`)
 
-#### return value
+##### returns
 
 description:
 | The (optionally transformed/validated) values of the items of this list as an array.
 | With `with_elements` set to `true` it returns an array of arrays of the form `[element, value]` instead.
 
-### #lists
+#### #lists
 
 syntax: lists(name) → array
 
@@ -955,15 +961,15 @@ end
 # [ 'moscow', 'riga' ]
 -- ruby
 
-#### parameters
+##### parameters
 
 name: A string specifying the name of the lists to retrieve.
 
-#### return value
+##### returns
 
 description: An array of `Eno::List`s.
 
-### #lookup
+#### #lookup
 
 syntax:
 - lookup(index) → Hash or nil
@@ -1002,13 +1008,13 @@ document.lookup(2, 6)  # 's'
   #=> { element: #<Eno::Section name="notes" elements=0>, zone: :name }
 -- ruby
 
-#### parameters
+##### parameters
 
 index: A one-dimensional index to look up (0-indexed, i.e. the first position is 0, not 1)- only applies when it's the only given argument.
 line: The line to look up (0-indexed, i.e. the first line is 0, not 1) - only applies when you supply a `column` as well.
 column: The column to look up (0-indexed, i.e. the first column is 0, not 1) - only applies when you supply a `line` as well.
 
-#### return value
+##### returns
 
 -- description
 For all valid indices within the document returns a Hash with two keys:  
@@ -1039,7 +1045,7 @@ For all valid indices within the document returns a Hash with two keys:
 When an index outside the document is supplied, `nil` is returned.
 -- description
 
-### #raw
+#### #raw
 
 syntax: raw → array
 
@@ -1057,11 +1063,11 @@ document = Eno.parse(input)
 document.raw  #=> [{ 'color' => 'blue' }]
 -- ruby
 
-#### return value
+##### returns
 
 description: An array of elements (also returned in their raw representation).
 
-### #section
+#### #section
 
 syntax: 
 - section(name) → Eno::Section or nil
@@ -1090,7 +1096,7 @@ document.section('notes', enforce_element: true)     #=> #<Eno::Section name="no
 document.section('metadata', enforce_element: true)  # raises an error
 -- ruby
 
-#### parameters
+##### parameters
 
 name: A string specifying the name of the section to retrieve.
 
@@ -1098,11 +1104,11 @@ options:
 enforce_element = Whether the section must be present in the document (defaults to `false`)  
 required = Alias for `enforce_element` (this exists on many methods and depending on context refers to either element or value)
 
-#### return value
+##### returns
 
 description: An `Eno::Section`, or `nil`.
 
-### #sections
+#### #sections
 
 syntax: sections(name) → array
 
@@ -1128,26 +1134,28 @@ sections.each do |section|
 end
 -- ruby
 
-#### parameters
+##### parameters
 
 name: A string specifying the name of the sections to retrieve.
 
-#### return value
+##### returns
 
 description: An array of `Eno::Section`s.
 
 ## Eno::Field
 
--- class description
+-- description
 All values in an eno document, such as the value of a field like `name: value`,
 the value of a block, the value of a list item, the value of a fieldset
 entry, and so on, map to an `Eno::Field`. Usually you don't interact with this
 because you directly get the values from a section or fieldset in most cases.
 When you sequentially iterate a section (with `Eno::Section`'s
 '`#elements` method) you will get to interact with this class.
--- class description
+-- description
 
-### #empty?
+### members
+
+#### #empty?
 
 syntax: empty? → boolean
 
@@ -1155,11 +1163,11 @@ syntax: empty? → boolean
 Query whether the value is empty (e.g. `comment:  ` in an eno document), which in ruby terms is equivalent of `nil`.
 -- description
 
-#### return value
+##### returns
 
 description: `true` if empty, otherwise `false`.
 
-### #error
+#### #error
 
 syntax:
 - error → Eno::ValidationError
@@ -1193,7 +1201,7 @@ if value == 'cozy'
 end
 -- ruby
 
-#### parameters
+##### parameters
 
 message, message_block or message_proc:
 | Highly recommended to provide one (but it's optional).
@@ -1202,13 +1210,13 @@ message, message_block or message_proc:
 | (The `Proc` or block is passed `name` and `value` as arguments, and if both a `Proc` and block
 | are supplied the block has higher precedence.)
 
-#### return value
+##### returns
 
 description:
 | An `Eno::ValidationError` in the context of the element's value
 | (and with an optional custom message).
 
-### #raw
+#### #raw
 
 syntax: raw → object or value
 
@@ -1234,11 +1242,11 @@ list_items = document.element('numbers').elements
 list_items.first.raw  #=> '13'
 -- ruby
 
-#### return value
+##### returns
 
 description: A native representation of the value element.
 
-### #value
+#### #value
 
 syntax:
 - value → value or nil
@@ -1274,7 +1282,7 @@ end  #=> 'blue'
   
 -- ruby
 
-#### parameters
+##### parameters
 
 loader_block or loader_proc:
 | A block or proc returning the transformed/validated value or raising an error.  
@@ -1285,13 +1293,13 @@ options:
 enforce_value = Whether there must be a value or the field is allowed to be empty (default to `false`)
 required = Alias for `enforce_value` (this exists on many methods and depending on context refers to either element or value)
 
-#### return value
+##### returns
 
 description: The (optionally transformed/validated) value of this `Eno::Field`.
 
 ## Eno::List
 
--- class description
+-- description
 Lists such as the one below are represented as an `Eno::List`:
 
 ```eno
@@ -1302,9 +1310,11 @@ things:
 
 Like `Eno::Field`, you will seldom interact with this class, and instead use the `list`
 method on the document or its sections to directly obtain the values of a list.
--- class description
+-- description
 
-### #elements
+### members
+
+#### #elements
 
 syntax: elements → array
 
@@ -1327,11 +1337,11 @@ list.elements
   #=> [ #<Eno::Field value="6">, #<Eno::Field value="8">, #<Eno::Field value="19"> ]
 -- ruby
 
-#### return value
+##### returns
 
 description: An array containing the items of this list as `Eno::Field` elements.
 
-### #items
+#### #items
 
 syntax:
 - items → array
@@ -1361,7 +1371,7 @@ list.items(Proc.new { |name, value| "#{value}!!" })  #=> ['pink!!', 'peach!!']
 list.items { |name, value| { "#{value}!!" }  #=> ['pink!!', 'peach!!']
 -- ruby
 
-#### parameters
+##### parameters
 
 loader_block or loader_proc:
 | A `Proc` or block returning the transformed/validated value or raising an error.
@@ -1373,11 +1383,11 @@ elements = Whether to return the elements (as `Eno::Field`) instead of the value
 enforce_values = Whether empty list items (`- ` in the document, mapping to `nil`) are disallowed (defaults to `true`)  
 with_elements = Whether to return an array of arrays of the form `[element, value]` instead of just the values (defaults to `false`)
 
-#### return value
+##### returns
 
 description: The (optionally transformed/validated) items of this list as an array.
 
-### #length
+#### #length
 
 syntax: length → number
 
@@ -1397,11 +1407,11 @@ list = Eno.parse(input).element('colors')
 list.length  #=> 2
 -- ruby
 
-#### return value
+##### returns
 
 description: The number of items in the list as a number.
 
-### #raw
+#### #raw
 
 syntax: raw → object
 
@@ -1421,13 +1431,13 @@ list = Eno.parse(input).element('colors')
 list.first.raw  #=> { 'colors' => ['pink', 'peach'] }
 -- ruby
 
-#### return value
+##### returns
 
 description: A native representation of the list.
 
 ## Eno::Fieldset
 
--- class description
+-- description
 Fieldsets are represented as an `Eno::Fieldset`:
 
 ```eno
@@ -1437,9 +1447,11 @@ plants = 3 stars
 ```
 
 You will mostly obtain an instance of this through the `#fieldset` method on a document/section.
--- class description
+-- description
 
-### #assert_all_touched
+### members
+
+#### #assert_all_touched
 
 syntax:
 - assert_all_touched
@@ -1480,7 +1492,7 @@ fieldset.assert_all_touched do |name, value|  # raises an error "B is not ..."
 end  
 -- ruby
 
-#### parameters
+##### parameters
 
 -- message, message_proc or message_block
 Optional, usually the default message (*An excess element named [NAME] was
@@ -1493,7 +1505,7 @@ options:
 only = An array of strings, e.g. `['name', 'email']`, which specifies to only check these elements for whether they've been touched.  
 except = An array of strings, e.g. `['phone number']`, which specifies to exclude these elements from checking whether they've been touched.  
 
-### #element
+#### #element
 
 syntax:
 - element(name) → element or nil
@@ -1522,7 +1534,7 @@ fieldset.element('2020', enforce_element: true)  # raises an error
 fieldset.element('2020', required: true)  # raises an error
 -- ruby
 
-#### parameters
+##### parameters
 
 name: The name of the entry to fetch from the fieldset as a string.
 
@@ -1530,11 +1542,11 @@ options:
 enforce_element = Whether the element must be present in the document (`true` or `false`, defaults to `false`)  
 required = Alias for `enforce_element` (this exists on many methods and depending on context refers to either element or value)
 
-#### return value
+##### returns
 
 description: An element (`Eno::Field`) or `nil`.
 
-### #elements
+#### #elements
 
 syntax: elements → array
 
@@ -1566,11 +1578,11 @@ end
 File.write('index.html', html)
 -- ruby
 
-#### return value
+##### returns
 
 description: An array containing the elements of this fieldset.
 
-### #enforce_all_elements
+#### #enforce_all_elements
 
 syntax:
 - enforce_all_elements
@@ -1602,7 +1614,7 @@ conversions.entry('0011')  # raises an error
 conversions.entry('0011', enforce_element: false)  #=> nil
 -- ruby
 
-### #entry
+#### #entry
 
 syntax:
 - entry(name) → value or nil
@@ -1642,7 +1654,7 @@ end
 qa.entry('Meaning', with_element: true)   #=> [ #<Eno::Field name="Meaning" value="42"> , '42' ]
 -- ruby
 
-#### parameters
+##### parameters
 
 name: The name of the entry as a string.
 
@@ -1655,11 +1667,11 @@ enforce_value = Whether there must be a value or the entry is allowed to be empt
 required = Alias for `enforce_value` (this exists on many methods and depending on context refers to either element or value)
 with_element = Whether to return an array with both the element and the value (defaults to `false`)
 
-#### return value
+##### returns
 
 description: The entry's value, or `nil` if empty.
 
-### #raw
+#### #raw
 
 syntax: raw → object
 
@@ -1680,17 +1692,19 @@ document.fieldset('weights').raw
   #=> { 'weights' => [{ 'apple' => '100g' }, { 'pineapple' => '800g' }] }
 -- ruby
 
-#### return value
+##### returns
 
 description: A native object representation of the fieldset.
 
 ## Eno::Empty
 
--- class description
+-- description
 This represents empty elements such as `color:`, where it is not clear if it is an empty field, list, or fieldset.
--- class description
+-- description
 
-### #error
+### members
+
+#### #error
 
 syntax:
 - error → Eno::ValidationError
@@ -1725,7 +1739,7 @@ if value.nil?
 end
 -- ruby
 
-#### parameters
+##### parameters
 
 message, message_block or message_proc:
 | Highly recommended to provide one (but it's optional).
@@ -1733,13 +1747,13 @@ message, message_block or message_proc:
 | Either directly pass a string, or alternatively a block or `Proc` returning a string.  
 | (The block or `Proc` is passed `name` and `value` as arguments)
 
-#### return value
+##### returns
 
 description:
 | An `Eno::ValidationError` in the context of the element's value
 | (and with an optional custom message).
 
-### #raw
+#### #raw
 
 syntax: raw → object
 
@@ -1757,11 +1771,11 @@ empty = Eno.parse(input).element('color')
 empty.raw  #=> { 'color' => nil }
 -- ruby
 
-#### return value
+##### returns
 
 description: A native representation of the empty element.
 
-### #value
+#### #value
 
 syntax: value → nil
 
@@ -1779,13 +1793,13 @@ empty = Eno.parse(input).element('note')
 note.value  #=> nil
 -- ruby
 
-#### return value
+##### returns
 
 description: Always `nil`.
 
 ## Eno::Error
 
--- class description
+-- description
 The single generic error interface for all (user) errors that eno generates.
 Note that this is never raised by itself, but only in one of it's subclassed
 variants (`Eno::ParseError` and `Eno::ValidationError`). However, you can still
@@ -1799,9 +1813,11 @@ rescue Eno::Error => e # catches both Eno::ParseError and Eno::ValidationError
   # ...
 end
 ```
--- class description
+-- description
 
-### #cursor
+### members
+
+#### #cursor
 
 syntax: cursor → [line, column]
 
@@ -1819,11 +1835,11 @@ rescue Eno::Error => e
 end
 -- ruby
 
-#### return value
+##### returns
 
 description: An array, where [0] is the line number, and [1] is the column number.
 
-### #selection
+#### #selection
 
 syntax: selection → [[line, column], [line, column]]
 
@@ -1841,14 +1857,14 @@ rescue Eno::Error => e
 end
 -- ruby
 
-#### return value
+##### returns
 
 description:
 | An array, where [0] is the begin of the selection and [1] is the end,
 | and both begin and end are each again an array, where [0] is the
 | line number, and [1] is the column number.
 
-### #message
+#### #message
 
 syntax: message → string
 
@@ -1865,11 +1881,11 @@ rescue Eno::Error => e
 end
 -- ruby
 
-#### return value
+##### returns
 
 description: Both the error text as well as the snippet.
 
-### #snippet
+#### #snippet
 
 syntax: snippet → string
 
@@ -1894,11 +1910,11 @@ rescue Eno::Error => e
 end
 -- ruby
 
-#### return value
+##### returns
 
 description: A formatted excerpt of those passage(s) from the input where the error occurred.
 
-### #text
+#### #text
 
 syntax: text → string
 
@@ -1914,22 +1930,22 @@ rescue Eno::Error => e
 end
 -- ruby
 
-#### return value
+##### returns
 
 description: A single sentence that describes the error in human language.
 
 ## Eno::ParseError
 
--- class description
+-- description
 When this is raised, it indicates an error regarding syntax or grammatical semantics of the document.
 Functionally this behaves exactly like `Eno::Error`, therefore the interface methods are not repeated here and can
 be looked up on the `Eno::Error` documentation.
--- class description
+-- description
 
 ## Eno::ValidationError
 
--- class description
+-- description
 When this is raised, it indicates an error regarding application-specific requirements for the document.
 Functionally this behaves exactly like `Eno::Error`, therefore the interface methods are not repeated here and can
 be looked up on the `Eno::Error` documentation.
--- class description
+-- description

@@ -42,17 +42,19 @@ Package on npm - <https://npmjs.com/package/enojs/>
 Repository on github - <https://github.com/eno-lang/enojs/> 
 -- intro
 
-# Modules
+# collections
 
 ## eno
 
--- class description
+-- description
 The main module. You'll be calling `parse` on this, and possibly supplying a custom
 locale (such as `'de'`, `'es'`, ...), reporter (`TextReporter`, `HtmlReporter`, `TerminalReporter` are available)
 or source label (usually to have a filename appear in error messages) to that call.
--- class description
+-- description
 
-### parse
+### members
+
+#### parse
 
 syntax:
 - parse(input) → Section
@@ -80,7 +82,7 @@ eno.parse(input, { sourceLabel: 'my-file.eno' });  // Annotated with a label as 
 eno.parse(input, { zeroIndexing: true });          // Counting line and column numbers from 0
 -- javascript
 
-#### parameters
+##### parameters
 
 input: A string containing text in eno notation.
 options:
@@ -89,13 +91,13 @@ reporter = One of `TextReporter` (default), `HtmlReporter`, `TerminalReporter`, 
 source_label = A string that labels where the input comes from (e.g. a filename), this is included with error messages to help the user located the file.
 zeroIndexing = `true` or `false` (default), set `true` to display `0,1,2,..` line and column numbers in all error messages instead of the default `1,2,3,..` indexing.
 
-#### return value
+##### returns
 
 description: An `Section` representing the document.
 
 ## loaders
 
--- class description
+-- description
 enojs provides a set of core loaders for important types that are available out
 of the box (in addition to the possiblity to define your own custom loaders,
 which can be passed as callbacks to all accessors).
@@ -153,10 +155,11 @@ doc.email('contact');
 Note that some loaders only perform validation and return their input unaltered
 as string (e.g. `color`, `email`), while others both validate and transform the
 value into a new type (e.g. `float`, `boolean`) or even object (e.g. `latLng`).
+-- description
 
--- class description
+### members
 
-### boolean
+#### boolean
 
 -- description
 Accepts `true`, `false`, `yes` and `no`, returns a `boolean` (or throws an error for invalid values).
@@ -183,7 +186,7 @@ document.boolean('visible');
   // throws an error: 'visible' must contain a boolean - allowed values are 'true', 'false', 'yes' and 'no'.
 -- javascript
 
-### color
+#### color
 
 -- description
 Accepts values formatted as `#RRGGBB` or `#RGB` (case insensitive), returns the value unchanged (or throws an error for invalid values).
@@ -210,7 +213,7 @@ document.color('focus');
   // throws an error: 'focus' must contain a color, for instance '#B6D918', '#fff' or '#01b'.
 -- javascript
 
-### commaSeparated
+#### commaSeparated
 
 -- description
 Splits a comma-separated listing (single line, think a list of tags e.g.) into an array and trims whitespace.
@@ -234,7 +237,7 @@ document.commaSeparated('Tags');  // returns ['Coffee', 'Desk', 'Flavor']
 document.commaSeparated('Categories');  // returns ['Computing', 'High performance', 'Cluster']
 -- javascript
 
-### date
+#### date
 
 -- description
 Accepts `YYYY-MM-DD` and returns a JavaScript `Date` object (or throws an error for invalid values).
@@ -261,7 +264,7 @@ document.date('invalid');
   // throws an error: 'invalid' must contain a valid date, for instance '1993-11-18'.
 -- javascript
 
-### datetime
+#### datetime
 
 -- description
 Accepts a subset of ISO 8601 date/time formats described in this W3C note: <https://www.w3.org/TR/NOTE-datetime>
@@ -305,7 +308,7 @@ document.datetime('invalid');
   // throws an error: 'invalid' must contain a valid date or date and time, for instance '1997-07-16' or '1994-11-05T13:15Z' (see https://www.w3.org/TR/NOTE-datetime).
 -- javascript
 
-### float
+#### float
 
 -- description
 Accepts floats (decimal part can be missing though), returns a float (or throws an error for malformed values).
@@ -332,7 +335,7 @@ document.float('bad');
   // throws an error: 'bad' must contain a decimal number, for instance '13.0', '-9.159' or '42'.
 -- javascript
 
-### integer
+#### integer
 
 -- description
 Accepts integers only (float is not clipped but triggers an error), returns an integer.
@@ -357,7 +360,7 @@ document.integer('bad');
   // throws an error: 'bad' must contain an integer, for instance '42' or '-21'.
 -- javascript
 
-### json
+#### json
 
 -- description
 Parses the value as JSON and returns the result (or passes on the parser error for malformed JSON).
@@ -382,7 +385,7 @@ const document = eno.parse(input);
 document.json('json payload');  // returns { status: 500 }
 -- javascript
 
-### latLng
+#### latLng
 
 -- description
 Accepts lat/lng coordinates of the form `dd.ddddd, dd.ddddd` (but with any number of decimal digits), returns an object (see example below) (or throws an error for invalid values).
@@ -407,7 +410,7 @@ document.latLng('location');
   // }
 -- javascript
 
-### number
+#### number
 
 -- description
 An alias for the `integer` loader.
@@ -432,7 +435,7 @@ document.number('bad');
   // throws an error: 'bad' must contain an integer, for instance '42' or '-21'.
 -- javascript
 
-### string
+#### string
 
 -- description
 Technically not a loader, but an alias for the standard accessors (which always
@@ -464,7 +467,7 @@ document.field('name');  // returns 'Alice'
 document.field('number');  // returns '13'
 -- javascript
 
-### url
+#### url
 
 -- description
 Validates a URL and returns it unaltered (or throws an error for an invalid URL).
@@ -491,13 +494,15 @@ document.url('bad');
 
 ## Section
 
--- class description
+-- description
 Every section in an eno document, such as for instance `# notes` or `### Appendix`, maps to a `Section`.
 More prominently though **the document itself is represented as a `Section`**,
 consequently this is the interface you'll be utilizing most for many usecases.
--- class description
+-- description
 
-### assertAllTouched
+### members
+
+#### assertAllTouched
 
 syntax:
 - assertAllTouched()
@@ -536,7 +541,7 @@ document.assertAllTouched(({ name, value }) =>  // throws an error "Important da
 );
 -- javascript
 
-#### parameters
+##### parameters
 
 -- message or messageFunction
 Optional, usually the default message (*An excess element named [NAME] was
@@ -551,7 +556,7 @@ options:
 only = An array of strings, e.g. `['name', 'email']`, which specifies to only check these elements for whether they've been touched.
 except = An array of strings, e.g. `['phone number']`, which specifies to exclude these elements from checking whether they've been touched.
 
-### fieldsets
+#### fieldsets
 
 syntax: fieldsets(name) → array
 
@@ -577,15 +582,15 @@ images.forEach(image => {
 });
 -- javascript
 
-#### parameters
+##### parameters
 
 name: A string specifying the name of the fieldsets to retrieve.
 
-#### return value
+##### returns
 
 description: An array of `Fieldset`s.
 
-### fieldset
+#### fieldset
 
 syntax:
 - fieldset(name) → Fieldset or null
@@ -610,7 +615,7 @@ section.fieldset('temperature ratings', { required: false });   // returns null
 section.fieldset('temperature ratings', { enforceElement: true });  // throws an error
 -- javascript
 
-#### parameters
+##### parameters
 
 name: A string representing the name of the field to return.
 
@@ -618,11 +623,11 @@ options:
 enforceElement = A boolean stating whether the fieldset must exist in the document. (defaults to `false`)
 required = Alias for `enforceElement` (this exists on many methods and depending on context refers to either element or value)
 
-#### return value
+##### returns
 
 description: An `Eno::Fieldset`, or `null`.
 
-### element
+#### element
 
 syntax:
 - element(name) → element or null
@@ -656,7 +661,7 @@ document.element('fantasy', { enforceElement: true });  // throws an error
 document.element('fantasy', { required: true });  // throws an error
 -- javascript
 
-#### parameters
+##### parameters
 
 name: The name of the element to fetch from the section as a string.
 
@@ -664,11 +669,11 @@ options:
 enforceElement = Whether the element must be present in the document (`true` or `false`, defaults to `false`)
 required = Alias for `enforceElement` (this exists on many methods and depending on context refers to either element or value)
 
-#### return value
+##### returns
 
 description: An element (e.g. `List`, `Field`, etc.) or `null`.
 
-### elements
+#### elements
 
 syntax: elements() → array
 
@@ -705,11 +710,11 @@ for(let element of document.section('page').elements()) {
 fs.writeFileSync('index.html', html);
 -- javascript
 
-#### return value
+##### returns
 
 description: An array containing the elements of this section.
 
-### enforceAllElements
+#### enforceAllElements
 
 syntax:
 - enforceAllElements()
@@ -739,11 +744,11 @@ document.field('sound');  // throws an error
 document.field('sound', { enforceElement: false });  // returns null
 -- javascript
 
-#### parameters
+##### parameters
 
 enforce: An optional boolean indicating whether to enforce or not. (`true` is the default if left out)
 
-### field
+#### field
 
 syntax:
 - field(name) → value or null
@@ -782,7 +787,7 @@ section.field('color', { withElement: true });
   // returns { element: [object Field name="blue" value="blue"], value: 'blue' }
 -- javascript
 
-#### parameters
+##### parameters
 
 name: A string representing the name of the field to return.
 loader: A function returning the transformed/validated value or throwing an error.
@@ -792,13 +797,13 @@ enforceValue = Whether there must be a value or the field is allowed to be empty
 required = Alias for `enforceValue` (this exists on many methods and depending on context refers to either element or value)
 withElement = Whether to return an object of the form `{ element: ..., value: ... }` instead of just the value (default `false`)
 
-#### return value
+##### returns
 
 description:
 \ The value of the field, or `null` if empty, or an array of the form
 \ `{ element: ..., value: ... }` when the option `withElement` is specified.
 
-### fields
+#### fields
 
 syntax: fields(name) → array
 
@@ -822,15 +827,15 @@ for(let color of colors) {
 }
 -- javascript
 
-#### parameters
+##### parameters
 
 name: A string specifying the name of the fields to retrieve.
 
-#### return value
+##### returns
 
 description: An array of `Field`s.
 
-### list
+#### list
 
 syntax:
 - list() → array
@@ -879,7 +884,7 @@ document.list('colors', { withElements: true });
 document.list('colors', { minCount: 3 });  // throws an error
 -- javascript
 
-#### parameters
+##### parameters
 
 name: The name of the list to return as a string.
 
@@ -897,13 +902,13 @@ maxCount = Validate that there are at most `n` items in the list (takes a number
 required = Alias for `enforceElement` (this exists on many methods and depending on context refers to either element or value)
 withElements = Whether to return an array of objects of the form `{ element: ..., value: ... }` instead of just the values (defaults to `false`)
 
-#### return value
+##### returns
 
 description:
 | The (optionally transformed/validated) values of the items of this list as an array.
 | With `withElements` set to `true` it returns an array of objects of the form `{ element: ..., value: ... }` instead.
 
-### lists
+#### lists
 
 syntax: lists(name) → array
 
@@ -936,15 +941,15 @@ for(let route of routes) {
 // [ 'moscow', 'riga' ]
 -- javascript
 
-#### parameters
+##### parameters
 
 name: A string specifying the name of the lists to retrieve.
 
-#### return value
+##### returns
 
 description: An array of `List`s.
 
-### lookup
+#### lookup
 
 syntax:
 - lookup(index) → object or null
@@ -983,13 +988,13 @@ document.lookup(2, 6);  // 's'
   // returns { element: [object Section name="notes" elements=0], zone: 'name' }
 -- javascript
 
-#### parameters
+##### parameters
 
 index: A one-dimensional index to look up (0-indexed, i.e. the first position is 0, not 1)- only applies when it's the only given argument.
 line: The line to look up (0-indexed, i.e. the first line is 0, not 1) - only applies when you supply a `column` as well.
 column: The column to look up (0-indexed, i.e. the first column is 0, not 1) - only applies when you supply a `line` as well.
 
-#### return value
+##### returns
 
 -- description
 For all valid indices within the document returns an object with two properties:  
@@ -1020,7 +1025,7 @@ For all valid indices within the document returns an object with two properties:
 When an index outside the document is supplied, `null` is returned.
 -- description
 
-### raw
+#### raw
 
 syntax: raw() → array
 
@@ -1038,11 +1043,11 @@ const document = eno.parse(input);
 document.raw();  // returns [{ color: 'blue' }]
 -- javascript
 
-#### return value
+##### returns
 
 description: An array of elements (also returned in their raw representation).
 
-### section
+#### section
 
 syntax:
 - section(name) → Section or null
@@ -1071,7 +1076,7 @@ document.section('notes', { enforceElement: true });     // returns [object Sect
 document.section('metadata', { enforceElement: true });  // throws an error
 -- javascript
 
-#### parameters
+##### parameters
 
 name: A string specifying the name of the section to retrieve.
 
@@ -1080,11 +1085,11 @@ enforceElement = Whether the section must be present in the document (defaults t
 required = Alias for `enforceElement` (this exists on many methods and depending on context refers to either element or value)
 
 
-#### return value
+##### returns
 
 description: An `Section`, or `null`.
 
-### sections
+#### sections
 
 syntax: sections(name) → array
 
@@ -1110,26 +1115,28 @@ for(let section of sections) {
 }
 -- javascript
 
-#### parameters
+##### parameters
 
 name: A string specifying the name of the sections to retrieve.
 
-#### return value
+##### returns
 
 description: An array of `Section`s.
 
 ## Field
 
--- class description
+-- description
 All values in an eno document, such as the value of a field like `name: value`, the value of a block,
 the value of a list item, the value of a fieldset entry, and so on, map to a `Field`. Usually you
 don't interact with this because you directly get the values from a section or fieldset in most cases.
 When you, for instance, sequentially iterate a section (with `Section`'s '`elements` method) or explicitly ask
 for the `Field` by using an accessor with the `{ withElement: true }` option (for delayed error triggering)
 you will get to interact with this class.
--- class description
+-- description
 
-### error
+### members
+
+#### error
 
 syntax:
 - error() → ValidationError
@@ -1162,7 +1169,7 @@ if(value === 'cozy') {
 }
 -- javascript
 
-#### parameters
+##### parameters
 
 message or messageFunction:
 | Highly recommended to provide one (but it's optional).
@@ -1170,13 +1177,13 @@ message or messageFunction:
 | Either directly pass a string, or alternatively a function returning a string.  
 | (The function is passed `name` and `value` inside a single object parameter.)
 
-#### return value
+##### returns
 
 description:
 | A `ValidationError` in the context of the element's value
 | (and with an optional custom message).
 
-### isEmpty
+#### isEmpty
 
 syntax: isEmpty() → boolean
 
@@ -1184,11 +1191,11 @@ syntax: isEmpty() → boolean
 Query whether the value is empty (e.g. `comment:  ` in an eno document), which in javascript terms is equivalent of `null`.
 -- description
 
-#### return value
+##### returns
 
 description: `true` if empty, otherwise `false`.
 
-### raw
+#### raw
 
 syntax: raw() → object or value
 
@@ -1214,11 +1221,11 @@ const listItems = document.element('numbers').elements();
 listItems[0].raw();  // returns '13'
 -- javascript
 
-#### return value
+##### returns
 
 description: A native representation of the value element.
 
-### value
+#### value
 
 syntax:
 - value() → value or null
@@ -1249,7 +1256,7 @@ towelColor.value();  // returns null
 flagColor.value(({ value }) => value.replace('eig', 'lu'));  // returns 'blue'
 -- javascript
 
-#### parameters
+##### parameters
 
 loader:
 | A function returning the transformed/validated value or throwing an error.  
@@ -1259,13 +1266,13 @@ options:
 enforceValue = Whether there must be a value or the field is allowed to be empty (default to `false`)
 required = Alias for `enforceValue` (this exists on many methods and depending on context refers to either element or value)
 
-#### return value
+##### returns
 
 description: The (optionally transformed/validated) value of this `Field`.
 
 ## List
 
--- class description
+-- description
 Lists such as the one below are represented as an `List`:
 
 ```eno
@@ -1276,9 +1283,11 @@ things:
 
 Like `Field`, you will seldom interact with this class, and instead use the `list`
 accessor on the document or its sections to directly obtain the values of a list.
--- class description
+-- description
 
-### elements
+### members
+
+#### elements
 
 syntax: elements() → array
 
@@ -1301,11 +1310,11 @@ list.elements();
   // returns [ [object Field value="6"], [object Field value="8"], [object Field value="19"] ]
 -- javascript
 
-#### return value
+##### returns
 
 description: An array containing the items of this list as `Field` elements.
 
-### items
+#### items
 
 syntax:
 - items() → array
@@ -1330,7 +1339,7 @@ list.items();  // returns ['pink', 'peach']
 list.items(({ value }) => `${value}!!`);  // returns ['pink!!', 'peach!!']
 -- javascript
 
-#### parameters
+##### parameters
 
 -- loader
 A function returning the transformed/validated value or throwing an error. (The
@@ -1344,11 +1353,11 @@ enforceValues = Whether empty list items (`- ` in the document, mapping to `null
 withElements = Whether to return an array of objects of the form `{ element: ..., value: ... }` instead of just the values (defaults to `false`)
 
 
-#### return value
+##### returns
 
 description: The (optionally transformed/validated) items of this list as an array.
 
-### length
+#### length
 
 syntax: length() → number
 
@@ -1368,11 +1377,11 @@ const list = eno.parse(input).element('colors');
 list.length();  // returns 2
 -- javascript
 
-#### return value
+##### returns
 
 description: The number of items in the list as a number.
 
-### raw
+#### raw
 
 syntax: raw() → object
 
@@ -1392,13 +1401,13 @@ const list = eno.parse(input).element('colors');
 list.raw();  // returns { colors: ['pink', 'peach'] }
 -- javascript
 
-#### return value
+##### returns
 
 description: A native javascript representation of the list.
 
 ## Fieldset
 
--- class description
+-- description
 Fieldsets are represented as a `Fieldset`:
 
 ```eno
@@ -1408,9 +1417,11 @@ plants = 3 stars
 ```
 
 You will mostly obtain an instance of this through the `fieldset` accessor on a document/section.
--- class description
+-- description
 
-### assertAllTouched
+### members
+
+#### assertAllTouched
 
 syntax:
 - assertAllTouched()
@@ -1450,7 +1461,7 @@ fieldset.assertAllTouched(({ name, value }) =>  // throws an error "B is not ...
 );
 -- javascript
 
-#### parameters
+##### parameters
 
 -- message or messageFunction
 Optional, usually the default message (*An excess element named [NAME] was
@@ -1464,7 +1475,7 @@ options:
 only = An array of strings, e.g. `['name', 'email']`, which specifies to only check these elements for whether they've been touched.
 except = An array of strings, e.g. `['phone number']`, which specifies to exclude these elements from checking whether they've been touched.
 
-### element
+#### element
 
 syntax:
 - element(name) → element or null
@@ -1493,7 +1504,7 @@ fieldset.element('2020', { enforceElement: true });  // raises an error
 fieldset.element('2020', { required: true });  // raises an error
 -- javascript
 
-#### parameters
+##### parameters
 
 name: The name of the entry to fetch from the fieldset as a string.
 
@@ -1501,11 +1512,11 @@ options:
 enforceElement = Whether the element must be present in the document (`true` or `false`, defaults to `false`)
 required = Alias for `enforceElement` (this exists on many methods and depending on context refers to either element or value)
 
-#### return value
+##### returns
 
 description: An element (e.g. `Field`, `List`, etc.) or `null`.
 
-### elements
+#### elements
 
 syntax: elements() → array
 
@@ -1537,11 +1548,11 @@ for(let element of preferences.elements()) {
 fs.writeFileSync('index.html', html);
 -- javascript
 
-#### return value
+##### returns
 
 description: An array containing the elements of this section.
 
-### enforceAllElements
+#### enforceAllElements
 
 syntax:
 - enforceAllElements()
@@ -1573,11 +1584,11 @@ conversions.entry('0011');  // throws an error
 conversions.entry('0011', { enforceElement: false });  // returns null
 -- javascript
 
-#### parameters
+##### parameters
 
 enforce: An optional boolean indicating whether to enforce or not. (otherwise `true` is assumed)
 
-### entry
+#### entry
 
 syntax:
 - entry(name) → value or null
@@ -1621,7 +1632,7 @@ qa.entry('Meaning', { withElement: true });
   // returns { element: [object Field name="Meaning" value="42"], value: '42' }
 -- javascript
 
-#### parameters
+##### parameters
 
 name: The name of the entry as a string.
 
@@ -1635,11 +1646,11 @@ enforceValue = Whether there must be a value or the entry is allowed to be empty
 required = Alias for `enforceValue` (this exists on many methods and depending on context refers to either element or value)
 withElement = Whether to return an array with both the element and the value (defaults to `false`)
 
-#### return value
+##### returns
 
 description: The entry's value, or `null` if empty.
 
-### raw
+#### raw
 
 syntax: raw() → object
 
@@ -1660,17 +1671,19 @@ document.fieldset('weights').raw();
   // returns { weights: [{ apple: '100g' }, { pineapple: '800g' }] }
 -- javascript
 
-#### return value
+##### returns
 
 description: A native object representation of the fieldset.
 
 ## Empty
 
--- class description
+-- description
 This represents empty elements such as `color:`, where it is not clear if it is an empty field, list, or fieldset.
--- class description
+-- description
 
-### error
+### members
+
+#### error
 
 syntax:
 - error() → ValidationError
@@ -1703,7 +1716,7 @@ if(value === null) {
 }
 -- javascript
 
-#### parameters
+##### parameters
 
 message or messageFunction:
 | Highly recommended to provide one (but it's optional).
@@ -1711,13 +1724,13 @@ message or messageFunction:
 | Either directly pass a string, or alternatively a function returning a string.  
 | (The function is passed `name` and `value` inside a single object parameter.)
 
-#### return value
+##### returns
 
 description:
 | A `ValidationError` in the context of the element's value
 | (and with an optional custom message).
 
-### raw
+#### raw
 
 syntax: raw() → object
 
@@ -1735,11 +1748,11 @@ const empty = eno.parse(input).element('color');
 empty.raw();  // returns { color: null }
 -- javascript
 
-#### return value
+##### returns
 
 description: A native representation of the empty element.
 
-### value
+#### value
 
 syntax: value() → null
 
@@ -1757,13 +1770,13 @@ const empty = eno.parse(input).element('note');
 empty.value();  // returns null
 -- javascript
 
-#### return value
+##### returns
 
 description: Always `null`.
 
 ## EnoError
 
--- class description
+-- description
 The single generic error interface for all (user) errors that eno generates.
 Note that this is never thrown by itself, but only in one of it's subclassed
 variants (`ParseError` and `ValidationError`). However, you can still
@@ -1779,9 +1792,11 @@ try {
   }
 }
 ```
--- class description
+-- description
 
-### cursor
+### members
+
+#### cursor
 
 syntax: cursor → [line, column]
 
@@ -1801,11 +1816,11 @@ try {
 }
 -- javascript
 
-#### return value
+##### returns
 
 description: An array, where [0] is the line number, and [1] is the column number.
 
-### selection
+#### selection
 
 syntax: selection → [[line, column], [line, column]]
 
@@ -1825,14 +1840,14 @@ try {
 }
 -- javascript
 
-#### return value
+##### returns
 
 description:
 | An array, where [0] is the begin of the selection and [1] is the end,
 | and both begin and end are each again an array, where [0] is the
 | line number, and [1] is the column number.
 
-### message
+#### message
 
 syntax: message → string
 
@@ -1851,11 +1866,11 @@ try {
 }
 -- javascript
 
-#### return value
+##### returns
 
 description: Both the error text as well as the snippet.
 
-### snippet
+#### snippet
 
 syntax: snippet → string
 
@@ -1882,11 +1897,11 @@ try {
 }
 -- javascript
 
-#### return value
+##### returns
 
 description: A formatted excerpt of those passage(s) from the input where the error occurred.
 
-### text
+#### text
 
 syntax: text → string
 
@@ -1904,22 +1919,22 @@ try {
 }
 -- javascript
 
-#### return value
+##### returns
 
 description: A single sentence that describes the error in human language.
 
 ## ParseError
 
--- class description
+-- description
 When this is thrown, it indicates an error regarding syntax or grammatical semantics of the document.
 Functionally this behaves exactly like `EnoError`, therefore the interface methods are not repeated here and can
 be looked up on the `EnoError` documentation.
--- class description
+-- description
 
 ## ValidationError
 
--- class description
+-- description
 When this is thrown, it indicates an error regarding application-specific requirements for the document.
 Functionally this behaves exactly like `EnoError`, therefore the interface methods are not repeated here and can
 be looked up on the `EnoError` documentation.
--- class description
+-- description

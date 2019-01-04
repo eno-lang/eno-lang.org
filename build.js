@@ -6,7 +6,7 @@ const path = require('path');
 
 const generateBlog = require('./src/generators/blog.js');
 const generateDemo = require('./src/generators/demo.js');
-const generateDocs = require('./src/generators/docs.js');
+const generateDocs = require('./src/generators/documentation.js');
 const generatePages = require('./src/generators/pages.js');
 const generateTryPage = require('./src/generators/try.js');
 const source = require('./source.js');

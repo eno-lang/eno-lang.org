@@ -36,17 +36,19 @@ Package on PyPI - <https://pypi.org/project/enopy/>
 Repository on github - <https://github.com/eno-lang/enopy/> 
 -- intro
 
-# Modules
+# collections
 
 ## enopy
 
--- class description
+-- description
 The main module. You'll be using `parse` from this, and possibly supplying a custom
 locale (such as `'de'`, `'es'`, ...), reporter type (`eno.reporters.Text`, `eno.reporters.HTML`, `eno.reporters.Terminal` are available)
 or source label (usually to have filename appear in error messages) to that call.
--- class description
+-- description
 
-### parse
+### members
+
+#### parse
 
 syntax:
 - parse(input) → Section
@@ -72,7 +74,7 @@ color: blue
 >>> enopy.parse(input, zero_indexing=True)                 # Counting line and column numbers from 0
 -- python
 
-#### parameters
+##### parameters
 
 input: A string containing text in eno notation.
 options:
@@ -81,13 +83,13 @@ reporter = One of `enopy.reporters.Text`, `enopy.reporters.HTML`, `enopy.reporte
 source_label = A string that labels where the input comes from (e.g. a filename), this is included with error messages to help the user located the file.
 zero_indexing = `True` or `False` (default), set `True` to display `0,1,2,..` line and column numbers in all error messages instead of the default `1,2,3,..` indexing.
 
-#### return value
+##### returns
 
 description: A `Section` representing the document.
 
 ## loaders
 
--- class description
+-- description
 enopy provides a set of core loaders for important types that are available
 out of the box (in addition to the possiblity to pass your own custom loaders
 as functions/lambdas on all accessors).
@@ -147,9 +149,11 @@ ValidationError: 'contact' must contain a valid email address, for instance 'jan
 Note that some loaders only perform validation and return their input unaltered
 as string (e.g. `color`, `email`), while others both validate and transform the
 value into a new type (e.g. `float`, `boolean`) or even object (e.g. `lat_lng`).
--- class description
+-- description
 
-### boolean
+### members
+
+#### boolean
 
 -- description
 Accepts `true`, `false`, `yes` and `no`, returns a `boolean` (or raises an error for invalid values).
@@ -177,7 +181,7 @@ False
 ValidationError: 'visible' must contain a boolean - allowed values are 'true', 'false', 'yes' and 'no'.
 -- python
 
-### color
+#### color
 
 -- description
 Accepts values formatted as `#RRGGBB` or `#RGB` (case insensitive), returns the value unchanged (or raises an error for invalid values).
@@ -205,7 +209,7 @@ focus: blue
 ValidationError: 'focus' must contain a color, for instance '#B6D918', '#fff' or '#01b'.
 -- python
 
-### comma_separated
+#### comma_separated
 
 -- description
 Splits a comma-separated listing (single line, think a list of tags e.g.) into a list and strips whitespace.
@@ -231,7 +235,7 @@ Categories:  Computing  ,  High performance  ,  Cluster
 ['Computing', 'High performance', 'Cluster']
 -- python
 
-### date
+#### date
 
 -- description
 Accepts `YYYY-MM-DD` and returns a python `date` (or raises an error for invalid values).
@@ -258,7 +262,7 @@ document.date('invalid')
   # raises an error: 'invalid' must contain a valid date, for instance '1993-11-18'.
 -- python
 
-### datetime
+#### datetime
 
 -- description
 Accepts a subset of ISO 8601 date/time formats described in this W3C note: <https://www.w3.org/TR/NOTE-datetime>
@@ -303,7 +307,7 @@ invalid: 2018-03-14 13:10
 ValidationError: 'invalid' must contain a valid date or date and time, for instance '1997-07-16' or '1994-11-05T13:15Z' (see https://www.w3.org/TR/NOTE-datetime).
 -- python
 
-### float
+#### float
 
 -- description
 Accepts floats (decimal part can be missing though), returns a float (or raises an error for malformed values).
@@ -331,7 +335,7 @@ bad: three
 ValidationError: 'bad' must contain a decimal number, for instance '13.0', '-9.159' or '42'.
 -- python
 
-### integer
+#### integer
 
 -- description
 Accepts integers only (float is not clipped but triggers an error), returns an integer.
@@ -356,7 +360,7 @@ bad: 0.3
 ValidationError: 'bad' must contain an integer, for instance '42' or '-21'.
 -- python
 
-### json
+#### json
 
 -- description
 Parses the value as JSON and returns the result (or passes on the parser error for malformed JSON).
@@ -382,7 +386,7 @@ syntax:
 { 'status': 500 }
 -- python
 
-### lat_lng
+#### lat_lng
 
 -- description
 Accepts lat/lng coordinates of the form `dd.ddddd, dd.ddddd` (but with any number of decimal digits), returns a `dict` (see example below) (or raises an error for invalid values).
@@ -405,7 +409,7 @@ location: 36.987094, -25.091719
 { lat: 36.987094, lng: -25.091719 }
 -- python
 
-### number
+#### number
 
 -- description
 An alias for the `integer` loader.
@@ -430,7 +434,7 @@ bad: 0.3
 ValidationError: 'bad' must contain an integer, for instance '42' or '-21'.
 -- python
 
-### string
+#### string
 
 -- description
 Technically not a loader, but an alias for the standard accessors (which always
@@ -466,7 +470,7 @@ number: 13
 '13'
 -- ruby
 
-### url
+#### url
 
 -- description
 Validates a URL and returns it unaltered (or raises an error for an invalid URL).
@@ -493,13 +497,15 @@ ValidationError: 'bad' must contain valid URL, for instance 'https://eno-lang.or
 
 ## Section
 
--- class description
+-- description
 Every section in an eno document, such as for instance `# notes` or `### Appendix`, maps to a `Section`.
 More prominently though **the document itself is represented as a `Section`**,
 consequently this is the interface you'll be utilizing most for many usecases.
--- class description
+-- description
 
-### assert_all_touched
+### members
+
+#### assert_all_touched
 
 syntax:
 - assert_all_touched
@@ -537,7 +543,7 @@ Important data B: Me too!
 >>> document.assert_all_touched(custom_message)  # raises an error "Important data B is not ..."
 -- python
 
-#### parameters
+##### parameters
 
 -- message or message_function
 Optional, usually the default message (*An excess element named [NAME] was
@@ -551,7 +557,7 @@ options:
 only = A list of strings, e.g. `['name', 'email']`, which specifies to only check these elements for whether they've been touched.  
 skip = A list of strings, e.g. `['phone number']`, which specifies to exclude these elements from checking whether they've been touched.  
 
-### fieldsets
+#### fieldsets
 
 syntax: fieldsets(name) → list
 
@@ -575,15 +581,15 @@ src = white-roses.jpg
 ...   print(image.entry('src'))
 -- python
 
-#### parameters
+##### parameters
 
 name: A string specifying the name of the fieldsets to retrieve.
 
-#### return value
+##### returns
 
 description: A list of `Fieldset`s.
 
-### fieldset
+#### fieldset
 
 syntax:
 - fieldset(name) → Fieldset or None
@@ -613,7 +619,7 @@ None
 ValidationError: ...
 -- python
 
-#### parameters
+##### parameters
 
 name: A string representing the name of the field to return.
 
@@ -621,11 +627,11 @@ options:
 enforce_element = A boolean stating whether the fieldset must exist in the document. (defaults to `False`)
 required = Alias for `enforce_element` (this exists on many methods and depending on context refers to either element or value)
 
-#### return value
+##### returns
 
 description: An `Fieldset`, or `None`.
 
-### element
+#### element
 
 syntax:
 - element(name) → element or None
@@ -664,7 +670,7 @@ ValidationError: ...
 ValidationError: ...
 -- python
 
-#### parameters
+##### parameters
 
 name: The name of the element to fetch from the section as a string.
 
@@ -672,11 +678,11 @@ options:
 enforce_element = Whether the element must be present in the document (`True` or `False`, defaults to `False`)  
 required = Alias for `enforce_element` (this exists on many methods and depending on context refers to either element or value)
 
-#### return value
+##### returns
 
 description: An element (e.g. `List`, `Field`, etc.) or `None`.
 
-### elements
+#### elements
 
 syntax: elements() → list
 
@@ -713,11 +719,11 @@ p: This is my first post, I'm so happy!
 ...   file.write(html)
 -- python
 
-#### return value
+##### returns
 
 description: A list containing the elements of this section.
 
-### enforce_all_elements
+#### enforce_all_elements
 
 syntax:
 - enforce_all_elements
@@ -749,11 +755,11 @@ ValidationError: ...
 None
 -- python
 
-#### parameters
+##### parameters
 
 enforce: An optional boolean indicating whether to enforce or not. (otherwise `True` is assumed)
 
-### field
+#### field
 
 syntax:
 - field(name) → value or None
@@ -799,7 +805,7 @@ ValidationError: Only green is allowed!
 [ <class Field name="color" value="blue">, 'blue' ]
 -- python
 
-#### parameters
+##### parameters
 
 name: A string representing the name of the field to return.
 loader: A function returning the transformed/validated value or raising an error.
@@ -809,13 +815,13 @@ enforce_value = Whether there must be a value or the field is allowed to be empt
 required = Alias for `enforce_value` (this exists on many methods and depending on context refers to either element or value)
 with_element = Whether to return a list of the form `[element, value]` instead of just the value (default `False`)
 
-#### return value
+##### returns
 
 description:
 | The value of the field, or `None` if empty, or a list of the form `[element, value]`
 | when the option `with_element` is specified.
 
-### fields
+#### fields
 
 syntax: fields(name) → list
 
@@ -837,15 +843,15 @@ color: orange
 ...   print(color.value())
 -- python
 
-#### parameters
+##### parameters
 
 name: A string specifying the name of the fields to retrieve.
 
-#### return value
+##### returns
 
 description: A list of `Field`s.
 
-### list
+#### list
 
 syntax:
 - list(name) → list
@@ -898,7 +904,7 @@ ValidationError: Peach may not be on the list!
 ValidationError: ...
 -- python
 
-#### parameters
+##### parameters
 
 name: The name of the list to return as a string.
 
@@ -917,13 +923,13 @@ max_count = Validate that there are at most `n` items in the list (takes a numbe
 required = Alias for `enforce_element` (this exists on many methods and depending on context refers to either element or value)
 with_elements = Whether to return a list of lists of the form `[element, value]` instead of just the values (defaults to `False`)
 
-#### return value
+##### returns
 
 description:
 | The (optionally transformed/validated) values of the items of this list as a list.
 | With `with_elements` set to `True` it returns a list of lists of the form `[element, value]` instead.
 
-### lists
+#### lists
 
 syntax: lists(name) → list
 
@@ -953,15 +959,15 @@ route:
 [ 'moscow', 'riga' ]
 -- python
 
-#### parameters
+##### parameters
 
 name: A string specifying the name of the lists to retrieve.
 
-#### return value
+##### returns
 
 description: A list of `List`s.
 
-### lookup
+#### lookup
 
 syntax:
 - lookup(index) → Hash or None
@@ -1000,13 +1006,13 @@ color: blue
 { 'element': <class Section name="notes" elements=0>, 'zone': 'name' }
 -- python
 
-#### parameters
+##### parameters
 
 index: A one-dimensional index to look up (0-indexed, i.e. the first position is 0, not 1) - only applies when it's the single only given argument.
 line: The line to look up (0-indexed, i.e. the first line is 0, not 1) - only applies when you supply a `column` as well.
 column: The column to look up (0-indexed, i.e. the first column is 0, not 1) - only applies when you supply a `line` as well.
 
-#### return value
+##### returns
 
 -- description
 For all valid indices within the document returns a Hash with two keys:  
@@ -1037,7 +1043,7 @@ For all valid indices within the document returns a Hash with two keys:
 When an index outside the document is supplied, `None` is returned.
 -- description
 
-### raw
+#### raw
 
 syntax: raw → list
 
@@ -1055,11 +1061,11 @@ color: blue
 [{ 'color': 'blue' }]
 -- python
 
-#### return value
+##### returns
 
 description: A list of elements (also returned in their raw representation).
 
-### section
+#### section
 
 syntax: 
 - section(name) → Section or None
@@ -1093,7 +1099,7 @@ None
 ValidationError: ...
 -- python
 
-#### parameters
+##### parameters
 
 name: A string specifying the name of the section to retrieve.
 
@@ -1101,11 +1107,11 @@ options:
 enforce_element = Whether the section must be present in the document (defaults to `False`)  
 required = Alias for `enforce_element` (this exists on many methods and depending on context refers to either element or value)
 
-#### return value
+##### returns
 
 description: An `Section`, or `None`.
 
-### sections
+#### sections
 
 syntax: sections(name) → list
 
@@ -1128,26 +1134,28 @@ Retrieve subsections with the specified name from this current section.
 ...  # do something with each Article
 -- python
 
-#### parameters
+##### parameters
 
 name: A string specifying the name of the sections to retrieve.
 
-#### return value
+##### returns
 
 description: A list of `Section`s.
 
 ## Field
 
--- class description
+-- description
 All values in an eno document, such as the value of a field like `name: value`,
 the value of a block, the value of a list item, the value of a fieldset
 entry, and so on, map to a `Field`. Usually you don't interact with this
 because you directly get the values from a section or fieldset in most cases.
 When you sequentially iterate a section (with `Section`'s
 '`#elements` method) you will get to interact with this class.
--- class description
+-- description
 
-### is_empty
+### members
+
+#### is_empty
 
 syntax: is_empty() → boolean
 
@@ -1155,11 +1163,11 @@ syntax: is_empty() → boolean
 Query whether the value is empty (e.g. `comment:  ` in an eno document), which in python terms is equivalent of `None`.
 -- description
 
-#### return value
+##### returns
 
 description: `True` if empty, otherwise `False`.
 
-### error
+#### error
 
 syntax:
 - error → ValidationError
@@ -1192,7 +1200,7 @@ color: cozy
 ValidationError: Postprocessing determined that "cozy" is not a color after all.
 -- python
 
-#### parameters
+##### parameters
 
 message or message_function:
 | Highly recommended to provide one (but it's optional).
@@ -1200,13 +1208,13 @@ message or message_function:
 | Either directly pass a string, or alternatively a function returning a string.  
 | (The function is passed `name` and `value` as arguments.)
 
-#### return value
+##### returns
 
 description:
 | A `ValidationError` in the context of the element's value
 | (and with an optional custom message).
 
-### raw
+#### raw
 
 syntax: raw → object or value
 
@@ -1234,11 +1242,11 @@ numbers:
 '13'
 -- python
 
-#### return value
+##### returns
 
 description: A native representation of the value element.
 
-### value
+#### value
 
 syntax:
 - value → value or None
@@ -1268,7 +1276,7 @@ None
 'blue'
 -- python
 
-#### parameters
+##### parameters
 
 loader:
 | A function returning the transformed/validated value or raising an error.  
@@ -1279,13 +1287,13 @@ options:
 enforce_value = Whether there must be a value or the field is allowed to be empty (default to `False`)
 required = Alias for `enforce_value` (this exists on many methods and depending on context refers to either element or value)
 
-#### return value
+##### returns
 
 description: The (optionally transformed/validated) value of this `Field`.
 
 ## List
 
--- class description
+-- description
 Lists such as the one below are represented as an `List`:
 
 ```eno
@@ -1296,9 +1304,11 @@ things:
 
 Like `Field`, you will seldom interact with this class, and instead use the `list`
 method on the document or its sections to directly obtain the values of a list.
--- class description
+-- description
 
-### elements
+### members
+
+#### elements
 
 syntax: elements() → list
 
@@ -1320,11 +1330,11 @@ numbers:
 [ <class Field value="6">, <class Field value="8">, <class Field value="19"> ]
 -- python
 
-#### return value
+##### returns
 
 description: A list containing the items of this list as `Field` elements.
 
-### items
+#### items
 
 syntax:
 - items → list
@@ -1352,7 +1362,7 @@ colors:
 ['pink!!', 'peach!!']
 -- python
 
-#### parameters
+##### parameters
 
 loader:
 | A function returning the transformed/validated value or raising an error. 
@@ -1365,11 +1375,11 @@ elements = Whether to return the elements (as `Field`) instead of the values of 
 enforce_values = Whether empty list items (`- ` in the document, mapping to `None`) are disallowed (defaults to `True`)  
 with_elements = Whether to return a list of lists of the form `[element, value]` instead of just the values (defaults to `False`)
 
-#### return value
+##### returns
 
 description: The (optionally transformed/validated) items of this list as a list.
 
-### length
+#### length
 
 syntax: length → number
 
@@ -1389,11 +1399,11 @@ colors:
 2
 -- python
 
-#### return value
+##### returns
 
 description: The number of items in the list as a number.
 
-### raw
+#### raw
 
 syntax: raw → object
 
@@ -1413,13 +1423,13 @@ colors:
 { 'colors': ['pink', 'peach'] }
 -- python
 
-#### return value
+##### returns
 
 description: A native representation of the list.
 
 ## Fieldset
 
--- class description
+-- description
 Fieldsets are represented as `Fieldset` instances:
 
 ```eno
@@ -1429,9 +1439,11 @@ plants = 3 stars
 ```
 
 You will mostly obtain an instance of this through the `#fieldset` method on a document/section.
--- class description
+-- description
 
-### assert_all_touched
+### members
+
+#### assert_all_touched
 
 syntax:
 - assert_all_touched
@@ -1471,7 +1483,7 @@ ValidationError: An excess element named 'B' was found, is it possibly a typo?
 ValidationError: B is not supported by the application, please contact support if you think it should be
 -- python
 
-#### parameters
+##### parameters
 
 -- message or message_function
 Optional, usually the default message (*An excess element named [NAME] was
@@ -1484,7 +1496,7 @@ options:
 only = A list of strings, e.g. `['name', 'email']`, which specifies to only check these elements for whether they've been touched.  
 skip = A list of strings, e.g. `['phone number']`, which specifies to exclude these elements from checking whether they've been touched.  
 
-### element
+#### element
 
 syntax:
 - element(name) → element or None
@@ -1517,7 +1529,7 @@ ValidationError: ...
 ValidationError: ...
 -- python
 
-#### parameters
+##### parameters
 
 name: The name of the entry to fetch from the fieldset as a string.
 
@@ -1525,11 +1537,11 @@ options:
 enforce_element = Whether the element must be present in the document (`True` or `False`, defaults to `False`)  
 required = Alias for `enforce_element` (this exists on many methods and depending on context refers to either element or value)
 
-#### return value
+##### returns
 
 description: An element (`Field`) or `None`.
 
-### elements
+#### elements
 
 syntax: elements() → list
 
@@ -1561,11 +1573,11 @@ ann = earl grey
 ...   file.write(html)
 -- python
 
-#### return value
+##### returns
 
 description: A list containing the elements of this fieldset.
 
-### enforce_all_elements
+#### enforce_all_elements
 
 syntax:
 - enforce_all_elements
@@ -1598,7 +1610,7 @@ ValidationError: ...
 None
 -- python
 
-### entry
+#### entry
 
 syntax:
 - entry(name) → value or None
@@ -1646,7 +1658,7 @@ ValidationError: That one's getting old!
 [ <class Field name="Meaning" value="42"> , '42' ]
 -- python
 
-#### parameters
+##### parameters
 
 name: The name of the entry as a string.
 
@@ -1661,11 +1673,11 @@ enforce_value = Whether there must be a value or the entry is allowed to be empt
 required = Alias for `enforce_value` (this exists on many methods and depending on context refers to either element or value)
 with_element = Whether to return a list with both the element and the value (defaults to `False`)
 
-#### return value
+##### returns
 
 description: The entry's value, or `None` if empty.
 
-### raw
+#### raw
 
 syntax: raw → object
 
@@ -1685,17 +1697,19 @@ pineapple = 800g
 { 'weights': [{ 'apple': '100g' }, { 'pineapple': '800g' }] }
 -- python
 
-#### return value
+##### returns
 
 description: A native object representation of the fieldset.
 
 ## Empty
 
--- class description
+-- description
 This represents empty elements such as `color:`, where it is not clear if it is an empty field, list, or fieldset.
--- class description
+-- description
 
-### error
+### members
+
+#### error
 
 syntax:
 - error → ValidationError
@@ -1728,7 +1742,7 @@ color:
 ValidationError: Postprocessing determined that this value needs to be provided.
 -- python
 
-#### parameters
+##### parameters
 
 message or message_function:
 | Highly recommended to provide one (but it's optional).
@@ -1736,13 +1750,13 @@ message or message_function:
 | Either directly pass a string, or alternatively a function returning a string.  
 | (The function is passed `name` and `value` as arguments)
 
-#### return value
+##### returns
 
 description:
 | A `ValidationError` in the context of the element's value
 | (and with an optional custom message).
 
-### raw
+#### raw
 
 syntax: raw → object
 
@@ -1760,11 +1774,11 @@ color:
 { 'color': None }
 -- python
 
-#### return value
+##### returns
 
 description: A native representation of the empty element.
 
-### value
+#### value
 
 syntax: value → None
 
@@ -1782,13 +1796,13 @@ note:
 None
 -- python
 
-#### return value
+##### returns
 
 description: Always `None`.
 
 ## Error
 
--- class description
+-- description
 The single generic error interface for all (user) errors that eno generates.
 Note that this is never raised by itself, but only in one of it's subclassed
 variants (`ParseError` and `ValidationError`). However, you can still
@@ -1801,9 +1815,11 @@ validation errors indiscriminately, like so:
 ... except Error as e: # catches both ParseError and ValidationError
 ...   # ...
 ```
--- class description
+-- description
 
-### cursor
+### members
+
+#### cursor
 
 syntax: cursor → [line, column]
 
@@ -1821,11 +1837,11 @@ to move the cursor straight to the error location.
 [3, 14]
 -- python
 
-#### return value
+##### returns
 
 description: A list, where [0] is the line number, and [1] is the column number.
 
-### selection
+#### selection
 
 syntax: selection → [[line, column], [line, column]]
 
@@ -1844,14 +1860,14 @@ way to get a selection for the error in the input.
 
 -- python
 
-#### return value
+##### returns
 
 description:
 | A list, where [0] is the begin of the selection and [1] is the end,
 | and both begin and end are each again a list, where [0] is the
 | line number, and [1] is the column number.
 
-### message
+#### message
 
 syntax: message → string
 
@@ -1868,11 +1884,11 @@ get in the console when you don't catch the error.
 "In line 4 'a' is copied into itself.\n\n   Line | Content\n ..."
 -- python
 
-#### return value
+##### returns
 
 description: Both the error text as well as the snippet.
 
-### snippet
+#### snippet
 
 syntax: snippet → string
 
@@ -1893,11 +1909,11 @@ Returns a formatted excerpt of those passage(s) from the input where the error o
       5 |
 -- python
 
-#### return value
+##### returns
 
 description: A formatted excerpt of those passage(s) from the input where the error occurred.
 
-### text
+#### text
 
 syntax: text → string
 
@@ -1913,22 +1929,22 @@ Returns a one-liner that describes the error in human language.
 "In line 4 'a' is copied into itself."
 -- python
 
-#### return value
+##### returns
 
 description: A single sentence that describes the error in human language.
 
 ## ParseError
 
--- class description
+-- description
 When this is raised, it indicates an error regarding syntax or grammatical semantics of the document.
 Functionally this behaves exactly like `Error`, therefore the interface methods are not repeated here and can
 be looked up on the `Error` documentation.
--- class description
+-- description
 
 ## ValidationError
 
--- class description
+-- description
 When this is raised, it indicates an error regarding application-specific requirements for the document.
 Functionally this behaves exactly like `Error`, therefore the interface methods are not repeated here and can
 be looked up on the `Error` documentation.
--- class description
+-- description
