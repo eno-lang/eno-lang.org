@@ -1,5 +1,18 @@
+-- 2019-01-06
+- Released [sublime-eno](https://packagecontrol.io/packages/eno) 0.2.0 with an improved grammar and sublime default theme customizations for eno
+- Released [language-eno](https://github.com/eno-lang/language-eno) 0.4.1 with small grammar optimizations and an added screenshot in the readme
+-- 2019-01-06
+
+-- 2019-01-04
+- Refactoring of website internals to facilitate upcoming features
+- Re-evaluated the ruby [benchmarks](https://github.com/eno-lang/benchmarks) with latest libraries
+-- 2019-01-04
+
 -- 2019-01-03
 - Upgraded the blog from a generic markup page to a dedicated page generated with semantic data as a prerequisite for further website changes
+- Refactoring of website internals to facilitate upcoming features
+- Added fieldset reference examples to the [language demos](https://eno-lang.org/try/)
+- Mixed patterns spec improvements and corrections for enojs and enorb
 -- 2019-01-03
 
 -- 2019-01-02
