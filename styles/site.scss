@@ -150,6 +150,15 @@ div[class^="columns-"] {
   color: $color_text_faded;
 }
 
+.info_badge {
+  background-color: $color_info_badge;
+  padding: 1em;
+}
+
+.margin {
+  margin: 1em 0;
+}
+
 .padding {
   padding: 0 1em;
 }
