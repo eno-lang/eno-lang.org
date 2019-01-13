@@ -8,7 +8,7 @@
     "@babel/preset-env": "^7.2.3",
     "ace-eno": "github:eno-lang/ace-eno",
     "enojs": "^0.17.2",
-    "fast-glob": "^2.2.4",
+    "fast-glob": "^2.2.6",
     "fs-extra": "^7.0.1",
     "http-server": "^0.11.1",
     "markdown-it": "^8.4.2",
