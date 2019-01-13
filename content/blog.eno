@@ -1,3 +1,15 @@
+-- 2019-01-13
+- Added a last blog update badge to the index page, plus a fresh color coat
+-- 2019-01-13
+
+-- 2019-01-12
+- Released [vscode-eno](https://marketplace.visualstudio.com/items?itemName=eno-lang.vscode-eno) 0.2.0 with improved grammar and syntax scope/coloring interplay
+-- 2019-01-12
+
+-- 2019-01-10
+- Research and progress for the upcoming vscode-eno update
+-- 2019-01-10
+
 -- 2019-01-06
 - Released [sublime-eno](https://packagecontrol.io/packages/eno) 0.2.0 with an improved grammar and sublime default theme customizations for eno
 - Released [language-eno](https://github.com/eno-lang/language-eno) 0.4.1 with small grammar optimizations and an added screenshot in the readme
