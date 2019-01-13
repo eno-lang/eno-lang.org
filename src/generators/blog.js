@@ -9,7 +9,7 @@ module.exports = async data => {
     <h1>Blog</h1>
 
     ${data.blog.map(entry =>
-      `<p><strong>${moment(entry.date).format('dddd, MMMM D YYYY')}</strong></p>${entry.html}`
+      `<p><strong>${moment(entry.date).format('MMMM Do YYYY')}</strong></p>${entry.html}`
     ).join('')}
   `;
 
