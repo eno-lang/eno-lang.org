@@ -29,8 +29,6 @@ const documentation = async () => {
     const input = await fs.promises.readFile(file, 'utf-8');
     const document = eno.parse(input, { reporter: TerminalReporter, sourceLabel: file });
 
-
-
     documentation.push({
       collections: document.section('collections').elements().map(collection => {
         return {
@@ -176,24 +174,22 @@ const pages = async () => {
     const input = await fs.promises.readFile(file, 'utf-8');
     const document = eno.parse(input, { reporter: TerminalReporter, sourceLabel: file });
 
-    let html = document.section('content').elements().map(block => {
-      if(block.name === 'markdown') {
-        return block.value(markdown);
-      } else if(block.name === 'single') {
-        return block.field('markdown', markdown);
-      } else if(block.name.startsWith('columns-')) {
-        return `
-          <div class="${block.name}">
-            ${block.elements().map(column => `
-              <div>${column.value(markdown)}</div>
-            `).join('')}
-          </div>
-        `;
-      }
-    }).join('');
-
     pages.push({
-      html,
+      html: document.section('content').elements().map(block => {
+        if(block.name === 'markdown') {
+          return block.value(markdown);
+        } else if(block.name === 'single') {
+          return block.field('markdown', markdown);
+        } else if(block.name.startsWith('columns-')) {
+          return `
+            <div class="${block.name}">
+              ${block.elements().map(column => `
+                <div>${column.value(markdown)}</div>
+              `).join('')}
+            </div>
+          `;
+        }
+      }).join(''),
       permalink: path.basename(file, '.eno'),
       title: document.string('title')
     });
