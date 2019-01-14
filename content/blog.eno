@@ -1,4 +1,9 @@
+-- 2019-01-14
+- Released a completely reengineered language grammar for [prism-eno](https://github.com/eno-lang/prism-eno) alongside One Dark/Light theme adaptations customized for eno, this is now used on eno-lang.org for all pre-rendered code and notation examples 🎉
+-- 2019-01-14
+
 -- 2019-01-13
+- Published fully updated [benchmarks](https://github.com/eno-lang/benchmarks) with all the lastest libraries and an extended set of python benchmarks 🎉
 - Added a last blog update badge to the index page, plus a fresh color coat
 -- 2019-01-13
 

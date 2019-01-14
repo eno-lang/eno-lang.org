@@ -10,7 +10,7 @@ module.exports = async data => {
     if(page.permalink === 'index') {
       const lastUpdate = `
         <div class="info_badge margin">
-          🎉 Last update: <a href="/blog/">${moment(data.blog[0].date).format('MMMM Do, YYYY')}</a> - Read on the <a href="/blog/">blog</a>.
+          🎉 Last blog update: <a href="/blog/">${moment(data.blog[0].date).format('MMMM Do, YYYY')} - Read what's new.</a>
         </div>
       `;
 
