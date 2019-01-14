@@ -1,62 +1,128 @@
+const elementRest = {
+  _empty_or_field: {
+    pattern: /:[^\n]*/,
+    inside: {
+      'operator': /^:/,
+      _value: /.*/
+    }
+  },
+  _fieldset_entry: {
+    pattern: /=[^\n]*/,
+    inside: {
+      'operator': /^=/,
+      _value: /.*/
+    }
+  },
+  _template: {
+    pattern: /(<(?!<)|<<)[^\n]*/,
+    inside: {
+      'operator': /^(<(?!<)|<<)/,
+      'class-name template': /.*/
+    }
+  },
+  'invalid': /\S+/
+};
+
 Prism.languages.eno = {
+  // > ...
   'comment': {
-    pattern: /(^|\n)[^\S\n]*>[^\n]*/,
+    pattern: /(^\s*)>[^\n]*$/m,
     lookbehind: true
   },
-  'block': {
+  // -- ...
+  _block: {
+    alias: '_value',
     pattern: /(^|\n)[^\S\n]*(-{2,})[^\S\n]*(?!-)(\S[^\n]*)\n[\s\S]*?\n[^\S\n]*\2[^\S\n]*\3[^\S\n]*(?:\n|$)/,
     inside: {
-      'block-content': {
-        pattern: /((-{2,}(?!-))[^\S\n]*(\S.*?)[^\S\n]*\n)[\S\s]*(?=[^\S\n]*\2[^\S\n]*\3[^\S\n]*)/,
-        lookbehind: true
+      _begin: {
+        pattern: /^\s*-{2,}(?!-)[^\n]*/,
+        inside: {
+          'operator': /^[^\S\n]*(-{2,})/,
+          'tag name': /.*/
+        }
+      },
+      _end: {
+        pattern: /\n\s*-{2,}(?!-)[^\n]*\n?$/,
+        inside: {
+          'operator': /^\n[^\S\n]*(-{2,})/,
+          'tag name': /.*/
+        }
       }
     },
     lookbehind: true
   },
-  'escaped-section-3rd-plus': {
-    pattern: /(^|\n)[^\S\n]*#{3,}(?!#)[^\S\n]*(`+)(?:(?!\2).)*\2/,
-    lookbehind: true
-  },
-  'section-3rd-plus': {
-    pattern: /(^|\n)[^\S\n]*#{3,}(?!#)[^\S\n]*[^\s<][^\n<]*/,
-    lookbehind: true
-  },
-  'escaped-section-2nd': {
-    pattern: /(^|\n)[^\S\n]*##(?!#)[^\S\n]*(`+)(?:(?!\2).)*\2/,
-    lookbehind: true
-  },
-  'section-2nd': {
-    pattern: /(^|\n)[^\S\n]*##(?!#)[^\S\n]*[^\s<][^\n<]*/,
-    lookbehind: true
-  },
-  'escaped-section-1st': {
-    pattern: /(^|\n)[^\S\n]*#(?!#)[^\S\n]*(`+)(?:(?!\2).)*\2/,
-    lookbehind: true
-  },
-  'section-1st': {
-    pattern: /(^|\n)[^\S\n]*#(?!#)[^\S\n]*[^\s<][^\n<]*/,
-    lookbehind: true
-  },
-  'escaped-name': {
-    pattern: /(^|\n)[^\S\n]*(`+)(?:(?!\2).)*\2[:<]/,
+  // # ...
+  '_section': {
+    pattern: /(^\s*)#[^\n]*$/m,
     lookbehind: true,
-    alias: 'name'
+    inside: {
+      'keyword section-operator': /^#{1,}(?!#)/,
+      _escaped_name: {
+        pattern: /(`+)(?!`)(?:(?!\1).)*\1(?=\s*[<$])/,
+        inside: {
+          'operator': /(^`+|`+$)/,
+          'tag name': /.*/
+        }
+      },
+      _template: {
+        pattern: /(<(?!<)|<<)\s*\S.*$/,
+        inside: {
+          'operator': /^(<(?!<)|<<)/,
+          'class-name template': /.*/
+        }
+      },
+      'tag name': /[^\s`<][^<]*/,
+    }
   },
-  'name': {
-    pattern: /(^|\n)[^\S\n]*[^:=<\n\s>|\-\\#][^:=<\n]*[:<]/,
-    lookbehind: true
+  // ` ...
+  _escaped_element: {
+    pattern: /(^\s*)`[^\n]*$/m,
+    lookbehind: true,
+    inside: {
+      _escaped_fieldset_entry_name: {
+        pattern: /^(`+)(?!`)(?:(?!\1).)*\1(?=\s*[=])/,
+        inside: {
+          'operator': /(^`+|`+$)/,
+          'attr-name fieldset-entry-name':  /.*/
+        }
+      },
+      _escaped_name: {
+        pattern: /^(`+)(?!`)(?:(?!\1).)*\1(?=\s*[:<])/,
+        inside: {
+          'operator': /(^`+|`+$)/,
+          'tag name': /.*/
+        }
+      },
+      rest: elementRest
+    }
   },
-  'entry': {
-    pattern: /(^|\n)[^\S\n]*[^:=<\n\s>|\-\\#][^:=<\n]*[=]/,
-    lookbehind: true
+  // - ...
+  _list_item: {
+    pattern: /(^\s*)-(?!-)[^\n]*$/m,
+    lookbehind: true,
+    inside: {
+      'operator': /^-/,
+      _value: /.*/
+    }
   },
-  'append': {
-    pattern: /(^|\n)[^\S\n]*[|\\]/,
-    lookbehind: true
+  // ...
+  _element: {
+    pattern: /(^\s*)[^\s:=><|\-\\#`][^\n]*$/m,
+    lookbehind: true,
+    inside: {
+      'attr-name fieldset-entry-name ': /^[^\s:=><|\-\\#`][^\n:=<]*(?=[=])/,
+      'tag name': /^[^\s:=><|\-\\#`][^\n:=<]*(?=[:<])/,
+      rest: elementRest
+    }
   },
-  'template': {
-    pattern: /((?:<(?!<)|<<)[^\S\n]*)\S[^\n]*/,
-    lookbehind: true
+  // | ... OR \ ...
+  _continuation: {
+    pattern: /(^\s*)[|\\][^\n]*$/m,
+    lookbehind: true,
+    inside: {
+      'operator': /^[|\\]/,
+      _value: /.*/
+    }
   },
-  'punctuation': /[|\\<:=\-]/
+  'invalid': /\S+/
 };
