@@ -1,5 +1,17 @@
+-- 2019-01-26
+- Published the [RFC for hybrid fieldsets](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/hybrid-fieldsets.md)
+-- 2019-01-26
+
+-- 2019-01-19
+- Published the [RFC for changing eno's *name* terminology to *key* instead](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/key-terminology.md)
+-- 2019-01-19
+
+-- 2019-01-16
+- Completed and published the [RFC for restricting field values to a single line](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/restrict-fields-to-a-single-line.md), likely the core piece in the final specification changeset 🎉
+-- 2019-01-16
+
 -- 2019-01-14
-- Released a completely reengineered language grammar for [prism-eno](https://github.com/eno-lang/prism-eno) alongside One Dark/Light theme adaptations customized for eno, this is now used on eno-lang.org for all pre-rendered code and notation examples 🎉
+- Released a completely reengineered language grammar for [prism-eno](https://github.com/eno-lang/prism-eno) alongside One Dark/Light theme adaptations customized for eno, this is now used on eno-lang.org for all pre-rendered code and notation examples 
 -- 2019-01-14
 
 -- 2019-01-13
