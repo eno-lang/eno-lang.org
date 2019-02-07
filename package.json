@@ -18,8 +18,8 @@
     "nodemon": "^1.18.9",
     "parcel-bundler": "^1.11.0",
     "prismjs": "^1.15.0",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
     "speakingurl": "^14.0.1",
     "turbolinks": "^5.2.0"
   },
