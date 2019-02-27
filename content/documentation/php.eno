@@ -1909,7 +1909,7 @@ Returns a one-liner that describes the error in human language.
 try {
   // ...
 } catch(Error $e) {
-  $e->message;  // returns 'In line 4 'a' is copied into itself.'
+  $e->text;  // returns 'In line 4 'a' is copied into itself.'
 }
 -- php
 
