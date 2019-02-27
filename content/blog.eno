@@ -1,3 +1,81 @@
+-- 2019-02-21
+Published [enotype](https://github.com/eno-lang/enotype) 0.1.0 🎉 on [GitHub](https://github.com/eno-lang/enotype/), [npm](https://www.npmjs.com/package/enotype), [PyPI](https://pypi.org/project/enotype/) and [rubygems](https://rubygems.org/gems/enotype)
+
+enotype will be the go-to companion library for the upcoming series of eno parsers
+supporting the final specification. It provides all the standard type loaders that presently
+are always included with the current eno libraries in a separate package, thereby slimming
+down the core and making it unopinionated regarding what types are considered standard.
+
+Additionally, as the readme states, it is "A cross-language standard library for
+types.", meaning it can be used in many other contexts apart from eno as well!
+The upcoming eno parsers use a simplified model for loader functions - they
+always only take a string and produce a converted value (or throw an expection),
+whereas in the current libraries they accept variable numbers of parameters
+(key, value, internally also a context) in either positional or keyword form
+dependent on the language.
+
+As you will notice there is hardly any documentation included right now, that
+however will be tackled alongside work on the prerelease libraries over the next
+days and weeks - stay tuned!
+-- 2019-02-21
+
+-- 2019-02-20
+- Full day of detail work on the updated prerelease library element *touching* behavior and internal implementation. 
+-- 2019-02-20
+
+-- 2019-02-18
+- Published an [RFC for excluding fieldsets from section deep merging](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/exclude-fieldsets-from-section-deep-merging.md)
+- Deep refactoring of javascript prerelease library error generator code, cutting down validation errors by a few hundred lines of code
+- Adaptation and extension of the cross-platform error specs for the upcoming prerelease libraries
+-- 2019-02-18
+
+-- 2019-02-17
+- Revised the [associated comments RFC](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/associated-comments-rev1.md) with detailed and updated specification details on whitespace processing
+- Implemented the above mentioned whitespace processing rules for the (yet unreleased) javascript prerelease library, plus some object oriented code refactoring
+- Optimization work on the javascript prerelease library syntax tree model, achieving significant parser performance gains through on-demand document traversal branch instantiation
+-- 2019-02-17
+
+-- 2019-02-16
+- Released [enophp](https://github.com/eno-lang/enophp) 0.1.3 with a critical fix for block value construction
+- Full-time work on getting the new eno prerelease libraries ready for action
+-- 2019-02-16
+
+-- 2019-02-15
+- Binge coding on the prerelease libraries
+- Published an [RFC for template namespace separation](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/separate-copy-template-namespaces.md)
+- Added a section with details on continuation behavior in various special cases to the [single line field RFC](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/restrict-fields-to-a-single-line-rev1.md)
+- Revised the [hybrid fieldset RFC](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/hybrid-fieldsets-rev1.md) to prevent misunderstandings caused by the merging behavior JSON metaphor (thanks to Nicholas Prado for the feedback!) 
+-- 2019-02-15
+
+-- 2019-02-14
+- A long day of cleanup work after the recent sprint
+-- 2019-02-14
+
+-- 2019-02-12
+Final day of an 8-day long non-stop fulltime development sprint on the eno libraries! 🎉
+
+Huge progress was made on a lot of tricky architectural questions for the next
+generation of eno libraries, restructuring and separation of concerns between
+the different repositories and projects happened, some 80% of the way to get all
+4 existing eno libraries compatible with the final specification was traveled.
+
+The coming weeks will see plenty of cleanup on the results, tying up loose ends
+and getting everything in shape for gradual release and announcement. Aaand a
+lot of documentation will need to be written or updated. ;)
+-- 2019-02-12
+
+-- 2019-02-04
+- Finished adaptions for feature-complete final specification support in enojs (a first prerelease will be published soon!) 🎉
+-- 2019-02-04
+
+-- 2019-02-03
+- Continuing work towards upcoming library prereleases with final specification support
+-- 2019-02-03
+
+-- 2019-02-02
+- Principal work on adapting [enojs](https://github.com/eno-lang/enojs) and eno's [localized message catalog](https://github.com/eno-lang/eno-locales) in preparation for upcoming library prereleases with support for [eno's final specification](https://github.com/eno-lang/eno/tree/master/rfcs-final-spec)
+-- 2019-02-02
+
 -- 2019-01-26
 - Published the [RFC for hybrid fieldsets](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/hybrid-fieldsets.md)
 -- 2019-01-26
