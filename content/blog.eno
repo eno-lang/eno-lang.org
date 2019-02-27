@@ -1,3 +1,7 @@
+-- 2019-02-27
+It's shipping day again! 🎉 The JS implementation for the new flagship [enolib](https://www.npmjs.com/package/enolib) library was just released as 0.1.0 on [npm](https://www.npmjs.com/package/enolib), and API documentation is coming the next days. The enolib project is the successor to the existing enojs/enophp/enopy/enorb libraries, uniting them under a single name to reflect their close connection (they practically offer 1:1 the same API on all supported languages) and make them easier to recognize between different platforms. Importantly they also implement the living draft for the final specification and offer a greatly overhauled API design and internal architecture, resulting in more functionality, safety, performance and ultimately also fun. More updates coming soon - stay tuned!
+-- 2019-02-27
+
 -- 2019-02-21
 Published [enotype](https://github.com/eno-lang/enotype) 0.1.0 🎉 on [GitHub](https://github.com/eno-lang/enotype/), [npm](https://www.npmjs.com/package/enotype), [PyPI](https://pypi.org/project/enotype/) and [rubygems](https://rubygems.org/gems/enotype)
 
@@ -16,7 +20,7 @@ dependent on the language.
 
 As you will notice there is hardly any documentation included right now, that
 however will be tackled alongside work on the prerelease libraries over the next
-days and weeks - stay tuned!
+days and weeks.
 -- 2019-02-21
 
 -- 2019-02-20
