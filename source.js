@@ -1,5 +1,6 @@
-const eno = require('enojs');
-const { Fieldset, List, TerminalReporter } = require('enojs');
+const enolib = require('enolib');
+const { date } = require('enotype');
+const { Fieldset, List, TerminalReporter } = require('enolib');
 const fastGlob = require('fast-glob');
 const fs = require('fs');
 const markdown = require('./lib/loader-markdown.js');
@@ -7,13 +8,15 @@ const { prism, PRISM_LANGUAGES } = require('./lib/loader-prism.js');
 const path = require('path');
 const slug = require('speakingurl');
 
+enolib.register({ date, markdown });
+
 const blog = async () => {
   const input = await fs.promises.readFile(path.join(__dirname, 'content/blog.eno'), 'utf-8');
-  const document = eno.parse(input, { reporter: TerminalReporter, sourceLabel: 'content/blog.eno' });
+  const document = enolib.parse(input, { reporter: TerminalReporter, sourceLabel: 'content/blog.eno' });
 
   const blog = document.elements().map(entry => ({ // TODO: Would need fields() accessor without name option here for better validation
-    date: new Date(entry.name), // TODO: Loader for name would be great here to validate date the eno way :)
-    html: entry.value(markdown)
+    date: entry.dateKey(),
+    html: entry.requiredMarkdownValue()
   }));
 
   document.assertAllTouched();
@@ -27,83 +30,82 @@ const documentation = async () => {
 
   for(let file of files) {
     const input = await fs.promises.readFile(file, 'utf-8');
-    const document = eno.parse(input, { reporter: TerminalReporter, sourceLabel: file });
+    const document = enolib.parse(input, { reporter: TerminalReporter, sourceLabel: file });
 
     documentation.push({
       collections: document.section('collections').elements().map(collection => {
         return {
-          description: collection.field('description', markdown, { required: true }),
+          description: collection.field('description').requiredMarkdownValue(),
           members: (() => {
-            const members = collection.section('members', { required: false });
+            const members = collection.optionalSection('members');
 
-            if(members === null)
+            if(!members)
               return [];
 
             return members.elements().map(member => ({
               code: (() => {
                 for(let language of PRISM_LANGUAGES.filter(language => language !== 'eno')) {
-                  const code = member.field(language, prism);
+                  const code = member.optionalField(language);
 
                   if(code)
-                    return code;
+                    return code.requiredValue(prism(language));
                 }
 
                 return null;
               })(),
-              description: member.field('description', markdown),
-              name: member.name,
-              notation: member.field('eno', prism),
+              description: member.field('description').requiredMarkdownValue(),
+              name: member.stringKey(),
+              notation: member.field('eno').optionalValue(prism('eno')),
               parameters: (() => {
-                const parameters = member.section('parameters', { required: false });
+                const parameters = member.optionalSection('parameters');
 
-                if(parameters) {
-                  return parameters.elements().map(parameter => {
-                    if(parameter instanceof Fieldset) {
-                      return {
-                        name: parameter.name,
-                        options: parameter.entries().map(option => ({
-                          description: option.value(markdown),
-                          name: option.name
-                        }))
-                      };
-                    } else {
-                      return {
-                        description: parameter.value(markdown),
-                        name: parameter.name
-                      };
-                    }
-                  });
-                } else {
+                if(!parameters)
                   return null;
-                }
+
+                return parameters.elements().map(parameter => {
+                  if(parameter instanceof Fieldset) {
+                    return {
+                      name: parameter.stringKey(),
+                      options: parameter.entries().map(option => ({
+                        description: option.requiredMarkdownValue(),
+                        name: option.stringKey()
+                      }))
+                    };
+                  } else {
+                    return {
+                      description: parameter.requiredMarkdownValue(),
+                      name: parameter.stringKey()
+                    };
+                  }
+                });
               })(),
               returns: (() => {
-                const returns = member.section('returns', { required: false });
+                const returns = member.optionalSection('returns');
                 if(returns)
-                  return returns.field('description', markdown, { required: true });
-                else
-                  return null;
+                  return returns.field('description').requiredMarkdownValue();
+
+                return null;
               })(),
-              slug: slug(member.name),
+              slug: slug(member.stringKey()),
               syntaxes: (() => {
-                const syntax = member.element('syntax', { required: true });
+                const syntax = member.requiredElement('syntax');
 
                 if(syntax instanceof List) {
-                  return syntax.stringItems();
+                  return syntax.requiredStringValues();
                 } else {
-                  return [syntax.string()];
+                  return [syntax.requiredStringValue()];
                 }
               })()
             }));
           })(),
-          name: collection.name,
-          slug: slug(collection.name)
+          name: collection.stringKey(),
+          slug: slug(collection.stringKey())
         };
       }),
-      intro: document.field('intro', markdown, { required: true }),
-      language: document.string('language', { required: true }),
-      title: document.string('title', { required: true }),
-      version: document.string('version', { required: true }) // TODO: required everywhere where relevant elsewhere too
+      intro: document.field('intro').requiredMarkdownValue(),
+      language: document.field('language').requiredStringValue(),
+      title: document.field('title').requiredStringValue(),
+      version: document.field('version').requiredStringValue() // TODO: required everywhere where relevant elsewhere too
     });
 
     document.assertAllTouched();
@@ -114,14 +116,14 @@ const documentation = async () => {
 
 const languageDemos = async () => {
   const input = await fs.promises.readFile(path.join(__dirname, 'content/demos/language.eno'), 'utf-8');
-  const document = eno.parse(input, { reporter: TerminalReporter, sourceLabel: 'content/demos/language.eno' });
+  const document = enolib.parse(input, { reporter: TerminalReporter, sourceLabel: 'content/demos/language.eno' });
 
   const demos = document.elements().map(group => ({ // TODO: Would need sections() accessor without name option here for better validation
     examples: group.elements().map(example => ({
-      eno: example.string('eno', { required: true }),
-      title: example.name
+      eno: example.field('eno').requiredStringValue(),  // TODO: requiredField is needed elsewhere to say "element is required, value is not"
+      title: example.stringKey()
     })),
-    title: group.name
+    title: group.stringKey()
   }));
 
   document.assertAllTouched();
@@ -131,15 +133,15 @@ const languageDemos = async () => {
 
 const librariesDemos = async () => {
   const input = await fs.promises.readFile(path.join(__dirname, 'content/demos/libraries.eno'), 'utf-8');
-  const document = eno.parse(input, { reporter: TerminalReporter, sourceLabel: 'content/demos/libraries.eno' });
+  const document = enolib.parse(input, { reporter: TerminalReporter, sourceLabel: 'content/demos/libraries.eno' });
 
   const demos = document.elements().map(demo => ({ // TODO: Would need sections() accessor without name option here for better validation
-    eno: demo.string('eno', { required: true }),
-    javascript: demo.string('javascript', { required: true }),
-    python: demo.string('python', { required: true }),
-    ruby: demo.string('ruby', { required: true }),
-    text: demo.field('markdown', markdown, { required: true }),
-    title: demo.name
+    eno: demo.field('eno').requiredStringValue(),
+    javascript: demo.field('javascript').requiredStringValue(),
+    python: demo.field('python').requiredStringValue(),
+    ruby: demo.field('ruby').requiredStringValue(),
+    text: demo.field('markdown').requiredMarkdownValue(),
+    title: demo.stringKey()
   }));
 
   document.assertAllTouched();
@@ -149,16 +151,16 @@ const librariesDemos = async () => {
 
 const menu = async () => {
   const input = await fs.promises.readFile(path.join(__dirname, 'content/menu.eno'), 'utf-8');
-  const document = eno.parse(input, { reporter: TerminalReporter, sourceLabel: 'content/menu.eno' });
+  const document = enolib.parse(input, { reporter: TerminalReporter, sourceLabel: 'content/menu.eno' });
 
   const menu = document.elements().map(section => ({ // TODO: Would need sections() accessor without name option here for better validation
-    name: section.string('name'),
-    pages: section.fieldset('pages').elements().map(page => ({
-      name: page.string(),
-      url: page.name
+    name: section.field('name').requiredStringValue(),
+    pages: section.fieldset('pages').entries().map(page => ({
+      name: page.requiredStringValue(),
+      url: page.stringKey()
     })),
-    tagline: section.string('tagline'),
-    url: section.name
+    tagline: section.field('tagline').requiredStringValue(),
+    url: section.stringKey()
   }));
 
   document.assertAllTouched();
@@ -172,26 +174,28 @@ const pages = async () => {
 
   for(let file of files) {
     const input = await fs.promises.readFile(file, 'utf-8');
-    const document = eno.parse(input, { reporter: TerminalReporter, sourceLabel: file });
+    const document = enolib.parse(input, { reporter: TerminalReporter, sourceLabel: file });
 
     pages.push({
       html: document.section('content').elements().map(block => {
-        if(block.name === 'markdown') {
-          return block.value(markdown);
-        } else if(block.name === 'single') {
-          return block.field('markdown', markdown);
-        } else if(block.name.startsWith('columns-')) {
+        const name = block.stringKey();
+
+        if(name === 'markdown') {
+          return block.requiredMarkdownValue();
+        } else if(name === 'single') {
+          return block.field('markdown').requiredMarkdownValue();
+        } else if(name.startsWith('columns-')) {
           return `
-            <div class="${block.name}">
+            <div class="${name}">
               ${block.elements().map(column => `
-                <div>${column.value(markdown)}</div>
+                <div>${column.requiredMarkdownValue()}</div>
               `).join('')}
             </div>
           `;
         }
       }).join(''),
       permalink: path.basename(file, '.eno'),
-      title: document.string('title')
+      title: document.field('title').requiredStringValue()
     });
 
     document.assertAllTouched();

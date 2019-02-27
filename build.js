@@ -1,5 +1,3 @@
-const eno = require('enojs');
-const { TerminalReporter } = require('enojs');
 const fs = require('fs');
 const fsExtra = require('fs-extra');
 const path = require('path');
