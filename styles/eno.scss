@@ -3,16 +3,8 @@
   white-space: pre;
 }
 
-.eno-report-line {
-  display: flex;
-}
-
-.eno-report-line-emphasized {
-  background-color: rgba(255, 0, 0, 0.4);
-}
-
-.eno-report-line-marked {
-  background-color: rgba(255, 181, 0, 0.4);
+.eno-report-content {
+  padding-left: 1em;
 }
 
 .eno-report-gutter {
@@ -21,6 +13,18 @@
   padding-right: 1em;
 }
 
-.eno-report-content {
-  padding-left: 1em;
+.eno-report-line {
+  display: flex;
+}
+
+.eno-report-line-emphasized {
+  background-color: rgba(255, 0, 0, 0.4);
+}
+
+.eno-report-line-indicated {
+  background-color: rgba(255, 181, 0, 0.4);
+}
+
+.eno-report-line-questioned {
+  background-color: rgba(0, 210, 255, 0.4);
 }
