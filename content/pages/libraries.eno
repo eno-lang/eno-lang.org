@@ -79,15 +79,3 @@ eno libraries as interactive demos in the browser. Right now there is only a
 limited selection of early demos and a draft page layout.
 
 [Interactive Demos](/demo/)  
-
-## Experimental loaders
-
-For each of the core eno implementations there is also an additional
-*experimental loaders* project, where new loaders are tested and evaluated. Feel
-free to use the experimental loaders as an expansion package, they are carefully
-crafted and unit-tested just like the core libraries themselves!
-
-[enojs-exploaders (Javascript)](https://github.com/eno-lang/enojs-exploaders/)\
-[enopy-exploaders (Python)](https://github.com/eno-lang/enopy-exploaders/)\
-[enorb-exploaders (Ruby)](https://github.com/eno-lang/enorb-exploaders/)
--- markdown
