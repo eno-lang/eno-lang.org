@@ -61,8 +61,6 @@ module.exports = (data, activeUrl = null) => {
             </script>
 
             <div class="menu wide">
-              <span class="menu__text">${currentSection.tagline}</span>
-
               <div class="menu__spacer"></div>
 
               ${currentSection.pages.map(page => `

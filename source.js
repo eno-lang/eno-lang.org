@@ -159,7 +159,6 @@ const menu = async () => {
       name: page.requiredStringValue(),
       url: page.stringKey()
     })),
-    tagline: section.field('tagline').requiredStringValue(),
     url: section.stringKey()
   }));
 
