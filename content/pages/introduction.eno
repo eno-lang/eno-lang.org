@@ -7,12 +7,7 @@ title: Introduction to eno
 
 eno is very simple, in a few minutes you'll be ready to create any content you wish.
 
-You can either watch the video or read the text below, they both cover the same
-essentials, pick whichever you prefer.
-
-<video controls src="https://resources.eno-lang.org/screencasts/introduction.mp4"></video>
-
-## The Essentials (Text Version)
+## The Essentials
 
 ### Comments (>)
 
@@ -30,7 +25,7 @@ At its core eno lets us write down values, the simplest form being:
 Current Temperature: Quite pleasant
 ```
 
-With this we specify a pair of a name and a value, the name being "Current temperature" and the value being "Quite pleasant". In the majority of cases, the name (here "Current Temperature") will come from a template already, so as a user we usually just concern ourselves with editing the values and a friendly developer takes care of specifying the names for us. :)
+With this we specify a pair of a key and a value, the key being "Current temperature" and the value being "Quite pleasant".
 
 Some other examples:
 
@@ -42,7 +37,7 @@ Profession: Freelance graphics artist
 
 ### No value
 
-If we don't want to specify a value, we just leave the right side empty:
+If we don't want to specify a value, we just leave it out.
 
 ```eno
 More information:
@@ -51,7 +46,7 @@ More information:
 
 ### Lists of values (-)
 
-If we want to assign multpiple values to a name, it looks like this:
+If we want to assign multiple values to a key, it looks like this:
 
 ```eno
 Shopping list:
@@ -68,22 +63,22 @@ Shopping list:
 
 ### Values that span multiple lines (--)
 
-If we want to assign multiple lines to a name, we do it like this:
+If we want to assign multiple lines to a key, we do it like this:
 
 ```eno
 -- Long Description
-The previous line marks a block, whose content starts with this line.
+The previous line marks a multiline field, whose content starts with this line.
 
-Until the line that marks the begin of the block appears a second time,
+Until the line that marks the begin of the multiline field appears a second time,
 we can write any content we want, leave any number of lines empty ...
 
 ... and so on
 
-With "--" we tell eno that we want to start a text block, and the text
-right next to the two dashes on that same line again is the name (in this
-case "Long Description") that provides a context to our block of text.
+With "--" we tell eno that we want to start a multiline field, and the text
+right next to the two dashes on that same line again is the key (in this
+case "Long Description") that provides a context to our multiline field.
 
-Heads up now - in the next line the block ends!
+Heads up now - in the next line the multiline field ends!
 -- Long Description
 ```
 
@@ -98,7 +93,7 @@ Telephone: +43 699 104734953
 Email: anna.schneider@anna-schneider.de
 ```
 
-This assigns all name-value pairs that follow after the begin of the section "Contact data" to that section. It is also possible to create any number of sub-sub-(and so on)-sections:
+This assigns all key-value pairs that follow after the begin of the section "Contact data" to that section. It is also possible to create any number of sub-sub-(and so on)-sections:
 
 ```eno
 # Contact data
@@ -116,7 +111,7 @@ Landline: +43 1 0468648
 Mobile: +43 699 104734953complicated
 ```
 
-And with this you already know everything you need to edit any `.eno` files you might encounter! To wrap things up, here's another small demonstration that combines all of the possibilities explained above:
+To wrap up the introduction, here's an example that combines all of the possibilities explained above:
 
 ```eno
 # Profile

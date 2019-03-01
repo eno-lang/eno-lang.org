@@ -11,11 +11,6 @@ Complementary to the introduction, this page describes the remaining, more advan
 - work with very complex, very technical or high volume content - these features will save you time.
 - are potentially interested in, or planning to, develop an application or website with eno.
 
-Again, either watch the video (~11 min) or read the written version below in about 5-15 minutes, depending on prior
-experience with the concepts explained.
-
-<video controls src="https://resources.eno-lang.org/screencasts/advanced.mp4"></video>
-
 ## Copying (<)
 
 eno works very well for authoring content in multiple languages, imagine the following document layout for a blog post:
@@ -38,7 +33,7 @@ If we just wanted to duplicate that page for another language, we can write the 
 # German < English
 ```
 
-This creates a section with the name "German" and copies everything that exists in the section "English" over to that new section.
+This creates a section with the key "German" and copies everything that exists in the section "English" over to that new section.
 
 As in this case "FAQ" is the same in german and english we only would need to replace the text, which we can do like this:
 
@@ -62,11 +57,11 @@ red = 4
 blue = 1
 ```
 
-Fieldsets allow us to group fields without the need to specify an entire section. They start like a field or list (with a name and a colon),
+Fieldsets allow us to group fields without the need to specify an entire section. They start like a field or list (with a key and a colon),
 and go on as long as fieldset entries follow, which are differentiated from regular fields by their operator, an equals sign (`=`).
-Note that unlike in sections, no name can appear twice in a fieldset, every one of them needs to be unique.
+Just as in sections, any key can appear multiple times, but applications may choose to accept only unique keys when that behavior fits the usecase better.
 
-Fieldsets can be copied (like everything else in eno), in which case you can actually redeclare an existing fieldset entry name,
+Fieldsets can be copied (like everything else in eno), in which case you can actually redeclare an existing fieldset entry key,
 which allows you to override its value in the copied fieldset:
 
 ```eno
@@ -78,49 +73,46 @@ image_2 < image
 title = A glass, half empty.
 ```
 
-## Line Continuations (\\) and Newline Continuations (|)
+## Spaced (\\) and direct (|) line continuations
 
-When a value gets overly long, or you would like to supply multiple lines for a field (without using a block) you can use line continuations:
+When a value gets overly long, or you would like to split it into multiple lines for readability (e.g. for commandline flags or GET parameters) you can use line continuations:
 
 ```eno
-A long sentence: I was riding my bike out in the woods, then a girl with a red cape came along and
-\                asked me what my destination was, and I honestly couldn't remember at that point.
+A commandline poem: roses --are-red
+\                         --violets are-blue
+\                         --whitespace-is-ignored
 ``` 
 
-With a backslash (`\`) you declare a *line continuation*, whatever you write on
-that line is appended to the end of the field before it (separated by a single
-space). Note that like everywhere else in eno, whitespace plays no role, so this
+With a backslash (`\`) you declare a *spaced line continuation*, whatever you write on
+that line is appended to the end of the field before it, separated by a single
+space. Note that like everywhere else in eno, whitespace plays no role, so this
 is equivalent of the above example:
 
 ```eno
-A long sentence: I was riding my bike out in the woods, then a girl with a red cape came along and
-
-    \ asked me what my destination was, and I honestly couldn't remember at that point.
+A commandline poem:
+    \ roses --are-red
+          \ --violets are-blue
+          
+      \ --whitespace-is-ignored
 ```
 
-With a vertical slash/pipe character (`|`) you declare a *newline continuation*, whatever you write on that line
-is also appened to the previous field, but on a new line:
+With a vertical slash/pipe character (`|`) you declare a *direct line continuation*, whatever you write on that line
+is also appened to the previous field, but directly and without any spacing inbetween:
 
 ```eno
-A poem: Roses are red.
-|       Violets are blue.
-            
-            | Whitespace does not matter. ;)
+A URL poem: https://roses.are.red/?violets=are-blue&
+|                                  whitespace=does-not-matter
 ```
 
-Final remark: *Line continuations* and *newline continuations* can be mixed in any fashion,
-as for instance here in this classical programmer use case for line continuations:
+Final remark: *spaced* and *direct line continuations* can be mixed in any fashion:
 
 ```eno
-commands:
-| ffmpeg -i input.mov
-\        -vf deinterlace
-\        output.mp4
-| cp output.mp4 /external/deployed.mp4
-| rm output.mp4
+command: hashify -i this-is-very-long-i-dont-even-know-when-this-key-is-
+|                   going-to-end-therefore-i-am-happy-about-the-existence-
+|                   of-direct-line-continuations
+\                -o output.hashed
+\                --verbose
 ```
-
-Documentation coming up in the next days!
 
 ## Deep copying (<<)
 
@@ -142,7 +134,7 @@ ultraservice: enabled
 In this example the resulting `# production` section will contain both `hyperservice` and `ultraservice`
 inside its `## settings` subsection, whereas if you used only a regular copy operation (single `<`),
 the `## settings` from `# default` would have been completely overwritten, deleting `hyperservice` and
-leaving only `ultraservice`. A classical usecase for this feature are complex server configurations.
+leaving only `ultraservice`. A typical usecase for this feature are complex server configurations.
 
 ## Escaping (``)
 
@@ -159,17 +151,15 @@ You'll notice that something is different in the third line: The `-10 degrees ce
 Here's why:  
 `-10 degrees celsius` starts with a `-`, and in eno every line starting with a `-` is interpreted as a *list item* as we learned before, therefore we need some way to say that we really mean "minus 10 degrees celsius" and not "10 degrees celsius" as an item in a list.
 
-This is a universal concept in computing called "escaping", and lets us write down things that would otherwise be interpreted differently, a bit like telling a friend you're not being ironic when you just said something that sounded awfully ironic.
-
 Here are some more examples of escaping in eno:
 
 ```eno
 `https://eno-lang.org/`: The eno website
 ```
-Every field in eno follows the pattern `name: value`, but in this case our name `https://eno-lang.org/` contains a `:` already, therefore we need to escape it.
+Every field in eno follows the pattern `key: value`, but in this case our key `https://eno-lang.org/` contains a `:` already, therefore we need to escape it.
 
 ```eno
 `` `hypothetical` ``: The word "hypothetical" inside backticks
 ```
-You might have wondered how an escape can be escaped, this is achieved by using two backticks around the name that is itself wrapped in (single) backticks, and leaving spaces so it does not look like three backticks. (these spaces on the outside are not included in the name though)
+You might have wondered how an escape can be escaped, this is achieved by using two backticks around the key that is itself wrapped in (single) backticks, and leaving spaces so it does not look like three backticks. (these spaces on the outside are not included in the key though)
 -- markdown
