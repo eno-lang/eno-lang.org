@@ -1,7 +1,7 @@
 module.exports = () => `
   <footer class="footer">
     <div class="boundary">
-      2018 - The eno notation language and libraries.
+      2019 - The eno notation language and libraries.
       &nbsp;&nbsp;
       <a href="/">Home</a>
       &nbsp;&nbsp;
