@@ -50,7 +50,7 @@ module.exports = async data => {
   <script src="/demo.js"></script>
   `;
 
-  const html = layout(data, content, 'Interactive library demos', '/demo/');
+  const html = layout(data, content, 'interactive library demos', 'interactive library demos', '/demo/');
 
   await fs.promises.mkdir(path.join(__dirname, '../../public/demo'));
   await fs.promises.writeFile(path.join(__dirname, '../../public/demo/index.html'), html);

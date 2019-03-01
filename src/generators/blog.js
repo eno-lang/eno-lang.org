@@ -13,7 +13,7 @@ module.exports = async data => {
     ).join('')}
   `;
 
-  const html = layout(data, content, 'Blog', '/blog/');
+  const html = layout(data, content, 'blog', 'blog','/blog/');
 
   await fs.promises.mkdir(path.join(__dirname, `../../public/blog`));
   await fs.promises.writeFile(path.join(__dirname, `../../public/blog/index.html`), html);

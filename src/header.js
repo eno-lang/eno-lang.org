@@ -2,17 +2,19 @@
 //       assertAllTouched takes care to make sure there weren't other items as well that should
 //       have been picked up sequentially.
 
-// TODO: Sequential accessor for fieldsets (see below usecase for secondary header) (implemented but reevaluate in this context)
+module.exports = (data, breadcrumb, activeUrl = null) => {
+  const currentSection = data.menu.find(section =>
+    section.url === activeUrl || section.pages.includes(activeUrl)
+  );
 
-module.exports = (data, activeUrl = null) => {
-  let currentPage, currentSection;
-  for(let section of data.menu) {
-    currentPage = section.pages.find(page => page.url === activeUrl);
+  let breadcrumbs = ' <a href="/">home</a>';
 
-    if(currentPage) {
-      currentSection = section;
-      break;
-    }
+  if(currentSection) {
+    breadcrumbs += ` &gt; <a href="${currentSection.url}">${currentSection.name}</a>`;
+  }
+
+  if(breadcrumb) {
+    breadcrumbs += ` &gt; ${breadcrumb}`;
   }
 
   return `
@@ -20,8 +22,7 @@ module.exports = (data, activeUrl = null) => {
       <div class="header__primary">
         <div class="boundary">
           <div class="menu">
-
-            <a class="brand" href="/">eno</a>
+            <span class="menu__breadcrumbs">${breadcrumbs}</span>
 
             <div class="menu__spacer"></div>
 
@@ -34,45 +35,6 @@ module.exports = (data, activeUrl = null) => {
           </div>
         </div>
       </div>
-
-      ${currentSection ? `
-        <div class="header__secondary">
-          <div class="boundary">
-            <div class="menu compact">
-              <a class="menu__link menu__toggle">
-                ${currentPage.name} <span class="icon-dropdown"></span>
-              </a>
-            </div>
-
-            <div class="menu__dropdown">
-              ${currentSection.pages.map(page => `
-                <a class="menu__link ${page.url === activeUrl ? 'active' : ''}"
-                   href="${page.url}">
-                  ${page.name}
-                </a>
-              `).join('')}
-            </div>
-
-            <script>
-              document.querySelector('.menu__toggle').addEventListener('click', function(event) {
-                event.preventDefault();
-                document.querySelector('.menu__dropdown').classList.toggle('active');
-              });
-            </script>
-
-            <div class="menu wide">
-              <div class="menu__spacer"></div>
-
-              ${currentSection.pages.map(page => `
-                <a class="menu__link ${page.url === activeUrl ? 'active' : ''}"
-                   href="${page.url}">
-                  ${page.name}
-                </a>
-              `).join('')}
-            </div>
-          </div>
-        </div>
-      `:''}
     </header>
   `;
 }

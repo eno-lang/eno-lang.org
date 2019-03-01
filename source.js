@@ -1,7 +1,7 @@
 const enolib = require('enolib');
 const { date } = require('enotype');
 const { Fieldset, List, TerminalReporter } = require('enolib');
-const fastGlob = require('fast-glob');
+const glob = require('fast-glob');
 const fs = require('fs');
 const markdown = require('./lib/loader-markdown.js');
 const { prism, PRISM_LANGUAGES } = require('./lib/loader-prism.js');
@@ -26,7 +26,7 @@ const blog = async () => {
 
 const documentation = async () => {
   const documentation = [];
-  const files = await fastGlob(path.join(__dirname, 'content/documentation/*.eno'));
+  const files = await glob(path.join(__dirname, 'content/documentation/*.eno'));
 
   for(let file of files) {
     const input = await fs.promises.readFile(file, 'utf-8');
@@ -155,10 +155,7 @@ const menu = async () => {
 
   const menu = document.elements().map(section => ({ // TODO: Would need sections() accessor without name option here for better validation
     name: section.field('name').requiredStringValue(),
-    pages: section.fieldset('pages').entries().map(page => ({
-      name: page.requiredStringValue(),
-      url: page.stringKey()
-    })),
+    pages: section.list('pages').requiredStringValues(),
     url: section.stringKey()
   }));
 
@@ -169,13 +166,16 @@ const menu = async () => {
 
 const pages = async () => {
   const pages = [];
-  const files = await fastGlob(path.join(__dirname, 'content/pages/*.eno'));
+  const files = await glob('**/*.eno', { cwd: path.join(__dirname, 'content/pages/') });
 
   for(let file of files) {
-    const input = await fs.promises.readFile(file, 'utf-8');
+    const input = await fs.promises.readFile(path.join(__dirname, 'content/pages/', file), 'utf-8');
     const document = enolib.parse(input, { reporter: TerminalReporter, sourceLabel: file });
 
+
+
     pages.push({
+      breadcrumb: document.field('breadcrumb').optionalStringValue(),
       html: document.section('content').elements().map(block => {
         const name = block.stringKey();
 
@@ -193,8 +193,8 @@ const pages = async () => {
           `;
         }
       }).join(''),
-      permalink: path.basename(file, '.eno'),
-      title: document.field('title').requiredStringValue()
+      title: document.field('title').requiredStringValue(),
+      url: file === 'index.eno' ? '/' : `/${file.substring(0, file.length - 4)}/`
     });
 
     document.assertAllTouched();

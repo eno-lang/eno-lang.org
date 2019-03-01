@@ -1,7 +1,7 @@
 const footer = require('./footer.js');
 const header = require('./header.js');
 
-module.exports = (data, content, title, activeUrl = null) => {
+module.exports = (data, content, title, breadcrumb, activeUrl = null) => {
   const html = `
     <!doctype html>
     <html>
@@ -9,7 +9,7 @@ module.exports = (data, content, title, activeUrl = null) => {
       <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="The eno notation language">
+        <meta name="description" content="The eno notation language and libraries">
 
         <title>${title}</title>
 
@@ -18,7 +18,7 @@ module.exports = (data, content, title, activeUrl = null) => {
       </head>
 
       <body>
-        ${header(data, activeUrl)}
+        ${header(data, breadcrumb, activeUrl)}
 
         <div class="boundary padding">
           ${content}

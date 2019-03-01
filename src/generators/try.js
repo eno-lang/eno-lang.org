@@ -47,7 +47,7 @@ module.exports = async data => {
   <script src="/try.js"></script>
   `;
 
-  const html = layout(data, content, 'Try the language', '/try/');
+  const html = layout(data, content, 'try the language', 'try the language', '/try/');
 
   await fs.promises.mkdir(path.join(__dirname, '../../public/try'));
   await fs.promises.writeFile(path.join(__dirname, '../../public/try/index.html'), html);

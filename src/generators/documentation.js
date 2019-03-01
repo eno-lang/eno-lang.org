@@ -30,7 +30,7 @@ const docsLayout = (data, content, title, activeUrl, sidebar) => {
     </div>
   `;
 
-  return layout(data, html, title, activeUrl);
+  return layout(data, html, title, title, activeUrl);
 };
 
 const generateIndex = async (data, documentation, sidebar) => {
