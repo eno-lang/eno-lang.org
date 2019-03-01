@@ -33,7 +33,6 @@ Málaga: 36.721447, -4.421291
 Springfield: 38.790312, -77.186418
 -- eno
 
-
 # Reference examples
 
 ## Comments
@@ -85,19 +84,19 @@ It was a night full of ⭐s and 🤖s in 서울특별시!: That was a sentence.
 `1:0`: At the first : the name ends, it always needs to be escaped
 
 A-Z: The - is fine when it's preceded by something else
-`-AZ`: The - at the start would start a list item
+`-AZ`: The - at the start would begin a list item
 
 A # of things : The # is fine if it does not start the name
-`# of things`: The # at the start would start a section
+`# of things`: The # at the start would begin a section
 
 Php\Namespace : The \ is fine if it's not the first non-whitespace character
-`\Php\Namespace`: The \ at the start would start a line continuation
+`\Php\Namespace`: The \ at the start would begin a spaced line continuation
 
 Left|Right : The | is fine if it's not the first character in the name
-`|Right`: The | at the start would start a newline continuation
+`|Right`: The | at the start would begin a direct line continuation
 
 Greater > Smaller: The > is fine if it's not the first thing in the name
-`> Smaller`: The > at the start would start a comment
+`> Smaller`: The > at the start would begin a comment
 -- eno
 
 ## Fieldsets
@@ -129,7 +128,7 @@ my_entry_b = my value
 
 my_fieldset:
 my_entry = my value
-> You can use line and newline continuations for fieldset entries just like with regular fields
+> You can use line continuations for fieldset entries just like with regular fields
 \ continued
 
 
@@ -165,7 +164,7 @@ my_list:
 
 my_list:
 - my value
-> You can use line and newline continuations for list items just like with fields
+> You can use line continuations for list items just like with fields
 \ continued
 
 

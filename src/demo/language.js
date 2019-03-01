@@ -1,4 +1,7 @@
-import eno, { parse, HtmlReporter, ParseError } from 'enojs';
+import enolib, { parse, HtmlReporter, ParseError } from 'enolib';
+import { de } from 'enolib/lib/messages/de'; // TODO: Properly expose this through enolib package
+import { en } from 'enolib/lib/messages/en';
+import { es } from 'enolib/lib/messages/es';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -13,6 +16,8 @@ import 'ace-eno/builds/src-noconflict/mode-eno';
 import 'ace-eno/builds/src-noconflict/theme-tomorrow';
 
 import Inspector from '../../components/inspector.js';
+
+const locales = { de, en, es };
 
 const editor = ace.edit(
   document.querySelector('#editor'),
@@ -31,7 +36,7 @@ const refresh = () => {
     const demoOption = selectDemo.selectedOptions[0];
     const localeOption = selectLocale.selectedOptions[0].value;
 
-    const doc = eno.parse(input, { locale: localeOption, reporter: HtmlReporter });
+    const doc = enolib.parse(input, { locale: locales[localeOption], reporter: HtmlReporter });
 
     ReactDOM.render(<Inspector document={doc} />, document.querySelector('.inspector'));
   } catch(err) {

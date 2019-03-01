@@ -1,17 +1,6 @@
 import React from 'react';
 
-const formatValue = value => {
-  if(value === null)
-    return 'null'
-
-  value = value.replace('\n', '\\n');
-
-  if(value.length > 72) {
-    value = value.substr(0, 68) + ' ...';
-  }
-
-  return value;
-};
+import { formatValue } from '../format.js';
 
 export default class FieldInspector extends React.Component {
   constructor(props) {
@@ -19,9 +8,14 @@ export default class FieldInspector extends React.Component {
   }
 
   render() {
+    const { field } = this.props;
+    const comment = field.optionalStringComment();
+    const key = this.props.listItem ? null : field.stringKey();
+    const value = field.optionalStringValue();
+
     return(
       <div>
-        <span className="inspector__node icon-no-folding"/> {this.props.listItem ? null : <span><strong>{this.props.field.name}</strong> →</span>} <span className="inspector__value">{formatValue(this.props.field.value())}</span> <span className="inspector__element_type">(Field)</span>
+        <span className="inspector__node icon-no-folding"/> {key ? <span><strong>{key}</strong> →</span> : null} <span className="inspector__value">{formatValue(value)}</span> <span className="inspector__element_type">({key ? 'Field' : 'List Item'})</span> {comment ? <span className="inspector__comment">(Comment – {formatValue(comment)})</span> : null}
       </div>
     );
   }

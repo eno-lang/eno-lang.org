@@ -1,6 +1,7 @@
 import React from 'react';
 
 import FieldInspector from './field.js';
+import { formatValue } from '../format.js';
 
 export default class FieldsetInspector extends React.Component {
   constructor(props) {
@@ -16,22 +17,25 @@ export default class FieldsetInspector extends React.Component {
   }
 
   render() {
-    const elements = this.props.fieldset.elements();
+    const { fieldset } = this.props;
+    const comment = fieldset.optionalStringComment();
+    const key = fieldset.stringKey();
+    const entries = fieldset.entries();
 
     return(
       <div>
-        {elements.length > 0 ?
+        {entries.length > 0 ?
           <a className="inspector__node" onClick={this.toggleFolded}>
             <span className={this.state.folded ? 'icon-unfold' : 'icon-fold'}/>
           </a>
           :
           <span className="inspector__node icon-no-folding"/>
         }
-        <strong>{this.props.fieldset.name}</strong> <span className="inspector__element_type">(Fieldset)</span>
+        <strong>{key}</strong> <span className="inspector__element_type">(Fieldset)</span> {comment ? <span className="inspector__comment">(Comment – {formatValue(comment)})</span> : null}
 
         {this.state.folded ? null :
           <div className="inspector__indented">
-            {elements.map(element => <FieldInspector field={element} />)}
+            {entries.map(element => <FieldInspector field={element} />)}
           </div>
         }
       </div>

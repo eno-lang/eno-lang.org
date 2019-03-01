@@ -1,16 +1,17 @@
-import { Empty, Field, Fieldset, List, Section } from 'enojs';
+import { Empty, Field, Fieldset, List, Section } from 'enolib';
 import React from 'react';
 
 import EmptyInspector from './empty.js';
 import FieldInspector from './field.js';
 import FieldsetInspector from './fieldset.js';
 import ListInspector from './list.js';
+import { formatValue } from '../format.js';
 
 export default class SectionInspector extends React.Component {
   constructor(props) {
     super(props);
 
-    const isDocument = this.props.section.toString().match(/\[object Section document/);
+    const isDocument = this.props.section.parent() === null; // TODO: Make this available more elegantly?
 
     this.state = { folded: !isDocument };
 
@@ -22,8 +23,19 @@ export default class SectionInspector extends React.Component {
   }
 
   render() {
-    const isDocument = this.props.section.toString().match(/\[object Section document/);
-    const elements = this.props.section.elements();
+    const { section } = this.props;
+    const comment = section.optionalStringComment();
+    const elements = section.elements();
+    const isDocument = section.parent() === null;
+    const key = section.stringKey();
+
+    if(isDocument && elements.length === 0) {
+      return(
+        <div>
+          <span className="inspector__node icon-no-folding"/> <strong>Empty Document</strong>
+        </div>
+      );
+    }
 
     return(
       <div>
@@ -35,7 +47,11 @@ export default class SectionInspector extends React.Component {
             :
             <span className="inspector__node icon-no-folding"/>
           }
-          {isDocument ? <strong>Document</strong> : <span><strong>{this.props.section.name}</strong> <span className="inspector__element_type">(Section)</span></span>}
+          {
+            isDocument ?
+            <strong>Document</strong> :
+            <span><span><strong>{key}</strong> <span className="inspector__element_type">(Section)</span></span> {comment ? <span className="inspector__comment">(Comment – {formatValue(comment)})</span> : null}</span>
+          }
         </div>
 
         {this.state.folded ? null :
