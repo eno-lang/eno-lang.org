@@ -34,7 +34,7 @@ export default class ListInspector extends React.Component {
         <strong>{key}</strong> <span className="inspector__element_type">(List)</span> {comment ? <span className="inspector__comment">(Comment – {formatValue(comment)})</span> : null}
 
         {this.state.folded ? null :
-          <div className="inspector__indented">
+          <div className="indented">
             {items.map(element => <FieldInspector field={element} listItem={true} />)}
           </div>
         }

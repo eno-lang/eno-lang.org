@@ -55,7 +55,7 @@ export default class SectionInspector extends React.Component {
         </div>
 
         {this.state.folded ? null :
-          <div className="inspector__indented">
+          <div className="indented">
             {!isDocument && elements.length === 0 ? 'No elements' : null}
 
             {elements.map(element => {

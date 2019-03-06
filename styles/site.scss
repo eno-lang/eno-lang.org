@@ -150,6 +150,10 @@ div[class^="columns-"] {
   color: $color_text_faded;
 }
 
+.indented {
+  padding-left: 1em;
+}
+
 .info_badge {
   background-color: $color_info_badge;
   padding: 1em;

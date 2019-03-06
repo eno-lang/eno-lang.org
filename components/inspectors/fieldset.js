@@ -34,7 +34,7 @@ export default class FieldsetInspector extends React.Component {
         <strong>{key}</strong> <span className="inspector__element_type">(Fieldset)</span> {comment ? <span className="inspector__comment">(Comment – {formatValue(comment)})</span> : null}
 
         {this.state.folded ? null :
-          <div className="inspector__indented">
+          <div className="indented">
             {entries.map(element => <FieldInspector field={element} />)}
           </div>
         }
