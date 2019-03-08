@@ -1,3 +1,14 @@
+-- 2019-03-03
+Released enolib 0.1.1 with error reporting fixes and two new query methods - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md)
+-- 2019-03-03
+
+-- 2019-03-02
+Worked on rebooting the website the last days, splitting it into an archived
+eno/first version and the soon default final ecosystem branch. Also wrote some
+of the coming documentation for enolib and did some major redesign work for the
+final branch of the website.
+-- 2019-03-02
+
 -- 2019-02-27
 It's shipping day again! 🎉 The JS implementation for the new flagship [enolib](https://www.npmjs.com/package/enolib) library was just released as 0.1.0 on [npm](https://www.npmjs.com/package/enolib), and API documentation is coming the next days. The enolib project is the successor to the existing enojs/enophp/enopy/enorb libraries, uniting them under a single name to reflect their close connection (they practically offer 1:1 the same API on all supported languages) and make them easier to recognize between different platforms. Importantly they also implement the living draft for the final specification and offer a greatly overhauled API design and internal architecture, resulting in more functionality, safety, performance and ultimately also fun. More updates coming soon - stay tuned!
 
