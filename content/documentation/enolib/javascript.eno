@@ -1,0 +1,689 @@
+title: javascript
+
+-- intro
+> Everyone is welcome to improve this documentation by editing [javascript.eno](https://github.com/eno-lang/eno-lang.org/blob/master/content/documentation/javascript.eno) and submitting a Pull Request!
+
+Installation from npm:
+
+```shell
+npm install enolib
+```
+
+## Getting started
+
+Create an eno document, for instance `intro.eno`:
+
+```eno
+Greeting: Hello World!
+```
+
+A minimal example to read this file with `enolib`:
+
+```javascript
+const enolib = require('enolib');
+const fs = require('fs');
+
+const input = fs.readFileSync('intro.eno', 'utf-8');
+
+const document = enolib.parse(input);
+
+console.log( document.field('Greeting').requiredStringValue() );  // prints 'Hello World!'
+```
+
+## Links
+
+Package on npm - <https://npmjs.com/package/enolib/>  
+Repository on github - <https://github.com/eno-lang/enolib/> 
+-- intro
+
+# chapters
+
+## Parsing a document
+
+-- description
+```javascript
+const enolib = require('enolib');
+const fs = require('fs');
+
+const input = fs.readFileSync('example.eno', 'utf-8');
+
+const document = enolib.parse(input);
+```
+-- description
+
+### subchapters
+
+#### Providing the source
+
+-- description
+enolib does not know where your content comes from (which file, input
+field, url, etc.), this is however a vital piece of information for good error
+messages, and so it is highly recommended to provide a `source` string which
+enolib includes in all error messages it creates:
+
+```javascript
+const document = enolib.parse(input, { source: 'a/path/example.eno' });
+```
+-- description
+
+#### Localized errors
+
+-- description
+enolib's messages are fully localized, this is how you provide a different locale:
+
+```javascript
+const enolib = require('enolib');
+const { es } = require('enolib/lib/messages/es');
+
+const document = enolib.parse('field: value', { locale: es });
+```
+
+The currently available locales are `de`, `en` and `es`, you are very
+welcome to contribute additional locales at <https://github.com/eno-lang/enolib/tree/master/locales>.
+It's a fairly simple process but you can also get in touch directly via mail to request the strings
+that need translation and send them back if you'd rather not deal with the technicalities.
+-- description
+
+#### Error formats
+
+-- description
+By default enolib produces nicely formatted plaintext error messages,
+but if you're in a terminal environment you can also get awesome colored
+and syntax highlighted error messages, or even full-fledged HTML if you're
+deploying enolib with a browser application:
+
+```javascript
+const enolib = require('enolib');
+const { HtmlReporter, TerminalReporter } = require('enolib');
+
+const document = enolib.parse('field: value', { reporter: TerminalReporter }); // or HtmlReporter 
+```
+-- description
+
+#### Cursor lookup
+
+-- description
+When you regularly parse a document you enter at the root document level, there
+is however also the possibility to parse the document and lookup a
+one-dimensional index or a line and column in the document, which means you enter
+the document at whichever element is at that location. This can be used for autocomplete
+providers in an IDE or text editor, or other rich eno document inspection usecases.
+
+```javascript
+const enolib = require('enolib');
+
+const lookup = enolib.lookup({ index: 3 }, 'field: value'); // "what is at string offset 3?"
+  // returns {
+  //   element: [object AmbiguousElement key=field value=value]
+  //   range: 'key'
+  // }
+  
+const lookup = enolib.lookup({ index: 5 }, 'field: value'); // "what is at string offset 5?"
+  // returns {
+  //   element: [object AmbiguousElement key=field value=value]
+  //   range: 'elementOperator'
+  // }
+
+const lookup = enolib.lookup({ line: 0, column: 10 }, 'field: value'); // "what is at line 0, column 10?"
+  // returns {
+  //   element: [object AmbiguousElement key=field value=value]
+  //   range: 'value'
+  // }
+```
+
+Note that the element returned as a lookup property is of variable type,
+therefore you need to use the methods described in [Dynamic
+layouts](/enolib/javascript/querying-elements/dynamic-layouts/) to further query
+the document from this entry point.
+
+As you don't enter at the root you can also use `.parent()` to navigate up the hierarchy.
+-- description
+
+## Querying content
+
+-- description
+In eno content comes in the form of *values*, *keys* and *comments* and can be
+fetched in the default *string* type, a predefined type (e.g. those provided
+by [enotype](/enotype/)) or a custom type which we define ourselves.
+-- description
+
+### subchapters
+
+#### Field values
+
+-- description
+When you query a value you always specify whether that value is optional or
+required, because planning beats debugging:
+
+```javascript
+document.field('default_settings').requiredStringValue();
+document.field('extra_settings').optionalStringValue();
+```
+
+The `optional*` query returns a value or `null`, while the `required*` query
+throws a validation error if the value is missing, such as:
+
+```error
+The field 'default_settings' must contain a value.
+
+   Line | Content
+ >    1 | default_settings:
+```
+
+## Fieldset entry values
+
+This works just like on a field:
+
+```javascript
+document.fieldset('image').entry('src').requiredStringValue();
+document.fieldset('image').entry('title').optionalStringValue();
+```
+-- description
+
+
+#### List values
+
+-- description
+You can either directly query them from the list, or take the more verbose route through the items:
+
+```javascript
+document.list('shopping_list').requiredStringValues(); // Note the plural here
+document.list('shopping_list').items().map(item => item.requiredStringValue());
+```
+
+An important gotcha here is that the shortcut version, although handy, can also
+be misunderstood - *required string values* does not mean there have to be items
+in the list, but instead that each item needs to have a value. If you look at
+the non-shortcut version this is obvious, but for the shortcut version it's
+important to keep in mind.
+
+The `optional*` variant of this accessor produces the less commonly needed array that might contain
+`null` values:
+
+```javascript
+document.list('list_with_empty_spacer_items').optionalStringValues();
+```
+-- description
+
+#### Keys and Comments
+
+-- description
+
+## Querying keys
+
+All elements have a key (list items return the key of the list) therefore you don't need to specify
+optional/required here:
+
+```javascript
+document.elements()[0].stringKey();
+document.fieldset('image').entries()[0].stringKey();
+```
+
+## Querying comments
+
+All elements can have an associated comment and like with values you specify whether it's optional or required:
+
+```javascript
+document.field('author').requiredStringComment();
+document.fieldset('image').optionalStringComment();
+```
+-- description
+
+#### Predefined Types
+
+-- description
+Predefined types are not shipped with enolib itself - they are provided by
+minimalistic add-on packages, the standard one currently being
+[enotype](/enotype/). We'll look at the two ways in which predefined types
+can be used with enolib.
+
+## Registering types globally
+
+This is the more magic approach, specifically useful when you use a certain type all over your document:
+
+```javascript
+const enolib = require('enolib');
+const { boolean, color } = require('enotype');
+
+enolib.register({ boolean, color });
+
+const document = enolib.parse('#b5b5b5: yes');
+
+document.field('#b5b5b5').booleanKey(); // throws "A boolean is required - allowed values are 'true', 'false', 'yes' and 'no'."
+document.field('#b5b5b5').colorKey(); // returns '#b5b5b5'
+
+document.field('#b5b5b5').requiredBooleanValue(); // returns true
+document.field('#b5b5b5').requiredColorValue(); // throws "A color is required, for instance '#B6D918', '#fff' or '#01b'."
+```
+
+With this approach you can take any of the query methods we've seen so far and
+replace `string` (respectively `String`) with another type name - if it's been
+registered before it will also be available.
+
+## Supplying types with queries
+
+This is essentially what's happening under the hood in the example above, we'll
+see some aspects of why this approach is sometimes preferable on the next page,
+when we define our own custom types.
+
+```javascript
+const enolib = require('enolib');
+const { boolean, color } = require('enotype');
+
+const document = enolib.parse('#b5b5b5: yes');
+
+document.field('#b5b5b5').key(boolean); // throws "A boolean is required - allowed values are 'true', 'false', 'yes' and 'no'."
+document.field('#b5b5b5').key(color); // returns '#b5b5b5'
+
+document.field('#b5b5b5').requiredValue(boolean); // returns true
+document.field('#b5b5b5').requiredValue(color); // throws "A color is required, for instance '#B6D918', '#fff' or '#01b'."
+```
+
+With this approach we remove `string` (respectively `String`) from any query method and pass the type as the function parameter instead.
+-- description
+
+#### Custom Types
+
+-- description
+The predefined types we've seen before are actually just simple functions, here
+is for instance the definition of enotype's `color` type:
+
+```javascript
+exports.color = value => {
+  if(!value.match(/^\s*#[0-9a-f]{3}([0-9a-f]{3})?\s*$/i))
+    throw 'A color is required, for instance \'#B6D918\', \'#fff\' or \'#01b\'.';
+
+  return value;
+};
+```
+
+So as we see, all that's required for a custom type definition is a function
+that takes a single parameter - the value - and returns something!
+
+Additionally, depending on the type, we might also include validation as
+demonstrated above - we simply throw a string message if there is a problem.
+When that happens the  message is intercepted by enolib and embedded within a
+rich error message with metadata and a code snippet from the document.
+
+```javascript
+const enolib = require('enolib');
+
+const extraFoo = value => value + ' with extra foo!';
+
+const document = enolib.parse('foo: bar');
+
+document.field('foo').requiredValue(extraFoo);  // returns 'bar with extra foo!'
+```
+
+And just like that we are using our own type. Here's another example using the
+global registering magic from the previous chapter:
+
+```javascript
+const enolib = require('enolib');
+
+const fooOnly = value => {
+  if(value !== 'foo')
+    throw 'Only foo is accepted!';
+  
+  return value;
+};
+
+enolib.register({ fooOnly });
+
+const document = enolib.parse('foo: bar');
+
+document.field('foo').fooOnlyKey();  // returns 'foo'
+document.field('foo').requiredFooOnlyValue();  // throws "Only foo is accepted!" with a code snippet
+```
+
+As a final note why it is sometimes preferable to use the less magicky
+function parameter type passing: On the one hand you might dynamically construct
+a type loader multiple times in your application when it depends on some local
+state (closure). On the other hand your type might not be a type per se but more of
+a conversion or modification, something like `replaceNewLines` or `renderMarkdown`,
+and in that case `.requiredValue(renderMarkdown)` looks a bit more sensible than
+`.requiredRenderMarkdownValue()`.
+-- description
+
+## Querying elements
+
+-- description
+In a static query we know what element type we expect (for instance a
+field), where we expect it (for instance at the document root) and what
+key that element has (for instance 'author').
+
+```javascript
+document.field('author');
+```
+
+All element types that exist in eno can be queried in that same way:
+
+```javascript
+document.field('author');
+document.list('files');
+document.list('files').items();
+document.fieldset('image');
+document.fieldset('image').entry('src');
+document.section('content');
+// etc.
+```
+
+The document itself is a section (only without a key), and all queries you can
+perform on a document you can perform on a section as well:
+
+```javascript
+document.section('content').field('title');
+document.section('content').section('translated').section('dutch').list('tags');
+```
+
+When you expect multiple elements you just use the plural:
+
+```javascript
+document.fields('author');
+document.lists('files');
+document.fieldsets('image');
+document.sections('content');
+```
+-- description
+
+### subchapters
+
+#### Optional/required
+
+-- description
+Unlike with querying values you *can, but don't need to* specify whether elements
+queried from the document are optional or required. As you will most often use
+the elements' values themselves, the necessity for the element hierarchy in between
+the document and that value is automatically inferred by whether the value itself
+is optional or required:
+
+```javascript
+document.section('content').section('translated').field('revision').optionalStringValue();
+```
+
+The line above can be run for an entirely empty document and still return `null`, while by
+modifying the query of the value itself to be required would make the code throw an error for
+the first element missing in that hierarchy instead (again assuming an empty document):
+
+```javascript
+document.section('content').section('translated').field('revision').requiredStringValue();
+```
+
+This would produce an error:
+
+```error
+The section 'content' is missing - in case it has been specified look for typos and also check for correct capitalization.
+
+   Line | Content
+ *    1 | 
+```
+
+With that said, there will of course also be cases where you want to be explicit
+about whether an element is optional or required, for this you can use the
+explicit `optional*` or `required*` accessor variant, which exists for all
+element types, for instance:
+
+```javascript
+document.requiredField('author');
+document.optionalSection('notes');
+```
+
+As with value accessors, the `optional*` variants return `null` if the element
+does not exist (be aware that you should not chain further queries after such a
+call because you'd potentially be calling a function on `null`), while the `required*`
+variants immediately throw an error when the element is missing (here you can safely chain further queries afterwards).
+
+Below is a pattern you might find useful, it's basically saying "There always has to
+be a field with the key 'author', but it can be empty", returns `null` or the value,
+and only throws an error when the field itself is missing.
+
+```javascript
+document.requiredField('author').optionalStringValue();
+```
+
+The pattern below is sort of the reverse, it's "If there is a field with the key
+'author', it also requires a value", and guarantees there is a value if there is
+also a field, otherwise an error is thrown.
+
+```javascript
+const author = document.optionalField('author');
+
+if(author) {
+  const value = author.requiredStringValue();
+  // ...
+}
+```
+
+Last but not least a pattern that does not work:
+
+```javascript
+const author = document.field('author');
+
+if(author) {
+  // Will always enter here, author is never null
+}
+```
+
+As shown earlier you can safely and deeply query a non-existing document
+hierarchy. This is possible because the standard query methods return proxy
+objects (e.g. `MissingSection`) instead of `null` when an element in the chain
+is missing, and with that it's clear why the previous example does not work,
+instead you have to use the explicit `optionalField` accessor to ensure you are
+being returned `null` if there is no element.
+
+```javascript
+const author = document.optionalField('author');
+
+if(author) {
+  // This works, author can be null now
+}
+```
+
+-- description
+
+#### Dynamic layouts
+
+> TODO: element, items, entries
+-- description
+In document oriented eno usecases we often deal with sections that contain
+dynamic layouts of content, meaning the quantity, order and type of elements
+is variable and we can not just statically query everything by key but instead
+we iterate and respond to what we find dynamically.
+
+```javascript
+const elements = document.elements();
+
+elements.forEach(element => {
+  if(element.stringKey() === 'foo') {
+    // ...
+  }
+});
+```
+
+The `elements` accessor returns the ordered elements of a section as an array.
+As every type of element we can encounter in a section has a key, we can safely
+ask for the key and use it to determine further actions on an element.
+
+```javascript
+const elements = document.elements();
+
+elements.forEach(element => {
+  if(element.yieldsField()) {
+    const value = element.toField().requiredStringValue();
+    
+    // ...
+  } else if(element.yieldsList()) {
+    // ...
+  }
+});
+```
+
+Not every element we encounter in a section has a value (fieldsets and lists
+don't), therefore we use the yields\[ElementType]() methods to check for a
+specific element type before we make any queries that require e.g. a field when
+we expect different types.
+
+
+-- description
+
+#### Requiring all elements
+
+-- description
+Often we want to ensure that eno documents authored by users always contain all
+of the fields that can be specified according to our schema, regardless of
+whether they are actually used or left empty, because the simple fact that they
+see the field in the document they are authoring informs them that it exists and
+can be used, whereas if it were entirely missing in the document, only external
+documentation can point the user to the possiblity to define that specific field.
+
+To easily enable such behavior there is a shortcut that saves us from writing out 
+`required` in front of every element we query from the document:
+
+```javascript
+document.allElementsRequired();
+document.field('name').optionalStringValue();
+```
+
+Here the field `name` always has to be present, no matter if it's empty or not.
+
+Note that this can be called not only on the document but also on any section or fieldset:
+
+```javascript
+const details = document.section('details');
+
+details.allElementsRequired();
+```
+
+Any element queries on `details` from that point on always require the elements to be there,
+including the ones in subsections and fieldsets, recursively.
+
+Lastly, this setting can also be reverted again by explicitly passing `false`:
+
+```javascript
+document.allElementsRequired();
+document.allElementsRequired(false);
+document.field('name').optionalStringValue();
+```
+
+Here the field `name` is optional, just as its value.
+-- description
+
+
+## Touching elements
+
+-- description
+Every element in the document that you query something from is automatically
+flagged as *touched*. When you are finished querying the document (or a specific
+section) you can let enolib run a check to ensure that every element found in
+the document was actually touched by your code.
+
+Using this even at an early stage in developing an application is a great
+productivity booster because it will save you when you forget to query
+something, or when you *did* write a query for an element but *mis-typed* its
+key, or when you or a user mis-types keys in the data itself, and so on.
+
+Basically it's like an extra automated test suite for both your code and the
+data itself that you can use for free.
+-- description
+
+### subchapters
+
+#### Assert all touched
+
+> TODO: only, except
+
+-- description
+Call `assertAllTouched()` on a document, section or fieldset to ensure that no
+data has been left untouched by your application.
+
+```javascript
+const document = enolib.parse('importan_option: no_delete');  // Note the mis-typed key
+
+const importantOption = document.field('important_option').optionalStringValue();
+
+document.assertAllTouched();
+```
+
+When you run this code an error will be thrown in the last line:
+
+```error
+This element was not expected, make sure it is at the right place in the document and that its key is not mis-typed.
+
+   Line | Content
+ >    1 | importan_option: no_delete
+```
+-- description
+
+#### Manual touching
+
+-- description
+Sometimes you intentionally don't process elements or entire sections in the
+document. You can manually touch them so they and all elements below are marked
+as touched and don't get reported by enolib when you run your final checks at
+the end of the program.
+
+```javascript
+const document = enolib.parse('field: value')
+
+document.field('field').touch();
+
+document.assertAllTouched();
+```
+
+No error is thrown this time.
+-- description
+
+> ## Examples and patterns
+> 
+> -- description
+> 
+> -- description
+
+> ## Querying non-string values
+> 
+> -- description
+> In this chapter we'll learn how to query values in any type we wish.
+> -- description
+> 
+> ### subchapters
+> 
+> #### Loaders
+> 
+> > TODO: Make this only a theoretical primer on loaders - can be skipped, note that in the introduction of this chapter
+> 
+> -- description
+> One of the core concepts of enolib is the use of loaders. There are no types in
+> eno, all contents of an eno document - values, keys and even comments - are
+> instead considered to be simply textual representations that might (or might
+> not) adhere to certain rules - rules which are not defined by the language, but
+> by us, the developers.
+> 
+> ```eno
+> begin: 12:00
+> ```
+> 
+> Consider `12:00` - chances are you will think of this as a *time*, which
+> implicates a certain set of rules that need to be followed so we as people can
+> interpret the value correctly. From a development point of view however, there
+> is hardly one concrete *type* that does justice to processing time in a program
+> in *the one and only sensible way*. In website code you might just need a
+> `string` to display to your users, in a timetracking application you might be
+> solely be interested in an `integer` representation of how many seconds make up
+> that `12:00`, while in yet another application you might direly need a separate
+> `integer` representation of hours and minutes to do some specific sort of
+> processing.
+> 
+> And this is where loaders come into play: A loader is simply a function that
+> receives a `string` and does either (a) convert it to something else or (b)
+> validate its format and throw an error if it's incorrect, or both things
+> combined.
+> 
+> As an example, here is a boolean `yes` or `no` into 
+> 
+> ```javascript
+> const time = value => {
+> 
+> 
+> };
+> ```
+> -- description

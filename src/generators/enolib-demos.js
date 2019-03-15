@@ -1,18 +1,19 @@
 const fs = require('fs');
+const fsExtra = require('fs-extra');
 const path = require('path');
 const { attrEscape } = require('../../lib/escape.js');
 
 const layout = require('../layout.js');
 
-// TODO: PHP examples ?!
-
 module.exports = async data => {
   const content = `
-  <h1>Interactive eno library demos</h1>
+  <h1>Interactive demos</h1>
 
   <div class="split">
     <div class="half">
-      <select class="demo" style="width: 100%;">
+      <select class="demo">
+        <option disabled selected>Browse Demos</option>
+        <option disabled>──────────</option>
         ${data.demos.libraries.map(demo => `
           <option data-eno="${attrEscape(demo.eno)}"
                   data-javascript="${attrEscape(demo.javascript)}"
@@ -24,13 +25,10 @@ module.exports = async data => {
         `).join('')}
       </select>
 
-      <br>
-      <br>
-
-      <select class="language" style="width: 100%;">
-        <option value="javascript">JavaScript - interactive enojs code and demo</option>
-        <option value="python">Python - emulated enopy code, interactive demo</option>
-        <option value="ruby">Ruby - emulated enorb code, interactive demo</option>
+      <select class="language">
+        <option selected value="javascript">JavaScript - interactive code and demo</option>
+        <option value="python">Python - emulated code, interactive demo</option>
+        <option value="ruby">Ruby - emulated code, interactive demo</option>
       </select>
 
       <div id="text">
@@ -47,11 +45,11 @@ module.exports = async data => {
 
   </div>
 
-  <script src="/demo.js"></script>
+  <script src="bundle.js"></script>
   `;
 
-  const html = layout(data, content, 'interactive library demos', 'interactive library demos', '/demo/');
+  const html = layout(data, content, 'demos', 'demos', '/enolib/demos/');
 
-  await fs.promises.mkdir(path.join(__dirname, '../../public/demo'));
-  await fs.promises.writeFile(path.join(__dirname, '../../public/demo/index.html'), html);
+  await fsExtra.ensureDir(path.join(__dirname, '../../public/enolib/demos/'));
+  await fs.promises.writeFile(path.join(__dirname, '../../public/enolib/demos/index.html'), html);
 };

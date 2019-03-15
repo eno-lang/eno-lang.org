@@ -1,0 +1,172 @@
+title: The eno notation language and libraries
+
+# content
+
+-- html
+LAST_UPDATE
+-- html
+
+## poster
+
+tagline: A modern plaintext data format for file-based content.
+title: eno
+
+platform:
+label = Atom Plugin
+logo = /atom.svg
+url = /plugins/atom/
+
+platform:
+label = Visual Studio Code Plugin
+logo = /vscode.svg
+url = /plugins/vscode/
+
+platform:
+label = Sublime Text Plugin
+logo = /sublime.svg
+url = /plugins/sublime/
+
+platform:
+label = Ace Plugin
+logo = /ace.png
+url = /plugins/ace/
+
+platform:
+label = Prism Plugin
+logo = /prism.svg
+url = /plugins/prism/
+
+-- eno
+author: Jane Doe
+email: jane@eno-lang.org
+
+-- my_content
+Multi-line embedded content (e.g. markdown) here ...
+-- my_content
+
+states:
+active = #fff
+hover = #b6b6b6
+
+# cities
+Den Haag: 52.069961, 4.302315
+Málaga: 36.721447, -4.421291
+서울특별시: 37.566984, 126.977041
+
+# cities expanded < cities
+Springfield: 38.790312, -77.186418
+-- eno
+
+-- description
+Overview:
+- Esthetic, intuitive and simple
+- Inclusively designed for you, your team and your friends
+- Predefined and custom type support for keys, values and comments
+- Elements and hierarchies can be copied and merged for complex usecases
+
+Usecases:
+- Authoring blogs, up to entire websites, from the macro to the micro level
+- Generating documentation, invoices, CVs, reports, you name it
+- Large scale textfile-based databases and archives
+- Configuration files, from the simplest to the most complex
+
+[More about eno](/eno/)
+-- description
+
+## poster
+
+title: enolib
+tagline: The standard library for parsing, inspecting and validating eno documents.
+
+platform:
+label = JavaScript Implementation
+logo = /javascript.svg
+url = /enolib/
+
+-- javascript
+import enolib from 'enolib';
+
+const document = enolib.parse(`
+  author: Jane Doe
+  title:
+`);
+
+document.field('author').requiredStringValue();
+  // returns 'Jane Doe'
+  
+document.field('title').requiredStringValue();
+  // throws "The field 'title' must contain a value.
+  //
+  //   Line | Content
+  //      1 | author: Jane Doe
+  // >    2 | title:
+  //
+-- javascript
+
+-- description
+Overview:
+- Data access = Data validation = Guaranteed data structure and type-safety
+- Custom type loaders can be easily defined with simple closures/functions
+- Fully localized, handwritten, human language error messages everywhere
+- Rich error metadata - message, snippet, cursor position, selection range
+- Both ordered and associative access to all data in the document
+
+Usecases:
+- Static site generation, scalable up to massive amounts of content
+- Generating documentation, invoices, CVs, reports, you name it
+- Highly reliable app configuration data with minimal development effort
+- Content management tooling for apps, websites, editors, IDEs, ...
+
+[More about enolib](/enolib/)
+-- description
+
+## poster
+
+title: enotype
+tagline: Functional type implementations for use with (or without) enolib.
+
+platform:
+label = npm Package
+logo = /javascript.svg
+url = https://www.npmjs.com/package/enotype
+
+platform:
+label = Python Package
+logo = /python.svg
+url = https://pypi.org/project/enotype/
+
+platform:
+label = Ruby Gem
+logo = /ruby.svg
+url = https://rubygems.org/gems/enotype
+
+-- javascript
+import { latLng } from 'enotype';
+
+latLng('36.721447, -4.421291');
+  // returns { lat: 36.721447, lng: -4.421291 } 
+
+enolib.register({ latLng });
+
+document.section('cities').field('Málaga').requiredLatLngValue();
+  // returns { lat: 36.721447, lng: -4.421291 }
+-- javascript
+
+-- description
+enotype is a collection of minimalist functions that validate and convert type-unsafe `string` representations into type-safe, native types. It is the standard type library for [enolib](/enolib/) but can be utilized in a multitude of other contexts as well.
+
+[More about enotype](/enotype/)
+-- description
+
+## single
+
+-- markdown
+# Community projects
+
+[enotcl](https://github.com/bef/enotcl) - Tcl parser  
+[Enohar](https://github.com/Nzen/Enohar) - (Incomplete) Java library for parsing and emitting Eno documents 
+
+# Stay in the loop
+
+Get development updates and info on new releases through the [newsletter](http://eepurl.com/dA9LcH).
+-- markdown

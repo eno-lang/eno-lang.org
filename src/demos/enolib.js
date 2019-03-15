@@ -4,8 +4,10 @@ import 'ace-eno/builds/src-noconflict/mode-python';
 import 'ace-eno/builds/src-noconflict/mode-ruby';
 import 'ace-eno/builds/src-noconflict/theme-tomorrow';
 
-import { parse, ParseError } from 'enojs';
-import eno, { HtmlReporter, TerminalReporter, TextReporter } from 'enojs';
+import enolib, { HtmlReporter, ParseError, TerminalReporter, TextReporter } from 'enolib';
+import { de } from 'enolib/lib/messages/de';
+import { en } from 'enolib/lib/messages/en';
+import { es } from 'enolib/lib/messages/es';
 
 import { attrUnescape, htmlEscape } from '../../lib/escape.js';
 
@@ -25,6 +27,7 @@ const aceEditor = ace.edit('code', {
   theme: 'ace/theme/tomorrow'
 });
 
+// TODO: Fix changing the programming language select on page load (with disabled noop label demo choice still selected)
 
 const refresh = () => {
   const input = editor.value;
@@ -40,9 +43,9 @@ const refresh = () => {
       js = attrUnescape(demoOption.dataset.javascript);
     }
 
-    const evaluate = new Function('input', 'eno', 'HtmlReporter', 'TerminalReporter', 'TextReporter', 'cursor', js);
+    const evaluate = new Function('input', 'enolib', 'HtmlReporter', 'TerminalReporter', 'TextReporter', 'cursor', 'de', 'en', 'es', js);
 
-    const result = evaluate(input, eno, HtmlReporter, TerminalReporter, TextReporter, editor.selectionStart);
+    const result = evaluate(input, enolib, HtmlReporter, TerminalReporter, TextReporter, editor.selectionStart, de, en, es);
 
     if(typeof result === 'object') {
       output.innerHTML = htmlEscape(JSON.stringify(result, null, 2));

@@ -1,6 +1,8 @@
 const footer = require('./footer.js');
 const header = require('./header.js');
 
+// TODO: Generic github contribution/edit link on every page through the layout and a meta field in all pages
+
 module.exports = (data, content, title, breadcrumb, activeUrl = null) => {
   const html = `
     <!doctype html>
@@ -20,7 +22,7 @@ module.exports = (data, content, title, breadcrumb, activeUrl = null) => {
       <body>
         ${header(data, breadcrumb, activeUrl)}
 
-        <div class="boundary padding">
+        <div class="boundary header_offset padding">
           ${content}
         </div>
 

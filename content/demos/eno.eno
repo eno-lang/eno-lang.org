@@ -279,7 +279,7 @@ toml-j0.4 1.1.1: 12.161507735999301
 
 -- eno
 
-## A record for an institution from the file-based dérive (http://derive.at/) research database
+## A record from the file-based dérive research database
 
 -- eno
 > This specific record is from an archive collection documenting players in the
@@ -320,7 +320,7 @@ their efforts to build a more democratic city.
 
 -- eno
 
-## Deployment configuration for an automated publishing system (anonymized)
+## Deployment configuration for automated publishing
 
 -- eno
 > This configuration file specifies a 'defaults' section which holds a 'host' and

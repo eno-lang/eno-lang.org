@@ -1,38 +1,36 @@
-# /
-
+# /eno/
 name: eno
 pages:
-/ = Home
-/about/ = About
-/blog/ = Blog
+- /eno/guide/
+- /eno/
+- /try/
 
-# /language/
-
-name: Language
+# /enolib/
+name: enolib
 pages:
-/language/ = Overview
-/introduction/ = Introduction
-/advanced/ = Advanced
-/try/ = Demos
+- /enolib/
+- /enolib/javascript/
+- /enolib/php/
+- /enolib/python/
+- /enolib/ruby/
+- /enolib/rust/
 
-# /libraries/
-
-name: Libraries
+# /enotype/
+name: enotype
 pages:
-/libraries/ = Overview
-/javascript/ = JS
-/php/ = PHP
-/python/ = Python
-/ruby/ = Ruby
-/rust/ = Rust
+- /enotype/
 
 # /plugins/
-
-name: Plugins
+name: plugins
 pages:
-/plugins/ = Overview
-/ace/ = Ace
-/atom/ = Atom
-/prism/ = Prism
-/sublime/ = Sublime
-/vscode/ = VSCode
+- /plugins/
+- /plugins/ace/
+- /plugins/atom/
+- /plugins/prism/
+- /plugins/sublime/
+- /plugins/vscode/
+
+# /blog/
+name: blog
+pages:
+- /blog/

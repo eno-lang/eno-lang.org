@@ -1,0 +1,88 @@
+title: enotype
+
+# content
+
+-- markdown
+# enotype
+
+**A cross-language standard library for types.**
+
+```js
+const { color } = require('enotype');
+
+color('#fff'); // returns '#fff'
+color('#xyz'); // throws "A color is required, for instance '#B6D918', '#fff' or '#01b'."
+```
+
+enotype is a collection of minimalist pure functions that validate and convert type-unsafe `string` representations into type-safe, native types.
+
+[npm package](https://www.npmjs.com/package/enotype)  
+[PyPI package](https://pypi.org/project/enotype/)  
+[Ruby gem](https://rubygems.org/gems/enotype/)
+
+It is the standard type library for [enolib](/enolib/) but can be utilized in a multitude of other contexts as well.
+
+```javascript
+const enolib = require('enolib');
+const { latLng } = require('enotype');
+
+enolib.register({ latLng });
+
+// ...
+
+document.section('cities').field('Málaga').requiredLatLngValue();  // returns { lat: 36.721447, lng: -4.421291 }
+```
+
+## Localization
+
+enotype not only normalizes validating and converting common types across different programming languages,
+but it also consistently localizes the user errors it produces across different human languages:
+
+```js
+const { color } = require('enotype/es');  // Note /es here
+
+color('#xyz'); // throws "Se requiere un color, por ejemplo '#B6D918', '#fff' o '#01b'."
+```
+
+## Featureset
+
+enotype is still a young project, but here's what's already included:
+
+```js
+const { boolean, color, commaSeparated, date, datetime, email, float, integer, json, latLng, url } = require('enotype');
+
+boolean('yes'); // returns true
+boolean('maybe'); // throws "A boolean is required - allowed values are 'true', 'false', 'yes' and 'no'."
+
+color('#fff'); // returns '#fff'
+color('#abcd'); // throws "A color is required, for instance '#B6D918', '#fff' or '#01b'."
+
+commaSeparated('design, notes, sketch'); // returns ['design', 'notes', 'sketch']
+commaSeparated('  design  , notes  , sketch  '); // returns ['design', 'notes', 'sketch']
+
+date('1992-02-02'); // returns [object Date 1992-02-02T00:00:00.000Z]
+date('2002 12 14'); // throws "A valid date is required, for instance '1993-11-18'."
+
+datetime('1995-05-05T19:20:30.45+01:00'); // returns [object Date 1995-05-05T18:20:30.450Z]
+datetime('13:00'); // throws "A valid date or date and time are required, for instance '1961-01-22' or '1989-11-09T19:17Z' (see https://www.w3.org/TR/NOTE-datetime)."
+
+email('valid@example.com'); // returns 'valid@example.com'
+email('@eno-lang.org'); // throws "A valid email address is required, for instance 'jane.doe@eno-lang.org'."
+
+float('42.0'); // returns 42.0
+float('42,0'); // throws "A decimal number is required, for instance '13.0', '-9.159' or '42'."
+
+integer('13'); // returns 13
+integer('3 9'); // throws "An integer is required, for instance '42' or '-21'."
+
+json('{ "foo": "bar" }'); // returns { foo: 'bar' }
+json('{ invalid: true }'); // throws "Valid JSON is required - the parser returned: ..."
+
+latLng('48.205870, 16.413690'); // returns { lat: 48.205870, lng: 16.413690 }
+latLng('48,205870, 16,413690'); // throws "A valid latitude/longitude coordinate pair is required, for instance '48.2093723, 16.356099'."
+
+url('http://www.valid.com'); // returns 'http://www.valid.com'
+url('htp://www.invalid.com'); // throws "A valid URL is required, for instance 'https://eno-lang.org'."
+
+```
+-- markdown

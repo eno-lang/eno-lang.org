@@ -18,7 +18,7 @@ loadLanguages(Object.keys(LANGUAGES));
 
 const layout = require('../layout.js');
 
-const docsLayout = (data, content, title, activeUrl, sidebar) => {
+const docsLayout = (data, content, title, breadcrumb, activeUrl, sidebar) => {
   const html = `
     <div class="docs">
       <div class="sidebar">
@@ -30,93 +30,93 @@ const docsLayout = (data, content, title, activeUrl, sidebar) => {
     </div>
   `;
 
-  return layout(data, html, title, title, activeUrl);
+  return layout(data, html, title, breadcrumb, activeUrl);
 };
 
 const generateIndex = async (data, documentation, sidebar) => {
-  const html = docsLayout(data, documentation.intro, documentation.title, `/${documentation.language}/`, sidebar);
+  const html = docsLayout(data, documentation.intro, documentation.title, documentation.title, documentation.url, sidebar);
 
-  await fsExtra.ensureDir(path.join(__dirname, `../../public/${documentation.language}`));
-  await fs.promises.writeFile(path.join(__dirname, `../../public/${documentation.language}/index.html`), html);
+  await fsExtra.ensureDir(path.join(__dirname, '../../public', documentation.url));
+  await fs.promises.writeFile(path.join(__dirname, '../../public', documentation.url, 'index.html'), html);
 };
 
-const generateMethod = async (data, documentation, collection, member, sidebar) => {
-  let html = `
-    <h1>${collection.name} » ${member.name}</h1>
+const generateSubchapter = async (data, documentation, chapter, subchapter, sidebar) => {
+  let nextChapter;
+  const nextSubchapterIndex = chapter.subchapters.indexOf(subchapter) + 1;
+  if(nextSubchapterIndex < chapter.subchapters.length) {
+    nextChapter = chapter.subchapters[nextSubchapterIndex];
+  } else {
+    const nextChapterIndex = documentation.chapters.indexOf(chapter) + 1;
 
-    <h3>${member.syntaxes.join('<br>')}</h3>
-
-    ${member.description ? member.description : ''}
-    ${member.notation ? member.notation : ''}
-    ${member.code ? member.code : ''}
-
-    ${member.parameters ? `
-      <h4>Parameters</h4>
-
-      ${member.parameters.map(parameter => `
-        <strong>${parameter.name}</strong>
-
-        ${parameter.options ?
-          parameter.options.map(option => `
-            <p><i>${option.name}</i></p>
-            ${option.description}
-          `).join('')
-          :
-          parameter.description
-        }
-      `).join('')}
-    ` : ''}
-
-    ${member.returns ? `<h4>Return value</h4>${member.returns}` : ''}
-  `;
-
-  const content = docsLayout(data, html, collection.name, `/${documentation.language}/`, sidebar);
-
-  await fsExtra.ensureDir(path.join(__dirname, `../../public/${documentation.language}/${collection.slug}`));
-  await fsExtra.ensureDir(path.join(__dirname, `../../public/${documentation.language}/${collection.slug}/${member.slug}`));
-  await fs.promises.writeFile(path.join(__dirname, `../../public/${documentation.language}/${collection.slug}/${member.slug}/index.html`), content);
-};
-
-const generateCollection = async (data, documentation, collection, sidebar) => {
-  for(let member of collection.members) {
-    await generateMethod(data, documentation, collection, member, sidebar);
+    if(nextChapterIndex < documentation.chapters.length) {
+      nextChapter = documentation.chapters[nextChapterIndex];
+    }
   }
 
   let html = `
-    <h1>${collection.name}</h1>
+    <h1>${subchapter.title}</h1>
 
-    ${collection.description}
+    ${subchapter.description}
 
-    ${collection.members.length > 0 ? `<h3>Subpages</h3>` : ''}
-
-    ${collection.members.map(member => `
-      <a href="/${documentation.language}/${collection.slug}/${member.slug}">${member.name}</a><br>
-    `).join('')}
+    ${nextChapter ? `<br>Next page: <a href="${nextChapter.url}">${nextChapter.title}</a>` : ''}
   `;
 
-  const content = docsLayout(data, html, collection.name, `/${documentation.language}/`, sidebar);
+  const content = docsLayout(data, html, chapter.title, documentation.title, subchapter.url, sidebar);
 
-  await fsExtra.ensureDir(path.join(__dirname, `../../public/${documentation.language}`));
-  await fsExtra.ensureDir(path.join(__dirname, `../../public/${documentation.language}/${collection.slug}`));
-  await fs.promises.writeFile(path.join(__dirname, `../../public/${documentation.language}/${collection.slug}/index.html`), content);
+  await fsExtra.ensureDir(path.join(__dirname, '../../public', subchapter.url));
+  await fs.promises.writeFile(path.join(__dirname, '../../public', subchapter.url, 'index.html'), content);
 };
+
+const generateChapter = async (data, documentation, chapter, sidebar) => {
+  for(let subchapter of chapter.subchapters) {
+    await generateSubchapter(data, documentation, chapter, subchapter, sidebar);
+  }
+
+  let nextChapter;
+  if(chapter.subchapters.length > 0) {
+    nextChapter = chapter.subchapters[0];
+  } else {
+    const nextChapterIndex = documentation.chapters.indexOf(chapter) + 1;
+
+    if(nextChapterIndex < documentation.chapters.length) {
+      nextChapter = documentation.chapters[nextChapterIndex];
+    }
+  }
+
+  let html = `
+    <h1>${chapter.title}</h1>
+
+    ${chapter.description}
+
+    ${nextChapter ? `<br>Next page: <a href="${nextChapter.url}">${nextChapter.title}</a>` : ''}
+  `;
+
+  const content = docsLayout(data, html, chapter.title, documentation.title, chapter.url, sidebar);
+
+  await fsExtra.ensureDir(path.join(__dirname, '../../public', chapter.url));
+  await fs.promises.writeFile(path.join(__dirname, '../../public', chapter.url, 'index.html'), content);
+};
+
+// TODO: Remove or re-use documentation.title below
 
 const generateSidebar = documentation => {
   let html = `
-    <h2>
-      <img class="logo" src="/${documentation.language}.svg" /> ${documentation.title} ${documentation.version}
-    </h2>
+    <!--h2>${documentation.title}</h2-->
 
-    ${documentation.collections.map(collection => `
+    ${documentation.chapters.map(chapter => `
       <div class="pad">
         <strong>
-          <a href="/${documentation.language}/${collection.slug}">${collection.name}</a>
+          <a href="${chapter.url}">${chapter.title}</a>
         </strong>
       </div>
 
-      ${collection.members.map(member => `
-        <a href="/${documentation.language}/${collection.slug}/${member.slug}">${member.name}</a><br>
-      `).join('')}
+      ${chapter.subchapters.length > 0 ? `
+        <div>
+        ${chapter.subchapters.map(subchapter => `
+          <a href="${subchapter.url}">${subchapter.title}</a><br>
+        `).join('')}
+        </div>
+      ` : ''}
     `).join('')}
   `;
 
@@ -128,13 +128,13 @@ const generateLanguage = async (data, documentation) => {
 
   await generateIndex(data, documentation, sidebar);
 
-  for(let collection of documentation.collections) {
-    await generateCollection(data, documentation, collection, sidebar);
+  for(const chapter of documentation.chapters) {
+    await generateChapter(data, documentation, chapter, sidebar);
   }
 };
 
 module.exports = async data => {
-  for(let documentation of data.documentation) {
+  for(const documentation of data.documentation) {
     await generateLanguage(data, documentation);
   }
 };

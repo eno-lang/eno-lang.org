@@ -2,7 +2,7 @@
 
 -- markdown
 This demo simply reads in a single (required) field from the document.
-Remove or rename the field to see the error output enojs produces!
+Remove or rename the field to see the error output enolib produces!
 -- markdown
 
 -- eno
@@ -11,35 +11,35 @@ Greeting: Hello World
 
 -- javascript
 const options = {
-  locale: 'de',
+  locale: de,
   reporter: HtmlReporter
 };
 
-const doc = eno.parse(input, options);
+const doc = enolib.parse(input, options);
 
-return doc.field('Greeting', { required: true });
+return doc.field('Greeting').requiredStringValue();
 -- javascript
 
 -- python
 # Emulated mode - code is read-only
 
-doc = enopy.parse(input,
+doc = enolib.parse(input,
                   locale='de',
-                  reporter=enopy.reporters.HTML)
+                  reporter=enolib.reporters.HTML)
 
-return doc.field('Greeting', required=True)
+return doc.field('Greeting').required_string_value
 -- python
 
 -- ruby
 # Emulated mode - code is read-only
 
-doc = eno.parse(
+doc = enolib.parse(
   input,
   locale: 'de',
-  reporter: Eno::Reporters::HTML
+  reporter: Enolib::Reporters::HTML
 )
 
-return doc.field('Greeting', required: true)
+return doc.field('Greeting').required_string_value
 -- ruby
 
 # Demo 02: Sections and Fields
@@ -56,12 +56,12 @@ Continent: Europe
 -- eno
 
 -- javascript
-const doc = eno.parse(input, { reporter: HtmlReporter });
+const doc = enolib.parse(input, { reporter: HtmlReporter });
 
 const city = doc.section('City');
 
-const name = city.field('Name', { required: true });
-const continent = city.field('Continent', { required: true });
+const name = city.field('Name').requiredStringValue();
+const continent = city.field('Continent').requiredStringValue();
 
 return `The city ${name} is in ${continent}`;
 -- javascript
@@ -69,12 +69,12 @@ return `The city ${name} is in ${continent}`;
 -- python
 # Emulated mode - code is read-only
 
-doc = enopy.parse(input, reporter=enopy.reporters.HTML)
+doc = enolib.parse(input, reporter=enolib.reporters.HTML)
 
 city = doc.section('City')
 
-name = city.field('Name', required=True)
-continent = city.field('Continent', required=True)
+name = city.field('Name').required_string_value
+continent = city.field('Continent').required_string_value
 
 return f"The city {name} is in {continent}"
 -- python
@@ -82,12 +82,12 @@ return f"The city {name} is in {continent}"
 -- ruby
 # Emulated mode - code is read-only
 
-doc = eno.parse(input, reporter: Eno::Reporters::HTML)
+doc = Enolib.parse(input, reporter: Enolib::Reporters::HTML)
 
 city = doc.section('City')
 
-name = city.field('Name', required: true)
-continent = city.field('Continent', required: true)
+name = city.field('Name').required_string_value
+continent = city.field('Continent').required_string_value
 
 return "The city #{name} is in #{continent}"
 -- ruby
@@ -110,7 +110,7 @@ route_coordinates:
 -- eno
 
 -- javascript
-const latLngLoader = ({ value }) => {
+const latLngLoader = value => {
   const match = /^(\d+\.\d+),\s*(\d+\.\d+)$/.exec(value);
 
   if(match) {
@@ -120,9 +120,9 @@ const latLngLoader = ({ value }) => {
   throw 'Coordinates must be formatted xx.xxxxxx, xx.xxxxxx';
 };
 
-const doc = eno.parse(input, { reporter: HtmlReporter });
+const doc = enolib.parse(input, { reporter: HtmlReporter });
 
-return doc.list('route_coordinates', latLngLoader);
+return doc.list('route_coordinates').requiredValues(latLngLoader);
 -- javascript
 
 -- python
@@ -130,15 +130,15 @@ return doc.list('route_coordinates', latLngLoader);
 
 import re
 
-def lan_lng_loader(name, value):
+def lat_lng_loader(name, value):
   match = re.search('^(\d+\.\d+),\s*(\d+\.\d+)$', value)
   if not match:
     raise ValueError('Coordinates must be formatted xx.xxxxxx, xx.xxxxxx')
   return { 'lat': float(match.group(1)), 'lng': float(match.group(2)) }
 
-doc = enopy.parse(input, reporter=eno.reporters.HTML)
+doc = enolib.parse(input, reporter=eno.reporters.HTML)
 
-return doc.list('route_coordinates', lan_lng_loader)
+return doc.list('route_coordinates').required_values(lat_lng_loader)
 -- python
 
 -- ruby
@@ -151,9 +151,9 @@ lat_lng_loader = Proc.new do |name, value|
   { lat: match[1].to_f, lng: match[2].to_f }
 end
 
-doc = Eno.parse(input, reporter: Eno::Reporters::HTML)
+doc = Enolib.parse(input, reporter: Enolib::Reporters::HTML)
 
-return doc.list('route_coordinates', lat_lng_loader)
+return doc.list('route_coordinates').required_values(lat_lng_loader)
 -- ruby
 
 # Demo 04: Looking up elements in the document by line/column
@@ -178,50 +178,44 @@ Rating = ⭐⭐⭐⭐⭐
 -- eno
 
 -- javascript
-const doc = eno.parse(input, { reporter: HtmlReporter });
-
 // In this example the 'cursor' variable is provided by the demo
-// to contain the numerical index of the cursor inside the textarea
+// and contains the numerical index of the cursor inside the textarea
 // Click/move/type around in the eno textbox to update the result!
-const result = doc.lookup(cursor);
+const result = enolib.lookup({ index: cursor }, input, { reporter: HtmlReporter });
 
 return `
   Cursor index #${cursor}
-  zone: ${result.zone}
-  element: ${result.element}
+  range: ${result.range}
+  element: ${result.element.stringKey()}
 `.trim();
 -- javascript
 
 -- python
 # Emulated mode - code is read-only
 
-doc = eno.parse(input, reporter=enopy.reporters.HTML)
-
 # In this example the 'cursor' variable is provided by the demo
 # to contain the numerical index of the cursor inside the textarea
 # Click/move/type around in the eno textbox to update the result!
-result = doc.lookup(cursor)
+result = enolib.lookup(input, index=cursor, reporter=enolib.reporters.HTML)
 
 return f"""
   Cursor index #{cursor}
-  zone: {result['zone']}
-  element: {result['element']}
+  range: {result['range']}
+  element: {result['element'].string_key}
 """
 -- python
 
 -- ruby
 # Emulated mode - code is read-only
 
-doc = eno.parse(input, reporter: Eno::Reporters::HTML)
-
 # In this example the 'cursor' variable is provided by the demo
 # to contain the numerical index of the cursor inside the textarea
 # Click/move/type around in the eno textbox to update the result!
-result = doc.lookup(cursor)
+result = Enolib.lookup(input, index: cursor, reporter: Enolib::Reporters::HTML)
 
 return <<~DOC
   Cursor index ##{cursor}
-  zone: #{result[:zone]}
-  element: #{result[:element]}
+  range: #{result[:range]}
+  element: #{result[:element].string_key}
 DOC
 -- ruby

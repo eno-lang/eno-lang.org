@@ -1,3 +1,21 @@
+-- 2019-03-13
+The new [javascript documentation](/enolib/javascript/) for enolib is now feature-complete and covers all base functionality.
+-- 2019-03-13
+
+-- 2019-03-12
+- Lots of new content and restructuring on the website 🎉
+-- 2019-03-12
+
+-- 2019-03-10
+- Released enolib 0.3.0 which solves an important architectural blocker around touching behavior for copied element hierarchies ([changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md)).
+- Writing documentation, restructuring content and cleaning up the new website.
+-- 2019-03-10
+
+-- 2019-03-09
+Released enolib 0.2.0 ([changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md)) and
+the new transitional website, everything here is still heavily work in progress right now.
+-- 2019-03-09
+
 -- 2019-03-03
 Released enolib 0.1.1 with error reporting fixes and two new query methods - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md)
 -- 2019-03-03

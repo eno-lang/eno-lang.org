@@ -1,37 +1,23 @@
-title: About eno
+breadcrumb: about
+title: about eno
 
 # content
 
 -- markdown
 # About
 
-## Abstract
-
-eno is a structured, plain-text notation language, related in many ways to its
-ancestors and relatives *JSON*, *YAML*, *TOML*, *ArchieML*, *StrictYAML*, and
-others. Through its simple syntax and versatile nature it targets a wide
-audience, both in regards to cultural background as well as technical ability.
-Backed by officially maintained, thoroughly engineered open source libraries and
-plugins it allows usage on a wide variety of platforms and for many, diverse
-usecases. As a modern foundational technology for file-based content it enables
-more productive and more reliable application development, and the possibility
-to create file-based applications for a wider and more diverse user audience
-than was previously possible.
-
 ## History
 
 The eno notation language exists since early 2018, where it surfaced in an
 extended period of applied research and development in a large project around
-file-based content. Initially developed in
-[JavaScript](/javascript/), the eno libraries now also
-extend to the [PHP](/php/),
-[Python](/python/) and [Ruby](/ruby/)
-platforms (with [Rust](https://github.com/eno-lang/enors) being the next implementation on the roadmap). Asides the
-language design and its implementations there already are official and complete
-[learning resources](/language/) for the language itself,
-syntax highlighting support for [Atom](/atom/), [Visual
-Studio Code](/vscode/) and [Sublime
-Text](/sublime/), and much more in the making.
+file-based content. Initially developed in [JavaScript](/enolib/), the eno
+libraries now also extend to the [PHP](https://archived.eno-lang.org/php/), [Python](https://archived.eno-lang.org/python/) and
+[Ruby](https://archived.eno-lang.org/ruby/) platforms (with Rust being
+the next implementation on the roadmap). There are official and complete
+[learning resources](/eno/) for the language itself, editor plugins
+for [Ace](/plugins/ace/), [Atom](/plugins/atom/), [Sublime
+Text](/plugins/sublime/) and [Visual Studio Code](/plugins/vscode/) and much
+more in the making.
 
 ## Team
 
@@ -49,13 +35,14 @@ If you just want to get in touch directly, you can write a mail to <simon@fdpl.i
 
 ## Support the project
 
-Give it a [try](/libraries/),
+Give it a [try](/eno/demos/),
 [tweet](https://twitter.com/home?status=The%20eno%20notation%20language%20and%20libraries%20https%3A//eno-lang.org)
 it,
 [mail](mailto:?subject=The%20eno%20notation%20language%20and%20libraries&body=https%3A//eno-lang.org)
 it to your colleagues, share it, blog about it,  star your favorite repository
 on [github.com/eno-lang](https://github.com/eno-lang/), present it at your tech
-meetup,  contribute [localizations](https://github.com/eno-lang/eno-locales),
-make [proposals](/libraries/) for improvements, report
-[bugs](https://github.com/eno-lang/), every contribution is valueable.
+meetup,  contribute
+[localizations](https://github.com/eno-lang/enolib/tree/master/locales), make
+proposals for improvements, report [bugs](https://github.com/eno-lang/), every
+contribution is valueable.
 -- markdown

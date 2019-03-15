@@ -12,9 +12,9 @@ enolib.register({ date, markdown });
 
 const blog = async () => {
   const input = await fs.promises.readFile(path.join(__dirname, 'content/blog.eno'), 'utf-8');
-  const document = enolib.parse(input, { reporter: TerminalReporter, sourceLabel: 'content/blog.eno' });
+  const document = enolib.parse(input, { reporter: TerminalReporter, source: 'content/blog.eno' });
 
-  const blog = document.elements().map(entry => ({ // TODO: Would need fields() accessor without name option here for better validation
+  const blog = document.fields().map(entry => ({
     date: entry.dateKey(),
     html: entry.requiredMarkdownValue()
   }));
@@ -26,86 +26,28 @@ const blog = async () => {
 
 const documentation = async () => {
   const documentation = [];
-  const files = await glob(path.join(__dirname, 'content/documentation/*.eno'));
+  const files = await glob('**/*.eno', { cwd: path.join(__dirname, 'content/documentation/') });
 
-  for(let file of files) {
-    const input = await fs.promises.readFile(file, 'utf-8');
-    const document = enolib.parse(input, { reporter: TerminalReporter, sourceLabel: file });
+  for(const file of files) {
+    const base = file.replace('.eno', '');
+    const filepath = path.join(__dirname, 'content/documentation/', file);
+    const input = await fs.promises.readFile(filepath, 'utf-8');
+    const document = enolib.parse(input, { reporter: TerminalReporter, source: filepath });
 
     documentation.push({
-      collections: document.section('collections').elements().map(collection => {
-        return {
-          description: collection.field('description').requiredMarkdownValue(),
-          members: (() => {
-            const members = collection.optionalSection('members');
-
-            if(!members)
-              return [];
-
-            return members.elements().map(member => ({
-              code: (() => {
-                for(let language of PRISM_LANGUAGES.filter(language => language !== 'eno')) {
-                  const code = member.optionalField(language);
-
-                  if(code)
-                    return code.requiredValue(prism(language));
-                }
-
-                return null;
-              })(),
-              description: member.field('description').requiredMarkdownValue(),
-              name: member.stringKey(),
-              notation: member.field('eno').optionalValue(prism('eno')),
-              parameters: (() => {
-                const parameters = member.optionalSection('parameters');
-
-                if(!parameters)
-                  return null;
-
-                return parameters.elements().map(parameter => {
-                  if(parameter instanceof Fieldset) {
-                    return {
-                      name: parameter.stringKey(),
-                      options: parameter.entries().map(option => ({
-                        description: option.requiredMarkdownValue(),
-                        name: option.stringKey()
-                      }))
-                    };
-                  } else {
-                    return {
-                      description: parameter.requiredMarkdownValue(),
-                      name: parameter.stringKey()
-                    };
-                  }
-                });
-              })(),
-              returns: (() => {
-                const returns = member.optionalSection('returns');
-                if(returns)
-                  return returns.field('description').requiredMarkdownValue();
-
-                return null;
-              })(),
-              slug: slug(member.stringKey()),
-              syntaxes: (() => {
-                const syntax = member.requiredElement('syntax');
-
-                if(syntax instanceof List) {
-                  return syntax.requiredStringValues();
-                } else {
-                  return [syntax.requiredStringValue()];
-                }
-              })()
-            }));
-          })(),
-          name: collection.stringKey(),
-          slug: slug(collection.stringKey())
-        };
-      }),
+      chapters: document.section('chapters').sections().map(chapter => ({
+          description: chapter.field('description').requiredMarkdownValue(),
+          subchapters: chapter.section('subchapters').sections().map(subchapter => ({
+            description: subchapter.field('description').requiredMarkdownValue(),
+            title: subchapter.stringKey(),
+            url: `/${base}/${slug(chapter.stringKey())}/${slug(subchapter.stringKey())}/`
+          })),
+          title: chapter.stringKey(),
+          url: `/${base}/${slug(chapter.stringKey())}/`
+      })),
       intro: document.field('intro').requiredMarkdownValue(),
-      language: document.field('language').requiredStringValue(),
       title: document.field('title').requiredStringValue(),
-      version: document.field('version').requiredStringValue() // TODO: required everywhere where relevant elsewhere too
+      url: `/${base}/`
     });
 
     document.assertAllTouched();
@@ -115,15 +57,15 @@ const documentation = async () => {
 };
 
 const languageDemos = async () => {
-  const input = await fs.promises.readFile(path.join(__dirname, 'content/demos/language.eno'), 'utf-8');
-  const document = enolib.parse(input, { reporter: TerminalReporter, sourceLabel: 'content/demos/language.eno' });
+  const input = await fs.promises.readFile(path.join(__dirname, 'content/demos/eno.eno'), 'utf-8');
+  const document = enolib.parse(input, { reporter: TerminalReporter, source: 'content/demos/eno.eno' });
 
-  const demos = document.elements().map(group => ({ // TODO: Would need sections() accessor without name option here for better validation
-    examples: group.elements().map(example => ({
-      eno: example.field('eno').requiredStringValue(),  // TODO: requiredField is needed elsewhere to say "element is required, value is not"
-      title: example.stringKey()
+  const demos = document.sections().map(groupSection => ({
+    examples: groupSection.sections().map(exampleSection => ({
+      eno: exampleSection.field('eno').requiredStringValue(),
+      title: exampleSection.stringKey()
     })),
-    title: group.stringKey()
+    title: groupSection.stringKey()
   }));
 
   document.assertAllTouched();
@@ -132,10 +74,10 @@ const languageDemos = async () => {
 };
 
 const librariesDemos = async () => {
-  const input = await fs.promises.readFile(path.join(__dirname, 'content/demos/libraries.eno'), 'utf-8');
-  const document = enolib.parse(input, { reporter: TerminalReporter, sourceLabel: 'content/demos/libraries.eno' });
+  const input = await fs.promises.readFile(path.join(__dirname, 'content/demos/enolib.eno'), 'utf-8');
+  const document = enolib.parse(input, { reporter: TerminalReporter, source: 'content/demos/enolib.eno' });
 
-  const demos = document.elements().map(demo => ({ // TODO: Would need sections() accessor without name option here for better validation
+  const demos = document.sections().map(demo => ({
     eno: demo.field('eno').requiredStringValue(),
     javascript: demo.field('javascript').requiredStringValue(),
     python: demo.field('python').requiredStringValue(),
@@ -151,9 +93,9 @@ const librariesDemos = async () => {
 
 const menu = async () => {
   const input = await fs.promises.readFile(path.join(__dirname, 'content/menu.eno'), 'utf-8');
-  const document = enolib.parse(input, { reporter: TerminalReporter, sourceLabel: 'content/menu.eno' });
+  const document = enolib.parse(input, { reporter: TerminalReporter, source: 'content/menu.eno' });
 
-  const menu = document.elements().map(section => ({ // TODO: Would need sections() accessor without name option here for better validation
+  const menu = document.sections().map(section => ({
     name: section.field('name').requiredStringValue(),
     pages: section.list('pages').requiredStringValues(),
     url: section.stringKey()
@@ -170,23 +112,55 @@ const pages = async () => {
 
   for(let file of files) {
     const input = await fs.promises.readFile(path.join(__dirname, 'content/pages/', file), 'utf-8');
-    const document = enolib.parse(input, { reporter: TerminalReporter, sourceLabel: file });
-
-
+    const document = enolib.parse(input, { reporter: TerminalReporter, source: file });
 
     pages.push({
       breadcrumb: document.field('breadcrumb').optionalStringValue(),
-      html: document.section('content').elements().map(block => {
-        const name = block.stringKey();
+      html: document.section('content').elements().map(blockElement => {
+        const name = blockElement.stringKey();
 
-        if(name === 'markdown') {
-          return block.requiredMarkdownValue();
+        if(name === 'html') {
+          return blockElement.toField().requiredStringValue();
+        } else if(name === 'poster') {
+          const poster = blockElement.toSection();
+          const title = poster.field('title').requiredStringValue();
+
+          return `
+            <div class="poster folded">
+              <div class="headline">
+                <span>${title}</span>
+                ${poster.fieldsets('platform').map(platform => `
+                  <a href="${platform.entry('url').requiredStringValue()}" target="_blank">
+                    <img src="${platform.entry('logo').requiredStringValue()}" title="${platform.entry('label').requiredStringValue()}" />
+                  </a>
+                `).join('')}
+              </div>
+              <div>
+                ${poster.field('tagline').requiredStringValue()} <a class="unfold" onclick="document.querySelector('#${title}-details').classList.toggle('folded');">More</a>
+              </div>
+
+              <div class="details folded" id="${title}-details">
+                ${poster.optionalField('eno') ? poster.field('eno').requiredValue(prism('eno')) : poster.field('javascript').requiredValue(prism('javascript'))}
+                <div>${poster.field('description').requiredMarkdownValue()}</div>
+              </div>
+            </div>
+          `;
+        } else if(name === 'markdown') {
+          return blockElement.toField().requiredMarkdownValue();
+        } else if(name === 'footnotes') {
+          return blockElement.toField().requiredMarkdownValue();
         } else if(name === 'single') {
-          return block.field('markdown').requiredMarkdownValue();
+          const element = blockElement.toSection().element();
+          const markdown = element.toField().requiredMarkdownValue();
+
+          if(element.stringKey() === 'markdown')
+            return markdown;
+
+          return `<div class="footnotes">${markdown}</div>`;
         } else if(name.startsWith('columns-')) {
           return `
             <div class="${name}">
-              ${block.elements().map(column => `
+              ${blockElement.toSection().fields().map(column => `
                 <div>${column.requiredMarkdownValue()}</div>
               `).join('')}
             </div>

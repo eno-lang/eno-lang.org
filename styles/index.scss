@@ -1,0 +1,45 @@
+.boundary_slim {
+  margin: 0 auto;
+  max-width: 960px;
+}
+
+.center {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+}
+
+.badges {
+  display: flex;
+
+  a:not(:last-child) {
+    margin-right: 1em;
+  }
+
+  img {
+    filter: grayscale(100%) brightness(80%) contrast(80%);
+    width: 2em;
+  }
+}
+
+.index_details {
+  color: #666;
+  font-size: 0.75em;
+}
+
+.head {
+  font-size: 1.6em;
+  margin-right: 1em;
+}
+
+.paper {
+  background-image: url(https://resources.eno-lang.org/images/paper.jpg);
+  background-position: center;
+  background-size: cover;
+}
+
+.stability {
+  color: #444;
+}

@@ -1,4 +1,4 @@
-title: Plugins
+title: plugins
 
 # content
 
@@ -14,31 +14,31 @@ colors, improving our visual grasp on our content.
 ## columns-3
 
 -- markdown
-<a class="logo_headline" href="/atom/"><img class="logo" src="/atom.svg"> Atom</a>
+<a class="logo_headline" href="/plugins/atom/"><img class="logo" src="/atom.svg"> Atom</a>
 
-<a href="/atom/"><img src="https://resources.eno-lang.org/plugins/atom.png"></a>
+<a href="/plugins/atom/"><img src="https://resources.eno-lang.org/plugins/atom.png"></a>
 -- markdown
 
 -- markdown
-<a class="logo_headline" href="/ace/"><img class="logo" src="/ace.png"> Ace</a>
+<a class="logo_headline" href="/plugins/ace/"><img class="logo" src="/ace.png"> Ace</a>
 
-<a href="/ace/"><img src="https://resources.eno-lang.org/plugins/ace.png"></a>
+<a href="/plugins/ace/"><img src="https://resources.eno-lang.org/plugins/ace.png"></a>
 -- markdown
 
 -- markdown
-<a class="logo_headline" href="/vscode/"><img class="logo" src="/vscode.svg"> Visual Studio Code</a>
+<a class="logo_headline" href="/plugins/vscode/"><img class="logo" src="/vscode.svg"> Visual Studio Code</a>
 
-<a href="/vscode/"><img src="https://resources.eno-lang.org/plugins/vscode.png"></a>
+<a href="/plugins/vscode/"><img src="https://resources.eno-lang.org/plugins/vscode.png"></a>
 -- markdown
 
 -- markdown
-<a class="logo_headline" href="/sublime/"><img class="logo" src="/sublime.svg"> Sublime Text</a>
+<a class="logo_headline" href="/plugins/sublime/"><img class="logo" src="/sublime.svg"> Sublime Text</a>
 
-<a href="/sublime/"><img src="https://resources.eno-lang.org/plugins/sublime.png"></a>
+<a href="/plugins/sublime/"><img src="https://resources.eno-lang.org/plugins/sublime.png"></a>
 -- markdown
 
 -- markdown
-<a class="logo_headline" href="/prism/"><img class="logo" src="/prism.svg"> Prism</a>
+<a class="logo_headline" href="/plugins/prism/"><img class="logo" src="/prism.svg"> Prism</a>
 
-<a href="/prism/"><img src="https://resources.eno-lang.org/plugins/prism.png"></a>
+<a href="/plugins/prism/"><img src="https://resources.eno-lang.org/plugins/prism.png"></a>
 -- markdown

@@ -1,13 +1,9 @@
-// TODO: Consider menu.sections() API for getting a list of sections without specifying a name
-//       assertAllTouched takes care to make sure there weren't other items as well that should
-//       have been picked up sequentially.
-
 module.exports = (data, breadcrumb, activeUrl = null) => {
   const currentSection = data.menu.find(section =>
-    section.url === activeUrl || section.pages.includes(activeUrl)
+    activeUrl.startsWith(section.url) || section.pages.includes(activeUrl) // possible drop second part here and in in menu.eno
   );
 
-  let breadcrumbs = ' <a href="/">home</a>';
+  let breadcrumbs = ' <a href="/final">home</a>';
 
   if(currentSection) {
     breadcrumbs += ` &gt; <a href="${currentSection.url}">${currentSection.name}</a>`;

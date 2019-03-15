@@ -43,6 +43,12 @@
   color: $color_text_faded;
 }
 
+.footnotes {
+  color: $color_text_faded;
+  font-size: 0.85em;
+  margin-top: 3em;
+}
+
 #code {
   height: 300px;
   width: 100%;
@@ -120,6 +126,10 @@ div[class^="columns-"] {
     margin: 1em 0;
   }
 
+  .sidebar {
+    font-size: 0.9em;
+  }
+
   p {
     line-height: 140%;
     text-align: justify;
@@ -150,6 +160,10 @@ div[class^="columns-"] {
   color: $color_text_faded;
 }
 
+.header_offset {
+  padding-top: 3em !important;
+}
+
 .indented {
   padding-left: 1em;
 }
@@ -165,4 +179,39 @@ div[class^="columns-"] {
 
 .padding {
   padding: 0 1em;
+}
+
+.poster {
+  margin-top: 3em;
+
+  .headline {
+    align-items: center;
+    display: flex;
+    font-size: 2.6em;
+    font-weight: 600;
+    margin-bottom: -0.2em;
+
+    img {
+      width: 0.6em;
+    }
+
+    a:not(:first-child) {
+      padding-left: 0.2em;
+    }
+  }
+
+  .details {
+    max-height: 1000px;
+    overflow: hidden;
+    transition: max-height 1s;
+
+    &.folded {
+      max-height: 0;
+    }
+  }
+}
+
+.retractable {
+  max-height: 200px;
+  overflow: hidden;
 }

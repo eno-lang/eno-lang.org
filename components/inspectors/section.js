@@ -1,4 +1,3 @@
-import { Empty, Field, Fieldset, List, Section } from 'enolib';
 import React from 'react';
 
 import EmptyInspector from './empty.js';
@@ -59,25 +58,20 @@ export default class SectionInspector extends React.Component {
             {!isDocument && elements.length === 0 ? 'No elements' : null}
 
             {elements.map(element => {
-              if(element instanceof Empty) {
-                return <EmptyInspector empty={element} />;
-              }
+              if(element.yieldsEmpty())
+                return <EmptyInspector empty={element.toEmpty()} />;
 
-              if(element instanceof Field) {
-                return <FieldInspector field={element} />;
-              }
+              if(element.yieldsField())
+                return <FieldInspector field={element.toField()} />;
 
-              if(element instanceof List) {
-                return <ListInspector list={element} />;
-              }
+              if(element.yieldsList())
+                return <ListInspector list={element.toList()} />;
 
-              if(element instanceof Fieldset) {
-                return <FieldsetInspector fieldset={element} />;
-              }
+              if(element.yieldsFieldset())
+                return <FieldsetInspector fieldset={element.toFieldset()} />;
 
-              if(element instanceof Section) {
-                return <SectionInspector section={element} />;
-              }
+              if(element.yieldsSection())
+                return <SectionInspector section={element.toSection()} />;
             })}
           </div>
         }

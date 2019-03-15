@@ -3,10 +3,10 @@ const fsExtra = require('fs-extra');
 const path = require('path');
 
 const generateBlog = require('./src/generators/blog.js');
-const generateDemo = require('./src/generators/demo.js');
+const generateEnoDemos = require('./src/generators/eno-demos.js');
+const generateEnolibDemos = require('./src/generators/enolib-demos.js');
 const generateDocs = require('./src/generators/documentation.js');
 const generatePages = require('./src/generators/pages.js');
-const generateTryPage = require('./src/generators/try.js');
 const source = require('./source.js');
 
 const build = async () => {
@@ -23,10 +23,10 @@ const build = async () => {
 
   await Promise.all([
     generateBlog(data),
-    generateDemo(data),
+    generateEnoDemos(data),
+    generateEnolibDemos(data),
     generateDocs(data),
-    generatePages(data),
-    generateTryPage(data)
+    generatePages(data)
   ]);
 }
 
