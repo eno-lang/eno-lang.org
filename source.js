@@ -125,6 +125,13 @@ const pages = async () => {
           const poster = blockElement.toSection();
           const title = poster.field('title').requiredStringValue();
 
+          let code = '';
+          if(poster.optionalField('eno')) {
+            code = poster.field('eno').requiredValue(prism('eno'));
+          } else if(poster.optionalField('javascript')) {
+            code = poster.field('javascript').requiredValue(prism('javascript'));
+          }
+
           return `
             <div class="poster folded">
               <div class="headline">
@@ -140,7 +147,7 @@ const pages = async () => {
               </div>
 
               <div class="details folded" id="${title}-details">
-                ${poster.optionalField('eno') ? poster.field('eno').requiredValue(prism('eno')) : poster.field('javascript').requiredValue(prism('javascript'))}
+                ${code}
                 <div>${poster.field('description').requiredMarkdownValue()}</div>
               </div>
             </div>

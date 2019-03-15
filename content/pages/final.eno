@@ -158,15 +158,22 @@ enotype is a collection of minimalist functions that validate and convert type-u
 [More about enotype](/enotype/)
 -- description
 
-## single
+## poster
 
--- markdown
-# Community projects
+tagline: In development community projects around eno.
+title: more
 
+platform:
+label = (Incomplete) Java library for parsing and emitting Eno documents
+logo = /java.svg
+url = https://github.com/Nzen/Enohar
+
+platform:
+label = Tcl parser
+logo = /tcl.svg
+url = https://github.com/bef/enotcl
+
+-- description
 [enotcl](https://github.com/bef/enotcl) - Tcl parser  
 [Enohar](https://github.com/Nzen/Enohar) - (Incomplete) Java library for parsing and emitting Eno documents 
-
-# Stay in the loop
-
-Get development updates and info on new releases through the [newsletter](http://eepurl.com/dA9LcH).
--- markdown
+-- description

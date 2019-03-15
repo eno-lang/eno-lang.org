@@ -12,7 +12,8 @@ module.exports = async data => {
     if(page.url === '/final/') {
       const lastUpdate = `
         <div class="info_badge margin">
-          🎉 Last blog update: <a href="/blog/">${moment(data.blog[0].date).format('MMMM Do, YYYY')} - Read what's new.</a>
+          🎉 Last blog update: <a href="/blog/">${moment(data.blog[0].date).format('MMMM Do, YYYY')} - Read what's new.</a> /
+          You can also join the <a href="http://eepurl.com/dA9LcH" target="_blank">newsletter</a>
         </div>
       `;
 
