@@ -263,7 +263,69 @@ an unclear parsing situation not described here.
 All data structures in eno respect and retain their ordering, regardless of
 whether they conceptually represent key-value structures or key-less lists.
 
-# Deep copy operators in the context of a non-section element
+# Copying
+
+## Template Namespaces
+
+When looking up a template element for copying, two separate namespaces are
+considered. All section elements live in their own namespace, whereas all
+non-section elements have their own shared namespace separate from sections.
+List items have no namespace (lacking a key they can not be referenced at all)
+and the same applies for fieldset entries, who do have a key but are
+intentionally excluded from being able to be copied or referenced as template
+for copying.
+
+```eno
+non_section_namespace: value
+ 
+non_section_namespace:
+- value
+- value 
+
+non_section_namespace:
+no_namespace = value
+no_namespace = value
+
+# section_namespace
+```
+
+Consequently the following document is valid:
+
+```eno
+template: value
+copy < template
+
+# template
+# copy < template
+```
+
+Whereas the ones below each aren't because it's unclear which template to copy:
+
+```eno
+template: value
+template: value
+
+
+copy < template
+```
+
+```eno
+# template
+# template
+
+# copy < template
+```
+
+And lastly the following document is also invalid because fieldset entries can not be copied:
+
+```eno
+fieldset:
+entry = value
+
+copy < entry
+```
+
+## Deep copy operators in the context of a non-section element
 
 Although the copy operator `<` exists on both sections and non-section elements,
 the deep copy operator `<<` is only understood as such by the parsing algorithm
