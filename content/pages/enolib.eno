@@ -14,7 +14,7 @@ parsers for plaintext content.
 ## columns-3
 
 -- markdown
-<a class="logo_headline" href="/enolib/javascript/"><img class="logo" src="/javascript.svg" /> enolib 0.3.0 for JavaScript</a>
+<a class="logo_headline" href="/enolib/javascript/"><img class="logo" src="/javascript.svg" /> enolib 0.3.1 for JavaScript</a>
 
 enolib's first release, ready for use on websites or node.js applications.
 

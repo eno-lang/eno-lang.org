@@ -1,3 +1,11 @@
+-- 2019-03-16
+Released [enolib](/enolib/) 0.3.1 with fixes for index lookup edge cases, also this version is the first to ship with in-code JSDoc documentation, although not complete yet.
+-- 2019-03-16
+
+-- 2019-03-15
+Went out for the world climate strike day, answered lots of great questions and ideas on GitHub and marked all legacy ecosystem javascript packages on npm as deprecated - they will be end of life at the beginning of 2020.
+-- 2019-03-15
+
 -- 2019-03-13
 The new [javascript documentation](/enolib/javascript/) for enolib is now feature-complete and covers all base functionality.
 -- 2019-03-13
