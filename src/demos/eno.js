@@ -18,6 +18,7 @@ import 'ace-eno/builds/src-noconflict/theme-tomorrow';
 import Inspector from '../../components/inspector.js';
 
 const locales = { de, en, es };
+let locale = en;
 
 const editor = ace.edit(
   document.querySelector('#editor'),
@@ -33,10 +34,7 @@ const refresh = () => {
   const input = editor.getValue();
 
   try {
-    const demoOption = selectDemo.selectedOptions[0];
-    const localeOption = selectLocale.selectedOptions[0].value;
-
-    const doc = enolib.parse(input, { locale: locales[localeOption], reporter: HtmlReporter });
+    const doc = enolib.parse(input, { locale: locale, reporter: HtmlReporter });
 
     ReactDOM.render(<Inspector document={doc} />, document.querySelector('.inspector'));
   } catch(err) {
@@ -48,21 +46,22 @@ const refresh = () => {
   }
 };
 
-const updateDemo = changed => {
-  const demoOption = selectDemo.selectedOptions[0];
-  const localeOption = selectLocale.selectedOptions[0].value;
+// TODO: Solve data attribute encoding by embedding data in a script tag
 
-  if(changed === 'demo') {
-    // TODO: Solve data attribute encoding by embedding data in a script tag
-    editor.setValue(attrUnescape(demoOption.dataset.eno));
-    editor.gotoLine(1);
-  }
+selectDemo.addEventListener('change', () => {
+  const demoOption = selectDemo.selectedOptions[0];
+  editor.setValue(attrUnescape(demoOption.dataset.eno));
+  editor.gotoLine(1);
 
   refresh();
-};
+});
 
-selectDemo.addEventListener('change', () => updateDemo('demo'));
-selectLocale.addEventListener('change', () => updateDemo('locale'));
+selectLocale.addEventListener('change', () => {
+  const localeOption = selectLocale.selectedOptions[0].value;
+  locale = locales[localeOption];
+
+  refresh();
+});
 
 editor.on('change', refresh);
 
