@@ -22,20 +22,22 @@ return doc.field('Greeting').requiredStringValue();
 
 -- python
 # Emulated mode - code is read-only
+# (enolib for python is not yet released - this is a preview)
 
 doc = enolib.parse(input,
                   locale='de',
                   reporter=enolib.reporters.HTML)
 
-return doc.field('Greeting').required_string_value
+return doc.field('Greeting').required_string_value()
 -- python
 
 -- ruby
 # Emulated mode - code is read-only
+# (enolib for ruby is not yet released - this is a preview)
 
 doc = enolib.parse(
   input,
-  locale: 'de',
+  locale: Enolib::Locales::De,
   reporter: Enolib::Reporters::HTML
 )
 
@@ -68,19 +70,21 @@ return `The city ${name} is in ${continent}`;
 
 -- python
 # Emulated mode - code is read-only
+# (enolib for python is not yet released - this is a preview)
 
 doc = enolib.parse(input, reporter=enolib.reporters.HTML)
 
 city = doc.section('City')
 
-name = city.field('Name').required_string_value
-continent = city.field('Continent').required_string_value
+name = city.field('Name').required_string_value()
+continent = city.field('Continent').required_string_value()
 
 return f"The city {name} is in {continent}"
 -- python
 
 -- ruby
 # Emulated mode - code is read-only
+# (enolib for ruby is not yet released - this is a preview)
 
 doc = Enolib.parse(input, reporter: Enolib::Reporters::HTML)
 
@@ -127,6 +131,7 @@ return doc.list('route_coordinates').requiredValues(latLngLoader);
 
 -- python
 # Emulated mode - code is read-only
+# (enolib for python is not yet released - this is a preview)
 
 import re
 
@@ -143,6 +148,7 @@ return doc.list('route_coordinates').required_values(lat_lng_loader)
 
 -- ruby
 # Emulated mode - code is read-only
+# (enolib for ruby is not yet released - this is a preview)
 
 lat_lng_loader = Proc.new do |name, value|
   match = value.match(/^(\d+\.\d+),\s*(\d+\.\d+)$/)
@@ -192,6 +198,7 @@ return `
 
 -- python
 # Emulated mode - code is read-only
+# (enolib for python is not yet released - this is a preview)
 
 # In this example the 'cursor' variable is provided by the demo
 # to contain the numerical index of the cursor inside the textarea
@@ -201,12 +208,13 @@ result = enolib.lookup(input, index=cursor, reporter=enolib.reporters.HTML)
 return f"""
   Cursor index #{cursor}
   range: {result['range']}
-  element: {result['element'].string_key}
+  element: {result['element'].string_key()}
 """
 -- python
 
 -- ruby
 # Emulated mode - code is read-only
+# (enolib for ruby is not yet released - this is a preview)
 
 # In this example the 'cursor' variable is provided by the demo
 # to contain the numerical index of the cursor inside the textarea
