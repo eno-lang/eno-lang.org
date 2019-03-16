@@ -27,14 +27,16 @@ const aceEditor = ace.edit('code', {
   theme: 'ace/theme/tomorrow'
 });
 
-// TODO: Fix changing the programming language select on page load (with disabled noop label demo choice still selected)
-
 const refresh = () => {
   const input = editor.value;
 
   try {
-    const demoOption = select.selectedOptions[0];
+    let demoOption = select.selectedOptions[0];
     const languageOption = selectLanguage.selectedOptions[0].value;
+
+    if(demoOption.disabled) {
+      demoOption = select.options[2];
+    }
 
     let js;
     if(languageOption === 'javascript') {
@@ -62,8 +64,12 @@ const refresh = () => {
 };
 
 const updateDemo = changed => {
-  const demoOption = select.selectedOptions[0];
+  let demoOption = select.selectedOptions[0];
   const languageOption = selectLanguage.selectedOptions[0].value;
+
+  if(demoOption.disabled) {
+    demoOption = select.options[2];
+  }
 
   if(changed === 'demo') {
     editor.value = attrUnescape(demoOption.dataset.eno);
