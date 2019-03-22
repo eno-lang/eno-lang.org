@@ -1,5 +1,19 @@
+-- 2019-03-22
+- Released [enotype](/enotype/) 0.3.0 for javascript, php, python and ruby with the new IPv4 loader.
+-- 2019-03-22
+
+-- 2019-03-21
+- Imlemented an IPv4 loader for enotype.
+-- 2019-03-21
+
+-- 2019-03-20
+- Released [enotype](/enotype/) 0.2.0 for javascript, php, python and ruby with a new slug loader and new and extensive, generated documentation.
+-- 2019-03-20
+
 -- 2019-03-16
-Released [enolib](/enolib/) 0.3.1 with fixes for index lookup edge cases, also this version is the first to ship with in-code JSDoc documentation, although not complete yet.
+- Released [enolib](/enolib/) 0.3.1 with fixes for index lookup edge cases, also this version is the first to ship with in-code JSDoc documentation, although not complete yet.
+- Added implementation details for template namespaces to the specification documents
+- Bugfixes for the interactive eno and enolib demos on the website
 -- 2019-03-16
 
 -- 2019-03-15
