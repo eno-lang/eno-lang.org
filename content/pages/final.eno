@@ -140,6 +140,11 @@ label = Ruby Gem
 logo = /ruby.svg
 url = https://rubygems.org/gems/enotype
 
+platform:
+label = PHP Implementation
+logo = /php.svg
+url = https://github.com/eno-lang/enotype/tree/master/php
+
 -- javascript
 import { latLng } from 'enotype';
 
