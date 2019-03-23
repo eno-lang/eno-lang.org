@@ -7,14 +7,14 @@ title: enolib
 -- markdown
 # enolib
 
-enolib is the standard library for processing eno documents. All implementations are dependency-free and rank among the fastest
+enolib is the cross-language standard library for processing eno documents. All implementations are dependency-free, localized and rank among the fastest
 parsers for plaintext content.
 -- markdown
 
 ## columns-3
 
 -- markdown
-<a class="logo_headline" href="/enolib/javascript/"><img class="logo" src="/javascript.svg" /> enolib 0.3.1 for JavaScript</a>
+<a class="logo_headline" href="/enolib/javascript/"><img class="logo" src="/javascript.svg" /> enolib for JavaScript</a>
 
 enolib's first release, ready for use on websites or node.js applications.
 

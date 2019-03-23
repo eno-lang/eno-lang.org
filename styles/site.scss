@@ -203,7 +203,7 @@ div[class^="columns-"] {
   .details {
     max-height: 1000px;
     overflow: hidden;
-    transition: max-height 1s;
+    transition: max-height 0.3s;
 
     &.folded {
       max-height: 0;

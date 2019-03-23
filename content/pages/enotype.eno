@@ -5,7 +5,7 @@ title: enotype
 -- markdown
 # enotype
 
-**A cross-language standard library for types.**
+**A cross-language type library.**
 
 ```js
 const { color } = require('enotype');
@@ -17,6 +17,7 @@ color('#xyz'); // throws "A color is required, for instance '#B6D918', '#fff' or
 enotype is a collection of minimalist pure functions that validate and convert type-unsafe `string` representations into type-safe, native types.
 
 [npm package](https://www.npmjs.com/package/enotype)  
+[PHP implementation](https://github.com/eno-lang/enotype/tree/master/php)  
 [PyPI package](https://pypi.org/project/enotype/)  
 [Ruby gem](https://rubygems.org/gems/enotype/)
 
