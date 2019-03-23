@@ -1,5 +1,13 @@
+-- 2019-03-23
+- Ported enolib's latest lookup implementation to python.
+- Released [enolib](/enolib/) 0.3.3 for javascript with various lookup and detail fixes - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
+- Implemented exhaustive generative lookup testing over full document ranges for enolib.
+-- 2019-03-23
+
 -- 2019-03-22
 - Released [enotype](/enotype/) 0.3.0 for javascript, php, python and ruby with the new IPv4 loader.
+- Ported much of the element implementations in enolib to python
+- Released [enolib](/enolib/) 0.3.2 for javascript with minor fixes - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
 -- 2019-03-22
 
 -- 2019-03-21
