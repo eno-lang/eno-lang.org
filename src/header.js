@@ -3,7 +3,7 @@ module.exports = (data, breadcrumb, activeUrl = null) => {
     activeUrl.startsWith(section.url) || section.pages.includes(activeUrl) // possible drop second part here and in in menu.eno
   );
 
-  let breadcrumbs = ' <a href="/final">home</a>';
+  let breadcrumbs = ' <a href="/">home</a>';
 
   if(currentSection) {
     breadcrumbs += ` &gt; <a href="${currentSection.url}">${currentSection.name}</a>`;

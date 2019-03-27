@@ -9,7 +9,7 @@ module.exports = async data => {
   for(const page of data.pages) {
     let html = layout(data, page.html, page.title, page.breadcrumb, page.url);
 
-    if(page.url === '/final/') {
+    if(page.url === '/') {
       const lastUpdate = `
         <div class="info_badge margin">
           🎉 Get daily to weekly release news in the <a href="/blog/">blog</a> (last update ${moment(data.blog[0].date).format('MMMM Do')}) and bimonthly updates in the <a href="http://eepurl.com/dA9LcH" target="_blank">newsletter</a>.

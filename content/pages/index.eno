@@ -4,6 +4,16 @@ title: The eno notation language and libraries
 
 -- html
 LAST_UPDATE
+
+<h2>eno is currently transitioning from its first to its final specification!</h2>
+
+<strong>eno final</strong> - If you want to try out the release candidate ecosystem for the final
+specification you are already there - have a look around, we're excited to have
+you on board!<br>
+<strong>eno first</strong> - If you need <strong>Python, Ruby or PHP libraries</strong> before they become
+available for the final specification in the next weeks or want to work
+with the first, completely stable ecosystem for now, visit the <a
+href="https://archived.eno-lang.org" target="_blank">website for eno first</a>.
 -- html
 
 ## poster
@@ -60,7 +70,7 @@ Springfield: 38.790312, -77.186418
 -- description
 Overview:
 - Esthetic, intuitive and simple
-- Inclusively designed for you, your team and your friends
+- Inclusively designed for you *and* your team
 - Predefined and custom type support for keys, values and comments
 - Elements and hierarchies can be copied and merged for complex usecases
 
@@ -105,16 +115,16 @@ document.field('title').requiredStringValue();
 
 -- description
 Overview:
-- Data access = Data validation = Guaranteed data structure and type-safety
-- Custom type loaders can be easily defined with simple closures/functions
-- Fully localized, handwritten, human language error messages everywhere
-- Rich error metadata - message, snippet, cursor position, selection range
-- Both ordered and associative access to all data in the document
+- Dynamically extensible query API for custom and third party type support
+- Cursor lookup API (by index or line/column) for easy authoring of rich IDE plugins
+- Querying equals validating - guaranteed data structure and type-safety
+- Fully localized, handwritten, team-friendly error messages
+- Rich error metadata: message, document snippet, cursor position, selection range
 
 Usecases:
 - Static site generation, scalable up to massive amounts of content
-- Generating documentation, invoices, CVs, reports, you name it
-- Highly reliable app configuration data with minimal development effort
+- Generating documentation, code, reports, invoices, CVs, you name it
+- Highly reliable application configuration data with minimal development effort
 - Content management tooling for apps, websites, editors, IDEs, ...
 
 [More about enolib](/enolib/)
