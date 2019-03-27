@@ -1,3 +1,12 @@
+-- 2019-03-27
+Ported the bulk of the new enolib core architecture and parser implementation to python - some specs already run through and if nothing fundamental gets in the way things are nicely on schedule for an early april release. 🎉
+-- 2019-03-27
+
+-- 2019-03-24
+- Ported enolib's loader registering and new reporter base implementation to python.
+- Added missing documentation for AST inspection in enolib and an FAQ page on direct object serialization (thanks zaiste for the feedback!)
+-- 2019-03-24
+
 -- 2019-03-23
 - Ported enolib's latest lookup implementation to python.
 - Released [enolib](/enolib/) 0.3.3 for javascript with various lookup and detail fixes - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
