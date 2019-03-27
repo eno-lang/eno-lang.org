@@ -1,6 +1,6 @@
 const enolib = require('enolib');
 const { date } = require('enotype');
-const { Fieldset, List, TerminalReporter } = require('enolib');
+const { TerminalReporter } = require('enolib');
 const glob = require('fast-glob');
 const fs = require('fs');
 const markdown = require('./lib/loader-markdown.js');
