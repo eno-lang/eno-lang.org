@@ -9,19 +9,31 @@ title: enolib
 
 enolib is the cross-language standard library for processing eno documents. All implementations are dependency-free, localized and rank among the fastest
 parsers for plaintext content.
+
+[Changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md)  
+[Repository on GitHub](https://github.com/eno-lang/enolib/)  
 -- markdown
 
 ## columns-3
 
 -- markdown
-<a class="logo_headline" href="/enolib/javascript/"><img class="logo" src="/javascript.svg" /> enolib for JavaScript</a>
-
-enolib's first release, ready for use on websites or node.js applications.
+<a class="logo_headline" href="/enolib/javascript/"><img class="logo" src="/javascript.svg" /> JavaScript</a>
 
 [API Documentation](/enolib/javascript/)  
 [Package on npm](https://npmjs.com/package/enolib/)  
-[Repository on GitHub](https://github.com/eno-lang/enolib/)  
-[Changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md)
+-- markdown
+
+-- markdown
+<a class="logo_headline" href="/enolib/python/"><img class="logo" src="/python.svg" /> Python</a>
+
+[API Documentation](/enolib/python/)  
+[Package on PyPI](https://pypi.org/project/enolib/)  
+-- markdown
+
+-- markdown
+<a class="logo_headline" href="https://github.com/eno-lang/enolib/"><img class="logo" src="/ruby.svg" /> <img class="logo" src="/rust.svg" /> <img class="logo" src="/php.svg" /> Ruby, Rust, PHP</a>
+
+**enolib for Ruby is coming early may** - the release schedule for Rust and PHP will be announced soon.
 -- markdown
 
 -- markdown
