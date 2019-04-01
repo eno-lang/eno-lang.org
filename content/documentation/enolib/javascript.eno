@@ -1,7 +1,7 @@
 title: javascript
 
 -- intro
-> Everyone is welcome to improve this documentation by editing [javascript.eno](https://github.com/eno-lang/eno-lang.org/blob/master/content/documentation/javascript.eno) and submitting a Pull Request!
+> Everyone is welcome to improve this documentation by editing [javascript.eno](https://github.com/eno-lang/eno-lang.org/blob/master/content/documentation/enolib/javascript.eno) and submitting a Pull Request!
 
 Installation from npm:
 
@@ -33,7 +33,7 @@ console.log( document.field('Greeting').requiredStringValue() );  // prints 'Hel
 ## Links
 
 Package on npm - <https://npmjs.com/package/enolib/>  
-Repository on github - <https://github.com/eno-lang/enolib/> 
+Repository on GitHub - <https://github.com/eno-lang/enolib/> 
 -- intro
 
 # chapters
@@ -340,7 +340,7 @@ As a final note why it is sometimes preferable to use the less magicky
 function parameter type passing: On the one hand you might dynamically construct
 a type loader multiple times in your application when it depends on some local
 state (closure). On the other hand your type might not be a type per se but more of
-a conversion or modification, something like `replaceNewLines` or `renderMarkdown`,
+a conversion or modification, something like `replaceNewlines` or `renderMarkdown`,
 and in that case `.requiredValue(renderMarkdown)` looks a bit more sensible than
 `.requiredRenderMarkdownValue()`.
 -- description
