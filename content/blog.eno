@@ -1,3 +1,21 @@
+-- 2019-04-01
+Added complete [python documentation](/enolib/python/) for enolib
+-- 2019-04-01
+
+-- 2019-03-31
+🚀 Released [enolib](/enolib/) 0.4.0 for python - [package on PyPI](https://pypi.org/project/enolib/)
+-- 2019-03-31
+
+-- 2019-03-30
+- More work on getting enolib for python release-ready - well over 50% of the specs are passing as of now and everything's looking good for an early april release!
+- Released [enolib](/enolib/) 0.3.5 for javascript with a minor bugfix and optimizations - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
+-- 2019-03-30
+
+-- 2019-03-29
+- Released [enolib](/enolib/) 0.3.4 for javascript with a multitude of fixes and minor optimizations - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
+- Ported the enolib copy resolver implementation to python and decimated a few hundred port issues all over the codebase - roughly a fifth of the spec suite passes now.
+-- 2019-03-29
+
 -- 2019-03-27
 Ported the bulk of the new enolib core architecture and parser implementation to python - some specs already run through and if nothing fundamental gets in the way things are nicely on schedule for an early april release. 🎉
 -- 2019-03-27
