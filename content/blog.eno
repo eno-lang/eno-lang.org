@@ -1,3 +1,33 @@
+-- 2019-04-16
+- Released [enolib](/enolib/) 0.4.3 with a critical patch for python contributed by Clément Pit-Claudel (merci!), as well as minor optimizations - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
+-- 2019-04-16
+
+-- 2019-04-14
+- Ported the latest section, element and value element base implementations to Ruby
+- Various smaller optimizations and refactoring in the enolib javascript and python implementations
+-- 2019-04-14
+
+-- 2019-04-10
+- Ported the latest text reporter implementation to Ruby, fixed various other port issues
+-- 2019-04-10
+
+-- 2019-04-07
+- Ported the latest error reporter base implementation to Ruby
+-- 2019-04-07
+
+-- 2019-04-06
+- Ported the second half of the parser code, copy resolution, parsing error builders and error selection helpers to Ruby
+- Released [enolib](/enolib/) 0.4.2 with minor fixes and optimizations - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
+-- 2019-04-06
+
+-- 2019-04-05
+Ported the first half of the latest enolib parsing implementation to Ruby
+-- 2019-04-05
+
+-- 2019-04-02
+Released [enolib](/enolib/) 0.4.1 with minor fixes and python package documentation additions - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
+-- 2019-04-02
+
 -- 2019-04-01
 Added complete [python documentation](/enolib/python/) for enolib
 -- 2019-04-01
