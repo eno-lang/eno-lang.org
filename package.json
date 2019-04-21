@@ -7,7 +7,7 @@
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
     "ace-eno": "github:eno-lang/ace-eno",
-    "enolib": "^0.4.3",
+    "enolib": "^0.5.0",
     "enotype": "^0.3.0",
     "fast-glob": "^2.2.6",
     "fs-extra": "^7.0.1",
