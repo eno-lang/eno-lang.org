@@ -10,10 +10,10 @@ LAST_UPDATE
 <strong>eno final</strong> - If you want to try out the release candidate ecosystem for the final
 specification you are already there - have a look around, we're excited to have
 you on board!<br>
-<strong>eno first</strong> - If you need <strong>Ruby or PHP libraries</strong> before they become
-available for the final specification in the next weeks or want to work
-with the first, completely stable ecosystem for now, visit the <a
-href="https://archived.eno-lang.org" target="_blank">website for eno first</a>.
+<strong>eno first</strong> - If you need PHP library support before it becomes
+available for the final specification or want to use the first, completely
+stable ecosystem for now, visit the <a href="https://archived.eno-lang.org"
+target="_blank">website for eno's initial version.</a>.
 -- html
 
 ## poster
@@ -97,6 +97,11 @@ platform:
 label = Python Implementation
 logo = /python.svg
 url = /enolib/
+
+platform:
+label = Ruby Implementation
+logo = /ruby.svg
+url = https://rubygems.org/gems/enolib
 
 -- javascript
 import enolib from 'enolib';

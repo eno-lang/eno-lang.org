@@ -11,13 +11,12 @@ title: about eno
 The eno notation language exists since early 2018, where it surfaced in an
 extended period of applied research and development in a large project around
 file-based content. Initially developed in [JavaScript](/enolib/), the eno
-libraries now also extend to the [PHP](https://archived.eno-lang.org/php/), [Python](https://archived.eno-lang.org/python/) and
-[Ruby](https://archived.eno-lang.org/ruby/) platforms (with Rust being
-the next implementation on the roadmap). There are official and complete
-[learning resources](/eno/) for the language itself, editor plugins
-for [Ace](/plugins/ace/), [Atom](/plugins/atom/), [Sublime
-Text](/plugins/sublime/) and [Visual Studio Code](/plugins/vscode/) and much
-more in the making.
+libraries now also extend to the [PHP](https://archived.eno-lang.org/php/),
+[Python](/python/) and [Ruby](/ruby/) platforms (with Rust being the next
+implementation on the roadmap). There are official and complete [learning
+resources](/eno/) for the language itself, editor plugins for
+[Ace](/plugins/ace/), [Atom](/plugins/atom/), [Sublime Text](/plugins/sublime/)
+and [Visual Studio Code](/plugins/vscode/) and much more in the making.
 
 ## Team
 

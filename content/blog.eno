@@ -1,5 +1,18 @@
+-- 2019-04-21
+Released [enolib for ruby](https://rubygems.org/gems/enolib) 🚀
+
+Also published 0.5.0 for javascript and ruby, adding two minor missing section accessors - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
+-- 2019-04-21
+
+-- 2019-04-20
+- enolib's ruby implementation is getting close to release state! After today's effort well over 60% of the spec suite are now passing and we're on track for a release in the next ten days. 🎉 
+- Also the python enolib implementation was switched to 4-space indentation today (because standards)
+-- 2019-04-20
+
 -- 2019-04-16
 - Released [enolib](/enolib/) 0.4.3 with a critical patch for python contributed by Clément Pit-Claudel (merci!), as well as minor optimizations - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
+- Ported all of the latest missing element implementations to Ruby
+- Ported the latest document element lookup implementation to Ruby
 -- 2019-04-16
 
 -- 2019-04-14
