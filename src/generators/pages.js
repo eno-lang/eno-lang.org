@@ -12,7 +12,7 @@ module.exports = async data => {
     if(page.url === '/') {
       const lastUpdate = `
         <div class="info_badge margin">
-          🎉 Get daily to weekly release news in the <a href="/blog/">blog</a> (last update ${moment(data.blog[0].date).format('MMMM Do')}) and bimonthly updates in the <a href="http://eepurl.com/dA9LcH" target="_blank">newsletter</a>.
+          🎉 Get development news in the <a href="/blog/">blog</a> (last update ${moment(data.blog[0].date).format('MMMM Do')}) and <a href="http://eepurl.com/dA9LcH" target="_blank">newsletter</a>.
         </div>
       `;
 
