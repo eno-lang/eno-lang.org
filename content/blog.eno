@@ -1,3 +1,7 @@
+-- 2019-05-16
+Published the official deprecation announcement releases for enorb and enorb-exploaders (now superseded by enolib and enotype respectively)
+-- 2019-05-16
+
 -- 2019-05-10
 Released [enolib](https://pypi.org/project/enolib/) 0.5.2 with a minor fix on all platforms and a heap of smaller corrections and refactoring in the ruby implementation  - [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
 -- 2019-05-10
