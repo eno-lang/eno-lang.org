@@ -4,16 +4,6 @@ title: The eno notation language and libraries
 
 -- html
 LAST_UPDATE
-
-<h2>eno is currently transitioning from its first to its final specification!</h2>
-
-<strong>eno final</strong> - If you want to try out the release candidate ecosystem for the final
-specification you are already there - have a look around, we're excited to have
-you on board!<br>
-<strong>eno first</strong> - If you need PHP library support before it becomes
-available for the final specification or want to use the first, completely
-stable ecosystem for now, visit the <a href="https://archived.eno-lang.org"
-target="_blank">website for eno's initial version.</a>.
 -- html
 
 ## poster
@@ -185,20 +175,27 @@ enotype is a collection of minimalist functions that validate and convert type-u
 
 ## poster
 
-tagline: In development community projects around eno.
+tagline: PHP, Tcl & Java libraries, resources for the old specification
 title: more
 
 platform:
-label = (Incomplete) Java library for parsing and emitting Eno documents
+label = enophp (Official PHP library compliant with eno's first specification)
+logo = /php.svg
+url = https://archived.eno-lang.org/php/
+
+platform:
+label = Enohar (In development Java library for parsing and emitting eno documents)
 logo = /java.svg
 url = https://github.com/Nzen/Enohar
 
 platform:
-label = Tcl parser
+label = enotcl (Tcl parser)
 logo = /tcl.svg
 url = https://github.com/bef/enotcl
 
 -- description
+[eno first](https://archived.eno-lang.org) - Legacy ecosystem and documentation for eno's first specification.  
+[enophp](https://github.com/eno-lang/enophp) - Official PHP library (compliant with eno first, see above)  
 [enotcl](https://github.com/bef/enotcl) - Tcl parser  
 [Enohar](https://github.com/Nzen/Enohar) - (Incomplete) Java library for parsing and emitting Eno documents 
 -- description
