@@ -1,7 +1,7 @@
 title: javascript
 
 -- intro
-> Everyone is welcome to improve this documentation by editing [javascript.eno](https://github.com/eno-lang/eno-lang.org/blob/master/content/documentation/enolib/javascript.eno) and submitting a Pull Request!
+> You can contribute to this documentation by editing [javascript.eno](https://github.com/eno-lang/eno-lang.org/blob/master/content/documentation/enolib/javascript.eno) and submitting a Pull Request!
 
 Installation from npm:
 
@@ -153,7 +153,7 @@ by [enotype](/enotype/)) or a custom type which we define ourselves.
 
 -- description
 When you query a value you always specify whether that value is optional or
-required, because planning beats debugging:
+required:
 
 ```javascript
 document.field('default_settings').requiredStringValue();
@@ -191,11 +191,10 @@ document.list('shopping_list').requiredStringValues(); // Note the plural here
 document.list('shopping_list').items().map(item => item.requiredStringValue());
 ```
 
-An important gotcha here is that the shortcut version, although handy, can also
-be misunderstood - *required string values* does not mean there have to be items
-in the list, but instead that each item needs to have a value. If you look at
-the non-shortcut version this is obvious, but for the shortcut version it's
-important to keep in mind.
+An important gotcha here is that in the shortcut version *required string
+values* does not mean there have to be items in the list, but only that items
+need to have a value. If you look at the non-shortcut version this is obvious,
+but for the shortcut version it's important to keep in mind.
 
 The `optional*` variant of this accessor produces the less commonly needed array that might contain
 `null` values:
@@ -232,14 +231,15 @@ document.fieldset('image').optionalStringComment();
 #### Predefined Types
 
 -- description
-Predefined types are not shipped with enolib itself - they are provided by
-minimalistic add-on packages, the standard one currently being
-[enotype](/enotype/). We'll look at the two ways in which predefined types
-can be used with enolib.
+Predefined types are not shipped with enolib - they are provided as
+separate packages, for instance [enotype](/enotype/).
+
+There are two ways to use
+them:
 
 ## Registering types globally
 
-This is the more magic approach, specifically useful when you use a certain type all over your document:
+This is the preferred approach when you re-use types a lot - when you register a type it is made available through the native API.
 
 ```javascript
 const enolib = require('enolib');
@@ -251,20 +251,18 @@ const document = enolib.parse('#b5b5b5: yes');
 
 document.field('#b5b5b5').booleanKey(); // throws "A boolean is required - allowed values are 'true', 'false', 'yes' and 'no'."
 document.field('#b5b5b5').colorKey(); // returns '#b5b5b5'
-
 document.field('#b5b5b5').requiredBooleanValue(); // returns true
 document.field('#b5b5b5').requiredColorValue(); // throws "A color is required, for instance '#B6D918', '#fff' or '#01b'."
 ```
 
-With this approach you can take any of the query methods we've seen so far and
-replace `string` (respectively `String`) with another type name - if it's been
-registered before it will also be available.
+In this approach you take any of the content query methods in enolib and replace `string`
+with a type you have registered.
 
 ## Supplying types with queries
 
-This is essentially what's happening under the hood in the example above, we'll
-see some aspects of why this approach is sometimes preferable on the next page,
-when we define our own custom types.
+This is essentially what's happening above as well, only under the hood. We'll
+see why this approach is sometimes preferable on the next page, when we define
+our own custom types.
 
 ```javascript
 const enolib = require('enolib');
@@ -274,12 +272,11 @@ const document = enolib.parse('#b5b5b5: yes');
 
 document.field('#b5b5b5').key(boolean); // throws "A boolean is required - allowed values are 'true', 'false', 'yes' and 'no'."
 document.field('#b5b5b5').key(color); // returns '#b5b5b5'
-
 document.field('#b5b5b5').requiredValue(boolean); // returns true
 document.field('#b5b5b5').requiredValue(color); // throws "A color is required, for instance '#B6D918', '#fff' or '#01b'."
 ```
 
-With this approach we remove `string` (respectively `String`) from any query method and pass the type as the function parameter instead.
+In this approach you remove `string` from any content query method and pass the type as a parameter instead.
 -- description
 
 #### Custom Types
@@ -350,7 +347,7 @@ and in that case `.requiredValue(renderMarkdown)` looks a bit more sensible than
 -- description
 In a static query we know what element type we expect (for instance a
 field), where we expect it (for instance at the document root) and what
-key that element has (for instance 'author').
+key that element has (for instance 'author':
 
 ```javascript
 document.field('author');
@@ -434,7 +431,7 @@ call because you'd potentially be calling a function on `null`), while the `requ
 variants immediately throw an error when the element is missing (here you can safely chain further queries afterwards).
 
 Below is a pattern you might find useful, it's basically saying "There always has to
-be a field with the key 'author', but it can be empty", returns `null` or the value,
+be a field with the key 'author', but it can be empty". It returns `null` or the value,
 and only throws an error when the field itself is missing.
 
 ```javascript
@@ -485,7 +482,7 @@ if(author) {
 
 > TODO: element, items, entries
 -- description
-In document oriented eno usecases we often deal with sections that contain
+In markup oriented eno usecases we often deal with sections that contain
 dynamic layouts of content, meaning the quantity, order and type of elements
 is variable and we can not just statically query everything by key but instead
 we iterate and respond to what we find dynamically.
@@ -501,8 +498,8 @@ elements.forEach(element => {
 ```
 
 The `elements` accessor returns the ordered elements of a section as an array.
-As every type of element we can encounter in a section has a key, we can safely
-ask for the key and use it to determine further actions on an element.
+As every element can be asked for a key, we can safely use this to determine
+further actions on an element.
 
 ```javascript
 const elements = document.elements();
@@ -518,8 +515,8 @@ elements.forEach(element => {
 });
 ```
 
-Not every element we encounter in a section has a value (fieldsets and lists
-don't), therefore we use the yields\[ElementType]() methods to check for a
+Not every element we encounter in a section has a value (fieldsets, lists and
+sections don't), therefore we use the `yields\[ElementType]()` methods to check for a
 specific element type before we make any queries that require e.g. a field when
 we expect different types.
 
