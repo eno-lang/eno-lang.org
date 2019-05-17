@@ -91,7 +91,7 @@ url = /enolib/
 platform:
 label = Ruby Implementation
 logo = /ruby.svg
-url = https://rubygems.org/gems/enolib
+url = /enolib/
 
 -- javascript
 import enolib from 'enolib';

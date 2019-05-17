@@ -1,3 +1,8 @@
+-- 2019-05-17
+- Published [complete documentation](/enolib/ruby/) for the enolib ruby implementation
+- Improvements and corrections in the javascript and python enolib documentation
+-- 2019-05-17
+
 -- 2019-05-16
 Published the official deprecation announcement releases for enorb and enorb-exploaders (now superseded by enolib and enotype respectively)
 -- 2019-05-16

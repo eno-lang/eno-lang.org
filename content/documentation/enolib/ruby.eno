@@ -1,0 +1,611 @@
+title: ruby
+
+-- intro
+> You can contribute to this documentation by editing [ruby.eno](https://github.com/eno-lang/eno-lang.org/blob/master/content/documentation/enolib/ruby.eno) and submitting a Pull Request!
+
+## Installation
+
+```shell
+pip install enolib
+```
+
+## Getting started
+
+A minimal example to read an eno document directly from a string with `enolib`:
+
+```ruby
+require 'enolib'
+
+document = Enolib.parse('Greeting: Hello World!')
+document.field('Greeting').required_string_value
+#=> 'Hello World!'
+```
+
+## Links
+
+Gem on rubygems - <https://rubygems.org/gems/enolib/>  
+Repository on GitHub - <https://github.com/eno-lang/enolib/> 
+-- intro
+
+# chapters
+
+## Parsing a document
+
+-- description
+```ruby
+require 'enolib'
+
+input = File.read('intro.eno')
+document = Enolib.parse(input)
+```
+-- description
+
+### subchapters
+
+#### Providing the source
+
+-- description
+enolib does not know where your content comes from (which file, input
+field, url, etc.), this is however a vital piece of information for good error
+messages, and so it is highly recommended to provide a `source` string which
+enolib includes in all error messages it creates:
+
+```ruby
+document = Enolib.parse(input, source: 'a/path/example.eno')
+```
+-- description
+
+#### Localized errors
+
+-- description
+enolib's messages are fully localized, this is how you provide a different locale:
+
+```ruby
+require 'enolib'
+require 'enolib/lib/messages/es'
+
+document = Enolib.parse('field: value', locale=Enolib::Messages::Es)
+```
+
+The currently available locales are `de`, `en` and `es`, you are very
+welcome to contribute additional locales at <https://github.com/eno-lang/enolib/tree/master/locales>.
+It's a fairly simple process but you can also get in touch directly via mail to request the strings
+that need translation and send them back if you'd rather not deal with the technicalities.
+-- description
+
+#### Error formats
+
+-- description
+By default enolib produces nicely formatted plaintext error messages,
+but if you're in a terminal environment you can also get awesome colored
+and syntax highlighted error messages, or even full-fledged HTML if you're
+deploying enolib with a browser application:
+
+```ruby
+require 'enolib'
+
+document = Enolib.parse('field: value', reporter: Enolib::TerminalReporter) # or HtmlReporter 
+```
+-- description
+
+#### Cursor lookup
+
+-- description
+When you regularly parse a document you enter at the root document level, there
+is however also the possibility to parse the document and lookup a
+one-dimensional index or a line and column in the document, which means you enter
+the document at whichever element is at that location. This can be used for autocomplete
+providers in an IDE or text editor, or other rich eno document inspection usecases.
+
+```ruby
+require 'enolib'
+
+lookup = Enolib.lookup('field: value', index: 3) # "what is at string offset 3?"
+#=> { element: #<Enolib::Element key=field>, range: :key }
+
+lookup = Enolib.lookup('field: value', index: 5) # "what is at string offset 5?"
+#=>{ element: #<Enolib::Element key=field>, range: :element_operator }
+
+lookup = Enolib.lookup('field: value', line: 0, column: 10) # "what is at line 0, column 10?"
+#=>{ element: #<Enolib::Element key=field>, range: :value }
+```
+
+Note that the element returned as a lookup property is of variable type,
+therefore you need to use the methods described in [Dynamic
+layouts](/enolib/ruby/querying-elements/dynamic-layouts/) to further query
+the document from this entry point.
+
+As you don't enter at the root you can also use `.parent` to navigate up the hierarchy.
+-- description
+
+## Querying content
+
+-- description
+In eno content comes in the form of *values*, *keys* and *comments* and can be
+fetched in the default *string* type, a predefined type (e.g. those provided
+by [enotype](/enotype/)) or a custom type which we define ourselves.
+-- description
+
+### subchapters
+
+#### Field values
+
+-- description
+When you query a value you always specify whether that value is optional or
+required:
+
+```ruby
+document.field('default_settings').required_string_value
+document.field('extra_settings').optional_string_value
+```
+
+The `optional_*` query returns a value or `nil`, while the `required_*` query
+raises a validation error if the value is missing, such as:
+
+```error
+The field 'default_settings' must contain a value.
+
+   Line | Content
+ >    1 | default_settings:
+```
+
+## Fieldset entry values
+
+This works just like on a field:
+
+```ruby
+document.fieldset('image').entry('src').required_string_value
+document.fieldset('image').entry('title').optional_string_value
+```
+-- description
+
+
+#### List values
+
+-- description
+You can either directly query them from the list, or take the more verbose route through the items:
+
+```ruby
+document.list('shopping_list').required_string_values # Note the plural here
+document.list('shopping_list').items.map(&:required_string_value)
+```
+
+An important gotcha here is that in the shortcut version *required string
+values* does not mean there have to be items in the list, but only that items
+need to have a value. If you look at the non-shortcut version this is obvious,
+but for the shortcut version it's important to keep in mind.
+
+The `optional_*` variant of this accessor produces the less commonly needed array that might contain
+`nil` values:
+
+```ruby
+document.list('list_with_empty_spacer_items').optional_string_values
+```
+-- description
+
+#### Keys and Comments
+
+-- description
+
+## Querying keys
+
+All elements have a key (list items return the key of the list) therefore you don't need to specify
+optional/required here:
+
+```ruby
+document.elements.first.string_key
+document.fieldset('image').entries.first.string_key
+```
+
+## Querying comments
+
+All elements can have an associated comment and like with values you specify whether it's optional or required:
+
+```ruby
+document.field('author').required_string_comment
+document.fieldset('image').optional_string_comment
+```
+-- description
+
+#### Predefined Types
+
+> TODO: enolib/enotype lambda reuse is not implemented conveniently yet, need to
+> expose different members than static functions which can't be passed
+
+-- description
+Predefined types are not shipped with enolib - they are provided as
+separate gems, for instance [enotype](/enotype/).
+
+There are two ways to use
+them:
+
+## Registering types globally
+
+This is the preferred approach when you re-use types a lot - when you register a type it is made available through the native API.
+
+```ruby
+require 'enolib'
+require 'enotype'
+
+loaders = Enotype.procs(:boolean, :color)
+enolib.register(loaders)
+
+document = Enolib.parse('#b5b5b5: yes')
+
+document.field('#b5b5b5').boolean_key # raises "A boolean is required - allowed values are 'true', 'false', 'yes' and 'no'."
+document.field('#b5b5b5').color_key # returns '#b5b5b5'
+document.field('#b5b5b5').required_boolean_value # returns true
+document.field('#b5b5b5').required_color_value # raises "A color is required, for instance '#B6D918', '#fff' or '#01b'."
+```
+
+In this approach you take any of the content query methods in enolib and replace `string`
+with a type you have registered.
+
+## Supplying types with queries
+
+This is essentially what's happening above as well, only under the hood. We'll
+see why this approach is sometimes preferable on the next page, when we define
+our own custom types.
+
+```ruby
+require 'enolib'
+require 'enotype'
+
+loaders = Enotype.procs(:boolean, :color)
+boolean = loaders[:boolean]
+color = loaders[:color]
+
+document = Enolib.parse('#b5b5b5: yes')
+
+document.field('#b5b5b5').key(boolean) # raises "A boolean is required - allowed values are 'true', 'false', 'yes' and 'no'."
+document.field('#b5b5b5').key(color) # returns '#b5b5b5'
+document.field('#b5b5b5').required_value(boolean) # returns true
+document.field('#b5b5b5').required_value(color) # raises "A color is required, for instance '#B6D918', '#fff' or '#01b'."
+```
+
+In this approach you remove `string` from any content query method and pass the type as a parameter instead.
+-- description
+
+#### Custom Types
+
+-- description
+The predefined types we've seen before are actually just simple lambdas/procs, here
+is for instance the definition of enotype's `color` type:
+
+```ruby
+COLOR_REGEXP = /^\s*#[0-9a-f]{3}([0-9a-f]{3})?\s*$/i
+
+color = proc do |value|
+  raise 'A color is required, for instance \'#B6D918\', \'#fff\' or \'#01b\'.' unless value.match(COLOR_REGEXP)
+  value
+end
+```
+
+So as we see, all that's required for a custom type definition is a closure
+that takes a single parameter - the value - and returns something!
+
+Additionally, depending on the type, we might also include validation as
+demonstrated above - we simply raise a string message if there is a problem.
+When that happens the  message is intercepted by enolib and embedded within a
+rich error message with metadata and a code snippet from the document.
+
+```ruby
+require 'enolib'
+
+extra_foo = proc { |value| value + ' with extra foo!' }
+
+document = Enolib.parse('foo: bar')
+
+document.field('foo').required_value(extra_foo)  # returns 'bar with extra foo!'
+```
+
+And just like that we are using our own type. Here's another example using the
+global registering magic from the previous chapter:
+
+```ruby
+require 'enolib'
+
+my_foo_only_proc = proc do |value|
+  raise 'Only foo is accepted!' if value != 'foo'
+  value
+end
+
+enolib.register(foo_only: my_foo_only_proc)
+
+document = Enolib.parse('foo: bar')
+
+document.field('foo').foo_only_key  # returns 'foo'
+document.field('foo').required_foo_only_value  # raises "Only foo is accepted!" with a code snippet
+```
+
+As a final note why it is sometimes preferable to use the less magicky
+method parameter type passing: On the one hand you might dynamically construct
+a type loader multiple times in your application when it depends on some local
+state (closure). On the other hand your type might not be a type per se but more of
+a conversion or modification, something like `replace_newlines` or `render_markdown`,
+and in that case `.required_value(render_markdown)` looks a bit more sensible than
+`.required_render_markdown_value`.
+-- description
+
+## Querying elements
+
+-- description
+In a static query we know what element type we expect (for instance a
+field), where we expect it (for instance at the document root) and what
+key that element has (for instance 'author'):
+
+```ruby
+document.field('author')
+```
+
+All element types that exist in eno can be queried in that same way:
+
+```ruby
+document.field('author')
+document.list('files')
+document.list('files').items
+document.fieldset('image')
+document.fieldset('image').entry('src')
+document.section('content')
+# etc.
+```
+
+The document itself is a section (only without a key), and all queries you can
+perform on a document you can perform on a section as well:
+
+```ruby
+document.section('content').field('title')
+document.section('content').section('translated').section('dutch').list('tags')
+```
+
+When you expect multiple elements you just use the plural:
+
+```ruby
+document.fields('author')
+document.lists('files')
+document.fieldsets('image')
+document.sections('content')
+```
+-- description
+
+### subchapters
+
+#### Optional/required
+
+-- description
+Unlike with querying values you *can, but don't need to* specify whether elements
+queried from the document are optional or required. As you will most often use
+the elements' values themselves, the necessity for the element hierarchy in between
+the document and that value is automatically inferred by whether the value itself
+is optional or required:
+
+```ruby
+document.section('content').section('translated').field('revision').optional_string_value
+```
+
+The line above can be run for an entirely empty document and still return `nil`, while by
+modifying the query of the value itself to be required would make the code raise an error for
+the first element missing in that hierarchy instead (again assuming an empty document):
+
+```ruby
+document.section('content').section('translated').field('revision').required_string_value
+```
+
+This would produce an error:
+
+```error
+The section 'content' is missing - in case it has been specified look for typos and also check for correct capitalization.
+
+   Line | Content
+ *    1 | 
+```
+
+With that said, there will of course also be cases where you want to be explicit
+about whether an element is optional or required, for this you can use the
+explicit `optional_*` or `required_*` accessor variant, which exists for all
+element types, for instance:
+
+```ruby
+document.required_field('author')
+document.optional_section('notes')
+```
+
+As with value accessors, the `optional_*` variants return `nil` if the element
+does not exist (be aware that you should not chain further queries after such a
+call because you'd potentially be calling a function on `nil`), while the `required_*`
+variants immediately raise an error when the element is missing (here you can safely chain further queries afterwards).
+
+Below is a pattern you might find useful, it's basically saying "There always has to
+be a field with the key 'author', but it can be empty". It returns `nil` or the value,
+and only raises an error when the field itself is missing.
+
+```ruby
+document.required_field('author').optional_string_value
+```
+
+The pattern below is sort of the reverse, it's "If there is a field with the key
+'author', it also requires a value", and guarantees there is a value if there is
+also a field, otherwise an error is raised.
+
+```ruby
+author = document.optional_field('author')
+
+if author
+  value = author.required_string_value
+  # ...
+end
+```
+
+Last but not least a pattern that does not work:
+
+```ruby
+author = document.field('author')
+
+if author
+  # Will always enter here, author is never nil
+end
+```
+
+As shown earlier you can safely and deeply query a non-existing document
+hierarchy. This is possible because the standard query methods return proxy
+objects (e.g. `MissingSection`) instead of `nil` when an element in the chain
+is missing, and with that it's clear why the previous example does not work,
+instead you have to use the explicit `optional_field` accessor to ensure you are
+being returned `nil` if there is no element.
+
+```ruby
+author = document.optional_field('author')
+
+if author
+  # This works, author can be nil now
+end
+```
+
+-- description
+
+#### Dynamic layouts
+
+> TODO: element, items, entries
+-- description
+In markup oriented eno usecases we often deal with sections that contain
+dynamic layouts of content, meaning the quantity, order and type of elements
+is variable and we can not just statically query everything by key but instead
+we iterate and respond to what we find dynamically.
+
+```ruby
+document.elements.each do |element|
+  if element.string_key == 'foo'
+    # ...
+  end
+end
+```
+
+The `elements` accessor returns the ordered elements of a section as an array.
+As every element can be asked for a key, we can safely use this to determine
+further actions on an element.
+
+```ruby
+document.elements.each do |element|
+  if element.yields_field
+    value = element.to_field.required_string_value  
+    # ...
+  elsif element.yields_list
+    # ...
+  end
+end
+```
+
+Not every element we encounter in a section has a value (fieldsets, lists and
+sections don't), therefore we use the `yields_[element_type]` methods to check
+for a specific element type before we make any queries that require e.g. a field
+when we expect different types.
+
+
+-- description
+
+#### Requiring all elements
+
+-- description
+Often we want to ensure that eno documents authored by users always contain all
+of the fields that can be specified according to our schema, regardless of
+whether they are actually used or left empty, because the simple fact that they
+see the field in the document they are authoring informs them that it exists and
+can be used, whereas if it were entirely missing in the document, only external
+documentation can point the user to the possiblity to define that specific field.
+
+To easily enable such behavior there is a shortcut that saves us from writing out 
+`required` in front of every element we query from the document:
+
+```ruby
+document.all_elements_required
+document.field('name').optional_string_value
+```
+
+Here the field `name` always has to be present, no matter if it's empty or not.
+
+Note that this can be called not only on the document but also on any section or fieldset:
+
+```ruby
+details = document.section('details')
+
+details.all_elements_required
+```
+
+Any element queries on `details` from that point on always require the elements to be there,
+including the ones in subsections and fieldsets, recursively.
+
+Lastly, this setting can also be reverted again by explicitly passing `false`:
+
+```ruby
+document.all_elements_required
+document.all_elements_required(false)
+document.field('name').optional_string_value
+```
+
+Here the field `name` is optional, just as its value.
+-- description
+
+
+## Touching elements
+
+-- description
+Every element in the document that you query something from is automatically
+flagged as *touched*. When you are finished querying the document (or a specific
+section) you can let enolib run a check to ensure that every element found in
+the document was actually touched by your code.
+
+Using this even at an early stage in developing an application is a great
+productivity booster because it will save you when you forget to query
+something, or when you *did* write a query for an element but *mis-typed* its
+key, or when you or a user mis-types keys in the data itself, and so on.
+
+Basically it's like an extra automated test suite for both your code and the
+data itself that you can use for free.
+-- description
+
+### subchapters
+
+#### Assert all touched
+
+> TODO: only, except
+
+-- description
+Call `assert_all_touched` on a document, section or fieldset to ensure that no
+data has been left untouched by your application.
+
+```ruby
+document = Enolib.parse('importan_option: no_delete')  # Note the mis-typed key
+
+important_option = document.field('important_option').optional_string_value
+
+document.assert_all_touched
+```
+
+When you run this code an error will be raised in the last line:
+
+```error
+This element was not expected, make sure it is at the right place in the document and that its key is not mis-typed.
+
+   Line | Content
+ >    1 | importan_option: no_delete
+```
+-- description
+
+#### Manual touching
+
+-- description
+Sometimes you intentionally don't process elements or entire sections in the
+document. You can manually touch them so they and all elements below are marked
+as touched and don't get reported by enolib when you run your final checks at
+the end of the program.
+
+```ruby
+document = Enolib.parse('field: value')
+
+document.field('field').touch
+
+document.assert_all_touched
+```
+
+No error is raised this time.
+-- description

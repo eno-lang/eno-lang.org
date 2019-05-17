@@ -33,6 +33,7 @@ parsers for plaintext content.
 -- markdown
 <a class="logo_headline" href="/enolib/ruby/"><img class="logo" src="/ruby.svg" /> Ruby</a>
 
+[API Documentation](/enolib/ruby/)  
 [Gem on rubygems](https://rubygems.org/gems/enolib)  
 -- markdown
 
