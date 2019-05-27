@@ -5,8 +5,25 @@ title: ruby
 
 ## Installation
 
+### Bundler
+
+Add `enolib` to your `Gemfile`:
+
+```ruby
+gem 'enolib'
+```
+Then let bundler install it for you:
+
 ```shell
-pip install enolib
+bundle
+```
+
+### Manually
+
+Alternatively you can also install it manually:
+
+```shell
+gem install enolib
 ```
 
 ## Getting started
