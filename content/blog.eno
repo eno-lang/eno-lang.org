@@ -1,3 +1,9 @@
+-- 2019-05-27
+- Implemented generative, exhaustive lookup testing for the python implementation of enolib
+- Added a small correction for explicitly handling document key requests in the python and ruby enolib implementation
+- Replaced some accidental python installation snippets in the ruby documentation
+-- 2019-05-27
+
 -- 2019-05-17
 - Published [complete documentation](/enolib/ruby/) for the enolib ruby implementation
 - Improvements and corrections in the javascript and python enolib documentation
