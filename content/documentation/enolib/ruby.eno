@@ -226,15 +226,11 @@ document.fieldset('image').optional_string_comment
 
 #### Predefined Types
 
-> TODO: enolib/enotype lambda reuse is not implemented conveniently yet, need to
-> expose different members than static functions which can't be passed
-
 -- description
 Predefined types are not shipped with enolib - they are provided as
 separate gems, for instance [enotype](/enotype/).
 
-There are two ways to use
-them:
+There are two ways to use them:
 
 ## Registering types globally
 
