@@ -7,10 +7,13 @@ title: enolib
 -- markdown
 # enolib
 
-enolib is the cross-language standard library for processing eno documents. All implementations are dependency-free, localized and rank among the fastest
-parsers for plaintext content.
+The eno standard library, available in JavaScript, Python and Ruby.
 
-[Changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md)  
+All implementations are dependency-free,
+[localized](https://github.com/eno-lang/enolib/tree/master/locales) and [rank
+among the fastest parsers](https://github.com/eno-lang/benchmarks/) for
+plaintext content.
+ 
 [Repository on GitHub](https://github.com/eno-lang/enolib/)  
 -- markdown
 

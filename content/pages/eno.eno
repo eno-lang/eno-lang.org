@@ -8,13 +8,11 @@ title: eno
 eno is a structured, plain-text notation language, related in many ways to its
 ancestors and relatives JSON, YAML, TOML, ArchieML, StrictYAML, and others.
 Through its simple syntax and versatile nature it targets a wide audience, both
-in regards to cultural background as well as technical ability. Backed by
-officially maintained, thoroughly engineered open source libraries and plugins
-it allows usage on a wide variety of platforms and for many, diverse usecases.
-As a modern foundational technology for file-based content it enables highly
-productive and reliable application development, and the possibility to
-create file-based content applications for a wider and more diverse user audience than
-was previously possible.
+in regards to cultural background as well as technical ability. As a modern
+foundational technology for file-based content it enables highly productive and
+reliable application development, and the possibility to create file-based
+content applications for a wider and more diverse user audience than was
+previously possible.
 -- markdown
 
 ## columns-3
