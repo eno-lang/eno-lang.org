@@ -1,3 +1,7 @@
+-- 2019-05-29
+Released [enolib](/enolib/) 0.6.0 with a bunch of API additions, fixes and polish, mostly around element lookups - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
+-- 2019-05-29
+
 -- 2019-05-27
 - Implemented generative, exhaustive lookup testing for the python implementation of enolib
 - Added a small correction for explicitly handling document key requests in the python and ruby enolib implementation
