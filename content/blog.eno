@@ -1,3 +1,15 @@
+-- 2019-06-08
+Released [sublime-eno](https://packagecontrol.io/packages/eno) 0.3.0 for Sublime Text, featuring highlighting differentiation for sections as well as scope terminology updates to comply with the latest language specification.
+-- 2019-06-08
+
+-- 2019-06-04
+Released [vscode-eno](https://marketplace.visualstudio.com/items?itemName=eno-lang.vscode-eno) 0.3.0 for Visual Studio Code, featuring highlighting differentiation for sections as well as scope terminology updates to comply with the latest language specification.
+-- 2019-06-04
+
+-- 2019-05-31
+Released [language-eno](https://atom.io/packages/language-eno) 0.4.3 for Atom, updating some scope terminology in accordance with the latest language specification.
+-- 2019-05-31
+
 -- 2019-05-29
 Released [enolib](/enolib/) 0.6.0 with a bunch of API additions, fixes and polish, mostly around element lookups - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
 -- 2019-05-29
