@@ -1,7 +1,5 @@
 import enolib, { parse, HtmlReporter, ParseError } from 'enolib';
-import { de } from 'enolib/lib/messages/de'; // TODO: Properly expose this through enolib package
-import { en } from 'enolib/lib/messages/en';
-import { es } from 'enolib/lib/messages/es';
+import { de, en, es } from 'enolib/locales';
 import React from 'react';
 import ReactDOM from 'react-dom';
 

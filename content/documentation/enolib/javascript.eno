@@ -73,7 +73,7 @@ enolib's messages are fully localized, this is how you provide a different local
 
 ```javascript
 const enolib = require('enolib');
-const { es } = require('enolib/lib/messages/es');
+const { es } = require('enolib/locales');
 
 const document = enolib.parse('field: value', { locale: es });
 ```

@@ -1,3 +1,7 @@
+-- 2019-06-11
+Released [enolib](/enolib/) 0.7.0 with new, simpler interfaces for requiring additional locales and reporters - this is a breaking change if you are using them - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
+-- 2019-06-11
+
 -- 2019-06-08
 Released [sublime-eno](https://packagecontrol.io/packages/eno) 0.3.0 for Sublime Text, featuring highlighting differentiation for sections as well as scope terminology updates to comply with the latest language specification.
 -- 2019-06-08

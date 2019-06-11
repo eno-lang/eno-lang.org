@@ -61,7 +61,7 @@ enolib's messages are fully localized, this is how you provide a different local
 
 ```python
 >>> import enolib
->>> from enolib.messages import es
+>>> from enolib.locales import es
 >>> document = enolib.parse('field: value', locale=es)
 ```
 
@@ -81,7 +81,7 @@ deploying enolib with a browser application:
 
 ```python
 >>> import enolib
->>> from enolib.reporters import HtmlReporter, TerminalReporter
+>>> from enolib import HtmlReporter, TerminalReporter
 >>> document = enolib.parse('field: value', reporter=TerminalReporter) # or HtmlReporter 
 ```
 -- description

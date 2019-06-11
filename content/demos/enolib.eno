@@ -24,8 +24,8 @@ return doc.field('Greeting').requiredStringValue();
 # Emulated mode - code is read-only
 
 doc = enolib.parse(input,
-                   locale=enolib.messages.de,
-                   reporter=enolib.reporters.HtmlReporter)
+                   locale=enolib.locales.de,
+                   reporter=enolib.HtmlReporter)
 
 return doc.field('Greeting').required_string_value()
 -- python
@@ -35,7 +35,7 @@ return doc.field('Greeting').required_string_value()
 
 doc = enolib.parse(
   input,
-  locale: Enolib::Messages::De,
+  locale: Enolib::Locales::De,
   reporter: Enolib::HtmlReporter
 )
 
@@ -69,7 +69,7 @@ return `The city ${name} is in ${continent}`;
 -- python
 # Emulated mode - code is read-only
 
-doc = enolib.parse(input, reporter=enolib.reporters.HtmlReporter)
+doc = enolib.parse(input, reporter=enolib.HtmlReporter)
 
 city = doc.section('City')
 
@@ -136,7 +136,7 @@ def lat_lng_loader(name, value):
     raise ValueError('Coordinates must be formatted xx.xxxxxx, xx.xxxxxx')
   return { 'lat': float(match.group(1)), 'lng': float(match.group(2)) }
 
-doc = enolib.parse(input, reporter=enolib.reporters.HtmlReporter)
+doc = enolib.parse(input, reporter=enolib.HtmlReporter)
 
 return doc.list('route_coordinates').required_values(lat_lng_loader)
 -- python
@@ -196,7 +196,7 @@ return `
 # In this example the 'cursor' variable is provided by the demo
 # to contain the numerical index of the cursor inside the textarea
 # Click/move/type around in the eno textbox to update the result!
-result = enolib.lookup(input, index=cursor, reporter=enolib.reporters.HtmlReporter)
+result = enolib.lookup(input, index=cursor, reporter=enolib.HtmlReporter)
 
 return f"""
   Cursor index #{cursor}

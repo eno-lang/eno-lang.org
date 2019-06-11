@@ -5,9 +5,7 @@ import 'ace-eno/builds/src-noconflict/mode-ruby';
 import 'ace-eno/builds/src-noconflict/theme-tomorrow';
 
 import enolib, { HtmlReporter, ParseError, TerminalReporter, TextReporter } from 'enolib';
-import { de } from 'enolib/lib/messages/de';
-import { en } from 'enolib/lib/messages/en';
-import { es } from 'enolib/lib/messages/es';
+import { de, en, es } from 'enolib/locales';
 
 import { attrUnescape, htmlEscape } from '../../lib/escape.js';
 
