@@ -1,3 +1,7 @@
+-- 2019-06-12
+Released [enolib](/enolib/) 0.7.2 with minor patching and refactoring regarding the semantical analysis of lines triggering parse errors  - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
+-- 2019-06-12
+
 -- 2019-06-11
 Released [enolib](/enolib/) 0.7.0 with new, simpler interfaces for requiring additional locales and reporters - this is a breaking change if you are using them - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
 -- 2019-06-11
