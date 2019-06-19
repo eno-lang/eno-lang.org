@@ -547,6 +547,12 @@ These are changes still in implementation and evaluation where no final decision
 "This RFC proposes adopting the hybrid usage concept found in sections for fieldsets, allowing them to be used both as simple key-value stores (think attributes of an XML tag, this is already the current fieldset specification) and additionally also as an ordered document structure (think XML tags, consecutive elements whose names can reappear, to store e.g. chronological key-value data)."
 
 <https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/hybrid-fieldsets-rev1.md>
+
+# RFC: Explicit Empty
+
+"This RFC proposes adding the possibility to omit the `Element Operator` after a key, thereby explicitly specifying an `Empty`, an element with a key but no value."
+
+<https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/explicit-empty.md>
 -- description
 
 #### Ratified changes

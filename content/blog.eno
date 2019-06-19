@@ -1,3 +1,7 @@
+-- 2019-06-19
+- Published an [RFC for Empties](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/explicit-empty.md) (explicit key-only elements) - an implementation for evaluating this RFC for is already ready and will be released through [enolib](/enolib/) in the coming days.
+-- 2019-06-19
+
 -- 2019-06-12
 Released [enolib](/enolib/) 0.7.2 with minor patching and refactoring regarding the semantical analysis of lines triggering parse errors  - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
 -- 2019-06-12
