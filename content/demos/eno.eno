@@ -355,6 +355,240 @@ directory: /data/web/x71947/html/example-event.com
 
 -- eno
 
+## A color scheme meta-format
+
+-- eno
+> This file describes a color scheme for syntax highlighting in a meta-format,
+> which is used to generate concrete color scheme description formats
+> for the Sublime Text and Atom editors.
+>
+> There is some metadata ('author', 'name'), a section 'colors' that describes a
+> repository of reusable named colors, as well as the sections 'globals' and 'scopes'
+> where the color names are assigned to scopes and UI elements. Notably in the 'scopes'
+> section there are both regular fields which only assign a foreground color, as well
+> as fieldsets, which serve to describe more detailed decorations ('foreground',
+> 'background', 'styles').
+
+author: Simon Repp
+name: enokai
+
+# colors
+
+cool_graphite: #202024
+dim_gray: #303030
+gray: #484848
+green: #a6e22e
+orange: #fd971f
+pink: #f92672
+red: #f92644
+turquoise: #66d9ef
+violet: #ae81ff
+white: #fff
+yellow: #e6db74
+
+# globals
+
+background: cool_graphite
+caret: white
+foreground: white
+selection: dim_gray
+
+# scopes
+
+block_name: pink
+block_operator: green
+
+comment:
+foreground =  gray 
+styles =  italic
+
+comment_operator: gray
+continuation_operator: green
+copy_operator: green
+entry: turquoise
+entry_operator: green
+escape_operator: green
+
+invalid:
+background =  red
+foreground =  white
+
+item_operator: green
+name: pink
+name_operator: green
+
+section1_operator: violet
+section1_escape_operator: green
+section1_name:
+foreground = yellow
+styles = bold
+section1_copy_operator: green
+section1_template:
+foreground = orange
+styles = italic
+
+section2_operator: violet
+section2_escape_operator: green
+section2_name:
+foreground = yellow
+styles = bold
+section2_copy_operator: green
+section2_template:
+foreground = orange
+styles = italic
+
+section3_operator: violet
+section3_escape_operator: green
+section3_name:
+foreground = yellow
+styles = bold
+section3_copy_operator: green
+section3_template:
+foreground = orange
+styles = italic
+
+section4_operator: violet
+section4_escape_operator: green
+section4_name:
+foreground = yellow
+styles = bold
+section4_copy_operator: green
+section4_template:
+foreground = orange
+styles = italic
+
+section5_operator: violet
+section5_escape_operator: green
+section5_name:
+foreground = yellow
+styles = bold
+section5_copy_operator: green
+section5_template:
+foreground = orange
+styles = italic
+
+section6_operator: violet
+section6_escape_operator: green
+section6_name:
+foreground = yellow
+styles = bold
+section6_copy_operator: green
+section6_template:
+foreground = orange
+styles = bold, italic
+
+template:
+foreground = orange
+styles = italic
+-- eno
+
+## Portfolio page
+
+-- eno
+> Real usecase example taken from https://simonrepp.com
+>
+> This file is one of many pages (represented as eno documents) that
+> are used by a custom static site generator. It stores the 'published'
+> date, as well as 'permalink', 'title' and the actual 'content' in a bilingual
+> form, where the 'DE' and 'EN' data is kept in separate sections.
+>
+> The content is described in a custom markup DSL that allows to specify
+> 'header', 'markdown' 'image', 'video', 'audio', 'small', 'youtube', 'vimeo'
+> elements.
+
+published: 2013
+
+# DE
+
+permalink: transparency-poker
+title: Transparency Poker
+
+## content
+
+header: Transparency Poker
+
+-- markdown
+Ein konzeptuelles Pokerkartenset, erdacht von Matthias Tarasiewicz und von mir
+grafisch gestaltet im Rahmen des Artistic Technology Research Projekts an der
+Universität für angewandte Kunst Wien. Das Kartenset wurde mit anderen
+Projektartefakten 2013 im MAK ausgestellt.
+-- markdown
+
+image:
+class = third
+label = Herz König, Julian Assange
+src = transparency poker/assange.jpg
+
+image:
+class = third
+label = Karo Bube, Jacob Appelbaum
+src = transparency poker/appelbaum.jpg
+
+image:
+class = third
+label = Karo Dame, Birgitta Jónsdóttir
+src = transparency poker/jonsdottir.jpg
+
+image:
+class = third
+label = Kreuz Bube, Daniel Domscheit-Berg
+src = transparency poker/domscheit-berg.jpg
+
+image:
+class = third
+label = Kreuz Dame, Angela Merkel
+src = transparency poker/merkel.jpg
+
+image:
+class = third
+label = Pik König, Barack Obama
+src = transparency poker/obama.jpg
+
+
+# EN < DE
+
+## content
+
+header: Transparency Poker
+
+-- markdown
+A conceptual set of poker cards, contrived by Matthias Tarasiewicz and
+graphically executed by me in the course of the Artistic Technology Research
+project at the University of Applied Arts Vienna. The set was exhibited at
+the MAK alongside other project artifacts in 2013.
+-- markdown
+
+image:
+class = third
+label = King of Hearts, Julian Assange
+src = transparency poker/assange.jpg
+
+image:
+class = third
+label = Jack of Diamonds, Jacob Appelbaum
+src = transparency poker/appelbaum.jpg
+
+image:
+class = third
+label = Queen of Diamonds, Birgitta Jónsdóttir
+src = transparency poker/jonsdottir.jpg
+
+image:
+class = third
+label = Jack of Clubs, Daniel Domscheit-Berg
+src = transparency poker/domscheit-berg.jpg
+
+image:
+class = third
+label = Queen of Clubs, Angela Merkel
+src = transparency poker/merkel.jpg
+
+image:
+class = third
+label = King of Spades, Barack Obama
+src = transparency poker/obama.jpg
+-- eno
+
 # What if ... ? examples
 
 ## Cargo.eno
