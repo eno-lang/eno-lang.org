@@ -34,19 +34,9 @@ A rich collection of example documents you can interactively modify and study.
 -- markdown
 
 -- markdown
-## Specification¹
+## Specification
 
 Encoding, file extension, MIME type and all the implementation details.
 
 [Browse the specification](/eno/specification/)
 -- markdown
-
-## single
-
--- footnotes
-¹ Specification resources are currently spread between here and the [eno
-language repository](https://github.com/eno-lang/eno), eventually most content
-will probably be made available centrally at the website only, where it can be
-presented in a more readable and accessible manner, while still being open for
-contribution and discussion via the website repository  and issue tracker.
--- footnotes
