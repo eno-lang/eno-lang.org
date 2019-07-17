@@ -1,3 +1,15 @@
+-- 2019-07-17
+Currently working on resolving numerous smaller but intricate bugs in the syntax
+highlighting implementations for [prism.js](https://eno-lang.org/plugins/prism/)
+and [Ace](https://eno-lang.org/plugins/ace/). Additionally about three weeks
+were spent on getting the [tree-sitter C parser
+implementation](https://github.com/eno-lang/tree-sitter-eno) to about 80% of
+completion. The tree-sitter parser will enable the atom plugin for eno to offer
+perfect code folding as well as rock-solid stability and improved performance.
+Also through the various bindings it will give everyone a means for super fast
+basic eno parsing in C, C++, Rust and other low level languages!
+-- 2019-07-17
+
 -- 2019-06-19
 - Published an [RFC for Empties](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/explicit-empty.md) (explicit key-only elements) - an implementation for evaluating this RFC for is already ready and will be released through [enolib](/enolib/) in the coming days.
 - Migrated most of the specification resources in the eno core repository to the eno-lang.org repository (because single source of truth)
