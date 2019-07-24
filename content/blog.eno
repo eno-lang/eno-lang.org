@@ -1,3 +1,12 @@
+-- 2019-07-24
+- Released [language-eno](https://atom.io/packages/language-eno) 0.5.0 for Atom, adding support for the new [empties](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/explicit-empty.md)
+-- 2019-07-24
+
+-- 2019-07-19
+- Released [vscode-eno](https://marketplace.visualstudio.com/items?itemName=eno-lang.vscode-eno) 0.4.0 for Visual Studio Code, adding support for the new [empties](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/explicit-empty.md)
+- Released [sublime-eno](https://packagecontrol.io/packages/eno) 0.4.0 for Sublime Text, adding support for the new [empties](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/explicit-empty.md)
+-- 2019-07-19
+
 -- 2019-07-17
 Currently working on resolving numerous smaller but intricate bugs in the syntax
 highlighting implementations for [prism.js](https://eno-lang.org/plugins/prism/)
