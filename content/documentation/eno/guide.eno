@@ -92,6 +92,23 @@ case "Long Description") that provides a context to our multiline field.
 Heads up now - in the next line the multiline field ends!
 -- Long Description
 ```
+
+If a line *inside* the mulitiline field looks exactly like the opening/ending line
+of the field itself, it can be "escaped" by adding any number of additional dashes to
+the `--` operator in *both* the opening *and* ending line:
+
+```eno
+--- My Field
+-- My Field
+--- My Field
+```
+
+Note that leaving no line at all between the opening and ending lines produces a field with the value `null`:
+
+```eno
+-- My Field
+-- My Field
+```
 -- description
 
 #### Lists (-)
