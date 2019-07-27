@@ -51,6 +51,24 @@ Springfield: 38.790312, -77.186418
 
 -- eno
 
+## Empties
+
+-- eno
+> An empty only has a key
+my_empty
+
+> Keys can be almost anything
+A night full of ⭐s and 🤖s in 서울특별시
+
+> A few things are not allowed in the key, they need to be escaped
+`The : in a key needs to be escaped`
+`- at the beginning would declare a list item`
+`# up front would start a section`
+`| would begin a line continuation`
+`\ would as well`
+`> would indicate a comment`
+-- eno
+
 ## Fields
 
 -- eno
