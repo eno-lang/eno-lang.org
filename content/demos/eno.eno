@@ -54,7 +54,7 @@ Springfield: 38.790312, -77.186418
 ## Fields
 
 -- eno
-> A field has a name and a value
+> A field has a key and a value
 language: eno
 
 > The value does not reach beyond the line
@@ -63,39 +63,39 @@ language:|<--- eno --->|
 > The value can be empty
 language:
 
-> Whitespace outside of and between name, operator and value is ignored
+> Whitespace outside of and between key, operator and value is ignored
 language:eno
   language  :  eno  
   
-> As you see above, multiple fields with the same name are possible,
+> As you see above, multiple fields with the same key are possible,
 > whether they are allowed is decided by the application.
 
-> Anything goes after the name operator (:)
+> Anything goes after the element operator (:)
 This is a sentence: It was a night full of ⭐s and 🤖s in 서울특별시!
 
-> Almost anything goes before the name operator too
+> Almost anything goes before the element operator too
 It was a night full of ⭐s and 🤖s in 서울특별시!: That was a sentence.
 
-> Some things are not allowed in the name, they need to be escaped
-`The : in a name needs to be escaped`: The : in a value is fine
+> Some things are not allowed in a key, they need to be escaped
+`The : in a key needs to be escaped`: The : in a value is fine
 
-> Here's everything that needs to be escaped in a name, and why:
+> Here's everything that needs to be escaped in a key, and why:
 
-`1:0`: At the first : the name ends, it always needs to be escaped
+`1:0`: At the first : the key ends, it always needs to be escaped
 
 A-Z: The - is fine when it's preceded by something else
 `-AZ`: The - at the start would begin a list item
 
-A # of things : The # is fine if it does not start the name
+A # of things : The # is fine if it does not start the key
 `# of things`: The # at the start would begin a section
 
 Php\Namespace : The \ is fine if it's not the first non-whitespace character
 `\Php\Namespace`: The \ at the start would begin a spaced line continuation
 
-Left|Right : The | is fine if it's not the first character in the name
+Left|Right : The | is fine if it's not the first character in the key
 `|Right`: The | at the start would begin a direct line continuation
 
-Greater > Smaller: The > is fine if it's not the first thing in the name
+Greater > Smaller: The > is fine if it's not the first thing in the key
 `> Smaller`: The > at the start would begin a comment
 -- eno
 
@@ -112,7 +112,6 @@ my_entry = my value
 
 
 > A fieldset with two entries
-> (note that unlike fields in sections, entry names in a fieldset MUST be unique)
 my_fieldset:
 my_entry_a = my value
 my_entry_b = my value
@@ -180,9 +179,9 @@ NOT_a_list: - my value
 
 
 > There is no syntactic differentiation between a section and a list of
-> sections, you just provide multiple sections with the same name if you need
+> sections, you just provide multiple sections with the same key if you need
 > multiple sections (applications define and validate the structure of your
-> document through the eno library API, so they know what they get anyway)
+> document through the enolib API, so they know what they get anyway)
 # my_section
 # my_section
 
@@ -223,7 +222,7 @@ NOT_a_list: - my value
 -- eno
 > This (generated) file just stores a simple hierarchy with numerical data, there
 > is a top-level section 'javascript' with some metadata ('iterations',
-> 'evaluated'), as well as a number of subsections, whose names
+> 'evaluated'), as well as a number of subsections, whose keys
 > ('abstract_hierarchy', ...) identify the respective benchmark scenario and
 > contain a mapping between library name and measured time, represented as fields.
 > 
@@ -285,7 +284,7 @@ toml-j0.4 1.1.1: 12.161507735999301
 > This specific record is from an archive collection documenting players in the
 > field of urban studies. There are simple fields for the name, place and website,
 > a list element with tags, and at the bottom two blocks that embed longer text
-> descriptions. The field names are german because the database principally
+> descriptions. The field keys are german because the database principally
 > consists of german language content and is maintained by german native speakers.
 > eno allows working with documents that can be fully authored in any language,
 > as it allows the full unicode range in keys too.
