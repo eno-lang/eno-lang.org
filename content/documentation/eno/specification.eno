@@ -63,15 +63,12 @@ A `Direct Line Continuation` can contain a `Value` or be empty.
 
 The `|` character (U+007C) when it appears as the first non-whitespace character on a line, indicating a `Direct Line Continuation`.
 
-## Empty Element
+## Empty
 
 ```eno
-my_key:
+my_key
 ```
-
-A key that might refer to either a `Field`, `Fieldset` or `List`. Given
-that the actual nature of the element is therefore ambiguous outside the
-context on an actual application, it is called simply an `Empty Element`.
+An `Empty` element is a distinct element type only containing a `Key`.
 
 ## Element
 
@@ -103,7 +100,7 @@ my_key:
 |
 ```
 
-A `Field` has a `Key` and usually a `Value`. The `Value` does not have to appear in the same line as the `Key`, it can also follow in the form of a `Line Continuation`, which can also be empty, which still suffices to unambiguously identify it as a `Field`, as opposed to just an `Empty Element`.
+A `Field` has a `Key` and usually a `Value`. The `Value` does not have to appear in the same line as the `Key`, it can also follow in the form of a `Line Continuation`, which can also be empty, which still suffices to unambiguously identify it as a `Field`.
 
 ## Fieldset
 

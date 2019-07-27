@@ -143,14 +143,37 @@ Sort Order Select:
 ```
 -- description
 
-#### Empty Elements (:)
+#### Empties
 
 -- description
-If we don't want to specify a value, we just leave it out.
+A key without any operator (`:`, `=`, `<`, etc.) specifies an "empty". Empties
+are a distinct element type with two primary usecases - the first one is as a
+global flag/switch/boolean:
 
 ```eno
-More information:
+enable_debugging!
+LOG_LEVEL_INFO
+utf_8
 ```
+
+The second main usecase is as a spacer or key-only element in an ordered
+collection, e.g. inside some custom markup DSL:
+
+```eno
+header
+
+heading: New stable release available
+
+padding
+
+-- text
+Today we've released our new stable version (codenamed "Leverage")
+which will be available on all release channels by midday, ...
+-- text
+
+footer
+```
+
 -- description
 
 #### Sections (#)
@@ -422,6 +445,8 @@ Field: Value ...
 Field: Line ...
 | ... Direct Line Continuation
 
+Empty
+
 Copied Field < Template Field
 
 Extended Copied List < Template List
@@ -448,6 +473,8 @@ Key To Add Or Overwrite = Value
 `Escaped Fieldset Key`:
 `Escaped Entry` = Value
 `Escaped Entry` = Value
+
+`Escaped Empty`
 
 `Escaped Copied Element Key` < Template Element
 
