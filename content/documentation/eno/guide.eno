@@ -37,7 +37,7 @@ Profession: Freelance graphics artist
 
 ### No value
 
-If we don't want to specify a value, we just leave it out.
+If we don't want to specify a value, we just omit it. (the value then is `null`)
 
 ```eno
 More information:
@@ -69,6 +69,15 @@ title = A glass, half full.
 image_2 < image
 title = A glass, half empty.
 ```
+
+### No value
+
+As with fields the value can be omitted (producing a `null` value).
+
+```eno
+image:
+src =
+```
 -- description
 
 #### Multiline Fields (--)
@@ -77,20 +86,11 @@ title = A glass, half empty.
 If we want to assign multiple lines to a key, we do it like this:
 
 ```eno
--- Long Description
-The previous line marks a multiline field, whose content starts with this line.
-
-Until the line that marks the begin of the multiline field appears a second time,
-we can write any content we want, leave any number of lines empty ...
-
-... and so on
-
-With "--" we tell eno that we want to start a multiline field, and the text
-right next to the two dashes on that same line again is the key (in this
-case "Long Description") that provides a context to our multiline field.
-
-Heads up now - in the next line the multiline field ends!
--- Long Description
+-- my_poem
+Roses are red
+Violets are blue
+The dashes and the key in the start and end line need to match
+-- my_poem
 ```
 
 If a line *inside* the mulitiline field looks exactly like the opening/ending line
@@ -123,10 +123,23 @@ Shopping list:
 - Bananas (not too ripe)
 ```
 
-An empty list looks like a regular empty value:
+An empty list simply has no items:
 
 ```eno
 Shopping list:
+```
+
+A list can also have empty (`null`) values (this can e.g. be used for grouping/spacing usecases):
+
+```eno
+Sort Order Select:
+- No choice
+- 
+- Name ASC
+- Name DESC
+-
+- Ranking ASC
+- Ranking DESC
 ```
 -- description
 
