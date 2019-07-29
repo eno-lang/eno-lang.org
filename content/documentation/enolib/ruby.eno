@@ -241,7 +241,7 @@ require 'enolib'
 require 'enotype'
 
 loaders = Enotype.procs(:boolean, :color)
-enolib.register(loaders)
+Enolib.register(loaders)
 
 document = Enolib.parse('#b5b5b5: yes')
 
@@ -323,7 +323,7 @@ my_foo_only_proc = proc do |value|
   value
 end
 
-enolib.register(foo_only: my_foo_only_proc)
+Enolib.register(foo_only: my_foo_only_proc)
 
 document = Enolib.parse('foo: bar')
 
