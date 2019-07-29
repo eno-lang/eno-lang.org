@@ -603,57 +603,113 @@ document.assert_all_touched()
 No error is raised this time.
 -- description
 
-> ## Examples and patterns
-> 
-> -- description
-> 
-> -- description
+## Addendum
 
-> ## Querying non-string values
-> 
-> -- description
-> In this chapter we'll learn how to query values in any type we wish.
-> -- description
-> 
-> ### subchapters
-> 
-> #### Loaders
-> 
-> > TODO: Make this only a theoretical primer on loaders - can be skipped, note that in the introduction of this chapter
-> 
-> -- description
-> One of the core concepts of enolib is the use of loaders. There are no types in
-> eno, all contents of an eno document - values, keys and even comments - are
-> instead considered to be simply textual representations that might (or might
-> not) adhere to certain rules - rules which are not defined by the language, but
-> by us, the developers.
-> 
-> ```eno
-> begin: 12:00
-> ```
-> 
-> Consider `12:00` - chances are you will think of this as a *time*, which
-> implicates a certain set of rules that need to be followed so we as people can
-> interpret the value correctly. From a development point of view however, there
-> is hardly one concrete *type* that does justice to processing time in a program
-> in *the one and only sensible way*. In website code you might just need a
-> `string` to display to your users, in a timetracking application you might be
-> solely be interested in an `integer` representation of how many seconds make up
-> that `12:00`, while in yet another application you might direly need a separate
-> `integer` representation of hours and minutes to do some specific sort of
-> processing.
-> 
-> And this is where loaders come into play: A loader is simply a function that
-> receives a `string` and does either (a) convert it to something else or (b)
-> validate its format and raise an error if it's incorrect, or both things
-> combined.
-> 
-> As an example, here is a boolean `yes` or `no` into 
-> 
-> ```python
-> time = value => {
-> 
-> 
-> };
-> ```
-> -- description
+-- description
+Some varied extra content.
+-- description
+
+### subchapters
+
+#### A complete example
+
+-- description
+This complete example is an extensive showcase of enolib, demonstrating that
+parsing eno, although more verbose than other formats, has much to offer:
+
+- Decoupling of the field names the user prefers/understands from the ones a developer wants to use in the code
+- Out of the box localized parser and validation errors that can be directly displayed to a non-technical user
+- Out of the box validation of predefined high-level types (comma_separated, datetime, email, slug and url here)
+- Native API integration of completely custom types (markdown here)
+- Guaranteed data integrity, including prevention of unhandled extra fields
+
+```python
+import enolib
+import markdown as python_markdown
+from enolib.locales import de
+from enotype import comma_separated, datetime, email, slug, url
+
+def markdown(value):
+  return python_markdown.markdown(value)
+
+# Makes the .required_xxx_value() and .optional_xxx_value() methods available below
+enolib.register(comma_separated, datetime, email, markdown, slug, url)
+
+def read_post(filename):
+  with open(filename, 'r') as file:
+    input = file.read()
+
+  document = enolib.parse(input, locale=de, source=filename)
+  
+  author = document.fieldset('Verfasser')
+  post = {
+    'author': {
+      'name': author.entry('Name').required_string_value(),
+      'email': author.entry('Email').optional_email_value(),
+      'website': author.entry('Website').optional_url_value()
+    },
+    'title': document.field('Titel').required_string_value(),
+    'date': document.field('Veröffentlicht').required_datetime_value(),
+    'permalink': document.field('Permalink').required_slug_value(),
+    'abstract': document.field('Abstract').optional_markdown_value(),
+    'body': document.field('Text').required_markdown_value(),
+    'tags': document.field('Tags').required_comma_separated_values()
+  }
+
+  # Throws an error when there are unhandled, mis-typed or unneeded fields in the document
+  document.assert_all_touched()
+  
+  return post
+
+read_post('my_post.eno')
+```
+-- description
+
+#### AST inspection
+
+-- description
+You can call `raw()` on a document or any element in it to get a native python
+object serialization of the abstract syntax tree constructed by enolib.
+
+```python
+>>> enolib.parse('> note\ngreeting: hello').raw()
+{
+  'type': 'document',
+  'elements': [{
+    'comment': 'note',
+    'key': 'greeting',
+    'type': 'field',
+    'value': 'hello'
+  }]
+}
+```
+
+Although this can theoretically be used to get a plain object dump of an eno
+document, it is solely intended for debugging purposes, as there is no
+validation and no types and the serialization structure is rather verbose to
+work with as well.
+-- description
+
+#### FAQ
+
+-- description
+## Is it possible to deserialize an eno file directly into a Python object?
+
+Given that eno notation itself has no knowledge of types there is no way to
+automatically serialize values to anything other than `string` type. Given
+that eno documents and elements can flexibly represent both associative and
+sequential data structures, there is also no canonical serialization
+structure that offers an optimal data layout for both usecases.
+
+So indeed one has to manually deserialize the document! The reward for this however is
+100% reliable input data, all the types one can imagine and a lot less syntax
+and overhead when writing content. Considering that the code for reading and
+validating a document only needs to be written *once*, while the actual authoring
+and editing of documents can happen up to *many million times* depending on the
+userbase of an application, spending a few minutes on the validation code is
+probably the better tradeoff to make?
+
+Lastly, the enolib API does in fact also offer a way to deserialize a document
+to a native Python object, which however is only meant for debugging purposes.
+It is described in the previous chapter: [AST Inspection](/enolib/python/addendum/ast-inspection/).
+-- description
