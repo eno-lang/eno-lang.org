@@ -630,6 +630,123 @@ document.assertAllTouched();
 No error is thrown this time.
 -- description
 
+## Error Metadata
+
+-- description
+enolib's errors provide rich textual and numerical information to applications:
+
+- The error message itself (usually a single line of text, by default in english, but a different locale can be passed when parsing the document too)
+- An excerpt snippet of the document, highlighting the line(s) where the issue occurred (by default this snippet is plaintext, but HTML or colored terminal text formatting are available by passing a different reporter when parsing the document)
+- A suggested cursor location in the document at which to start with manual error corrections - applications can use this to automatically guide/take the user to the right place in the document (the cursor position is provided both as a one-dimensional string index, as well as a line/column combination)
+- A suggested selection range in the document at which the user might want to start fixing the error - same purpose and indexing as the cursor location
+-- description
+
+### subchapters
+
+#### Message 
+
+-- description
+Contains both the error text as well as the snippet. This is also what you get in the console when you don't catch the error.
+
+```javascript
+try {
+  // ...
+} catch(err) {
+  if(err instanceof EnoError) {
+    err.message;  // returns "In line 4 'a' is copied into itself.\n\n   Line | Content\n ..."
+  }
+}
+```
+-- description
+
+#### Text 
+
+-- description
+Returns a one-liner that describes the error in human language.
+
+```javascript
+try {
+  // ...
+} catch(err) {
+  if(err instanceof EnoError) {
+    err.text;  // returns 'In line 4 'a' is copied into itself.'
+  }
+}
+```
+-- description
+
+#### Snippet 
+
+-- description
+Returns a formatted excerpt of those passage(s) from the input where the error occurred.
+
+```javascript
+try {
+  // ...
+} catch(err) {
+  if(err instanceof EnoError) {
+    err.snippet;
+    
+    // returns something like ...
+    //
+    //   Line | Content
+    //      1 | 
+    // *    2 |     # a
+    // *    3 |     ## b
+    // >    4 |     ### c < a
+    //      5 |
+  }
+}
+```
+-- description
+
+#### Cursor 
+
+-- description
+Returns a cursor position object indicating where a cursor should be placed if
+an application wants to offer the user a way to move the cursor straight to the
+error location.
+
+```javascript
+try {
+  // ...
+} catch(err) {
+  if(err instanceof EnoError) {
+    err.cursor.index;   // returns a one-dimensional string-index, e.g. 56
+    
+    err.cursor.line;    // returns the line, e.g. 3
+    err.cursor.column;  // returns the column, e.g. 14
+  }
+}
+```
+-- description
+
+#### Selection 
+
+-- description
+Returns a selection range object indicating what text area to select if an
+application wants to offer the user a way to select the parts in a document
+affected by the error.
+
+```javascript
+try {
+  // ...
+} catch(err) {
+  if(err instanceof EnoError) {
+    // The selection as a one-dimensional string-index range
+    err.selection.from.index;  // e.g. 56 
+    err.selection.to.index;    // e.g. 78
+    
+    // The selection as a line/column range
+    err.selection.from.line;    // e.g. 3
+    err.selection.from.column;  // e.g. 14
+    err.selection.to.line;      // e.g. 3
+    err.selection.to.column;    // e.g. 32
+  }
+}
+```
+-- description
+
 ## Addendum
 
 -- description
