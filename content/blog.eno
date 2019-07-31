@@ -1,3 +1,27 @@
+-- 2019-07-31
+- Added detailed documentation on error metadata for all enolib implementations
+- Pushed onwards with [tree-sitter-eno](https://github.com/eno-lang/tree-sitter-eno) which is now about 90% there
+- Contributed back some documentation improvements to tree-sitter 🤝
+-- 2019-07-31
+
+-- 2019-07-29
+- Added addendum content (complete example, AST inspection, FAQ) to the enolib documentation for all implementations
+- Small code example fixes in the ruby enolib documentation
+-- 2019-07-29
+
+-- 2019-07-28
+Released [enolib](/enolib/) 0.8.0, supporting the new [empties](/eno/guide/elements/empties/) 🚀 - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
+-- 2019-07-28
+
+-- 2019-07-27
+- Interactive examples and a guide page on the new [empties](/eno/guide/elements/empties/) has been added
+- Various other smaller additions, clarifications and updates inside the language guide and interactive examples
+-- 2019-07-27
+
+-- 2019-07-26
+- Multiple updates to [prism-eno](https://github.com/eno-lang/prism-eno), greatly improving multiline field recognition robustness, handling various edge cases, adding support for the new [empties](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/explicit-empty.md) and more
+-- 2019-07-26
+
 -- 2019-07-24
 - Released [language-eno](https://atom.io/packages/language-eno) 0.5.0 for Atom, adding support for the new [empties](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/explicit-empty.md)
 -- 2019-07-24
