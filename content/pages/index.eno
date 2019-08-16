@@ -168,7 +168,7 @@ document.section('cities').field('Málaga').requiredLatLngValue();
 -- javascript
 
 -- description
-enotype is a collection of minimalist functions that validate and convert type-unsafe `string` representations into type-safe, native types. It is the standard type library for [enolib](/enolib/) but can be utilized in a multitude of other contexts as well.
+enotype is a collection of functions that convert unsafe `string` input to safe, native types. It is the standard type library for [enolib](/enolib/) but can be utilized in a multitude of other contexts as well.
 
 [More about enotype](/enotype/)
 -- description
