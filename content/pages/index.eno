@@ -175,8 +175,48 @@ enotype is a collection of functions that convert unsafe `string` input to safe,
 
 ## poster
 
-tagline: PHP, Tcl & Java libraries, resources for the old specification
-title: more
+tagline: tree-sitter parser, PHP, Tcl & Java libraries, legacy resources
+title: and more
+
+platform:
+label = tree-sitter-eno (C parser for eno using tree-sitter)
+logo = /logos/c.svg
+url = https://github.com/eno-lang/tree-sitter-eno
+
+platform:
+label = tree-sitter-eno (tree-sitter parser for eno, usable with C++ bindings)
+logo = /logos/cpp.svg
+url = https://github.com/eno-lang/tree-sitter-eno
+
+platform:
+label = tree-sitter-eno (tree-sitter parser for eno, usable with Rust bindings)
+logo = /logos/rust.svg
+url = https://github.com/eno-lang/tree-sitter-eno
+
+platform:
+label = tree-sitter-eno (tree-sitter parser for eno, usable with WebAssembly bindings)
+logo = /logos/wasm.svg
+url = https://github.com/eno-lang/tree-sitter-eno
+
+platform:
+label = tree-sitter-eno (tree-sitter parser for eno, usable with JavaScript bindings)
+logo = /logos/javascript.svg
+url = https://github.com/eno-lang/tree-sitter-eno
+
+platform:
+label = tree-sitter-eno (tree-sitter parser for eno, usable with Python bindings)
+logo = /logos/python.svg
+url = https://github.com/eno-lang/tree-sitter-eno
+
+platform:
+label = tree-sitter-eno (tree-sitter parser for eno, usable with Ruby bindings)
+logo = /logos/ruby.svg
+url = https://github.com/eno-lang/tree-sitter-eno
+
+platform:
+label = tree-sitter-eno (tree-sitter parser for eno, usable with Haskell bindings)
+logo = /logos/haskell.svg
+url = https://github.com/eno-lang/tree-sitter-eno
 
 platform:
 label = enophp (Official PHP library compliant with eno's first specification)
@@ -194,8 +234,10 @@ logo = /logos/tcl.svg
 url = https://github.com/bef/enotcl
 
 -- description
-[eno first](https://archived.eno-lang.org) - Legacy ecosystem and documentation for eno's first specification.  
-[enophp](https://github.com/eno-lang/enophp) - Official PHP library (compliant with eno first, see above)  
+
+[tree-sitter-eno](https://github.com/eno-lang/tree-sitter-eno) - Tree-sitter parser for eno (usable with C, C++, Rust, WebAssembly, JavaScript, Python, Ruby, Haskell)  
+[enophp](https://github.com/eno-lang/enophp) - Official PHP library (compliant with eno first, see below)  
 [enotcl](https://github.com/bef/enotcl) - Tcl parser  
-[Enohar](https://github.com/Nzen/Enohar) - (Incomplete) Java library for parsing and emitting Eno documents 
+[Enohar](https://github.com/Nzen/Enohar) - (Incomplete) Java library for parsing and emitting Eno documents  
+[eno first](https://archived.eno-lang.org) - Legacy ecosystem and documentation for eno's first specification
 -- description

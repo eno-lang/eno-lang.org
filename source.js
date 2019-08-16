@@ -143,10 +143,10 @@ const pages = async () => {
                 `).join('')}
               </div>
               <div>
-                ${poster.field('tagline').requiredStringValue()} <a class="unfold" onclick="document.querySelector('#${title}-details').classList.toggle('folded');">More</a>
+                ${poster.field('tagline').requiredStringValue()} <a class="unfold" onclick="document.querySelector('#${title.replace(/ /, '-')}-details').classList.toggle('folded');">More</a>
               </div>
 
-              <div class="details folded" id="${title}-details">
+              <div class="details folded" id="${title.replace(/ /, '-')}-details">
                 ${code}
                 <div>${poster.field('description').requiredMarkdownValue()}</div>
               </div>
