@@ -4,7 +4,7 @@ title: Prism Plugin
 # content
 
 -- markdown
-# <img src="/prism.svg" style="max-width: 36px; height: auto;" /> Prism
+# <img src="/logos/prism.svg" style="max-width: 36px; height: auto;" /> Prism
 
 [prism-eno](https://github.com/eno-lang/prism-eno) is a plugin for writing and
 blogging about eno. All eno snippets on eno-lang.org get their syntax

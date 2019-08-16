@@ -4,7 +4,7 @@ title: Visual Studio Code Plugin
 # content
 
 -- markdown
-# <img src="/vscode.svg" style="max-width: 36px; height: auto;" /> Visual Studio Code
+# <img src="/logos/vscode.svg" style="max-width: 36px; height: auto;" /> Visual Studio Code
 
 The
 [vscode-eno](https://marketplace.visualstudio.com/items?itemName=eno-lang.vscode-eno)

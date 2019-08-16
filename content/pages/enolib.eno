@@ -20,28 +20,28 @@ plaintext content.
 ## columns-3
 
 -- markdown
-<a class="logo_headline" href="/enolib/javascript/"><img class="logo" src="/javascript.svg" /> JavaScript</a>
+<a class="logo_headline" href="/enolib/javascript/"><img class="logo" src="/logos/javascript.svg" /> JavaScript</a>
 
 [API Documentation](/enolib/javascript/)  
 [Package on npm](https://npmjs.com/package/enolib/)  
 -- markdown
 
 -- markdown
-<a class="logo_headline" href="/enolib/python/"><img class="logo" src="/python.svg" /> Python</a>
+<a class="logo_headline" href="/enolib/python/"><img class="logo" src="/logos/python.svg" /> Python</a>
 
 [API Documentation](/enolib/python/)  
 [Package on PyPI](https://pypi.org/project/enolib/)  
 -- markdown
 
 -- markdown
-<a class="logo_headline" href="/enolib/ruby/"><img class="logo" src="/ruby.svg" /> Ruby</a>
+<a class="logo_headline" href="/enolib/ruby/"><img class="logo" src="/logos/ruby.svg" /> Ruby</a>
 
 [API Documentation](/enolib/ruby/)  
 [Gem on rubygems](https://rubygems.org/gems/enolib)  
 -- markdown
 
 -- markdown
-<a class="logo_headline" href="https://github.com/eno-lang/enolib/"><img class="logo" src="/rust.svg" /> <img class="logo" src="/php.svg" /> Rust, PHP</a>
+<a class="logo_headline" href="https://github.com/eno-lang/enolib/"><img class="logo" src="/logos/rust.svg" /> <img class="logo" src="/logos/php.svg" /> Rust, PHP</a>
 
 Rust and PHP are the next release targets and currently in development.
 -- markdown

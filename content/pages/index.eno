@@ -13,27 +13,27 @@ title: eno
 
 platform:
 label = Atom Plugin
-logo = /atom.svg
+logo = /logos/atom.svg
 url = /plugins/atom/
 
 platform:
 label = Visual Studio Code Plugin
-logo = /vscode.svg
+logo = /logos/vscode.svg
 url = /plugins/vscode/
 
 platform:
 label = Sublime Text Plugin
-logo = /sublime.svg
+logo = /logos/sublime.svg
 url = /plugins/sublime/
 
 platform:
 label = Ace Plugin
-logo = /ace.png
+logo = /logos/ace.png
 url = /plugins/ace/
 
 platform:
 label = Prism Plugin
-logo = /prism.svg
+logo = /logos/prism.svg
 url = /plugins/prism/
 
 -- eno
@@ -80,17 +80,17 @@ tagline: The cross-language eno standard library.
 
 platform:
 label = JavaScript Implementation
-logo = /javascript.svg
+logo = /logos/javascript.svg
 url = /enolib/
 
 platform:
 label = Python Implementation
-logo = /python.svg
+logo = /logos/python.svg
 url = /enolib/
 
 platform:
 label = Ruby Implementation
-logo = /ruby.svg
+logo = /logos/ruby.svg
 url = /enolib/
 
 -- javascript
@@ -137,22 +137,22 @@ tagline: Functional type implementations for use with (or without) enolib.
 
 platform:
 label = npm Package
-logo = /javascript.svg
+logo = /logos/javascript.svg
 url = https://www.npmjs.com/package/enotype
 
 platform:
 label = Python Package
-logo = /python.svg
+logo = /logos/python.svg
 url = https://pypi.org/project/enotype/
 
 platform:
 label = Ruby Gem
-logo = /ruby.svg
+logo = /logos/ruby.svg
 url = https://rubygems.org/gems/enotype
 
 platform:
 label = PHP Implementation
-logo = /php.svg
+logo = /logos/php.svg
 url = https://github.com/eno-lang/enotype/tree/master/php
 
 -- javascript
@@ -180,17 +180,17 @@ title: more
 
 platform:
 label = enophp (Official PHP library compliant with eno's first specification)
-logo = /php.svg
+logo = /logos/php.svg
 url = https://archived.eno-lang.org/php/
 
 platform:
 label = Enohar (In development Java library for parsing and emitting eno documents)
-logo = /java.svg
+logo = /logos/java.svg
 url = https://github.com/Nzen/Enohar
 
 platform:
 label = enotcl (Tcl parser)
-logo = /tcl.svg
+logo = /logos/tcl.svg
 url = https://github.com/bef/enotcl
 
 -- description

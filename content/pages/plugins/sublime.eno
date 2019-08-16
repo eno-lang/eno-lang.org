@@ -4,7 +4,7 @@ title: Sublime Text Plugin
 # content
 
 -- markdown
-# <img src="/sublime.svg" style="max-width: 36px; height: auto;" /> Sublime Text
+# <img src="/logos/sublime.svg" style="max-width: 36px; height: auto;" /> Sublime Text
 
 The [sublime-eno](https://packagecontrol.io/packages/eno) package provides syntax
 highlighting for eno in Sublime Text 3.
