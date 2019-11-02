@@ -15,12 +15,12 @@
     "markdown-it": "^10.0.0",
     "markdown-it-prism": "^2.0.3",
     "moment": "^2.24.0",
-    "node-sass": "^4.13.0",
     "nodemon": "^1.19.4",
     "parcel-bundler": "^1.12.4",
     "prismjs": "^1.17.1",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
+    "sass": "^1.23.3",
     "speakingurl": "^14.0.1",
     "turbolinks": "^5.2.0"
   },
@@ -36,7 +36,7 @@
     "release": "npm run build && npm run deploy",
     "serve": "http-server -c-1",
     "scripts": "parcel build src/scripts.js --no-cache --no-source-maps --out-dir public --out-file scripts.js",
-    "styles": "node-sass --output-style compressed styles/main.scss public/styles.css",
+    "styles": "sass --style compressed styles/main.scss public/styles.css",
     "watch": "nodemon --ext css,eno,js,scss --ignore public --exec 'npm run build && npm run serve'"
   }
 }

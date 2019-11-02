@@ -1,7 +1,7 @@
-@import './colors.scss';
+@use 'colors';
 
 .inspector {
-  background-color: $color_inspector_background;
+  background-color: colors.$inspector_background;
   padding: 0.5em;
 }
 
@@ -10,11 +10,11 @@
 }
 
 .inspector__element_type {
-  color: $color_inspector_element_type;
+  color: colors.$inspector_element_type;
 }
 
 .inspector__node {
-  color: $color_inspector_node;
+  color: colors.$inspector_node;
 }
 
 .inspector__value {

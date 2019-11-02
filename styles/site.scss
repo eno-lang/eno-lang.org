@@ -1,4 +1,4 @@
-@import './colors.scss';
+@use 'colors';
 
 .boundary {
   margin: 0 auto;
@@ -11,9 +11,15 @@
 }
 
 .logo_headline {
-  @extend h2;
+  align-items: center;
+  color: colors.$text;
+  display: flex;
+  font-weight: 600;
+  font-size: 1.2em;
 
-  color: $color_text;
+  & img {
+    padding-right: 0.5em;
+  }
 }
 
 .logo_parade {
@@ -28,23 +34,23 @@
 }
 
 .brand {
-  color: $color_brand;
+  color: colors.$brand;
   font-weight: 700;
 }
 
 .footer {
-  color: $color_text_faded;
+  color: colors.$text_faded;
   font-size: 0.85em;
   margin: 3em 0;
   text-align: center;
 }
 
 .footer a {
-  color: $color_text_faded;
+  color: colors.$text_faded;
 }
 
 .footnotes {
-  color: $color_text_faded;
+  color: colors.$text_faded;
   font-size: 0.85em;
   margin-top: 3em;
 }
@@ -113,7 +119,7 @@ div[class^="columns-"] {
   margin-top: 2em;
 
   .class {
-    border-left: 0.25em solid $color_text;
+    border-left: 0.25em solid colors.$text;
     margin-top: 3em;
     padding-left: 0.25em;
   }
@@ -135,13 +141,13 @@ div[class^="columns-"] {
     text-align: justify;
 
     code {
-      background-color: $color_code_background;
+      background-color: colors.$code_background;
       padding: 0.25em;
     }
   }
 
   blockquote {
-    background-color: $color_info_badge;
+    background-color: colors.$info_badge;
     margin: 0;
     padding: 1em;
 
@@ -157,7 +163,7 @@ div[class^="columns-"] {
   top: 0;
   padding: 0.5em 1em;
   font-size: 0.8em;
-  color: $color_text_faded;
+  color: colors.$text_faded;
 }
 
 .header_offset {
@@ -169,7 +175,7 @@ div[class^="columns-"] {
 }
 
 .info_badge {
-  background-color: $color_info_badge;
+  background-color: colors.$info_badge;
   padding: 1em;
 }
 

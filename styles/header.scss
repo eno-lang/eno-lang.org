@@ -1,3 +1,5 @@
+@use 'colors';
+
 .menu {
   align-items: center;
   display: flex;
@@ -48,7 +50,7 @@
     }
 
     &:hover {
-      background-color: $color_header_secondary_dropdown_background;
+      background-color: colors.$header_secondary_dropdown_background;
     }
   }
 }
@@ -58,7 +60,7 @@
 }
 
 .menu__text {
-  color: $color_header_secondary_text;
+  color: colors.$header_secondary_text;
 }
 
 .menu__toggle {
@@ -72,12 +74,12 @@
 }
 
 .header__primary {
-  background-color: $color_header_primary_background;
+  background-color: colors.$header_primary_background;
   font-size: 1.2em;
 }
 
 .header__primary .menu__link {
-  color: $color_header_primary_link;
+  color: colors.$header_primary_link;
 }
 
 .header__primary .menu__link.active {
@@ -85,11 +87,11 @@
 }
 
 .header__secondary {
-  background-color: $color_header_secondary_background;
+  background-color: colors.$header_secondary_background;
 }
 
 .header__secondary .menu__link {
-  color: $color_header_secondary_link;
+  color: colors.$header_secondary_link;
 }
 
 .header__secondary .menu__link.active {

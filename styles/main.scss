@@ -1,11 +1,11 @@
-@import './prism-eno-dark.scss';
+@use 'prism-eno-dark';
 
-@import './fonts.scss';
-@import './icons.scss';
+@use 'fonts';
+@use 'icons';
 
-@import './base.scss';
-@import './eno.scss';
-@import './header.scss';
-@import './index.scss';
-@import './inspector.scss';
-@import './site.scss';
+@use 'base';
+@use 'eno';
+@use 'header';
+@use 'index';
+@use 'inspector';
+@use 'site';
