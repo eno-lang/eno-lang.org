@@ -1,3 +1,7 @@
+-- 2020-01-10
+- Released [sublime-eno](https://packagecontrol.io/packages/eno) 0.4.1 for Sublime Text, fixing a multiline field pattern recognition issue reported by Nicholas Reid - thanks Nicholas!
+-- 2020-01-10
+
 -- 2020-01-08
 - Patrick Thomson contributed a
   [patch](https://github.com/eno-lang/tree-sitter-eno/commit/c059967d243487c1c2f567bd56c1d40c9a92dbe4)
