@@ -1,5 +1,13 @@
 -- 2020-01-10
 - Released [sublime-eno](https://packagecontrol.io/packages/eno) 0.4.1 for Sublime Text, fixing a multiline field pattern recognition issue reported by Nicholas Reid - thanks Nicholas!
+
+The legacy libraries which have been superseded by enolib (enojs, enopy, enorb) and their respective experimental loader companion packages **have
+reached END OF LIFE with the start of 2020 (after 10 months of deprecation)**:
+
+- Unpublished enopy and enopy-exploaders from pypi.org
+- Unpublished enorb and enorb-exploaders from rubygems.org
+- Removed the enopy enopy-exploaders repositories from github
+- Removed the enorb enorb-exploaders repositories from github
 -- 2020-01-10
 
 -- 2020-01-08
