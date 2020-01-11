@@ -1,3 +1,8 @@
+-- 2020-01-11
+- Released [enolib](/enolib/) 0.8.2 patch update for javascript, fixing three rare but critical issues in the reporter implementation - see
+  [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
+-- 2020-01-11
+
 -- 2020-01-10
 - Released [sublime-eno](https://packagecontrol.io/packages/eno) 0.4.1 for Sublime Text, fixing a multiline field pattern recognition issue reported by Nicholas Reid - thanks Nicholas!
 
