@@ -1,3 +1,7 @@
+-- 2020-01-17
+- Extended the complete guide to eno with an [FAQ entry](/eno/guide/faq/) regarding indentation and whitespace (thanks Nicholas for reporting the absence of that information!)
+-- 2020-01-17
+
 -- 2020-01-11
 - Released [enolib](/enolib/) 0.8.2 patch update for javascript, fixing three rare but critical issues in the reporter implementation - see
   [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).

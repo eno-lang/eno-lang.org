@@ -487,6 +487,55 @@ Key To Add Or Overwrite = Value
 -- description 
 # Frequently answered questions
 
+## How does eno treat indentation and whitespace in general
+
+In general (and with only a single exception), all whitespace before, between and after any token is stripped away:
+
+```eno
+# section
+field: a field's value
+list:
+- item
+
+> ... produces the same result as would ...
+
+  #       section
+  
+    field   :   a field's value
+    
+    list:
+    
+        -    item
+```
+
+The only exception to this is the inside (= the value) of a multiline field:
+
+```eno
+-- my_field
+The Value
+-- my_field
+
+> ... produces the same result ("The Value") as would ...
+
+  --   my_field
+The Value
+  --   my_field
+  
+> ... but the following would yield a different result ("  The Value") ...
+
+  -- my_field
+  The Value
+  -- my_field
+
+> ... because all whitespace (leading/trailing, empty lines) inside a multiline field is always kept.
+```
+
+The absence of indented multiline values whose leading whitespace can be stripped is
+a design decision of the language based around the notion that editing multiline
+content against an "invisible left margin" is error-prone and fragile in
+productive use, which would work against eno's design goal of greatest possible
+ease of authoring and reliability and predicability of results.
+
 ## How can I express a value with leading/trailing or only whitespace?
 
 Use a multiline field - a multiline field's value is retained verbatim, all newlines and whitespace are conserved:
