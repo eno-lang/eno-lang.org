@@ -1,3 +1,50 @@
+-- 2020-05-01
+Over the last two weeks I've begun work on a [new reference parser for eno written in C](https://codeberg.org/suchbliss/libeno). Intentions and motivation for this look as
+follows:
+
+- A portable C implementation will compile and run pretty much everywhere,
+  opening up many possibilities for people to use eno in new contexts.
+- Correctly handling unicode text in C is a challenge, the merit of this
+  however is that it really makes you think about what you're doing and 
+  the process of implementing the eno specification in C might reveal if
+  there are still flaws in the way eno is specified, leading in the end
+  to a better parser and a better specification.
+- Some fiddly edge case behavior around handling of tabs vs. spaces in the
+  context of associated comments is not yet adequately specified in the
+  existing parser implementations. Writing the new reference parser presents
+  an opportunity to patch up these remaining known minor issues.
+- The enolib implementation for Rust is still up in the air, partly due to
+  the fact that the low level lexing/parsing hasn't turned out all that
+  convenient to implement in (safe) Rust so far - being able to build a
+  Rust high level library implementation on a low level C parser foundation
+  through the FFI seems like a nice avenue to explore.
+- While laying the groundwork for eno's schema definition metaformat (along its
+  companion CLI for generating parsers) earlier this year it became obvious
+  that availability of the CLI in different environments will be a question
+  that needs to be adressed. Availability of a C parser would allow
+  implementing and distributing the CLI tool as a static binary, enabling
+  easy access on all platforms without specific language runtime requirements.
+- The enolib parsers are already among the fastest parsers for structured
+  plaintext content out there. It's probably more a vanity thing from here
+  on thus, but faster is always nice: If benchmarks showcasing outstanding
+  performance (regardless if anyone will ever *need* it) attract an audience
+  that later discovers that eno actually excels through its other qualities
+  as well, that's a nice side effect.
+
+Development is still at an early stage. You can follow the progress on libeno's
+repository on Codeberg: <https://codeberg.org/suchbliss/libeno>
+-- 2020-05-01
+
+-- 2020-01-18
+The eno notation language is now finally getting a schema definition
+metaformat (by popular request) - after two days of hacking (building on
+previous efforts from a few months ago) a first prototype for a CLI-based
+parser generator is now up on github: <https://github.com/eno-lang/enocli>
+
+Some major loose ends need to be tied up still, but within the next two weeks
+or so there will likely be a state that is well usable for all the major, obvious usecases. 🎉
+-- 2020-01-18
+
 -- 2020-01-17
 - Extended the complete guide to eno with an [FAQ entry](/eno/guide/faq/) regarding indentation and whitespace (thanks Nicholas for reporting the absence of that information!)
 -- 2020-01-17
