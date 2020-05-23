@@ -1,3 +1,12 @@
+-- 2020-05-23
+Development of [libeno](https://codeberg.org/simonrepp/libeno) is progressing
+nicely and steadily, and as expected it's opened up a good avenue for finally
+figuring out the last minute details of eno's specification! Today on the side
+I've also kicked off a process of reworking the website, making it simpler and
+more to the point, removing stack bloat and resolving some responsiveness and
+probably also accessibility issues that still remain.
+-- 2020-05-23
+
 -- 2020-05-01
 Over the last two weeks I've begun work on a [new reference parser for eno written in C](https://codeberg.org/simonrepp/libeno). Intentions and motivation for this look as
 follows:
