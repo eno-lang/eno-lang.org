@@ -164,7 +164,7 @@ const pages = async () => {
             return markdown;
 
           return `<div class="footnotes">${markdown}</div>`;
-        } else if(name.startsWith('columns-')) {
+        } else if(name === 'columns-3') {
           return `
             <div class="${name}">
               ${blockElement.toSection().fields().map(column => `

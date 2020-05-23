@@ -20,7 +20,6 @@
     "prismjs": "^1.19.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "sass": "^1.26.5",
     "speakingurl": "^14.0.1"
   },
   "description": "The eno-lang.org website",
@@ -28,13 +27,12 @@
   "private": true,
   "repository": "https://github.com/eno-lang/eno-lang.org",
   "scripts": {
-    "build": "node build.js && npm run styles && npm run language-demos && npm run libraries-demos",
+    "build": "node build.js && npm run language-demos && npm run libraries-demos",
     "deploy": "node deploy.js",
     "language-demos": "parcel build src/demos/eno.js --no-cache --no-source-maps --out-dir public/eno/demos --out-file bundle.js",
     "libraries-demos": "parcel build src/demos/enolib.js --no-cache --no-source-maps --out-dir public/enolib/demos --out-file bundle.js",
     "release": "npm run build && npm run deploy",
     "serve": "http-server -c-1",
-    "styles": "sass --style compressed styles/main.scss public/styles.css",
     "watch": "nodemon --ext css,eno,js,scss --ignore public --exec 'npm run build && npm run serve'"
   }
 }
