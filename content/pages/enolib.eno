@@ -41,9 +41,10 @@ plaintext content.
 -- markdown
 
 -- markdown
-<a class="logo_headline" href="https://github.com/eno-lang/enolib/"><img class="logo" src="/logos/rust.svg" /> <img class="logo" src="/logos/php.svg" /> Rust, PHP</a>
+<a class="logo_headline" href="https://codeberg.org/simonrepp/libeno"><img class="logo" src="/logos/c.svg" /> <img class="logo" src="/logos/rust.svg" /> C, Rust</a>
 
-Rust and PHP are the next release targets and currently in development.
+A new low-level reference parser written in C ([libeno](https://codeberg.org/simonrepp/libeno)) is currently in development 
+and consecutively the Rust implementation of enolib is planned to be built on top of it.
 -- markdown
 
 -- markdown

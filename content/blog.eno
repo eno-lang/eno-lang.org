@@ -1,5 +1,5 @@
 -- 2020-05-01
-Over the last two weeks I've begun work on a [new reference parser for eno written in C](https://codeberg.org/suchbliss/libeno). Intentions and motivation for this look as
+Over the last two weeks I've begun work on a [new reference parser for eno written in C](https://codeberg.org/simonrepp/libeno). Intentions and motivation for this look as
 follows:
 
 - A portable C implementation will compile and run pretty much everywhere,
@@ -32,7 +32,7 @@ follows:
   as well, that's a nice side effect.
 
 Development is still at an early stage. You can follow the progress on libeno's
-repository on Codeberg: <https://codeberg.org/suchbliss/libeno>
+repository on Codeberg: <https://codeberg.org/simonrepp/libeno>
 -- 2020-05-01
 
 -- 2020-01-18
