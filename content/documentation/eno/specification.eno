@@ -36,6 +36,17 @@ and support you are very welcome to do so in the respective [issue on github](ht
 -- description
 A complete glossary of terms in the eno notation language, listed alphabetically and in their singular form.
 
+## Associated Comment
+
+```eno
+> my associated comment
+my_key: my_value
+```
+
+A `Comment` that immediately precedes (= without empty lines in between) an `Empty`, `Field`, `Fieldset`, `Fieldset
+Entry`, `List`, `List Item` or `Section`, thereby being semantically associated to it and queryable through a parsing
+library just as the key and value are.
+
 ## Comment
 
 ```eno
