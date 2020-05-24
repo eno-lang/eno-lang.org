@@ -1,5 +1,6 @@
 -- 2020-05-24
 - Added detailed implementation notes regarding line continuation behavior to the specification
+- Released [ace-eno](https://github.com/eno-lang/ace-eno) 0.2.2, which adds a missing escaped empty rule
 -- 2020-05-24
 
 -- 2020-05-23
