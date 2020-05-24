@@ -11,10 +11,22 @@ of course, feel free to open an issue on github in that case too.
 
 # chapters
 
-## Overview
+## Introduction
 
 -- description
-Resources describing eno final in its latest state - pick a chapter in the sidebar.
+## Encoding
+
+Eno documents **must** be encoded as UTF-8.
+
+## Filename Extension
+
+When saved to disk, eno documents **should** use the .eno extension.
+
+## MIME Type
+
+There are plans to officialy apply to the IANA to get `text/eno` registered as an offical
+MIME type for eno documents. If you would like to follow that process or bring in expertise
+and support you are very welcome to do so in the respective [issue on github](https://github.com/eno-lang/eno/issues/1).
 -- description
 
 ### subchapters
@@ -336,30 +348,19 @@ copy << template
 ```
 -- description
 
-#### FAQ
+#### Specification Refinement
 
 -- description
-See [FAQ](/eno/guide/faq/) in the [guide](/eno/guide/)
--- description
+95% of eno is built on a very simple foundation which has been fully specified,
+implemented and stable since mid 2019.
 
-#### Filename Extension
+There is a small number of intricate details which comprise the 5% of eno
+which are still in the process of being carefullly refined in the interest of
+ending up with a completely solid, bullet-proof specification.
 
--- description
-Eno documents use the .eno extension.
--- description
-
-#### Encoding
-
--- description
-Eno documents must be encoded as UTF-8.
--- description
-
-#### MIME Type
-
--- description
-There are plans to officialy apply to the IANA to get `text/eno` registered as an offical
-MIME type for eno documents. If you would like to follow that process or bring in expertise
-and support you are very welcome to do so in the respective [issue on github](https://github.com/eno-lang/eno/issues/1).
+These known and either not fully specified or not yet everywhere consistently implemented details are:
+- The exact rules for whitespace processing on associated comments, currently specified in this [RFC](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/associated-comments-rev2.md)
+- At present only LF and CR+LF linebreaks are considered as linebreaks by eno parsers - it is still an open question whether other forms of vertical whitespace as they exist in the unicode specification should also be interpreted as significant characters that can terminate values and therefore separate instructions from each other. If you have relevant (i.e. professional or otherwise significant) experience with the factors to consider here, please get in touch, your experience would be greatly appreciated here!
 -- description
 
 #### ABNF
@@ -518,78 +519,8 @@ block-text = [retained-whitespace] value
 ```
 -- description
 
-## Finalization Process
+#### FAQ
 
 -- description
-eno final is currently a release candidate, this section aims to create as much
-transparency as possible about what that means in practice and what features
-you can already safely depend on, regardless of eno not being fully stable yet.
--- description
-
-### subchapters
-
-#### Pending decisions
-
--- description
-These are changes still in implementation and evaluation where no final decision on the adoption of the RFC has been made yet.
-
-# RFC: Comments associated with immediately following elements (revision 1)
-
-"This RFC proposes to give consecutive comment lines immediately preceding an element special significance by associating them with the element."
-
-<https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/associated-comments-rev1.md>
-
-# RFC: Hybrid fieldsets (revision 1)
-
-"This RFC proposes adopting the hybrid usage concept found in sections for fieldsets, allowing them to be used both as simple key-value stores (think attributes of an XML tag, this is already the current fieldset specification) and additionally also as an ordered document structure (think XML tags, consecutive elements whose names can reappear, to store e.g. chronological key-value data)."
-
-<https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/hybrid-fieldsets-rev1.md>
-
-# RFC: Explicit Empty
-
-"This RFC proposes adding the possibility to omit the `Element Operator` after a key, thereby explicitly specifying an `Empty`, an element with a key but no value."
-
-<https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/explicit-empty.md>
--- description
-
-#### Ratified changes
-
--- description
-These are the change proposals for eno final that are already ratified and will be a stable part of eno.
-
-# RFC: Exclude fieldsets from section deep merging
-
-"This RFC proposes to treat fieldsets appearing in deep-copied sections like any other non-section element, excluding it from deep merging and instead doing simple element replacement when a fieldset with an identical key appears both in a section and the template section it is being copied from."
-
-<https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/exclude-fieldsets-from-section-deep-merging.md>
-
-# RFC: Key terminology
-
-"This RFC proposes a non-functional change of terminology, changing eno's Name terminology to Key instead."
-
-<https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/key-terminology.md>
-
-# RFC: Multiline field terminology
-
-"This RFC proposes a non-functional change of terminology, renaming eno's Block element as Multiline Field instead."
-
-<https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/multiline-field-terminology.md>
-
-# RFC: Disallow use of line continuations on copied fields
-
-"This RFC proposes to remove the currently supported mechanism of placing line continuations after a copied field to append to the copied value."
-
-<https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/remove-field-copy-continuations.md>
-
-# RFC: Restrict fields to a single line (revision 1)
-
-"This RFC seeks to establish that regular Field elements can never contain line breaks (\n) by repurposing the current newline continuation operator for new functionality."
-
-<https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/restrict-fields-to-a-single-line-rev1.md>
-
-# RFC: Separate copy template namespaces for non-section and section elements
-
-"This RFC proposes to establish that non-section and section elements both only reference templates for copying in their own separate namespaces."
-
-<https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/separate-copy-template-namespaces.md>
+See [FAQ](/eno/guide/faq/) in the [guide](/eno/guide/)
 -- description

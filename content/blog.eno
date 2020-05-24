@@ -1,10 +1,12 @@
 -- 2020-05-23
-Development of [libeno](https://codeberg.org/simonrepp/libeno) is progressing
-nicely and steadily, and as expected it's opened up a good avenue for finally
-figuring out the last minute details of eno's specification! Today on the side
-I've also kicked off a process of reworking the website, making it simpler and
-more to the point, removing stack bloat and resolving some responsiveness and
-probably also accessibility issues that still remain.
+- Development of [libeno](https://codeberg.org/simonrepp/libeno) is progressing
+  nicely and steadily, and as expected it's opened up a good avenue for finally
+  figuring out the last minute details of eno's specification!
+- Today on the side I've also kicked off a process of reworking the website, making it simpler and
+  more to the point, removing stack bloat and resolving some responsiveness and
+  probably also accessibility issues that still remain.
+- I finished and uploaded [revision 2 of the associated comments RFC](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/associated-comments-rev2.md),
+  which proposes new, improved whitespace behavior based on research and development over the last months.
 -- 2020-05-23
 
 -- 2020-05-01
