@@ -283,6 +283,67 @@ an unclear parsing situation not described here.
 All data structures in eno respect and retain their ordering, regardless of
 whether they conceptually represent key-value structures or key-less lists.
 
+# Continuations
+
+Empty direct line continuations are always ignored, so this ...
+
+```eno
+field:
+|
+| foo
+|
+| bar
+|
+```
+
+... produces the value `"foobar"`
+
+Leading and trailing empty spaced line continuations are ignored, so this ...
+
+```eno
+field:
+\
+\ foo
+\ bar
+\
+```
+
+... produces the value `"foo bar"`
+
+In-between empty spaced line continuations do not contribute redundant spacing, so this ...
+
+```eno
+field:
+\ foo
+\
+\ bar
+```
+
+... produces the value `"foo bar"`
+
+An in-between empty spaced line continuation can contribute spacing, so this ...
+
+```eno
+field:
+| foo
+\
+| bar
+```
+
+... produces the value `"foo bar"`
+
+Multiple in-between empty spaced line continuations can only contribute spacing once, so this ...
+
+```eno
+field:
+| foo
+\
+\
+| bar
+```
+
+... produces the value `"foo bar"`
+
 # Copying
 
 ## Template Namespaces
