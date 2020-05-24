@@ -809,7 +809,6 @@ and by the APIs, but it does not change the way fieldsets/dictionaries work in a
 -- 2018-07-15
 
 -- 2018-07-14
-- You can sign up for the brand new [newsletter](http://eepurl.com/dA9LcH) now.
 - Lots and lots of small corrections and updates on the website (big thanks to Michael Schwanzer!).
 - Released enopy 0.6.2 with [string pseudo loaders](/python/#loaders-string), also enopy now maintains a [changelog](https://github.com/eno-lang/enopy/blob/master/CHANGELOG.md).
 -- 2018-07-14

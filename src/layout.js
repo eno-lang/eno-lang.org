@@ -31,8 +31,6 @@ module.exports = (data, content, title, breadcrumb, activeUrl = null) => `
           <a href="/about/">About</a>
           &nbsp;&nbsp;
           <a href="https://github.com/eno-lang/" target="_blank">GitHub</a>
-          &nbsp;&nbsp;
-          <a href="http://eepurl.com/dA9LcH" target="_blank">Newsletter</a>
         </div>
       </footer>
     </body>
