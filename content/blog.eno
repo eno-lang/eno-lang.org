@@ -164,8 +164,8 @@ Released [enolib](/enolib/) 0.8.0, supporting the new [empties](/eno/guide/eleme
 
 -- 2019-07-17
 Currently working on resolving numerous smaller but intricate bugs in the syntax
-highlighting implementations for [prism.js](https://eno-lang.org/plugins/prism/)
-and [Ace](https://eno-lang.org/plugins/ace/). Additionally about three weeks
+highlighting implementations for [prism.js](https://github.com/eno-lang/prism-eno/)
+and [Ace](https://github.com/eno-lang/ace-eno/). Additionally about three weeks
 were spent on getting the [tree-sitter C parser
 implementation](https://github.com/eno-lang/tree-sitter-eno) to about 80% of
 completion. The tree-sitter parser will enable the atom plugin for eno to offer

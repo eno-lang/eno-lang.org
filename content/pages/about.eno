@@ -14,9 +14,8 @@ file-based content. Initially developed in [JavaScript](/enolib/), the eno
 libraries now also extend to the [PHP](https://archived.eno-lang.org/php/),
 [Python](/python/) and [Ruby](/ruby/) platforms (with Rust being the next
 implementation on the roadmap). There are official and complete [learning
-resources](/eno/) for the language itself, editor plugins for
-[Ace](/plugins/ace/), [Atom](/plugins/atom/), [Sublime Text](/plugins/sublime/)
-and [Visual Studio Code](/plugins/vscode/) and much more in the making.
+resources](/eno/) for the language itself, editor plugins for Ace, Atom, Sublime
+Text and Visual Studio Code and much more in the making.
 
 ## Team
 

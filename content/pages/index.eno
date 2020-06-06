@@ -6,35 +6,20 @@ title: The eno notation language and libraries
 LAST_UPDATE
 -- html
 
+-- markdown
+# IDE/Editor Plugins
+
+- [Ace](/plugins/ace/)
+- [Atom](/plugins/atom/)
+- [Prism](/plugins/prism/)
+- [Sublime Text](/plugins/sublime/)
+- [Visual Studio Code](/plugins/vscode/)
+-- markdown
+
 ## poster
 
 tagline: A modern plaintext data format for file-based content.
 title: eno
-
-platform:
-label = Atom Plugin
-logo = /logos/atom.svg
-url = /plugins/atom/
-
-platform:
-label = Visual Studio Code Plugin
-logo = /logos/vscode.svg
-url = /plugins/vscode/
-
-platform:
-label = Sublime Text Plugin
-logo = /logos/sublime.svg
-url = /plugins/sublime/
-
-platform:
-label = Ace Plugin
-logo = /logos/ace.png
-url = /plugins/ace/
-
-platform:
-label = Prism Plugin
-logo = /logos/prism.svg
-url = /plugins/prism/
 
 -- eno
 author: Jane Doe

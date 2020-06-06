@@ -20,16 +20,6 @@ name: enotype
 pages:
 - /enotype/
 
-# /plugins/
-name: plugins
-pages:
-- /plugins/
-- /plugins/ace/
-- /plugins/atom/
-- /plugins/prism/
-- /plugins/sublime/
-- /plugins/vscode/
-
 # /blog/
 name: blog
 pages:
