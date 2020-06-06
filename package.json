@@ -4,13 +4,13 @@
     "defaults"
   ],
   "dependencies": {
-    "@babel/core": "^7.9.6",
-    "@babel/preset-env": "^7.9.6",
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
     "ace-eno": "github:eno-lang/ace-eno",
     "enolib": "^0.8.2",
     "enotype": "^0.3.0",
     "fast-glob": "^3.2.2",
-    "fs-extra": "^9.0.0",
+    "fs-extra": "^9.0.1",
     "http-server": "^0.12.3",
     "markdown-it": "^11.0.0",
     "markdown-it-prism": "^2.0.5",
