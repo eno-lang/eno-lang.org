@@ -4,11 +4,6 @@ const path = require('path');
 
 const layout = require('../layout.js');
 
-// TODO: Possibly include the information below on the blog page (e.g. history at the end of the blog)
-//       or on other pages as well (e.g. eno -> history).
-// ## About
-// Read about the history and who develops eno at [about](/about/).
-
 module.exports = async data => {
   let content = `
     <h1>Blog</h1>

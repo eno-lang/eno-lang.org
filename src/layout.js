@@ -22,11 +22,7 @@ module.exports = (data, content, title, breadcrumb, activeUrl = null) => `
 
       <footer>
         <div class="boundary">
-          2020 - The eno notation language and libraries.
-          &nbsp;&nbsp;
-          <a href="/">Home</a>
-          &nbsp;&nbsp;
-          <a href="/about/">About</a>
+          The eno notation language and libraries&nbsp;&nbsp;-&nbsp;&nbsp;<a href="/">Home</a>
         </div>
       </footer>
     </body>

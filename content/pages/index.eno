@@ -219,3 +219,45 @@ url = https://github.com/bef/enotcl
 [Enohar](https://github.com/Nzen/Enohar) - (Incomplete) Java library for parsing and emitting Eno documents  
 [eno first](https://archived.eno-lang.org) - Legacy ecosystem and documentation for eno's first specification
 -- description
+
+## poster
+
+tagline: History, Team, Contact, Contributing
+title: About
+
+-- description
+## History
+
+The eno notation language exists since early 2018, where it surfaced from
+research and development in a large project around file-based content.
+Full-featured libraries exist for the [JavaScript](/javascript/),
+[PHP](https://archived.eno-lang.org/php/), [Python](/python/) and [Ruby](/ruby/)
+platforms (with Rust being the next implementation on the roadmap). Also a new
+[C-based reference parsing library](https://codeberg.org/simonrepp/libeno) is
+currently in the making. There are official and complete [learning
+resources](/guide/) for the language itself, editor plugins for Ace, Atom,
+Sublime Text and Visual Studio Code, and the ecosystem continues evolving
+at a steady pace to this day.
+
+## People
+
+Designed and developed by [Simon Repp](https://simonrepp.com/). A big shout-out
+goes to all the people who have contributed cultural and technical insight,
+reported bugs and submitted code and corrections throughout all the repositories!
+
+## Contact
+
+For concrete technical issues or questions feel free to open issues in the respective repositories.
+If you just want to get in touch directly, write a mail to <simon@fdpl.io> or reach out through the fediverse at [@freebliss@post.lurk.org](https://post.lurk.org/@freebliss).
+
+## Support the project
+
+Give it a [try](/playground/), post about it on the fediverse or other networks,
+[mail](mailto:?subject=The%20eno%20notation%20language%20and%20libraries&body=https%3A//eno-lang.org)
+it to your colleagues, share it, blog about it,  star your favorite repository
+on [github.com/eno-lang](https://github.com/eno-lang/), present it at your tech
+meetup,  contribute
+[localizations](https://github.com/eno-lang/enolib/tree/master/locales), make
+proposals for improvements, report [bugs](https://github.com/eno-lang/), every
+contribution is valueable.
+-- description
