@@ -29,7 +29,7 @@
   "scripts": {
     "build": "node build.js && npm run language-demos && npm run libraries-demos",
     "deploy": "node deploy.js",
-    "language-demos": "parcel build src/demos/eno.js --no-source-maps --out-dir public/eno/demos --out-file bundle.js",
+    "language-demos": "parcel build src/playground.js --no-source-maps --out-dir public/playground --out-file bundle.js",
     "libraries-demos": "parcel build src/demos/enolib.js --no-source-maps --out-dir public/enolib/demos --out-file bundle.js",
     "release": "npm run build && npm run deploy",
     "serve": "http-server -c-1",

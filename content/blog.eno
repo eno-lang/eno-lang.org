@@ -62,7 +62,7 @@ or so there will likely be a state that is well usable for all the major, obviou
 -- 2020-01-18
 
 -- 2020-01-17
-- Extended the complete guide to eno with an [FAQ entry](/eno/guide/faq/) regarding indentation and whitespace (thanks Nicholas for reporting the absence of that information!)
+- Extended the complete guide to eno with an [FAQ entry](/guide/faq/) regarding indentation and whitespace (thanks Nicholas for reporting the absence of that information!)
 -- 2020-01-17
 
 -- 2020-01-11
@@ -141,11 +141,11 @@ known edge case issues is up next!
 -- 2019-07-29
 
 -- 2019-07-28
-Released [enolib](/enolib/) 0.8.0, supporting the new [empties](/eno/guide/elements/empties/) 🚀 - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
+Released [enolib](/enolib/) 0.8.0, supporting the new [empties](/guide/elements/empties/) 🚀 - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
 -- 2019-07-28
 
 -- 2019-07-27
-- Interactive examples and a guide page on the new [empties](/eno/guide/elements/empties/) has been added
+- Interactive examples and a guide page on the new [empties](/guide/elements/empties/) has been added
 - Various other smaller additions, clarifications and updates inside the language guide and interactive examples
 -- 2019-07-27
 

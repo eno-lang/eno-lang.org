@@ -57,8 +57,8 @@ const documentation = async () => {
 };
 
 const languageDemos = async () => {
-  const input = await fs.promises.readFile(path.join(__dirname, 'content/demos/eno.eno'), 'utf-8');
-  const document = enolib.parse(input, { reporter: TerminalReporter, source: 'content/demos/eno.eno' });
+  const input = await fs.promises.readFile(path.join(__dirname, 'content/playground.eno'), 'utf-8');
+  const document = enolib.parse(input, { reporter: TerminalReporter, source: 'content/playground.eno' });
 
   const demos = document.sections().map(groupSection => ({
     examples: groupSection.sections().map(exampleSection => ({

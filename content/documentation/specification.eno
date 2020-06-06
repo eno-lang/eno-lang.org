@@ -5,7 +5,7 @@ title: specification
 
 Read this if you implement eno libraries, want to give feedback on the language
 design, or are curious. If you just want to use eno, the [language
-guide](/eno/guide/) is a better resource, unless you are missing something there
+guide](/guide/) is a better resource, unless you are missing something there
 of course, feel free to open an issue on github in that case too.
 -- intro
 
@@ -594,5 +594,5 @@ block-text = [retained-whitespace] value
 #### FAQ
 
 -- description
-See [FAQ](/eno/guide/faq/) in the [guide](/eno/guide/)
+See [FAQ](/guide/faq/) in the [guide](/guide/)
 -- description

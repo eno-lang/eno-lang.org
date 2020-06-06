@@ -3,7 +3,7 @@ import { de, en, es } from 'enolib/locales';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { attrUnescape, htmlEscape } from '../../lib/escape.js';
+import { attrUnescape, htmlEscape } from '../lib/escape.js';
 
 const inspector = document.querySelector('.inspector');
 const selectDemo = document.querySelector('.demo');
@@ -13,7 +13,7 @@ import ace from 'ace-eno/builds/src-noconflict/ace';
 import 'ace-eno/builds/src-noconflict/mode-eno';
 import 'ace-eno/builds/src-noconflict/theme-tomorrow';
 
-import Inspector from '../../components/inspector.js';
+import Inspector from '../components/inspector.js';
 
 const locales = { de, en, es };
 let locale = en;

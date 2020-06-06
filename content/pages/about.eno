@@ -14,7 +14,7 @@ file-based content. Initially developed in [JavaScript](/enolib/), the eno
 libraries now also extend to the [PHP](https://archived.eno-lang.org/php/),
 [Python](/python/) and [Ruby](/ruby/) platforms (with Rust being the next
 implementation on the roadmap). There are official and complete [learning
-resources](/eno/) for the language itself, editor plugins for Ace, Atom, Sublime
+resources](/guide/) for the language itself, editor plugins for Ace, Atom, Sublime
 Text and Visual Studio Code and much more in the making.
 
 ## Team
@@ -30,7 +30,7 @@ If you just want to get in touch directly, write a mail to <simon@fdpl.io>.
 
 ## Support the project
 
-Give it a [try](/eno/demos/), post about it on the fediverse or other networks,
+Give it a [try](/playground/), post about it on the fediverse or other networks,
 [mail](mailto:?subject=The%20eno%20notation%20language%20and%20libraries&body=https%3A//eno-lang.org)
 it to your colleagues, share it, blog about it,  star your favorite repository
 on [github.com/eno-lang](https://github.com/eno-lang/), present it at your tech

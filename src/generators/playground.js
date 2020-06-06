@@ -7,7 +7,7 @@ const layout = require('../layout.js');
 
 module.exports = async data => {
   const content = `
-  <h1>Interactive Demos</h1>
+  <h1>Playground</h1>
 
   <div class="split">
     <div class="half">
@@ -56,8 +56,8 @@ module.exports = async data => {
   <script src="bundle.js"></script>
   `;
 
-  const html = layout(data, content, 'demos', 'demos', '/eno/demos/');
+  const html = layout(data, content, 'Playground', 'playground', '/playground/');
 
-  await fsExtra.ensureDir(path.join(__dirname, '../../public/eno/demos/'));
-  await fs.promises.writeFile(path.join(__dirname, '../../public/eno/demos/index.html'), html);
+  await fsExtra.ensureDir(path.join(__dirname, '../../public/playground/'));
+  await fs.promises.writeFile(path.join(__dirname, '../../public/playground/index.html'), html);
 };

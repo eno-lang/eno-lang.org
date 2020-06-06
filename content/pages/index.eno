@@ -2,26 +2,13 @@ title: The eno notation language and libraries
 
 # content
 
--- html
+> TODO: Turn the eno snippet into a carousel-style whirlwind tour / teaser video that showcases all landmark features
+-- markdown
+# The eno notation language
+
 LAST_UPDATE
--- html
 
--- markdown
-# IDE/Editor Plugins
-
-- [Ace](/plugins/ace/)
-- [Atom](/plugins/atom/)
-- [Prism](/plugins/prism/)
-- [Sublime Text](/plugins/sublime/)
-- [Visual Studio Code](/plugins/vscode/)
--- markdown
-
-## poster
-
-tagline: A modern plaintext data format for file-based content.
-title: eno
-
--- eno
+```eno
 author: Jane Doe
 email: jane@eno-lang.org
 
@@ -40,23 +27,29 @@ Málaga: 36.721447, -4.421291
 
 # cities expanded < cities
 Springfield: 38.790312, -77.186418
--- eno
+```
 
--- description
-Overview:
-- Aesthetic, intuitive and simple
-- Inclusively designed for you *and* your team
-- Predefined and custom type support for keys, values and comments
-- Elements and hierarchies can be copied and merged for complex usecases
+eno is a structured, plain-text notation language, related in many ways to its
+ancestors and relatives JSON, YAML, TOML, ArchieML, StrictYAML, and others.
+Through its simple syntax and versatile nature it targets a wide audience, both
+in regards to cultural background as well as technical ability. As a modern
+foundational technology for file-based content it enables highly productive and
+reliable application development, and the possibility to create file-based
+content applications for a wider and more diverse user audience than was
+previously possible.
 
-Usecases:
-- Authoring blogs, up to entire websites, from the macro to the micro level
-- Generating documentation, invoices, CVs, reports, you name it
-- Large scale textfile-based databases and archives
-- Configuration files, from the simplest to the most complex
+- [Guide](/guide/) — The entire language explained in just a few minutes.
+- [Playground](/playground/) — Example documents you can interactively modify and study.
+- [Specification](/specification/) — Encoding, extension, MIME type and implementation details.
 
-[More about eno](/eno/)
--- description
+# IDE/Editor Plugins
+
+- [Ace](/plugins/ace/)
+- [Atom](/plugins/atom/)
+- [Prism](/plugins/prism/)
+- [Sublime Text](/plugins/sublime/)
+- [Visual Studio Code](/plugins/vscode/)
+-- markdown
 
 ## poster
 
