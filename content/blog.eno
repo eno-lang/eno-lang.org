@@ -1,3 +1,5 @@
+> TODO: Consider/investigate implementing RSS feed for the blog
+
 -- 2020-05-24
 - Added detailed implementation notes regarding line continuation behavior to the specification
 - Released [ace-eno](https://github.com/eno-lang/ace-eno) 0.2.2, which adds a missing escaped empty rule
@@ -66,7 +68,7 @@ or so there will likely be a state that is well usable for all the major, obviou
 -- 2020-01-17
 
 -- 2020-01-11
-- Released [enolib](/enolib/) 0.8.2 patch update for javascript, fixing three rare but critical issues in the reporter implementation - see
+- Released [enolib](https://github.com/eno-lang/enolib/) 0.8.2 patch update for javascript, fixing three rare but critical issues in the reporter implementation - see
   [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
 -- 2020-01-11
 
@@ -90,7 +92,7 @@ reached END OF LIFE with the start of 2020 (after 10 months of deprecation)**:
 -- 2020-01-08
 
 -- 2019-10-15
-- Released [enolib](/enolib/) 0.8.1, adding the possibility to explicitly override 
+- Released [enolib](https://github.com/eno-lang/enolib/) 0.8.1, adding the possibility to explicitly override 
   the `all_elements_required` state when querying elements through their
   `optional_*` accessors, plus two bugfixes for python and ruby - see
   [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
@@ -141,7 +143,7 @@ known edge case issues is up next!
 -- 2019-07-29
 
 -- 2019-07-28
-Released [enolib](/enolib/) 0.8.0, supporting the new [empties](/guide/elements/empties/) 🚀 - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
+Released [enolib](https://github.com/eno-lang/enolib/) 0.8.0, supporting the new [empties](/guide/elements/empties/) 🚀 - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
 -- 2019-07-28
 
 -- 2019-07-27
@@ -181,11 +183,11 @@ basic eno parsing in C, C++, Rust and other low level languages!
 -- 2019-06-19
 
 -- 2019-06-12
-Released [enolib](/enolib/) 0.7.2 with minor patching and refactoring regarding the semantical analysis of lines triggering parse errors  - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
+Released [enolib](https://github.com/eno-lang/enolib/) 0.7.2 with minor patching and refactoring regarding the semantical analysis of lines triggering parse errors  - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
 -- 2019-06-12
 
 -- 2019-06-11
-Released [enolib](/enolib/) 0.7.0 with new, simpler interfaces for requiring additional locales and reporters - this is a breaking change if you are using them - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
+Released [enolib](https://github.com/eno-lang/enolib/) 0.7.0 with new, simpler interfaces for requiring additional locales and reporters - this is a breaking change if you are using them - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
 -- 2019-06-11
 
 -- 2019-06-08
@@ -201,7 +203,7 @@ Released [language-eno](https://atom.io/packages/language-eno) 0.4.3 for Atom, u
 -- 2019-05-31
 
 -- 2019-05-29
-Released [enolib](/enolib/) 0.6.0 with a bunch of API additions, fixes and polish, mostly around element lookups - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
+Released [enolib](https://github.com/eno-lang/enolib/) 0.6.0 with a bunch of API additions, fixes and polish, mostly around element lookups - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
 -- 2019-05-29
 
 -- 2019-05-27
@@ -247,7 +249,7 @@ Also published 0.5.0 for javascript and ruby, adding two minor missing section a
 -- 2019-04-20
 
 -- 2019-04-16
-- Released [enolib](/enolib/) 0.4.3 with a critical patch for python contributed by Clément Pit-Claudel (merci!), as well as minor optimizations - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
+- Released [enolib](https://github.com/eno-lang/enolib/) 0.4.3 with a critical patch for python contributed by Clément Pit-Claudel (merci!), as well as minor optimizations - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
 - Ported all of the latest missing element implementations to Ruby
 - Ported the latest document element lookup implementation to Ruby
 -- 2019-04-16
@@ -267,7 +269,7 @@ Also published 0.5.0 for javascript and ruby, adding two minor missing section a
 
 -- 2019-04-06
 - Ported the second half of the parser code, copy resolution, parsing error builders and error selection helpers to Ruby
-- Released [enolib](/enolib/) 0.4.2 with minor fixes and optimizations - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
+- Released [enolib](https://github.com/eno-lang/enolib/) 0.4.2 with minor fixes and optimizations - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
 -- 2019-04-06
 
 -- 2019-04-05
@@ -275,7 +277,7 @@ Ported the first half of the latest enolib parsing implementation to Ruby
 -- 2019-04-05
 
 -- 2019-04-02
-Released [enolib](/enolib/) 0.4.1 with minor fixes and python package documentation additions - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
+Released [enolib](https://github.com/eno-lang/enolib/) 0.4.1 with minor fixes and python package documentation additions - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
 -- 2019-04-02
 
 -- 2019-04-01
@@ -283,16 +285,16 @@ Added complete [python documentation](/enolib/python/) for enolib
 -- 2019-04-01
 
 -- 2019-03-31
-🚀 Released [enolib](/enolib/) 0.4.0 for python - [package on PyPI](https://pypi.org/project/enolib/)
+🚀 Released [enolib](https://github.com/eno-lang/enolib/) 0.4.0 for python - [package on PyPI](https://pypi.org/project/enolib/)
 -- 2019-03-31
 
 -- 2019-03-30
 - More work on getting enolib for python release-ready - well over 50% of the specs are passing as of now and everything's looking good for an early april release!
-- Released [enolib](/enolib/) 0.3.5 for javascript with a minor bugfix and optimizations - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
+- Released [enolib](https://github.com/eno-lang/enolib/) 0.3.5 for javascript with a minor bugfix and optimizations - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
 -- 2019-03-30
 
 -- 2019-03-29
-- Released [enolib](/enolib/) 0.3.4 for javascript with a multitude of fixes and minor optimizations - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
+- Released [enolib](https://github.com/eno-lang/enolib/) 0.3.4 for javascript with a multitude of fixes and minor optimizations - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
 - Ported the enolib copy resolver implementation to python and decimated a few hundred port issues all over the codebase - roughly a fifth of the spec suite passes now.
 -- 2019-03-29
 
@@ -307,14 +309,14 @@ Ported the bulk of the new enolib core architecture and parser implementation to
 
 -- 2019-03-23
 - Ported enolib's latest lookup implementation to python.
-- Released [enolib](/enolib/) 0.3.3 for javascript with various lookup and detail fixes - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
+- Released [enolib](https://github.com/eno-lang/enolib/) 0.3.3 for javascript with various lookup and detail fixes - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
 - Implemented exhaustive generative lookup testing over full document ranges for enolib.
 -- 2019-03-23
 
 -- 2019-03-22
-- Released [enotype](/enotype/) 0.3.0 for javascript, php, python and ruby with the new IPv4 loader.
+- Released [enotype](https://github.com/eno-lang/enotype/) 0.3.0 for javascript, php, python and ruby with the new IPv4 loader.
 - Ported much of the element implementations in enolib to python
-- Released [enolib](/enolib/) 0.3.2 for javascript with minor fixes - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
+- Released [enolib](https://github.com/eno-lang/enolib/) 0.3.2 for javascript with minor fixes - see [changelog](https://github.com/eno-lang/enolib/blob/master/CHANGELOG.md).
 -- 2019-03-22
 
 -- 2019-03-21
@@ -322,11 +324,11 @@ Ported the bulk of the new enolib core architecture and parser implementation to
 -- 2019-03-21
 
 -- 2019-03-20
-- Released [enotype](/enotype/) 0.2.0 for javascript, php, python and ruby with a new slug loader and new and extensive, generated documentation.
+- Released [enotype](https://github.com/eno-lang/enotype/) 0.2.0 for javascript, php, python and ruby with a new slug loader and new and extensive, generated documentation.
 -- 2019-03-20
 
 -- 2019-03-16
-- Released [enolib](/enolib/) 0.3.1 with fixes for index lookup edge cases, also this version is the first to ship with in-code JSDoc documentation, although not complete yet.
+- Released [enolib](https://github.com/eno-lang/enolib/) 0.3.1 with fixes for index lookup edge cases, also this version is the first to ship with in-code JSDoc documentation, although not complete yet.
 - Added implementation details for template namespaces to the specification documents
 - Bugfixes for the interactive eno and enolib demos on the website
 -- 2019-03-16

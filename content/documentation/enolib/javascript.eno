@@ -144,7 +144,7 @@ As you don't enter at the root you can also use `.parent()` to navigate up the h
 -- description
 In eno content comes in the form of *values*, *keys* and *comments* and can be
 fetched in the default *string* type, a predefined type (e.g. those provided
-by [enotype](/enotype/)) or a custom type which we define ourselves.
+by [enotype](https://github.com/eno-lang/enotype/)) or a custom type which we define ourselves.
 -- description
 
 ### subchapters
@@ -232,7 +232,7 @@ document.fieldset('image').optionalStringComment();
 
 -- description
 Predefined types are not shipped with enolib - they are provided as
-separate packages, for instance [enotype](/enotype/).
+separate packages, for instance [enotype](https://github.com/eno-lang/enotype/).
 
 There are two ways to use
 them:

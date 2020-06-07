@@ -1,18 +1,3 @@
-# /enolib/
-name: enolib
-pages:
-- /enolib/
-- /enolib/javascript/
-- /enolib/php/
-- /enolib/python/
-- /enolib/ruby/
-- /enolib/rust/
-
-# /enotype/
-name: enotype
-pages:
-- /enotype/
-
 # /blog/
 name: blog
 pages:

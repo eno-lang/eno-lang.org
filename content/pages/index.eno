@@ -3,6 +3,7 @@ title: The eno notation language and libraries
 # content
 
 > TODO: Turn the eno snippet into a carousel-style whirlwind tour / teaser video that showcases all landmark features
+> TODO: For plugins consider listing the "package manager/marketplace" links as well as repository links where both are available
 -- markdown
 # The eno notation language
 
@@ -44,34 +45,19 @@ previously possible.
 
 # IDE/Editor Plugins
 
-- [Ace](/plugins/ace/)
-- [Atom](/plugins/atom/)
-- [Prism](/plugins/prism/)
-- [Sublime Text](/plugins/sublime/)
-- [Visual Studio Code](/plugins/vscode/)
--- markdown
+- [Ace](https://github.com/eno-lang/ace-eno/)
+- [Atom](https://atom.io/packages/language-eno)
+- [Prism](https://github.com/eno-lang/prism-eno/)
+- [Sublime Text](https://packagecontrol.io/packages/eno)
+- [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=eno-lang.vscode-eno)
 
-## poster
+# Libraries
 
-title: enolib
-tagline: The cross-language eno standard library.
+## enolib
 
-platform:
-label = JavaScript Implementation
-logo = /logos/javascript.svg
-url = /enolib/
+The eno standard library, available in JavaScript, Python and Ruby.
 
-platform:
-label = Python Implementation
-logo = /logos/python.svg
-url = /enolib/
-
-platform:
-label = Ruby Implementation
-logo = /logos/ruby.svg
-url = /enolib/
-
--- javascript
+```javascript
 import enolib from 'enolib';
 
 const document = enolib.parse(`
@@ -89,9 +75,8 @@ document.field('title').requiredStringValue();
   //      1 | author: Jane Doe
   // >    2 | title:
   //
--- javascript
+```
 
--- description
 Overview:
 - Dynamically extensible query API for custom and third party type support
 - Cursor lookup API (by index or line/column) for easy authoring of rich IDE plugins
@@ -99,134 +84,54 @@ Overview:
 - Fully localized, handwritten, team-friendly error messages
 - Rich error metadata: message, document snippet, cursor position, selection range
 
-Usecases:
-- Static site generation, scalable up to massive amounts of content
-- Generating documentation, code, reports, invoices, CVs, you name it
-- Highly reliable application configuration data with minimal development effort
-- Content management tooling for apps, websites, editors, IDEs, ...
+All implementations are dependency-free,
+[localized](https://github.com/eno-lang/enolib/tree/master/locales) and [rank
+among the fastest parsers](https://github.com/eno-lang/benchmarks/) for
+plaintext content.
+ 
+[Repository on GitHub](https://github.com/eno-lang/enolib/)
 
-[More about enolib](/enolib/)
--- description
+- JavaScript [API Documentation](/enolib/javascript/) / [Package on npm](https://npmjs.com/package/enolib/)
+- Python [API Documentation](/enolib/python/) / [Package on PyPI](https://pypi.org/project/enolib/)  
+- Ruby [API Documentation](/enolib/ruby/) / [Gem on rubygems](https://rubygems.org/gems/enolib)  
+- Rust (planned, partially implemented)
 
-## poster
+### Benchmarks
 
-title: enotype
-tagline: Functional type implementations for use with (or without) enolib.
+Comparative evaluation of enolib and popular toml and yaml libraries in JavaScript, Python and Ruby.
 
-platform:
-label = npm Package
-logo = /logos/javascript.svg
-url = https://www.npmjs.com/package/enotype
+[Open on GitHub](https://github.com/eno-lang/benchmarks/)
 
-platform:
-label = Python Package
-logo = /logos/python.svg
-url = https://pypi.org/project/enotype/
+### Interactive Demos
 
-platform:
-label = Ruby Gem
-logo = /logos/ruby.svg
-url = https://rubygems.org/gems/enotype
+Some examples to showcase different usecases for enolib as interactive demos in the browser.
 
-platform:
-label = PHP Implementation
-logo = /logos/php.svg
-url = https://github.com/eno-lang/enotype/tree/master/php
+[Interactive Demos](/enolib/demos/)
 
--- javascript
-import { latLng } from 'enotype';
+## enotype
 
-latLng('36.721447, -4.421291');
-  // returns { lat: 36.721447, lng: -4.421291 } 
+**A cross-language type library.**
+enotype is a collection of minimalist pure functions that validate and convert type-unsafe `string` representations into type-safe, native types.
+It is the standard type library for [enolib](https://github.com/eno-lang/enolib/) but can be utilized in a multitude of other contexts as well.
 
-enolib.register({ latLng });
+enotype not only normalizes validating and converting common types across different programming languages,
+but it also consistently localizes the user errors it produces across different human languages:
 
-document.section('cities').field('Málaga').requiredLatLngValue();
-  // returns { lat: 36.721447, lng: -4.421291 }
--- javascript
+Functional type implementations for use with (or without) enolib.
+enotype is a collection of functions that convert unsafe `string` input to safe, native types. It is the standard type library for [enolib](https://github.com/eno-lang/enolib/) but can be utilized in a multitude of other contexts as well.
 
--- description
-enotype is a collection of functions that convert unsafe `string` input to safe, native types. It is the standard type library for [enolib](/enolib/) but can be utilized in a multitude of other contexts as well.
+## libeno
 
-[More about enotype](/enotype/)
--- description
+A new low-level reference parser written in C ([libeno](https://codeberg.org/simonrepp/libeno)) is currently in development.
 
-## poster
-
-tagline: tree-sitter parser, PHP, Tcl & Java libraries, legacy resources
-title: and more
-
-platform:
-label = tree-sitter-eno (C parser for eno using tree-sitter)
-logo = /logos/c.svg
-url = https://github.com/eno-lang/tree-sitter-eno
-
-platform:
-label = tree-sitter-eno (tree-sitter parser for eno, usable with C++ bindings)
-logo = /logos/cpp.svg
-url = https://github.com/eno-lang/tree-sitter-eno
-
-platform:
-label = tree-sitter-eno (tree-sitter parser for eno, usable with Rust bindings)
-logo = /logos/rust.svg
-url = https://github.com/eno-lang/tree-sitter-eno
-
-platform:
-label = tree-sitter-eno (tree-sitter parser for eno, usable with WebAssembly bindings)
-logo = /logos/wasm.svg
-url = https://github.com/eno-lang/tree-sitter-eno
-
-platform:
-label = tree-sitter-eno (tree-sitter parser for eno, usable with JavaScript bindings)
-logo = /logos/javascript.svg
-url = https://github.com/eno-lang/tree-sitter-eno
-
-platform:
-label = tree-sitter-eno (tree-sitter parser for eno, usable with Python bindings)
-logo = /logos/python.svg
-url = https://github.com/eno-lang/tree-sitter-eno
-
-platform:
-label = tree-sitter-eno (tree-sitter parser for eno, usable with Ruby bindings)
-logo = /logos/ruby.svg
-url = https://github.com/eno-lang/tree-sitter-eno
-
-platform:
-label = tree-sitter-eno (tree-sitter parser for eno, usable with Haskell bindings)
-logo = /logos/haskell.svg
-url = https://github.com/eno-lang/tree-sitter-eno
-
-platform:
-label = enophp (Official PHP library compliant with eno's first specification)
-logo = /logos/php.svg
-url = https://archived.eno-lang.org/php/
-
-platform:
-label = Enohar (In development Java library for parsing and emitting eno documents)
-logo = /logos/java.svg
-url = https://github.com/Nzen/Enohar
-
-platform:
-label = enotcl (Tcl parser)
-logo = /logos/tcl.svg
-url = https://github.com/bef/enotcl
-
--- description
+## Other libraries
 
 [tree-sitter-eno](https://github.com/eno-lang/tree-sitter-eno) - Tree-sitter parser for eno (usable with C, C++, Rust, WebAssembly, JavaScript, Python, Ruby, Haskell)  
 [enophp](https://github.com/eno-lang/enophp) - Official PHP library (compliant with eno first, see below)  
 [enotcl](https://github.com/bef/enotcl) - Tcl parser  
 [Enohar](https://github.com/Nzen/Enohar) - (Incomplete) Java library for parsing and emitting Eno documents  
-[eno first](https://archived.eno-lang.org) - Legacy ecosystem and documentation for eno's first specification
--- description
 
-## poster
-
-tagline: History, Team, Contact, Contributing
-title: About
-
--- description
-## History
+# History
 
 The eno notation language exists since early 2018, where it surfaced from
 research and development in a large project around file-based content.
@@ -239,18 +144,18 @@ resources](/guide/) for the language itself, editor plugins for Ace, Atom,
 Sublime Text and Visual Studio Code, and the ecosystem continues evolving
 at a steady pace to this day.
 
-## People
+# People
 
 Designed and developed by [Simon Repp](https://simonrepp.com/). A big shout-out
 goes to all the people who have contributed cultural and technical insight,
 reported bugs and submitted code and corrections throughout all the repositories!
 
-## Contact
+# Contact
 
 For concrete technical issues or questions feel free to open issues in the respective repositories.
 If you just want to get in touch directly, write a mail to <simon@fdpl.io> or reach out through the fediverse at [@freebliss@post.lurk.org](https://post.lurk.org/@freebliss).
 
-## Support the project
+# Support the project
 
 Give it a [try](/playground/), post about it on the fediverse or other networks,
 [mail](mailto:?subject=The%20eno%20notation%20language%20and%20libraries&body=https%3A//eno-lang.org)
@@ -260,4 +165,4 @@ meetup,  contribute
 [localizations](https://github.com/eno-lang/enolib/tree/master/locales), make
 proposals for improvements, report [bugs](https://github.com/eno-lang/), every
 contribution is valueable.
--- description
+-- markdown
