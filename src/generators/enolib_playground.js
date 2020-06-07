@@ -17,7 +17,7 @@ module.exports = async demos => {
     <title>Enolib Playground</title>
 
     <link href="/common.css" rel="stylesheet">
-    <link href="/playground.css" rel="stylesheet">
+    <link href="/enolib-playground.css" rel="stylesheet">
 
     <script defer src="bundle.js"></script>
   </head>
@@ -33,8 +33,7 @@ module.exports = async demos => {
               <option data-eno="${attrEscape(demo.eno)}"
                       data-javascript="${attrEscape(demo.javascript)}"
                       data-python="${attrEscape(demo.python)}"
-                      data-ruby="${attrEscape(demo.ruby)}"
-                      data-text="${attrEscape(demo.text)}">
+                      data-ruby="${attrEscape(demo.ruby)}">
                 ${demo.title}
               </option>
             `).join('')}
@@ -45,22 +44,18 @@ module.exports = async demos => {
             <option value="python">Python - emulated code, interactive demo</option>
             <option value="ruby">Ruby - emulated code, interactive demo</option>
           </select>
-
-          <div id="text">
-            ${demos[0].text}
-          </div>
         </div>
 
         <h1>Enolib Playground</h1>
       </div>
 
       <div class="split">
-        <div class="editor">
+        <div class="code">
           <div id="code">${demos[0].javascript}</div>
         </div>
 
         <div class="application">
-          <textarea id="editor">${demos[0].eno}</textarea>
+          <textarea id="input">${demos[0].eno}</textarea>
           <pre id="output"></pre>
         </div>
       </div>

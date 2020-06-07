@@ -31,7 +31,7 @@ export default class SectionInspector extends React.Component {
     if(isDocument && elements.length === 0) {
       return(
         <div>
-          <span className="inspector__node icon-no-folding"/> <strong>Empty Document</strong>
+          <span className="inspector_node icon-no-folding"/> <strong>Empty Document</strong>
         </div>
       );
     }
@@ -40,16 +40,16 @@ export default class SectionInspector extends React.Component {
       <div>
         <div>
           {elements.length > 0 ?
-            <a className="inspector__node" onClick={this.toggleFolded}>
+            <a className="inspector_node" onClick={this.toggleFolded}>
               <span className={this.state.folded ? 'icon-unfold' : 'icon-fold'}/>
               </a>
             :
-            <span className="inspector__node icon-no-folding"/>
+            <span className="inspector_node icon-no-folding"/>
           }
           {
             isDocument ?
-            <strong>Document</strong> :
-            <span><span><strong>{key}</strong> <span className="inspector__element_type">(Section)</span></span> {comment ? <span className="inspector__comment">(Comment – {formatValue(comment)})</span> : null}</span>
+            <strong class="inspector_key">Document</strong> :
+            <span><span><strong class="inspector_key">{key}</strong> <span className="inspector_element_type">(Section)</span></span> {comment ? <span className="inspector_comment">(Comment – {formatValue(comment)})</span> : null}</span>
           }
         </div>
 

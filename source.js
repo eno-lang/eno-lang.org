@@ -65,7 +65,6 @@ const enolibPlayground = async () => {
     javascript: demo.field('javascript').requiredStringValue(),
     python: demo.field('python').requiredStringValue(),
     ruby: demo.field('ruby').requiredStringValue(),
-    text: demo.field('markdown').requiredMarkdownValue(),
     title: demo.stringKey()
   }));
 

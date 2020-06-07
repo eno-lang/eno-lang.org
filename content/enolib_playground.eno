@@ -1,15 +1,13 @@
 # Demo 01: Hello World
 
--- markdown
-This demo simply reads in a single (required) field from the document.
-Remove or rename the field to see the error output enolib produces!
--- markdown
-
 -- eno
 Greeting: Hello World
 -- eno
 
 -- javascript
+// This demo simply reads in a single (required) field from the document.
+// Remove or rename the field to see the error output enolib produces!
+
 const options = {
   locale: de,
   reporter: HtmlReporter
@@ -21,7 +19,10 @@ return doc.field('Greeting').requiredStringValue();
 -- javascript
 
 -- python
-# Emulated mode - code is read-only
+# EMULATED MODE - CODE IS READ-ONLY
+#
+# This demo simply reads in a single (required) field from the document.
+# Remove or rename the field to see the error output enolib produces!
 
 doc = enolib.parse(input,
                    locale=enolib.locales.de,
@@ -31,7 +32,10 @@ return doc.field('Greeting').required_string_value()
 -- python
 
 -- ruby
-# Emulated mode - code is read-only
+# EMULATED MODE - CODE IS READ-ONLY
+#
+# This demo simply reads in a single (required) field from the document.
+# Remove or rename the field to see the error output enolib produces!
 
 doc = enolib.parse(
   input,
@@ -44,10 +48,6 @@ return doc.field('Greeting').required_string_value
 
 # Demo 02: Sections and Fields
 
--- markdown
-This demo reads in two fields located within a section
--- markdown
-
 -- eno
 # City
 
@@ -56,6 +56,8 @@ Continent: Europe
 -- eno
 
 -- javascript
+// This demo reads in two fields located within a section
+
 const doc = enolib.parse(input, { reporter: HtmlReporter });
 
 const city = doc.section('City');
@@ -67,7 +69,9 @@ return `The city ${name} is in ${continent}`;
 -- javascript
 
 -- python
-# Emulated mode - code is read-only
+# EMULATED MODE - CODE IS READ-ONLY
+#
+# This demo reads in two fields located within a section
 
 doc = enolib.parse(input, reporter=enolib.HtmlReporter)
 
@@ -80,7 +84,9 @@ return f"The city {name} is in {continent}"
 -- python
 
 -- ruby
-# Emulated mode - code is read-only
+# EMULATED MODE - CODE IS READ-ONLY
+#
+# This demo reads in two fields located within a section
 
 doc = Enolib.parse(input, reporter: Enolib::HtmlReporter)
 
@@ -94,11 +100,6 @@ return "The city #{name} is in #{continent}"
 
 # Demo 03: Loading a custom lat/lng type
 
--- markdown
-This demo reads in coordinates by passing the items of a list through
-a custom loader that validates and transforms the input.
--- markdown
-
 -- eno
 route_coordinates:
 - 48.205870, 16.413690
@@ -110,6 +111,9 @@ route_coordinates:
 -- eno
 
 -- javascript
+// This demo reads in coordinates by passing the items of a list
+// through a custom loader that validates and transforms the input.
+
 const latLngLoader = value => {
   const match = /^(\d+\.\d+),\s*(\d+\.\d+)$/.exec(value);
 
@@ -126,7 +130,10 @@ return doc.list('route_coordinates').requiredValues(latLngLoader);
 -- javascript
 
 -- python
-# Emulated mode - code is read-only
+# EMULATED MODE - CODE IS READ-ONLY
+#
+# This demo reads in coordinates by passing the items of a list
+# through a custom loader that validates and transforms the input.
 
 import re
 
@@ -142,7 +149,10 @@ return doc.list('route_coordinates').required_values(lat_lng_loader)
 -- python
 
 -- ruby
-# Emulated mode - code is read-only
+# EMULATED MODE - CODE IS READ-ONLY
+#
+# This demo reads in coordinates by passing the items of a list
+# through a custom loader that validates and transforms the input.
 
 lat_lng_loader = proc do |name, value|
   match = value.match(/^(\d+\.\d+),\s*(\d+\.\d+)$/)
@@ -157,10 +167,6 @@ return doc.list('route_coordinates').required_values(lat_lng_loader)
 -- ruby
 
 # Demo 04: Looking up elements in the document by line/column
-
--- markdown
-This demo shows how to look up things in the source document by (for instance) cursor position.
--- markdown
 
 -- eno
 # Le Demo
@@ -178,6 +184,8 @@ Rating = ⭐⭐⭐⭐⭐
 -- eno
 
 -- javascript
+// This demo shows how to look up things in the source document by (for instance) cursor position.
+// 
 // In this example the 'cursor' variable is provided by the demo
 // and contains the numerical index of the cursor inside the textarea
 // Click/move/type around in the eno textbox to update the result!
@@ -191,8 +199,10 @@ return `
 -- javascript
 
 -- python
-# Emulated mode - code is read-only
-
+# EMULATED MODE - CODE IS READ-ONLY
+#
+# This demo shows how to look up things in the source document by (for instance) cursor position.
+#
 # In this example the 'cursor' variable is provided by the demo
 # to contain the numerical index of the cursor inside the textarea
 # Click/move/type around in the eno textbox to update the result!
@@ -206,8 +216,10 @@ return f"""
 -- python
 
 -- ruby
-# Emulated mode - code is read-only
-
+# EMULATED MODE - CODE IS READ-ONLY
+#
+# This demo shows how to look up things in the source document by (for instance) cursor position.
+#
 # In this example the 'cursor' variable is provided by the demo
 # to contain the numerical index of the cursor inside the textarea
 # Click/move/type around in the eno textbox to update the result!

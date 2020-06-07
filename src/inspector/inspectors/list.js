@@ -25,13 +25,13 @@ export default class ListInspector extends React.Component {
     return(
       <div>
         {items.length > 0 ?
-          <a className="inspector__node" onClick={this.toggleFolded}>
+          <a className="inspector_node" onClick={this.toggleFolded}>
             <span className={this.state.folded ? 'icon-unfold' : 'icon-fold'}/>
           </a>
           :
           <span className="icon-no-folding"/>
         }
-        <strong>{key}</strong> <span className="inspector__element_type">(List)</span> {comment ? <span className="inspector__comment">(Comment – {formatValue(comment)})</span> : null}
+        <strong class="inspector_key">{key}</strong> <span className="inspector_element_type">(List)</span> {comment ? <span className="inspector_comment">(Comment – {formatValue(comment)})</span> : null}
 
         {this.state.folded ? null :
           <div className="indented">

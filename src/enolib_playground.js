@@ -10,7 +10,7 @@ import { de, en, es } from 'enolib/locales';
 import { attrUnescape, htmlEscape } from '../lib/escape.js';
 
 const code = document.querySelector('#code');
-const editor = document.querySelector('#editor');
+const input = document.querySelector('#input');
 const output = document.querySelector('#output');
 const select = document.querySelector('.demo');
 const selectLanguage = document.querySelector('.language');
@@ -26,7 +26,7 @@ const aceEditor = ace.edit('code', {
 });
 
 const refresh = () => {
-  const input = editor.value;
+  const value = input.value;
 
   try {
     let demoOption = select.selectedOptions[0];
@@ -45,7 +45,7 @@ const refresh = () => {
 
     const evaluate = new Function('input', 'enolib', 'HtmlReporter', 'TerminalReporter', 'TextReporter', 'cursor', 'de', 'en', 'es', js);
 
-    const result = evaluate(input, enolib, HtmlReporter, TerminalReporter, TextReporter, editor.selectionStart, de, en, es);
+    const result = evaluate(value, enolib, HtmlReporter, TerminalReporter, TextReporter, input.selectionStart, de, en, es);
 
     if(typeof result === 'object') {
       output.innerHTML = htmlEscape(JSON.stringify(result, null, 2));
@@ -70,8 +70,7 @@ const updateDemo = changed => {
   }
 
   if(changed === 'demo') {
-    editor.value = attrUnescape(demoOption.dataset.eno);
-    document.querySelector('#text').innerHTML = attrUnescape(demoOption.dataset.text);
+    input.value = attrUnescape(demoOption.dataset.eno);
   }
 
   if(languageOption === 'javascript') {
@@ -96,10 +95,10 @@ const updateDemo = changed => {
 select.addEventListener('change', () => updateDemo('demo'));
 selectLanguage.addEventListener('change', () => updateDemo('language'));
 
-editor.addEventListener('click', refresh);
-editor.addEventListener('focus', refresh);
-editor.addEventListener('input', refresh);
-editor.addEventListener('keyup', event => {
+input.addEventListener('click', refresh);
+input.addEventListener('focus', refresh);
+input.addEventListener('input', refresh);
+input.addEventListener('keyup', event => {
   if(['ArrowLeft', 'ArrowRight', 'ArrowDown', 'ArrowUp'].includes(event.key)) {
     refresh();
   }
