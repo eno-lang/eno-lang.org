@@ -1,13 +1,28 @@
-title: The eno notation language and libraries
+title: Eno
 
 # content
 
 > TODO: Turn the eno snippet into a carousel-style whirlwind tour / teaser video that showcases all landmark features
 > TODO: For plugins consider listing the "package manager/marketplace" links as well as repository links where both are available
+> TODO: Properly implement frontpage menu (probably leave out right-side links on mobile, not needed)
 -- markdown
-# The eno notation language
+<div style="display: flex; justify-content: space-between; position: sticky; top: 0;">
+  <div>Eno</div>
+  
+  <div style="display: flex;">
+    <div><a href="#language">Language</a>&nbsp;&nbsp;</div>
+    <div><a href="#plugins">Plugins</a>&nbsp;&nbsp;</div>
+    <div><a href="#libraries">Libraries</a>&nbsp;&nbsp;</div>
+    <div><a href="#about">About</a></div>
+  </div>
+</div>
 
-LAST_UPDATE
+<a name="language"></a>
+# Language
+
+<div class="info_badge margin">
+  🎉 Follow the 2020 new reference parser development at the <a href="/blog/" target="_blank">blog</a>
+</div>
 
 ```eno
 author: Jane Doe
@@ -30,7 +45,7 @@ Málaga: 36.721447, -4.421291
 Springfield: 38.790312, -77.186418
 ```
 
-eno is a structured, plain-text notation language, related in many ways to its
+Eno is a structured, plain-text notation language, related in many ways to its
 ancestors and relatives JSON, YAML, TOML, ArchieML, StrictYAML, and others.
 Through its simple syntax and versatile nature it targets a wide audience, both
 in regards to cultural background as well as technical ability. As a modern
@@ -43,7 +58,8 @@ previously possible.
 - [Playground](/playground/) — Example documents you can interactively modify and study.
 - [Specification](/specification/) — Encoding, extension, MIME type and implementation details.
 
-# IDE/Editor Plugins
+<a name="plugins"></a>
+# Plugins
 
 - [Ace](https://github.com/eno-lang/ace-eno/)
 - [Atom](https://atom.io/packages/language-eno)
@@ -51,6 +67,7 @@ previously possible.
 - [Sublime Text](https://packagecontrol.io/packages/eno)
 - [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=eno-lang.vscode-eno)
 
+<a name="libraries"></a>
 # Libraries
 
 ## enolib
@@ -131,6 +148,7 @@ A new low-level reference parser written in C ([libeno](https://codeberg.org/sim
 [enotcl](https://github.com/bef/enotcl) - Tcl parser  
 [Enohar](https://github.com/Nzen/Enohar) - (Incomplete) Java library for parsing and emitting Eno documents  
 
+<a name="about"></a>
 # History
 
 The first draft for what is now known as eno notation was sketched out in early

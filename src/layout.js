@@ -1,12 +1,10 @@
-const header = require('./header.js');
-
-module.exports = (data, content, title, breadcrumb, activeUrl = null) => `
+module.exports = (data, content, title) => `
   <!doctype html>
   <html>
     <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="description" content="The eno notation language and libraries">
+      <meta name="description" content="Eno Notation">
 
       <title>${title}</title>
 
@@ -14,17 +12,9 @@ module.exports = (data, content, title, breadcrumb, activeUrl = null) => `
     </head>
 
     <body>
-      ${header(data, breadcrumb, activeUrl)}
-
-      <div class="boundary header_offset padding">
+      <div class="body_padding boundary padding">
         ${content}
       </div>
-
-      <footer>
-        <div class="boundary">
-          The eno notation language and libraries&nbsp;&nbsp;-&nbsp;&nbsp;<a href="/">Home</a>
-        </div>
-      </footer>
     </body>
   </html>
 `;

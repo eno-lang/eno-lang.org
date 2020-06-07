@@ -18,7 +18,7 @@ loadLanguages(Object.keys(LANGUAGES));
 
 const layout = require('../layout.js');
 
-const docsLayout = (data, content, title, breadcrumb, activeUrl, sidebar) => {
+const docsLayout = (data, content, title, sidebar) => {
   const html = `
     <div class="docs">
       <div class="sidebar">
@@ -30,11 +30,11 @@ const docsLayout = (data, content, title, breadcrumb, activeUrl, sidebar) => {
     </div>
   `;
 
-  return layout(data, html, title, breadcrumb, activeUrl);
+  return layout(data, html, title);
 };
 
 const generateIndex = async (data, documentation, sidebar) => {
-  const html = docsLayout(data, documentation.intro, documentation.title, documentation.title, documentation.url, sidebar);
+  const html = docsLayout(data, documentation.intro, documentation.title, sidebar);
 
   await fsExtra.ensureDir(path.join(__dirname, '../../public', documentation.url));
   await fs.promises.writeFile(path.join(__dirname, '../../public', documentation.url, 'index.html'), html);
@@ -61,7 +61,7 @@ const generateSubchapter = async (data, documentation, chapter, subchapter, side
     ${nextChapter ? `<br>Next page: <a href="${nextChapter.url}">${nextChapter.title}</a>` : ''}
   `;
 
-  const content = docsLayout(data, html, chapter.title, documentation.title, subchapter.url, sidebar);
+  const content = docsLayout(data, html, chapter.title, sidebar);
 
   await fsExtra.ensureDir(path.join(__dirname, '../../public', subchapter.url));
   await fs.promises.writeFile(path.join(__dirname, '../../public', subchapter.url, 'index.html'), content);
@@ -91,7 +91,7 @@ const generateChapter = async (data, documentation, chapter, sidebar) => {
     ${nextChapter ? `<br>Next page: <a href="${nextChapter.url}">${nextChapter.title}</a>` : ''}
   `;
 
-  const content = docsLayout(data, html, chapter.title, documentation.title, chapter.url, sidebar);
+  const content = docsLayout(data, html, chapter.title, sidebar);
 
   await fsExtra.ensureDir(path.join(__dirname, '../../public', chapter.url));
   await fs.promises.writeFile(path.join(__dirname, '../../public', chapter.url, 'index.html'), content);

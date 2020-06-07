@@ -56,7 +56,7 @@ module.exports = async data => {
   <script src="bundle.js"></script>
   `;
 
-  const html = layout(data, content, 'Playground', 'playground', '/playground/');
+  const html = layout(data, content, 'Eno Playground');
 
   await fsExtra.ensureDir(path.join(__dirname, '../../public/playground/'));
   await fs.promises.writeFile(path.join(__dirname, '../../public/playground/index.html'), html);

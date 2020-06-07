@@ -211,6 +211,10 @@ video { max-width: 100%; }
 
 /* site */
 
+.body_padding {
+  padding-bottom: 3em !important;
+  padding-top: 3em !important;
+}
 .boundary {
   margin: 0 auto;
   max-width: 1280px;
@@ -289,7 +293,6 @@ footer a {
   font-size: .8em;
   color: var(--color-text-faded);
 }
-.header_offset { padding-top: 3em !important; }
 .indented { padding-left: 1em; }
 .info_badge {
   background-color: var(--color-info-badge);
