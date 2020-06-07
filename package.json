@@ -27,10 +27,10 @@
   "private": true,
   "repository": "https://github.com/eno-lang/eno-lang.org",
   "scripts": {
-    "build": "node build.js && npm run language-demos && npm run libraries-demos",
+    "build": "node build.js && npm run playground && npm run enolib-playground",
     "deploy": "node deploy.js",
-    "language-demos": "parcel build src/playground.js --no-source-maps --out-dir public/playground --out-file bundle.js",
-    "libraries-demos": "parcel build src/demos/enolib.js --no-source-maps --out-dir public/enolib/demos --out-file bundle.js",
+    "enolib-playground": "parcel build src/enolib_playground.js --no-source-maps --out-dir public/enolib/playground --out-file bundle.js",
+    "playground": "parcel build src/playground.js --no-source-maps --out-dir public/playground --out-file bundle.js",
     "release": "npm run build && npm run deploy",
     "serve": "http-server -c-1",
     "watch": "nodemon --ext css,eno,js,scss --ignore public --exec 'npm run build && npm run serve'"

@@ -1,10 +1,7 @@
-title: Eno
-
-# content
-
 > TODO: Turn the eno snippet into a carousel-style whirlwind tour / teaser video that showcases all landmark features
 > TODO: For plugins consider listing the "package manager/marketplace" links as well as repository links where both are available
 > TODO: Properly implement frontpage menu (probably leave out right-side links on mobile, not needed)
+
 -- markdown
 <div style="display: flex; justify-content: space-between; position: sticky; top: 0;">
   <div>Eno</div>
@@ -123,7 +120,7 @@ Comparative evaluation of enolib and popular toml and yaml libraries in JavaScri
 
 Some examples to showcase different usecases for enolib as interactive demos in the browser.
 
-[Interactive Demos](/enolib/demos/)
+[Interactive Demos](/enolib/playground/)
 
 ## enotype
 

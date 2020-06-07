@@ -1,4 +1,4 @@
-module.exports = (data, content, title) => `
+module.exports = (content, title) => `
   <!doctype html>
   <html>
     <head>

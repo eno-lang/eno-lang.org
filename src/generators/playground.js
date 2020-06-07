@@ -5,7 +5,7 @@ const { attrEscape } = require('../../lib/escape.js');
 
 const layout = require('../layout.js');
 
-module.exports = async data => {
+module.exports = async demos => {
   const content = `
   <h1>Playground</h1>
 
@@ -16,7 +16,7 @@ module.exports = async data => {
       <select class="demo">
         <option disabled selected>Browse Demos</option>
         <option disabled>──────────</option>
-        ${data.demos.language.map(group => `
+        ${demos.map(group => `
           <optgroup label="${group.title}">
             ${group.examples.map(example => `
               <option data-eno="${attrEscape(example.eno)}">
@@ -37,7 +37,7 @@ module.exports = async data => {
 
       <br><br>
 
-      <div id="editor">${data.demos.language[0].examples[0].eno}</div>
+      <div id="editor">${demos[0].examples[0].eno}</div>
     </div>
 
     <div class="half">
@@ -56,7 +56,7 @@ module.exports = async data => {
   <script src="bundle.js"></script>
   `;
 
-  const html = layout(data, content, 'Eno Playground');
+  const html = layout(content, 'Eno Playground');
 
   await fsExtra.ensureDir(path.join(__dirname, '../../public/playground/'));
   await fs.promises.writeFile(path.join(__dirname, '../../public/playground/index.html'), html);

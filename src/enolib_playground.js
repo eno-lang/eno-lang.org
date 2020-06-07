@@ -7,7 +7,7 @@ import 'ace-eno/builds/src-noconflict/theme-tomorrow';
 import enolib, { HtmlReporter, ParseError, TerminalReporter, TextReporter } from 'enolib';
 import { de, en, es } from 'enolib/locales';
 
-import { attrUnescape, htmlEscape } from '../../lib/escape.js';
+import { attrUnescape, htmlEscape } from '../lib/escape.js';
 
 const code = document.querySelector('#code');
 const editor = document.querySelector('#editor');

@@ -492,7 +492,7 @@ lot of documentation will need to be written or updated. ;)
 -- 2019-01-03
 - Upgraded the blog from a generic markup page to a dedicated page generated with semantic data as a prerequisite for further website changes
 - Refactoring of website internals to facilitate upcoming features
-- Added fieldset reference examples to the [language demos](https://eno-lang.org/try/)
+- Added fieldset reference examples to the [language demos](/playground/)
 - Mixed patterns spec improvements and corrections for enojs and enorb
 -- 2019-01-03
 
@@ -522,13 +522,13 @@ lot of documentation will need to be written or updated. ;)
 -- 2018-12-25
 
 -- 2018-12-23
-- The [language demos](https://eno-lang.org/try/) now utitilize the freshly finished eno support for Ace editor - enjoy full syntax highlighting inside the in-browser editor!
+- The [language demos](/playground/) now utitilize the freshly finished eno support for Ace editor - enjoy full syntax highlighting inside the in-browser editor!
 - Released [enorb](https://github.com/eno-lang/enorb) 0.10.3 with patches and improvements to the grammar matching core
 - Released [enojs](https://github.com/eno-lang/enojs) 0.17.2 with an edge case block pattern fix and some escape matching pattern hardening
 -- 2018-12-23
 
 -- 2018-12-22
-- Deployed the shiny new document inspector on the [language demo page](https://eno-lang.org/try/), this should provide great insight into the examples and an easy jumpstart to interactively explore how eno documents work - browse away and enjoy the magic! 🧙
+- Deployed the shiny new document inspector on the [language demo page](/playground/), this should provide great insight into the examples and an easy jumpstart to interactively explore how eno documents work - browse away and enjoy the magic! 🧙
 
 - Released [enojs](https://github.com/eno-lang/enojs) 0.17.0 🚢
   
@@ -545,14 +545,14 @@ lot of documentation will need to be written or updated. ;)
 -- 2018-12-22
 
 -- 2018-12-21
-- Added *what if ... ?* demos (Cargo.eno, package.eno, .gitlab-ci.eno) to the [language demo page](https://eno-lang.org/try/)
+- Added *what if ... ?* demos (Cargo.eno, package.eno, .gitlab-ci.eno) to the [language demo page](/playground/)
 - Began work on eno syntax highlighting support in Ace editor for usage on eno-lang.org - [ace-eno](https://github.com/eno-lang/ace-eno) 🎉
 - Some refactoring and maintenance on the website internals
 -- 2018-12-21
 
 -- 2018-12-15
 - Implemented a better scaling responsive subnavigation in preparation for upcoming website additions
-- There is now a page to interactively [try out the language](https://eno-lang.org/try/) by itself (Thanks to Matt Lewis for his PR and feedback that got this started!)
+- There is now a page to interactively [try out the language](/playground/) by itself (Thanks to Matt Lewis for his PR and feedback that got this started!)
 -- 2018-12-15
 
 -- 2018-12-14

@@ -18,7 +18,7 @@ loadLanguages(Object.keys(LANGUAGES));
 
 const layout = require('../layout.js');
 
-const docsLayout = (data, content, title, sidebar) => {
+const docsLayout = (content, title, sidebar) => {
   const html = `
     <div class="docs">
       <div class="sidebar">
@@ -30,17 +30,17 @@ const docsLayout = (data, content, title, sidebar) => {
     </div>
   `;
 
-  return layout(data, html, title);
+  return layout(html, title);
 };
 
-const generateIndex = async (data, documentation, sidebar) => {
-  const html = docsLayout(data, documentation.intro, documentation.title, sidebar);
+const generateIndex = async (documentation, sidebar) => {
+  const html = docsLayout(documentation.intro, documentation.title, sidebar);
 
   await fsExtra.ensureDir(path.join(__dirname, '../../public', documentation.url));
   await fs.promises.writeFile(path.join(__dirname, '../../public', documentation.url, 'index.html'), html);
 };
 
-const generateSubchapter = async (data, documentation, chapter, subchapter, sidebar) => {
+const generateSubchapter = async (documentation, chapter, subchapter, sidebar) => {
   let nextChapter;
   const nextSubchapterIndex = chapter.subchapters.indexOf(subchapter) + 1;
   if(nextSubchapterIndex < chapter.subchapters.length) {
@@ -61,15 +61,15 @@ const generateSubchapter = async (data, documentation, chapter, subchapter, side
     ${nextChapter ? `<br>Next page: <a href="${nextChapter.url}">${nextChapter.title}</a>` : ''}
   `;
 
-  const content = docsLayout(data, html, chapter.title, sidebar);
+  const content = docsLayout(html, chapter.title, sidebar);
 
   await fsExtra.ensureDir(path.join(__dirname, '../../public', subchapter.url));
   await fs.promises.writeFile(path.join(__dirname, '../../public', subchapter.url, 'index.html'), content);
 };
 
-const generateChapter = async (data, documentation, chapter, sidebar) => {
+const generateChapter = async (documentation, chapter, sidebar) => {
   for(let subchapter of chapter.subchapters) {
-    await generateSubchapter(data, documentation, chapter, subchapter, sidebar);
+    await generateSubchapter(documentation, chapter, subchapter, sidebar);
   }
 
   let nextChapter;
@@ -91,7 +91,7 @@ const generateChapter = async (data, documentation, chapter, sidebar) => {
     ${nextChapter ? `<br>Next page: <a href="${nextChapter.url}">${nextChapter.title}</a>` : ''}
   `;
 
-  const content = docsLayout(data, html, chapter.title, sidebar);
+  const content = docsLayout(html, chapter.title, sidebar);
 
   await fsExtra.ensureDir(path.join(__dirname, '../../public', chapter.url));
   await fs.promises.writeFile(path.join(__dirname, '../../public', chapter.url, 'index.html'), content);
@@ -123,18 +123,18 @@ const generateSidebar = documentation => {
   return html;
 };
 
-const generateLanguage = async (data, documentation) => {
+const generateLanguage = async (documentation) => {
   const sidebar = generateSidebar(documentation);
 
-  await generateIndex(data, documentation, sidebar);
+  await generateIndex(documentation, sidebar);
 
   for(const chapter of documentation.chapters) {
-    await generateChapter(data, documentation, chapter, sidebar);
+    await generateChapter(documentation, chapter, sidebar);
   }
 };
 
-module.exports = async data => {
-  for(const documentation of data.documentation) {
-    await generateLanguage(data, documentation);
+module.exports = async documentation => {
+  for(const language of documentation) {
+    await generateLanguage(language);
   }
 };
