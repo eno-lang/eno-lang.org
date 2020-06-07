@@ -133,36 +133,40 @@ A new low-level reference parser written in C ([libeno](https://codeberg.org/sim
 
 # History
 
-The eno notation language exists since early 2018, where it surfaced from
-research and development in a large project around file-based content.
-Full-featured libraries exist for the [JavaScript](/javascript/),
-[PHP](https://archived.eno-lang.org/php/), [Python](/python/) and [Ruby](/ruby/)
-platforms (with Rust being the next implementation on the roadmap). Also a new
-[C-based reference parsing library](https://codeberg.org/simonrepp/libeno) is
-currently in the making. There are official and complete [learning
-resources](/guide/) for the language itself, editor plugins for Ace, Atom,
-Sublime Text and Visual Studio Code, and the ecosystem continues evolving
-at a steady pace to this day.
+The first draft for what is now known as eno notation was sketched out in early
+2018 during R&D on a large publishing project around file-based content.  It was
+designed and developed by [Simon Repp](https://simonrepp.com/), and still is to
+this day. Many contributions were made by people who have offered their
+cultural, technical and personal insight, reported bugs and submitted code and
+corrections and set out to develop their own libraries for eno notation - I'd
+like to hereby express my gratitude to all of you, thank you for being part of
+this adventure.
 
-# People
+# Present And Future
 
-Designed and developed by [Simon Repp](https://simonrepp.com/). A big shout-out
-goes to all the people who have contributed cultural and technical insight,
-reported bugs and submitted code and corrections throughout all the repositories!
+As of early summer 2020 major efforts are made to enable eno notation usage in
+native development (C, C++, Go, Rust, et al). Therein the development of a new
+C-based reference parsing library will serve as a vehicle for clearly specifying
+and thereby resolving the last remaining ambiguities in the specification.
+
+Building on top of the new reference parser, research on a native and
+cross-platform parsing code generator is planned for the near future, enabling
+developers to obtain fully functional data serialization code for multiple
+languages based on a schema language that is to be defined in the process.
+
+The mid and long term vision is to endeavour for standardization of eno notation
+either by institutional backing or through establishment of a de-facto standard
+through the power of community. If you sympathize with this vision, I invite you
+to the join into our endeavour and help make it happen.
+
+For the latest developments you can subscribe to the [blog](https://eno-lang.org/blog/).
 
 # Contact
 
-For concrete technical issues or questions feel free to open issues in the respective repositories.
-If you just want to get in touch directly, write a mail to <simon@fdpl.io> or reach out through the fediverse at [@freebliss@post.lurk.org](https://post.lurk.org/@freebliss).
+For concrete technical issues or questions feel free to open issues in the
+respective repositories.
 
-# Support the project
-
-Give it a [try](/playground/), post about it on the fediverse or other networks,
-[mail](mailto:?subject=The%20eno%20notation%20language%20and%20libraries&body=https%3A//eno-lang.org)
-it to your colleagues, share it, blog about it,  star your favorite repository
-on [github.com/eno-lang](https://github.com/eno-lang/), present it at your tech
-meetup,  contribute
-[localizations](https://github.com/eno-lang/enolib/tree/master/locales), make
-proposals for improvements, report [bugs](https://github.com/eno-lang/), every
-contribution is valueable.
+If you just want to get in touch directly, write a mail
+to <simon@fdpl.io> or reach out through the fediverse at
+[@freebliss@post.lurk.org](https://post.lurk.org/@freebliss).
 -- markdown
