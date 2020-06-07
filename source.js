@@ -86,8 +86,6 @@ const home = async () => {
       return blockElement.toField().requiredStringValue();
     } else if(name === 'markdown') {
       return blockElement.toField().requiredMarkdownValue();
-    } else if(name === 'footnotes') {
-      return blockElement.toField().requiredMarkdownValue();
     }
   }).join('');
 
