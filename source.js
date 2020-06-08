@@ -4,11 +4,12 @@ const { TerminalReporter } = require('enolib');
 const glob = require('fast-glob');
 const fs = require('fs');
 const markdown = require('./lib/loader-markdown.js');
+const markdownExternalizeLinks = require('./lib/loader-markdown-externalize-links.js');
 const { prism, PRISM_LANGUAGES } = require('./lib/loader-prism.js');
 const path = require('path');
 const slug = require('speakingurl');
 
-enolib.register({ date, markdown });
+enolib.register({ date, markdown, markdownExternalizeLinks });
 
 const blog = async () => {
   const input = await fs.promises.readFile(path.join(__dirname, 'content/blog.eno'), 'utf-8');
@@ -84,7 +85,7 @@ const home = async () => {
     if(name === 'html') {
       return blockElement.toField().requiredStringValue();
     } else if(name === 'markdown') {
-      return blockElement.toField().requiredMarkdownValue();
+      return blockElement.toField().requiredMarkdownExternalizeLinksValue();
     }
   }).join('');
 
