@@ -3,23 +3,7 @@
 > TODO: Properly implement frontpage menu (probably leave out right-side links on mobile, not needed)
 
 -- markdown
-<div style="display: flex; justify-content: space-between; position: sticky; top: 0;">
-  <div>Eno</div>
-  
-  <div style="display: flex;">
-    <div><a href="#language">Language</a>&nbsp;&nbsp;</div>
-    <div><a href="#plugins">Plugins</a>&nbsp;&nbsp;</div>
-    <div><a href="#libraries">Libraries</a>&nbsp;&nbsp;</div>
-    <div><a href="#about">About</a></div>
-  </div>
-</div>
-
-<a name="language"></a>
-# Language
-
-<div class="info_badge margin">
-  🎉 Follow the 2020 new reference parser development at the <a href="/blog/" target="_blank">blog</a>
-</div>
+# Eno - Notation For Humans
 
 ```eno
 author: Jane Doe
@@ -42,34 +26,35 @@ Málaga: 36.721447, -4.421291
 Springfield: 38.790312, -77.186418
 ```
 
-Eno is a structured, plain-text notation language, related in many ways to its
-ancestors and relatives JSON, YAML, TOML, ArchieML, StrictYAML, and others.
-Through its simple syntax and versatile nature it targets a wide audience, both
-in regards to cultural background as well as technical ability. As a modern
-foundational technology for file-based content it enables highly productive and
-reliable application development, and the possibility to create file-based
-content applications for a wider and more diverse user audience than was
-previously possible.
+Eno is a human-centric data language. Its simple syntax and versatile nature
+serves a wide audience, both in regards to cultural background as well as
+technical ability. Unlike traditional developer- and machine-centric data
+languages, its type-agnostic design acknowledges the human ability to understand
+and use context and puts long-lasting user productivity before short-lived
+developer convenience.
 
-- [Guide](/guide/) — The entire language explained in just a few minutes.
-- [Playground](/playground/) — Example documents you can interactively modify and study.
-- [Specification](/specification/) — Encoding, extension, MIME type and implementation details.
+- [Guide](/guide/) - The entire language explained in just a few minutes.
+- [Playground](/playground/) - Example documents you can interactively modify and study.
+- [Specification](/specification/) - Encoding, extension, MIME type and implementation details.
+
 
 <a name="plugins"></a>
-# Plugins
+# Editor Plugins
 
-- [Ace](https://github.com/eno-lang/ace-eno/)
-- [Atom](https://atom.io/packages/language-eno)
-- [Prism](https://github.com/eno-lang/prism-eno/)
-- [Sublime Text](https://packagecontrol.io/packages/eno)
-- [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=eno-lang.vscode-eno)
+- [Ace](https://github.com/eno-lang/ace-eno/) - Mode and highlight rules, ready-to-use custom build (optionally via npm)
+- [Atom](https://atom.io/packages/language-eno) - Syntax highlighting, embedded language support, whitespace protection
+- [Prism](https://github.com/eno-lang/prism-eno/) - Language grammar definition, custom color schemes (dark/light)
+- [Sublime Text](https://packagecontrol.io/packages/eno) - Syntax highlighting, customizations for the default color themes
+- [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=eno-lang.vscode-eno) - Syntax highlighting
+
 
 <a name="libraries"></a>
-# Libraries
+# Libeno - C Reference Parser
 
-## enolib
+A new reference parser for eno notation - [currently in development](https://codeberg.org/simonrepp/libeno).
 
-The eno standard library, available in JavaScript, Python and Ruby.
+
+# Enolib - Multi-Language Parsing Library
 
 ```javascript
 import enolib from 'enolib';
@@ -91,61 +76,34 @@ document.field('title').requiredStringValue();
   //
 ```
 
-Overview:
-- Dynamically extensible query API for custom and third party type support
-- Cursor lookup API (by index or line/column) for easy authoring of rich IDE plugins
-- Querying equals validating - guaranteed data structure and type-safety
-- Fully localized, handwritten, team-friendly error messages
-- Rich error metadata: message, document snippet, cursor position, selection range
+Blazing fast, dependency-free, fully localized parsers with built-in validation.
 
-All implementations are dependency-free,
-[localized](https://github.com/eno-lang/enolib/tree/master/locales) and [rank
-among the fastest parsers](https://github.com/eno-lang/benchmarks/) for
-plaintext content.
- 
-[Repository on GitHub](https://github.com/eno-lang/enolib/)
+<!--
+  - Dynamically extensible query API for custom and third party type support
+  - Cursor lookup API (by index or line/column) for easy authoring of rich IDE plugins
+  - Querying equals validating - guaranteed data structure and type-safety
+  - Fully localized, handwritten, team-friendly error messages
+  - Rich error metadata: message, document snippet, cursor position, selection range
+-->
 
-- JavaScript [API Documentation](/enolib/javascript/) / [Package on npm](https://npmjs.com/package/enolib/)
-- Python [API Documentation](/enolib/python/) / [Package on PyPI](https://pypi.org/project/enolib/)  
-- Ruby [API Documentation](/enolib/ruby/) / [Gem on rubygems](https://rubygems.org/gems/enolib)  
-- Rust (planned, partially implemented)
+- [Benchmarks](https://github.com/eno-lang/benchmarks/) - Performance comparison against toml and yaml parsers
+- [npm](https://npmjs.com/package/enolib/) - JavaScript package
+- [Playground](/enolib/playground/) - Interactive code examples
+- [PyPI](https://pypi.org/project/enolib/) - Python package
+- [Repository](https://github.com/eno-lang/enolib/) - Monorepo containing all implementations
+- [Rubygems](https://rubygems.org/gems/enolib) - Ruby gem
 
-### Benchmarks
 
-Comparative evaluation of enolib and popular toml and yaml libraries in JavaScript, Python and Ruby.
+# More Libraries
 
-[Open on GitHub](https://github.com/eno-lang/benchmarks/)
+- [enotype](https://github.com/eno-lang/enotype/) - Multi-language implementations of common types for use with enolib
+- [tree-sitter-eno](https://github.com/eno-lang/tree-sitter-eno) - Tree-sitter parser (C/C++, Haskell, JavaScript, Python, Ruby, Rust, WebAssembly)
+- [enophp](https://github.com/eno-lang/enophp) - PHP library (only compliant with an older specification)
+- [enotcl](https://github.com/bef/enotcl) - Tcl parser
+- [Enohar](https://github.com/Nzen/Enohar) - (Incomplete) Java library for parsing and emitting Eno documents
 
-### Interactive Demos
 
-Some examples to showcase different usecases for enolib as interactive demos in the browser.
-
-[Interactive Demos](/enolib/playground/)
-
-## enotype
-
-**A cross-language type library.**
-enotype is a collection of minimalist pure functions that validate and convert type-unsafe `string` representations into type-safe, native types.
-It is the standard type library for [enolib](https://github.com/eno-lang/enolib/) but can be utilized in a multitude of other contexts as well.
-
-enotype not only normalizes validating and converting common types across different programming languages,
-but it also consistently localizes the user errors it produces across different human languages:
-
-Functional type implementations for use with (or without) enolib.
-enotype is a collection of functions that convert unsafe `string` input to safe, native types. It is the standard type library for [enolib](https://github.com/eno-lang/enolib/) but can be utilized in a multitude of other contexts as well.
-
-## libeno
-
-A new low-level reference parser written in C ([libeno](https://codeberg.org/simonrepp/libeno)) is currently in development.
-
-## Other libraries
-
-[tree-sitter-eno](https://github.com/eno-lang/tree-sitter-eno) - Tree-sitter parser for eno (usable with C, C++, Rust, WebAssembly, JavaScript, Python, Ruby, Haskell)  
-[enophp](https://github.com/eno-lang/enophp) - Official PHP library (compliant with eno first, see below)  
-[enotcl](https://github.com/bef/enotcl) - Tcl parser  
-[Enohar](https://github.com/Nzen/Enohar) - (Incomplete) Java library for parsing and emitting Eno documents  
-
-<a name="about"></a>
+<a name="more"></a>
 # History
 
 The first draft for what is now known as eno notation was sketched out in early
@@ -156,6 +114,7 @@ cultural, technical and personal insight, reported bugs and submitted code and
 corrections and set out to develop their own libraries for eno notation - I'd
 like to hereby express my gratitude to all of you, thank you for being part of
 this adventure.
+
 
 # Present And Future
 
@@ -175,6 +134,7 @@ through the power of community. If you sympathize with this vision, I invite you
 to the join into our endeavour and help make it happen.
 
 For the latest developments you can subscribe to the [blog](https://eno-lang.org/blog/).
+
 
 # Contact
 

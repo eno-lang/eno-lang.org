@@ -1,0 +1,35 @@
+:root {
+  --color-menu-background: #202020;
+  --color-menu-text: #fff;
+}
+
+h1 { margin-top: 2em; }
+ul {
+  list-style: square inside;
+  padding: 0;
+}
+.home_boundary {
+  margin: 0 auto;
+  max-width: 800px;
+}
+.home_padding {
+  padding: 0 1em 3em 1em;
+}
+.menu {
+  background-color: var(--color-menu-background);
+  color: var(--color-menu-text);
+  display: flex;
+  font-size: 1.2em;
+  justify-content: space-between;
+  padding: .5em 1em;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.menu a {
+  color: var(--color-menu-text);
+}
+.menu nav {
+  display: flex;
+}
+.menu nav div:not(:last-child) { margin-right: 1em; }

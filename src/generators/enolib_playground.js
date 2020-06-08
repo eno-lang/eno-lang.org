@@ -3,8 +3,6 @@ const fsExtra = require('fs-extra');
 const path = require('path');
 const { attrEscape } = require('../../lib/escape.js');
 
-const layout = require('../layout.js');
-
 module.exports = async demos => {
   const html = `
 <!doctype html>

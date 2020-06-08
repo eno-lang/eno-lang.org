@@ -3,12 +3,6 @@
 :root {
   --color-code-background: #eaeaea;
   --color-background: #fafafa;
-  --color-header-primary-background: #202020;
-  --color-header-primary-link: #fff;
-  --color-header-secondary-background: #ececec;
-  --color-header-secondary-dropdown-background: #f0f0f0;
-  --color-header-secondary-link: #484848;
-  --color-header-secondary-text: #999;
   --color-info-badge: #f8f0e8;
   --color-link: #cca366;
   --color-text: #3f3f3f;
@@ -148,7 +142,8 @@ video { max-width: 100%; }
 .indented { padding-left: 1em; }
 .info_badge {
   background-color: var(--color-info-badge);
-  padding: 1em;
+  padding: .6em;
+  text-align: center;
 }
 .margin { margin: 1em 0; }
 .padding { padding: 0 1em; }
