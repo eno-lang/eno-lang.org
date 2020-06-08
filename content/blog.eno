@@ -1,5 +1,28 @@
 > TODO: Consider/investigate implementing RSS feed for the blog
 
+-- 2020-06-08
+After a busy weekend the first big chunk of the website overhaul is complete!
+The font selection has been completely redesigned, many subpages were condensed
+and their content integrated into the new [frontpage](https://eno-lang.org/),
+some fundamental text blocks describing the essence of eno have been rewritten,
+the history and future prospects updated, the
+[playground](https://eno-lang.org/playground/) now uses a full screen layout
+with improved visuals, as does the
+[enolib-playground](https://eno-lang.org/enolib/playground/), and much more. In
+summary it can be said that eno-lang.org never looked - and worked - this good.
+
+Next up soon for the website I'll be revisiting the documentation pages (guide,
+specification, library docs) to improve their layout and organization, as well
+as doing a focused review of responsive behavior and accessibility of the page,
+to round off the package.
+
+In the meantime I'm now going back to work on the new reference parser, which, I
+can happily report, has been successfully put into a real-life usecase already,
+powering config and password store parsing for
+[sicuit](https://simonrepp.com/sicuit/), a project I'll be first releasing in a
+week or so.
+-- 2020-06-08
+
 -- 2020-05-24
 - Added detailed implementation notes regarding line continuation behavior to the specification
 - Released [ace-eno](https://github.com/eno-lang/ace-eno) 0.2.2, which adds a missing escaped empty rule
