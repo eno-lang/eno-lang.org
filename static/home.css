@@ -1,9 +1,10 @@
 :root {
-  --color-menu-background: #202020;
-  --color-menu-text: #fff;
+  --color-header-background: #202020;
+  --color-header-text: #fff;
 }
 
-h1 { margin-top: 2em; }
+h1 { margin-top: 3em; }
+h1 span.light { font-weight: 400; }
 ul {
   list-style: square inside;
   padding: 0;
@@ -12,24 +13,24 @@ ul {
   margin: 0 auto;
   max-width: 800px;
 }
-.home_padding {
-  padding: 0 1em 3em 1em;
-}
-.menu {
-  background-color: var(--color-menu-background);
-  color: var(--color-menu-text);
-  display: flex;
-  font-size: 1.2em;
-  justify-content: space-between;
-  padding: .5em 1em;
+.home_padding { padding: 0 1em 3em 1em; }
+.header {
+  background-color: var(--color-header-background);
   position: sticky;
   top: 0;
   z-index: 1;
 }
-.menu a {
-  color: var(--color-menu-text);
-}
-.menu nav {
+.header .centering {
+  color: var(--color-header-text);
   display: flex;
+  font-size: 1.2em;
+  justify-content: space-between;
+  padding: .5em 1em;
 }
-.menu nav div:not(:last-child) { margin-right: 1em; }
+.header a { color: var(--color-header-text); }
+.header nav { display: flex; }
+.header nav a { margin-left: 1em; }
+
+@media (max-width: 479px) {
+  .header .optional { display: none; }
+}

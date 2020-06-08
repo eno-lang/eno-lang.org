@@ -6,39 +6,41 @@ module.exports = async home => {
   const html = `
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="The eno notation language and libraries">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="The eno notation language and libraries">
 
-    <title>Eno</title>
+        <title>Eno</title>
 
-    <link rel="stylesheet" href="/common.css">
-    <link rel="stylesheet" href="/home.css">
-  </head>
+        <link rel="stylesheet" href="/common.css">
+        <link rel="stylesheet" href="/home.css">
+    </head>
 
-  <body>
-    <a name="language"></a>
+    <body>
+        <a name="language"></a>
 
-    <div class="home_boundary menu">
-      <span>Eno</span>
+        <div class="header">
+            <div class="centering">
+                <a href="/">Eno</a>
 
-      <nav>
-        <div><a href="#language">Language</a></div>
-        <div><a href="#plugins">Plugins</a></div>
-        <div><a href="#libraries">Libraries</a></div>
-        <div><a href="#more">More</a></div>
-      </nav>
-    </div>
+                <nav>
+                    <a href="#language">Language</a>
+                    <a class="optional" href="#plugins">Plugins</a>
+                    <a href="#libraries">Libraries</a>
+                    <a class="optional" href="#about">About</a>
+                </nav>
+            </div>
+        </div>
 
-    <div class="info_badge">
-      Follow 2020 development of the new reference parser at the <a href="/blog/" target="_blank">blog</a>
-    </div>
+        <div class="info_badge">
+            Follow 2020 development of the new reference parser at the <a href="/blog/" target="_blank">blog</a>
+        </div>
 
-    <div class="home_boundary home_padding">
-      ${home}
-    </div>
-  </body>
+        <div class="home_boundary home_padding">
+            ${home}
+        </div>
+    </body>
 </html>
   `.trim();
 

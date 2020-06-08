@@ -3,7 +3,7 @@
 > TODO: Properly implement frontpage menu (probably leave out right-side links on mobile, not needed)
 
 -- markdown
-# Eno - Notation For Humans
+# Eno <span class="light">Notation For Humans</span>
 
 ```eno
 author: Jane Doe
@@ -49,12 +49,12 @@ developer convenience.
 
 
 <a name="libraries"></a>
-# Libeno - C Reference Parser
+# Libeno <span class="light">C Reference Parser</span>
 
 A new reference parser for eno notation - [currently in development](https://codeberg.org/simonrepp/libeno).
 
 
-# Enolib - Multi-Language Parsing Library
+# Enolib <span class="light">Multi-Language Library</span>
 
 ```javascript
 import enolib from 'enolib';
@@ -87,11 +87,11 @@ Blazing fast, dependency-free, fully localized parsers with built-in validation.
 -->
 
 - [Benchmarks](https://github.com/eno-lang/benchmarks/) - Performance comparison against toml and yaml parsers
-- [npm](https://npmjs.com/package/enolib/) - JavaScript package
+- [JavaScript](/enolib/javascript/) - JavaScript library documentation
 - [Playground](/enolib/playground/) - Interactive code examples
-- [PyPI](https://pypi.org/project/enolib/) - Python package
+- [Python](/enolib/python/) - Python library documentation
 - [Repository](https://github.com/eno-lang/enolib/) - Monorepo containing all implementations
-- [Rubygems](https://rubygems.org/gems/enolib) - Ruby gem
+- [Ruby](/enolib/ruby/) - Ruby library documentation
 
 
 # More Libraries
@@ -103,7 +103,7 @@ Blazing fast, dependency-free, fully localized parsers with built-in validation.
 - [Enohar](https://github.com/Nzen/Enohar) - (Incomplete) Java library for parsing and emitting Eno documents
 
 
-<a name="more"></a>
+<a name="about"></a>
 # History
 
 The first draft for what is now known as eno notation was sketched out in early
