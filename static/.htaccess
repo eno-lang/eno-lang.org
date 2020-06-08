@@ -5,4 +5,5 @@ Redirect 301 /py /python/
 Redirect 301 /rb/ /ruby/
 Redirect 301 /rb /ruby/
 
+ErrorDocument 403 /
 ErrorDocument 404 /
