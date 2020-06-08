@@ -22,13 +22,14 @@ module.exports = async home => {
 
         <div class="header">
             <div class="centering">
-                <a href="/">Eno</a>
+                <a href="/" style="font-weight: 600;">Eno ·</a>
 
                 <nav>
                     <a href="#language">Language</a>
                     <a class="optional" href="#plugins">Plugins</a>
                     <a href="#libraries">Libraries</a>
                     <a class="optional" href="#about">About</a>
+                    <a class="optional" href="/blog/" target="_blank">Blog</a>
                 </nav>
             </div>
         </div>

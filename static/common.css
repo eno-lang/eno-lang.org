@@ -1,8 +1,8 @@
 /* colors */
 
 :root {
-  --color-code-background: #eaeaea;
   --color-background: #fafafa;
+  --color-code-background: #eaeaea;
   --color-info-badge: #f8f0e8;
   --color-link: #cca366;
   --color-text: #3f3f3f;
@@ -13,34 +13,28 @@
 /* fonts */
 
 @font-face {
-  font-family: 'Cousine';
+  font-family: 'Fira Mono';
   font-style: normal;
   font-weight: 400;
-  src: url('/fonts/cousine-v12-latin-ext_latin-regular.woff2') format('woff2');
+  src: url('/fonts/fira-mono-v8-latin-regular.woff2') format('woff2');
 }
 @font-face {
-  font-family: 'Titillium Web';
+  font-family: 'Barlow Semi Condensed';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/barlow-semi-condensed-v5-latin-regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Barlow Semi Condensed';
   font-style: italic;
   font-weight: 400;
-  src: url('/fonts/titillium-web-v6-latin-italic.woff2') format('woff2');
+  src: url('/fonts/barlow-semi-condensed-v5-latin-italic.woff2') format('woff2');
 }
 @font-face {
-  font-family: 'Titillium Web';
-  font-style: normal;
-  font-weight: 400;
-  src: url('/fonts/titillium-web-v6-latin-regular.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Titillium Web';
+  font-family: 'Barlow Semi Condensed';
   font-style: normal;
   font-weight: 600;
-  src: url('/fonts/titillium-web-v6-latin-600.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Titillium Web';
-  font-style: normal;
-  font-weight: 700;
-  src: url('/fonts/titillium-web-v6-latin-700.woff2') format('woff2');
+  src: url('/fonts/barlow-semi-condensed-v5-latin-600.woff2') format('woff2');
 }
 
 /* base */
@@ -48,8 +42,9 @@
 body {
   background-color: var(--color-background);
   color: var(--color-text);
-  font-family: 'Titillium Web';
+  font-family: 'Barlow Semi Condensed';
   font-weight: 400;
+  line-height: 1.5;
   margin: 0;
 }
 body, textarea { font-size: 18px; }
@@ -59,8 +54,8 @@ a {
   text-decoration: none;
 }
 code {
-  font-family: 'Cousine' !important;
-  font-size: 0.8em;
+  font-family: 'Fira Mono' !important;
+  font-size: .9em;
 }
 img { max-width: 100%; }
 h1, h2, h3 { font-weight: 600; }
@@ -73,7 +68,10 @@ h3 img {
   padding-right: 0.5em;
 }
 p { text-align: justify; }
-pre { position: relative; }
+pre {
+  border-radius: .17em;
+  position: relative;
+}
 strong { font-weight: 600; }
 textarea {
   background-color: var(--color-code-background);
