@@ -57,6 +57,10 @@ A `Comment` is indicated by the `Comment Operator` and followed by arbitrary tex
 
 The `>` character (U+003E), when it occurs as the first non-whitespace character on a line, thereby starting a `Comment`.
 
+## Continuation
+
+Generic term to refer to both types of continuation: `Direct Line Continuation` and/or `Spaced Line Continuation`.
+
 ## Copy Operator
 
 The `<` character (U+003C) when it appears between a `Key` and a `Template`, indicating a copy operation.
