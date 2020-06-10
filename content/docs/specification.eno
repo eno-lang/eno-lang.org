@@ -277,16 +277,15 @@ A `Value` might appear in a `Field`, `Fieldset Entry`, `List Item` or `Multiline
 -- description
 This is a diverse collection of implementation details anyone that implements an
 eno parser will probably wonder about at some point, and hopefully find a conclusive
-answer to here. Feel free to expand this document or open an issue if you encounter
+answer to here. Feel free to expand this collection or open an issue if you encounter
 an unclear parsing situation not described here.
+-- description
 
-# Ordering
+### subchapters
 
-All data structures in eno respect and retain their ordering, regardless of
-whether they conceptually represent key-value structures or key-less lists.
+#### Continuations
 
-# Continuations
-
+-- description
 Empty direct line continuations are always ignored, so this ...
 
 ```eno
@@ -345,9 +344,11 @@ field:
 ```
 
 ... produces the value `"foo bar"`
+-- description
 
-# Copying
+#### Copying
 
+-- description
 ## Template Namespaces
 
 When looking up a template element for copying, two separate namespaces are
@@ -420,6 +421,13 @@ the key `'< template'` rather than `'template'`.
 ```eno
 copy << template
 ```
+-- description
+
+#### Ordering
+
+-- description
+All data structures in eno respect and retain their ordering, regardless of
+whether they conceptually represent key-value structures or key-less lists.
 -- description
 
 ## Specification Refinement
