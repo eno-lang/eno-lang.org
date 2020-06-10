@@ -51,62 +51,26 @@ developer convenience.
 
 
 <a name="libraries"></a>
-# Libeno <span class="light">· C Reference Parser</span>
+# Libraries <span class="light">· Application Development</span>
 
-A new reference parser for eno notation - [currently in development](https://codeberg.org/simonrepp/libeno).
-
-
-# Enolib <span class="light">· Multi-Language Library</span>
-
-```javascript
-import enolib from 'enolib';
-
-const document = enolib.parse(`
-  author: Jane Doe
-  title:
-`);
-
-document.field('author').requiredStringValue();
-  // returns 'Jane Doe'
-  
-document.field('title').requiredStringValue();
-  // throws "The field 'title' must contain a value.
-  //
-  //   Line | Content
-  //      1 | author: Jane Doe
-  // >    2 | title:
-  //
-```
-
-Blazing fast, dependency-free, fully localized parsers with built-in validation.
-
-<!--
-  - Dynamically extensible query API for custom and third party type support
-  - Cursor lookup API (by index or line/column) for easy authoring of rich IDE plugins
-  - Querying equals validating - guaranteed data structure and type-safety
-  - Fully localized, handwritten, team-friendly error messages
-  - Rich error metadata: message, document snippet, cursor position, selection range
--->
-
-- [Benchmarks](https://github.com/eno-lang/benchmarks/) - Performance comparison against toml and yaml parsers
-- [Playground](/enolib/playground/) - Interactive code examples
-- [Repository](https://github.com/eno-lang/enolib/) - Monorepo containing all implementations
-
-Documentation for different languages:
-
-- [JavaScript](/javascript/) - JavaScript documentation
-- [Python](/python/) - Python documentation
-- [Ruby](/ruby/) - Ruby documentation
+- [C](https://codeberg.org/simonrepp/libeno/) - Official upcoming new reference parser *libeno*, in development
+- [C++](https://github.com/eno-lang/tree-sitter-eno/) - Official *tree-sitter-eno* parser, usable with bindings
+- [Haskell](https://github.com/eno-lang/tree-sitter-eno/) - Official *tree-sitter-eno* parser, usable with bindings
+- [Java](https://github.com/Nzen/Enohar/) - Third party *Enohar* library for parsing and emitting documents (incomplete)
+- [JavaScript](/javascript/) - Official *enolib* library, the current reference parser
+- [PHP](/php/) - Official *enophp* library (for an older specification, simple documents are compatible)
+- [Python](/python/) - Official *enolib* library
+- [Ruby](/ruby/) - Official *enolib* library
+- [Rust](https://github.com/eno-lang/tree-sitter-eno/) - Official *tree-sitter-eno* parser, usable with bindings
+- [Tcl](https://github.com/bef/enotcl/) - Third party *enotcl* parser (incomplete)
+- [WebAssembly](https://github.com/eno-lang/tree-sitter-eno/) - Official *tree-sitter-eno* parser, usable with bindings
 
 
-# Other Libraries <span class="light">· Parsers And Types</span>
+# Libraries Addendum <span class="light">· Benchmarks, Playground, Types</span>
 
-- [enotype](https://github.com/eno-lang/enotype/) - Multi-language implementations of common types for use with enolib
-- [tree-sitter-eno](https://github.com/eno-lang/tree-sitter-eno) - Tree-sitter parser (C/C++, Haskell, JavaScript, Python, Ruby, Rust, WebAssembly)
-- [enophp](https://github.com/eno-lang/enophp) - PHP library (only compliant with an older specification)
-- [enotcl](https://github.com/bef/enotcl) - Tcl parser
-- [Enohar](https://github.com/Nzen/Enohar) - (Incomplete) Java library for parsing and emitting Eno documents
-
+- [Benchmarks](https://github.com/eno-lang/benchmarks/) - *Enolib* is **fast** - multi-language comparison with toml and yaml parsers
+- [Code Playground](/enolib/playground/) - Interactive playground for *enolib* - javascript and emulated python/ruby examples
+- [Enotype](https://github.com/eno-lang/enotype/) - Multi-language implementations of common types for use with *enolib*
 
 <a name="about"></a>
 # History <span class="light">· The Journey So Far</span>
