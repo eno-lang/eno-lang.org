@@ -8,7 +8,7 @@
   overflow-y: auto;
 }
 .main_boundary {
-  margin: 2em auto;
+  margin: 4em auto;
   max-width: 920px;
 }
 .sidebar {
@@ -40,9 +40,11 @@
 }
 .docs blockquote p { margin: 0; }
 
+@media (max-width: 1279px) {
+  .main_boundary { margin: 2em auto; }
+}
+
 @media (max-width: 479px) {
-  .docs {
-    flex-direction: column-reverse;
-    margin-top: 1em;
-  }
+  .docs { flex-direction: column-reverse; }
+  .main_boundary { margin: 1em auto; }
 }
