@@ -33,6 +33,8 @@ languages, its type-agnostic design acknowledges the human ability to understand
 and use context and puts long-lasting user productivity before short-lived
 developer convenience.
 
+<!-- - [Reference Parser](https://codeberg.org/simonrepp/libeno/) - A new reference parser for eno notation. -->
+
 - [Guide](/guide/) - The entire language explained in just a few minutes.
 - [Playground](/playground/) - Example documents you can interactively modify and study.
 - [Specification](/specification/) - Encoding, extension, MIME type and implementation details.
@@ -87,11 +89,14 @@ Blazing fast, dependency-free, fully localized parsers with built-in validation.
 -->
 
 - [Benchmarks](https://github.com/eno-lang/benchmarks/) - Performance comparison against toml and yaml parsers
-- [JavaScript](/enolib/javascript/) - JavaScript documentation
 - [Playground](/enolib/playground/) - Interactive code examples
-- [Python](/enolib/python/) - Python documentation
 - [Repository](https://github.com/eno-lang/enolib/) - Monorepo containing all implementations
-- [Ruby](/enolib/ruby/) - Ruby documentation
+
+Documentation for different languages:
+
+- [JavaScript](/javascript/) - JavaScript documentation
+- [Python](/python/) - Python documentation
+- [Ruby](/ruby/) - Ruby documentation
 
 
 # Other Libraries <span class="light">· Parsers And Types</span>

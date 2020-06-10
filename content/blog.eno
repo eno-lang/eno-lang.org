@@ -1,5 +1,9 @@
 > TODO: Consider/investigate implementing RSS feed for the blog
 
+-- 2020-06-10
+- Completely overhauled the layout for all documentation pages
+-- 2020-06-10
+
 -- 2020-06-08
 After a busy weekend the first big chunk of the website overhaul is complete!
 The font selection has been completely redesigned, many subpages were condensed
@@ -200,7 +204,7 @@ basic eno parsing in C, C++, Rust and other low level languages!
 -- 2019-07-17
 
 -- 2019-06-19
-- Published an [RFC for Empties](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/explicit-empty.md) (explicit key-only elements) - an implementation for evaluating this RFC for is already ready and will be released through [enolib](/enolib/) in the coming days.
+- Published an [RFC for Empties](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/explicit-empty.md) (explicit key-only elements) - an implementation for evaluating this RFC for is already ready and will be released through enolib in the coming days.
 - Migrated most of the specification resources in the eno core repository to the eno-lang.org repository (because single source of truth)
 - Added portfolio page and color scheme example documents to the interactive eno document browser
 -- 2019-06-19
@@ -236,7 +240,7 @@ Released [enolib](https://github.com/eno-lang/enolib/) 0.6.0 with a bunch of API
 -- 2019-05-27
 
 -- 2019-05-17
-- Published [complete documentation](/enolib/ruby/) for the enolib ruby implementation
+- Published [complete documentation](/ruby/) for the enolib ruby implementation
 - Improvements and corrections in the javascript and python enolib documentation
 -- 2019-05-17
 
@@ -304,7 +308,7 @@ Released [enolib](https://github.com/eno-lang/enolib/) 0.4.1 with minor fixes an
 -- 2019-04-02
 
 -- 2019-04-01
-Added complete [python documentation](/enolib/python/) for enolib
+Added complete [python documentation](/python/) for enolib
 -- 2019-04-01
 
 -- 2019-03-31
@@ -361,7 +365,7 @@ Went out for the world climate strike day, answered lots of great questions and 
 -- 2019-03-15
 
 -- 2019-03-13
-The new [javascript documentation](/enolib/javascript/) for enolib is now feature-complete and covers all base functionality.
+The new [javascript documentation](/javascript/) for enolib is now feature-complete and covers all base functionality.
 -- 2019-03-13
 
 -- 2019-03-12

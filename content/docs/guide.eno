@@ -1,22 +1,35 @@
-title: guide
+title: Language Guide
 
 -- intro
-# The complete guide to eno
--- intro
+# Eno Language Guide
 
-> TODO: Wrap into into first chapter always
+This guide is written for users of all technical levels and best read in the
+order it is presented. Software professionals might prefer to go straight to the
+[cheatsheet](/guide/cheatsheet/) and then jump back to specific sections to
+learn about details.
+
+## Creating an eno file
+
+Eno files are textfiles with the extension `.eno`. To create an eno file simply
+create an empty textfile in a text editor and save it as `your_filename.eno`.
+Editors that normally are used for authoring rich text files (Word, etc.) might
+require you to save the file as `your_filename.txt` and then rename it to
+`your_filename.eno` as these are often not designed to handle plaintext files
+with arbitrary file extensions well.
+-- intro
 
 # chapters
 
 ## Elements
 
 -- description
-
+This section introduces the different element types in Eno. These are the
+essentials you should definitely know about in order to use Eno comfortably.
 -- description
 
 ### subchapters
 
-#### Fields (:)
+#### Fields
 
 -- description
 At its core eno lets us write down values, the simplest form being:
@@ -44,7 +57,7 @@ More information:
 ```
 -- description
 
-#### Fieldsets (=)
+#### Fieldsets
 
 -- description
 ```eno
@@ -80,7 +93,7 @@ src =
 ```
 -- description
 
-#### Multiline Fields (--)
+#### Multiline Fields
 
 -- description
 If we want to assign multiple lines to a key, we do it like this:
@@ -111,7 +124,7 @@ Note that leaving no line at all between the opening and ending lines produces a
 ```
 -- description
 
-#### Lists (-)
+#### Lists
 
 -- description
 If we want to assign multiple values to a key, it looks like this:
@@ -176,7 +189,7 @@ footer
 
 -- description
 
-#### Sections (#)
+#### Sections
 
 -- description
 Now let's group values in a section:
@@ -239,12 +252,14 @@ Casual acquaintances:
 ## Addendum
 
 -- description
-Complementary to the introduction to the elements, this section describes the remaining features of eno.
+Complementary to the introduction to the elements, this section describes the
+remaining features of Eno. Depending on your usecase you might not need to know
+about any of them, so this is optional reading.
 -- description
 
 ### subchapters
 
-#### Comments (>)
+#### Comments
 
 -- description
 Every line starting with `>` marks a comment line, in which any text may appear. The computer discards these lines when reading the file, so they are there for us to make notes and leave hints for others that might read the document.
@@ -254,7 +269,7 @@ Every line starting with `>` marks a comment line, in which any text may appear.
 ```
 -- description
 
-#### Associated Comments (>)
+#### Associated Comments
 
 -- description
 An associated comment is just that:
@@ -270,7 +285,7 @@ field: value
 ```
 -- description
 
-#### `Copies (<)`
+#### Copies
 
 -- description
 eno works very well for authoring content in multiple languages, imagine the following document layout for a blog post:
@@ -309,7 +324,7 @@ Hier findest du Antworten auf oft gestellte Fragen:
 By copying we get all fields from the english section, and by specifying a new `text` we are overwriting only that specific element, leaving the copied `title` and `permalink` intact.
 -- description
 
-#### Spaced line continuations (\)
+#### Spaced line continuations
 
 -- description
 When a value gets overly long, or you would like to split it into multiple lines for readability (e.g. for commandline flags or GET parameters) you can use line continuations:
@@ -334,7 +349,7 @@ A commandline poem:
 ```
 -- description
 
-#### Direct line continuations (|)
+#### Direct line continuations
 
 -- description
 With a vertical slash/pipe character (`|`) you declare a *direct line continuation*, whatever you write on that line
@@ -356,7 +371,7 @@ command: hashify -i this-is-very-long-i-dont-even-know-when-this-key-is-
 ```
 -- description
 
-#### `Deep copies (<<)`
+#### Deep copies
 
 -- description
 Deep copying works like copying, except you use two angle brackets (`<<`) instead of one,
@@ -380,7 +395,7 @@ the `## settings` from `# default` would have been completely overwritten, delet
 leaving only `ultraservice`. A typical usecase for this feature are complex server configurations.
 -- description
 
-#### Escaping (`...`)
+#### Escaping
 
 -- description
 Let's assume someone wrote an eno document describing which clothing to wear at different temperatures:

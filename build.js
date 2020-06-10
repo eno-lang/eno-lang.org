@@ -4,7 +4,7 @@ const path = require('path');
 
 const generateBlog = require('./src/generators/blog.js');
 const generateEnolibPlayground = require('./src/generators/enolib_playground.js');
-const generateDocs = require('./src/generators/documentation.js');
+const generateDocs = require('./src/generators/docs.js');
 const generateHome = require('./src/generators/home.js');
 const generateNotFound = require('./src/generators/not_found.js');
 const generatePlayground = require('./src/generators/playground.js');
@@ -25,7 +25,7 @@ const build = async () => {
   await Promise.all([
     generateBlog(data.blog),
     generateEnolibPlayground(data.enolibPlayground),
-    generateDocs(data.documentation),
+    generateDocs(data.docs),
     generateHome(data.home),
     generateNotFound(),
     generatePlayground(data.playground)

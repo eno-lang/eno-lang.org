@@ -1,7 +1,7 @@
-title: python
+title: Python
 
 -- intro
-> You can contribute to this documentation by editing [python.eno](https://github.com/eno-lang/eno-lang.org/blob/master/content/documentation/enolib/python.eno) and submitting a Pull Request!
+# Developing for Eno with Python
 
 ## Installation
 
@@ -116,7 +116,7 @@ providers in an IDE or text editor, or other rich eno document inspection usecas
 
 Note that the element returned as a lookup property is of variable type,
 therefore you need to use the methods described in [Dynamic
-layouts](/enolib/python/querying-elements/dynamic-layouts/) to further query
+layouts](/python/querying-elements/dynamic-layouts/) to further query
 the document from this entry point.
 
 As you don't enter at the root you can also use `.parent()` to navigate up the hierarchy.
@@ -806,5 +806,5 @@ probably the better tradeoff to make?
 
 Lastly, the enolib API does in fact also offer a way to deserialize a document
 to a native Python object, which however is only meant for debugging purposes.
-It is described in the previous chapter: [AST Inspection](/enolib/python/addendum/ast-inspection/).
+It is described in the previous chapter: [AST Inspection](/python/addendum/ast-inspection/).
 -- description

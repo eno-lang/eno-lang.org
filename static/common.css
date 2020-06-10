@@ -98,34 +98,6 @@ video { max-width: 100%; }
   margin: 0 auto;
   max-width: 1280px;
 }
-.docs {
-  display: grid;
-  grid-gap: 2em;
-  grid-template-columns: 12em auto;
-  margin-top: 2em;
-}
-.docs .class {
-  border-left: .25em solid var(--color-text);
-  margin-top: 3em;
-  padding-left: .25em;
-}
-.docs .main { min-width: 0; }
-.docs .pad { margin: 1em 0; }
-.docs .sidebar { font-size: .9em; }
-.docs p {
-  line-height: 140%;
-  text-align: justify;
-}
-.docs p code {
-  background-color: var(--color-code-background);
-  padding: .25em;
-}
-.docs blockquote {
-  background-color: var(--color-info-badge);
-  margin: 0;
-  padding: 1em;
-}
-.docs blockquote p { margin: 0; }
 .extension {
   position: absolute;
   right: 0;

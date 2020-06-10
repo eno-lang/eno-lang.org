@@ -1,0 +1,48 @@
+.docs {
+  display: flex;
+  height: 100vh;
+}
+.main {
+  flex-grow: 1;
+  min-width: 0;
+  overflow-y: auto;
+}
+.main_boundary {
+  margin: 2em auto;
+  max-width: 920px;
+}
+.sidebar {
+  background-color: #161616;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: .4em 1em .4em .6em;
+}
+.sidebar a { color: #999; }
+.sidebar a strong { color: #ccc; }
+.sidebar a.active,
+.sidebar a.active strong,
+.sidebar a:hover {
+  color: #fff;
+}
+.docs p {
+  line-height: 140%;
+  text-align: justify;
+}
+.docs p code {
+  background-color: var(--color-code-background);
+  padding: .25em;
+}
+.docs blockquote {
+  background-color: var(--color-info-badge);
+  margin: 0;
+  padding: 1em;
+}
+.docs blockquote p { margin: 0; }
+
+@media (max-width: 479px) {
+  .docs {
+    flex-direction: column-reverse;
+    margin-top: 1em;
+  }
+}

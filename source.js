@@ -25,17 +25,17 @@ const blog = async () => {
   return blog;
 };
 
-const documentation = async () => {
-  const documentation = [];
-  const files = await glob('**/*.eno', { cwd: path.join(__dirname, 'content/documentation/') });
+const docs = async () => {
+  const docs = [];
+  const files = await glob('**/*.eno', { cwd: path.join(__dirname, 'content/docs/') });
 
   for(const file of files) {
     const base = file.replace('.eno', '');
-    const filepath = path.join(__dirname, 'content/documentation/', file);
+    const filepath = path.join(__dirname, 'content/docs/', file);
     const input = await fs.promises.readFile(filepath, 'utf-8');
     const document = enolib.parse(input, { reporter: TerminalReporter, source: filepath });
 
-    documentation.push({
+    docs.push({
       chapters: document.section('chapters').sections().map(chapter => ({
           description: chapter.field('description').requiredMarkdownValue(),
           subchapters: chapter.section('subchapters').sections().map(subchapter => ({
@@ -54,7 +54,7 @@ const documentation = async () => {
     document.assertAllTouched();
   }
 
-  return documentation;
+  return docs;
 };
 
 const enolibPlayground = async () => {
@@ -115,7 +115,7 @@ const playground = async () => {
 module.exports = async () => {
   return {
     blog: await blog(),
-    documentation: await documentation(),
+    docs: await docs(),
     enolibPlayground: await enolibPlayground(),
     home: await home(),
     playground: await playground()

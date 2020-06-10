@@ -1,46 +1,38 @@
-title: ruby
+title: JavaScript
 
 -- intro
-> You can contribute to this documentation by editing [ruby.eno](https://github.com/eno-lang/eno-lang.org/blob/master/content/documentation/enolib/ruby.eno) and submitting a Pull Request!
+# Developing for Eno with JavaScript
 
-## Installation
-
-### Bundler
-
-Add `enolib` to your `Gemfile`:
-
-```ruby
-gem 'enolib'
-```
-Then let bundler install it for you:
+Installation from npm:
 
 ```shell
-bundle
-```
-
-### Manually
-
-Alternatively you can also install it manually:
-
-```shell
-gem install enolib
+npm install enolib
 ```
 
 ## Getting started
 
-A minimal example to read an eno document directly from a string with `enolib`:
+Create an eno document, for instance `intro.eno`:
 
-```ruby
-require 'enolib'
+```eno
+Greeting: Hello World!
+```
 
-document = Enolib.parse('Greeting: Hello World!')
-document.field('Greeting').required_string_value
-#=> 'Hello World!'
+A minimal example to read this file with `enolib`:
+
+```javascript
+const enolib = require('enolib');
+const fs = require('fs');
+
+const input = fs.readFileSync('intro.eno', 'utf-8');
+
+const document = enolib.parse(input);
+
+console.log( document.field('Greeting').requiredStringValue() );  // prints 'Hello World!'
 ```
 
 ## Links
 
-Gem on rubygems - <https://rubygems.org/gems/enolib/>  
+Package on npm - <https://npmjs.com/package/enolib/>  
 Repository on GitHub - <https://github.com/eno-lang/enolib/> 
 -- intro
 
@@ -49,11 +41,13 @@ Repository on GitHub - <https://github.com/eno-lang/enolib/>
 ## Parsing a document
 
 -- description
-```ruby
-require 'enolib'
+```javascript
+const enolib = require('enolib');
+const fs = require('fs');
 
-input = File.read('intro.eno')
-document = Enolib.parse(input)
+const input = fs.readFileSync('example.eno', 'utf-8');
+
+const document = enolib.parse(input);
 ```
 -- description
 
@@ -67,8 +61,8 @@ field, url, etc.), this is however a vital piece of information for good error
 messages, and so it is highly recommended to provide a `source` string which
 enolib includes in all error messages it creates:
 
-```ruby
-document = Enolib.parse(input, source: 'a/path/example.eno')
+```javascript
+const document = enolib.parse(input, { source: 'a/path/example.eno' });
 ```
 -- description
 
@@ -77,11 +71,11 @@ document = Enolib.parse(input, source: 'a/path/example.eno')
 -- description
 enolib's messages are fully localized, this is how you provide a different locale:
 
-```ruby
-require 'enolib'
-require 'enolib/locales'
+```javascript
+const enolib = require('enolib');
+const { es } = require('enolib/locales');
 
-document = Enolib.parse('field: value', locale=Enolib::Locales::Es)
+const document = enolib.parse('field: value', { locale: es });
 ```
 
 The currently available locales are `de`, `en` and `es`, you are very
@@ -98,10 +92,11 @@ but if you're in a terminal environment you can also get awesome colored
 and syntax highlighted error messages, or even full-fledged HTML if you're
 deploying enolib with a browser application:
 
-```ruby
-require 'enolib'
+```javascript
+const enolib = require('enolib');
+const { HtmlReporter, TerminalReporter } = require('enolib');
 
-document = Enolib.parse('field: value', reporter: Enolib::TerminalReporter) # or HtmlReporter 
+const document = enolib.parse('field: value', { reporter: TerminalReporter }); // or HtmlReporter 
 ```
 -- description
 
@@ -114,25 +109,34 @@ one-dimensional index or a line and column in the document, which means you ente
 the document at whichever element is at that location. This can be used for autocomplete
 providers in an IDE or text editor, or other rich eno document inspection usecases.
 
-```ruby
-require 'enolib'
+```javascript
+const enolib = require('enolib');
 
-lookup = Enolib.lookup('field: value', index: 3) # "what is at string offset 3?"
-#=> { element: #<Enolib::Element key=field>, range: :key }
+const lookup = enolib.lookup({ index: 3 }, 'field: value'); // "what is at string offset 3?"
+  // returns {
+  //   element: [object AmbiguousElement key=field value=value]
+  //   range: 'key'
+  // }
+  
+const lookup = enolib.lookup({ index: 5 }, 'field: value'); // "what is at string offset 5?"
+  // returns {
+  //   element: [object AmbiguousElement key=field value=value]
+  //   range: 'elementOperator'
+  // }
 
-lookup = Enolib.lookup('field: value', index: 5) # "what is at string offset 5?"
-#=>{ element: #<Enolib::Element key=field>, range: :element_operator }
-
-lookup = Enolib.lookup('field: value', line: 0, column: 10) # "what is at line 0, column 10?"
-#=>{ element: #<Enolib::Element key=field>, range: :value }
+const lookup = enolib.lookup({ line: 0, column: 10 }, 'field: value'); // "what is at line 0, column 10?"
+  // returns {
+  //   element: [object AmbiguousElement key=field value=value]
+  //   range: 'value'
+  // }
 ```
 
 Note that the element returned as a lookup property is of variable type,
 therefore you need to use the methods described in [Dynamic
-layouts](/enolib/ruby/querying-elements/dynamic-layouts/) to further query
+layouts](/javascript/querying-elements/dynamic-layouts/) to further query
 the document from this entry point.
 
-As you don't enter at the root you can also use `.parent` to navigate up the hierarchy.
+As you don't enter at the root you can also use `.parent()` to navigate up the hierarchy.
 -- description
 
 ## Querying content
@@ -151,13 +155,13 @@ by [enotype](https://github.com/eno-lang/enotype/)) or a custom type which we de
 When you query a value you always specify whether that value is optional or
 required:
 
-```ruby
-document.field('default_settings').required_string_value
-document.field('extra_settings').optional_string_value
+```javascript
+document.field('default_settings').requiredStringValue();
+document.field('extra_settings').optionalStringValue();
 ```
 
-The `optional_*` query returns a value or `nil`, while the `required_*` query
-raises a validation error if the value is missing, such as:
+The `optional*` query returns a value or `null`, while the `required*` query
+throws a validation error if the value is missing, such as:
 
 ```error
 The field 'default_settings' must contain a value.
@@ -170,9 +174,9 @@ The field 'default_settings' must contain a value.
 
 This works just like on a field:
 
-```ruby
-document.fieldset('image').entry('src').required_string_value
-document.fieldset('image').entry('title').optional_string_value
+```javascript
+document.fieldset('image').entry('src').requiredStringValue();
+document.fieldset('image').entry('title').optionalStringValue();
 ```
 -- description
 
@@ -182,9 +186,9 @@ document.fieldset('image').entry('title').optional_string_value
 -- description
 You can either directly query them from the list, or take the more verbose route through the items:
 
-```ruby
-document.list('shopping_list').required_string_values # Note the plural here
-document.list('shopping_list').items.map(&:required_string_value)
+```javascript
+document.list('shopping_list').requiredStringValues(); // Note the plural here
+document.list('shopping_list').items().map(item => item.requiredStringValue());
 ```
 
 An important gotcha here is that in the shortcut version *required string
@@ -192,11 +196,11 @@ values* does not mean there have to be items in the list, but only that items
 need to have a value. If you look at the non-shortcut version this is obvious,
 but for the shortcut version it's important to keep in mind.
 
-The `optional_*` variant of this accessor produces the less commonly needed array that might contain
-`nil` values:
+The `optional*` variant of this accessor produces the less commonly needed array that might contain
+`null` values:
 
-```ruby
-document.list('list_with_empty_spacer_items').optional_string_values
+```javascript
+document.list('list_with_empty_spacer_items').optionalStringValues();
 ```
 -- description
 
@@ -209,18 +213,18 @@ document.list('list_with_empty_spacer_items').optional_string_values
 All elements have a key (list items return the key of the list) therefore you don't need to specify
 optional/required here:
 
-```ruby
-document.elements.first.string_key
-document.fieldset('image').entries.first.string_key
+```javascript
+document.elements()[0].stringKey();
+document.fieldset('image').entries()[0].stringKey();
 ```
 
 ## Querying comments
 
 All elements can have an associated comment and like with values you specify whether it's optional or required:
 
-```ruby
-document.field('author').required_string_comment
-document.fieldset('image').optional_string_comment
+```javascript
+document.field('author').requiredStringComment();
+document.fieldset('image').optionalStringComment();
 ```
 -- description
 
@@ -228,27 +232,27 @@ document.fieldset('image').optional_string_comment
 
 -- description
 Predefined types are not shipped with enolib - they are provided as
-separate gems, for instance [enotype](https://github.com/eno-lang/enotype/).
+separate packages, for instance [enotype](https://github.com/eno-lang/enotype/).
 
-There are two ways to use them:
+There are two ways to use
+them:
 
 ## Registering types globally
 
 This is the preferred approach when you re-use types a lot - when you register a type it is made available through the native API.
 
-```ruby
-require 'enolib'
-require 'enotype'
+```javascript
+const enolib = require('enolib');
+const { boolean, color } = require('enotype');
 
-loaders = Enotype.procs(:boolean, :color)
-Enolib.register(loaders)
+enolib.register({ boolean, color });
 
-document = Enolib.parse('#b5b5b5: yes')
+const document = enolib.parse('#b5b5b5: yes');
 
-document.field('#b5b5b5').boolean_key # raises "A boolean is required - allowed values are 'true', 'false', 'yes' and 'no'."
-document.field('#b5b5b5').color_key # returns '#b5b5b5'
-document.field('#b5b5b5').required_boolean_value # returns true
-document.field('#b5b5b5').required_color_value # raises "A color is required, for instance '#B6D918', '#fff' or '#01b'."
+document.field('#b5b5b5').booleanKey(); // throws "A boolean is required - allowed values are 'true', 'false', 'yes' and 'no'."
+document.field('#b5b5b5').colorKey(); // returns '#b5b5b5'
+document.field('#b5b5b5').requiredBooleanValue(); // returns true
+document.field('#b5b5b5').requiredColorValue(); // throws "A color is required, for instance '#B6D918', '#fff' or '#01b'."
 ```
 
 In this approach you take any of the content query methods in enolib and replace `string`
@@ -260,20 +264,16 @@ This is essentially what's happening above as well, only under the hood. We'll
 see why this approach is sometimes preferable on the next page, when we define
 our own custom types.
 
-```ruby
-require 'enolib'
-require 'enotype'
+```javascript
+const enolib = require('enolib');
+const { boolean, color } = require('enotype');
 
-loaders = Enotype.procs(:boolean, :color)
-boolean = loaders[:boolean]
-color = loaders[:color]
+const document = enolib.parse('#b5b5b5: yes');
 
-document = Enolib.parse('#b5b5b5: yes')
-
-document.field('#b5b5b5').key(boolean) # raises "A boolean is required - allowed values are 'true', 'false', 'yes' and 'no'."
-document.field('#b5b5b5').key(color) # returns '#b5b5b5'
-document.field('#b5b5b5').required_value(boolean) # returns true
-document.field('#b5b5b5').required_value(color) # raises "A color is required, for instance '#B6D918', '#fff' or '#01b'."
+document.field('#b5b5b5').key(boolean); // throws "A boolean is required - allowed values are 'true', 'false', 'yes' and 'no'."
+document.field('#b5b5b5').key(color); // returns '#b5b5b5'
+document.field('#b5b5b5').requiredValue(boolean); // returns true
+document.field('#b5b5b5').requiredValue(color); // throws "A color is required, for instance '#B6D918', '#fff' or '#01b'."
 ```
 
 In this approach you remove `string` from any content query method and pass the type as a parameter instead.
@@ -282,62 +282,64 @@ In this approach you remove `string` from any content query method and pass the 
 #### Custom Types
 
 -- description
-The predefined types we've seen before are actually just simple lambdas/procs, here
+The predefined types we've seen before are actually just simple functions, here
 is for instance the definition of enotype's `color` type:
 
-```ruby
-COLOR_REGEXP = /^\s*#[0-9a-f]{3}([0-9a-f]{3})?\s*$/i
+```javascript
+exports.color = value => {
+  if(!value.match(/^\s*#[0-9a-f]{3}([0-9a-f]{3})?\s*$/i))
+    throw 'A color is required, for instance \'#B6D918\', \'#fff\' or \'#01b\'.';
 
-color = proc do |value|
-  raise 'A color is required, for instance \'#B6D918\', \'#fff\' or \'#01b\'.' unless value.match(COLOR_REGEXP)
-  value
-end
+  return value;
+};
 ```
 
-So as we see, all that's required for a custom type definition is a closure
+So as we see, all that's required for a custom type definition is a function
 that takes a single parameter - the value - and returns something!
 
 Additionally, depending on the type, we might also include validation as
-demonstrated above - we simply raise a string message if there is a problem.
+demonstrated above - we simply throw a string message if there is a problem.
 When that happens the  message is intercepted by enolib and embedded within a
 rich error message with metadata and a code snippet from the document.
 
-```ruby
-require 'enolib'
+```javascript
+const enolib = require('enolib');
 
-extra_foo = proc { |value| value + ' with extra foo!' }
+const extraFoo = value => value + ' with extra foo!';
 
-document = Enolib.parse('foo: bar')
+const document = enolib.parse('foo: bar');
 
-document.field('foo').required_value(extra_foo)  # returns 'bar with extra foo!'
+document.field('foo').requiredValue(extraFoo);  // returns 'bar with extra foo!'
 ```
 
 And just like that we are using our own type. Here's another example using the
 global registering magic from the previous chapter:
 
-```ruby
-require 'enolib'
+```javascript
+const enolib = require('enolib');
 
-my_foo_only_proc = proc do |value|
-  raise 'Only foo is accepted!' if value != 'foo'
-  value
-end
+const fooOnly = value => {
+  if(value !== 'foo')
+    throw 'Only foo is accepted!';
+  
+  return value;
+};
 
-Enolib.register(foo_only: my_foo_only_proc)
+enolib.register({ fooOnly });
 
-document = Enolib.parse('foo: bar')
+const document = enolib.parse('foo: bar');
 
-document.field('foo').foo_only_key  # returns 'foo'
-document.field('foo').required_foo_only_value  # raises "Only foo is accepted!" with a code snippet
+document.field('foo').fooOnlyKey();  // returns 'foo'
+document.field('foo').requiredFooOnlyValue();  // throws "Only foo is accepted!" with a code snippet
 ```
 
 As a final note why it is sometimes preferable to use the less magicky
-method parameter type passing: On the one hand you might dynamically construct
+function parameter type passing: On the one hand you might dynamically construct
 a type loader multiple times in your application when it depends on some local
 state (closure). On the other hand your type might not be a type per se but more of
-a conversion or modification, something like `replace_newlines` or `render_markdown`,
-and in that case `.required_value(render_markdown)` looks a bit more sensible than
-`.required_render_markdown_value`.
+a conversion or modification, something like `replaceNewlines` or `renderMarkdown`,
+and in that case `.requiredValue(renderMarkdown)` looks a bit more sensible than
+`.requiredRenderMarkdownValue()`.
 -- description
 
 ## Querying elements
@@ -345,39 +347,39 @@ and in that case `.required_value(render_markdown)` looks a bit more sensible th
 -- description
 In a static query we know what element type we expect (for instance a
 field), where we expect it (for instance at the document root) and what
-key that element has (for instance 'author'):
+key that element has (for instance 'author':
 
-```ruby
-document.field('author')
+```javascript
+document.field('author');
 ```
 
 All element types that exist in eno can be queried in that same way:
 
-```ruby
-document.field('author')
-document.list('files')
-document.list('files').items
-document.fieldset('image')
-document.fieldset('image').entry('src')
-document.section('content')
-# etc.
+```javascript
+document.field('author');
+document.list('files');
+document.list('files').items();
+document.fieldset('image');
+document.fieldset('image').entry('src');
+document.section('content');
+// etc.
 ```
 
 The document itself is a section (only without a key), and all queries you can
 perform on a document you can perform on a section as well:
 
-```ruby
-document.section('content').field('title')
-document.section('content').section('translated').section('dutch').list('tags')
+```javascript
+document.section('content').field('title');
+document.section('content').section('translated').section('dutch').list('tags');
 ```
 
 When you expect multiple elements you just use the plural:
 
-```ruby
-document.fields('author')
-document.lists('files')
-document.fieldsets('image')
-document.sections('content')
+```javascript
+document.fields('author');
+document.lists('files');
+document.fieldsets('image');
+document.sections('content');
 ```
 -- description
 
@@ -392,16 +394,16 @@ the elements' values themselves, the necessity for the element hierarchy in betw
 the document and that value is automatically inferred by whether the value itself
 is optional or required:
 
-```ruby
-document.section('content').section('translated').field('revision').optional_string_value
+```javascript
+document.section('content').section('translated').field('revision').optionalStringValue();
 ```
 
-The line above can be run for an entirely empty document and still return `nil`, while by
-modifying the query of the value itself to be required would make the code raise an error for
+The line above can be run for an entirely empty document and still return `null`, while by
+modifying the query of the value itself to be required would make the code throw an error for
 the first element missing in that hierarchy instead (again assuming an empty document):
 
-```ruby
-document.section('content').section('translated').field('revision').required_string_value
+```javascript
+document.section('content').section('translated').field('revision').requiredStringValue();
 ```
 
 This would produce an error:
@@ -415,63 +417,63 @@ The section 'content' is missing - in case it has been specified look for typos 
 
 With that said, there will of course also be cases where you want to be explicit
 about whether an element is optional or required, for this you can use the
-explicit `optional_*` or `required_*` accessor variant, which exists for all
+explicit `optional*` or `required*` accessor variant, which exists for all
 element types, for instance:
 
-```ruby
-document.required_field('author')
-document.optional_section('notes')
+```javascript
+document.requiredField('author');
+document.optionalSection('notes');
 ```
 
-As with value accessors, the `optional_*` variants return `nil` if the element
+As with value accessors, the `optional*` variants return `null` if the element
 does not exist (be aware that you should not chain further queries after such a
-call because you'd potentially be calling a function on `nil`), while the `required_*`
-variants immediately raise an error when the element is missing (here you can safely chain further queries afterwards).
+call because you'd potentially be calling a function on `null`), while the `required*`
+variants immediately throw an error when the element is missing (here you can safely chain further queries afterwards).
 
 Below is a pattern you might find useful, it's basically saying "There always has to
-be a field with the key 'author', but it can be empty". It returns `nil` or the value,
-and only raises an error when the field itself is missing.
+be a field with the key 'author', but it can be empty". It returns `null` or the value,
+and only throws an error when the field itself is missing.
 
-```ruby
-document.required_field('author').optional_string_value
+```javascript
+document.requiredField('author').optionalStringValue();
 ```
 
 The pattern below is sort of the reverse, it's "If there is a field with the key
 'author', it also requires a value", and guarantees there is a value if there is
-also a field, otherwise an error is raised.
+also a field, otherwise an error is thrown.
 
-```ruby
-author = document.optional_field('author')
+```javascript
+const author = document.optionalField('author');
 
-if author
-  value = author.required_string_value
-  # ...
-end
+if(author) {
+  const value = author.requiredStringValue();
+  // ...
+}
 ```
 
 Last but not least a pattern that does not work:
 
-```ruby
-author = document.field('author')
+```javascript
+const author = document.field('author');
 
-if author
-  # Will always enter here, author is never nil
-end
+if(author) {
+  // Will always enter here, author is never null
+}
 ```
 
 As shown earlier you can safely and deeply query a non-existing document
 hierarchy. This is possible because the standard query methods return proxy
-objects (e.g. `MissingSection`) instead of `nil` when an element in the chain
+objects (e.g. `MissingSection`) instead of `null` when an element in the chain
 is missing, and with that it's clear why the previous example does not work,
-instead you have to use the explicit `optional_field` accessor to ensure you are
-being returned `nil` if there is no element.
+instead you have to use the explicit `optionalField` accessor to ensure you are
+being returned `null` if there is no element.
 
-```ruby
-author = document.optional_field('author')
+```javascript
+const author = document.optionalField('author');
 
-if author
-  # This works, author can be nil now
-end
+if(author) {
+  // This works, author can be null now
+}
 ```
 
 -- description
@@ -485,33 +487,38 @@ dynamic layouts of content, meaning the quantity, order and type of elements
 is variable and we can not just statically query everything by key but instead
 we iterate and respond to what we find dynamically.
 
-```ruby
-document.elements.each do |element|
-  if element.string_key == 'foo'
-    # ...
-  end
-end
+```javascript
+const elements = document.elements();
+
+elements.forEach(element => {
+  if(element.stringKey() === 'foo') {
+    // ...
+  }
+});
 ```
 
 The `elements` accessor returns the ordered elements of a section as an array.
 As every element can be asked for a key, we can safely use this to determine
 further actions on an element.
 
-```ruby
-document.elements.each do |element|
-  if element.yields_field
-    value = element.to_field.required_string_value  
-    # ...
-  elsif element.yields_list
-    # ...
-  end
-end
+```javascript
+const elements = document.elements();
+
+elements.forEach(element => {
+  if(element.yieldsField()) {
+    const value = element.toField().requiredStringValue();
+    
+    // ...
+  } else if(element.yieldsList()) {
+    // ...
+  }
+});
 ```
 
 Not every element we encounter in a section has a value (fieldsets, lists and
-sections don't), therefore we use the `yields_[element_type]` methods to check
-for a specific element type before we make any queries that require e.g. a field
-when we expect different types.
+sections don't), therefore we use the `yields\[ElementType]()` methods to check for a
+specific element type before we make any queries that require e.g. a field when
+we expect different types.
 
 
 -- description
@@ -529,19 +536,19 @@ documentation can point the user to the possiblity to define that specific field
 To easily enable such behavior there is a shortcut that saves us from writing out 
 `required` in front of every element we query from the document:
 
-```ruby
-document.all_elements_required
-document.field('name').optional_string_value
+```javascript
+document.allElementsRequired();
+document.field('name').optionalStringValue();
 ```
 
 Here the field `name` always has to be present, no matter if it's empty or not.
 
 Note that this can be called not only on the document but also on any section or fieldset:
 
-```ruby
-details = document.section('details')
+```javascript
+const details = document.section('details');
 
-details.all_elements_required
+details.allElementsRequired();
 ```
 
 Any element queries on `details` from that point on always require the elements to be there,
@@ -549,10 +556,10 @@ including the ones in subsections and fieldsets, recursively.
 
 Lastly, this setting can also be reverted again by explicitly passing `false`:
 
-```ruby
-document.all_elements_required
-document.all_elements_required(false)
-document.field('name').optional_string_value
+```javascript
+document.allElementsRequired();
+document.allElementsRequired(false);
+document.field('name').optionalStringValue();
 ```
 
 Here the field `name` is optional, just as its value.
@@ -583,18 +590,18 @@ data itself that you can use for free.
 > TODO: only, except
 
 -- description
-Call `assert_all_touched` on a document, section or fieldset to ensure that no
+Call `assertAllTouched()` on a document, section or fieldset to ensure that no
 data has been left untouched by your application.
 
-```ruby
-document = Enolib.parse('importan_option: no_delete')  # Note the mis-typed key
+```javascript
+const document = enolib.parse('importan_option: no_delete');  // Note the mis-typed key
 
-important_option = document.field('important_option').optional_string_value
+const importantOption = document.field('important_option').optionalStringValue();
 
-document.assert_all_touched
+document.assertAllTouched();
 ```
 
-When you run this code an error will be raised in the last line:
+When you run this code an error will be thrown in the last line:
 
 ```error
 This element was not expected, make sure it is at the right place in the document and that its key is not mis-typed.
@@ -612,15 +619,15 @@ document. You can manually touch them so they and all elements below are marked
 as touched and don't get reported by enolib when you run your final checks at
 the end of the program.
 
-```ruby
-document = Enolib.parse('field: value')
+```javascript
+const document = enolib.parse('field: value')
 
-document.field('field').touch
+document.field('field').touch();
 
-document.assert_all_touched
+document.assertAllTouched();
 ```
 
-No error is raised this time.
+No error is thrown this time.
 -- description
 
 ## Error Metadata
@@ -641,12 +648,14 @@ enolib's errors provide rich textual and numerical information to applications:
 -- description
 Contains both the error text as well as the snippet. This is also what you get in the console when you don't catch the error.
 
-```ruby
-begin
-  # ...
-rescue Enolib::Error => e
-  e.message  #=> "In line 4 'a' is copied into itself.\n\n   Line | Content\n ..."
-end
+```javascript
+try {
+  // ...
+} catch(err) {
+  if(err instanceof EnoError) {
+    err.message;  // returns "In line 4 'a' is copied into itself.\n\n   Line | Content\n ..."
+  }
+}
 ```
 -- description
 
@@ -655,12 +664,14 @@ end
 -- description
 Returns a one-liner that describes the error in human language.
 
-```ruby
-begin
-  # ...
-rescue Enolib::Error => e
-  e.message  #=> "In line 4 'a' is copied into itself."
-end
+```javascript
+try {
+  // ...
+} catch(err) {
+  if(err instanceof EnoError) {
+    err.text;  // returns 'In line 4 'a' is copied into itself.'
+  }
+}
 ```
 -- description
 
@@ -669,21 +680,23 @@ end
 -- description
 Returns a formatted excerpt of those passage(s) from the input where the error occurred.
 
-```ruby
-begin
-  # ...
-rescue Enolib::Error => e
-  e.snippet
-  
-  # returns something like ...
-  #
-  #   Line | Content
-  #      1 | 
-  # *    2 |     # a
-  # *    3 |     ## b
-  # >    4 |     ### c < a
-  #      5 |
-end
+```javascript
+try {
+  // ...
+} catch(err) {
+  if(err instanceof EnoError) {
+    err.snippet;
+    
+    // returns something like ...
+    //
+    //   Line | Content
+    //      1 | 
+    // *    2 |     # a
+    // *    3 |     ## b
+    // >    4 |     ### c < a
+    //      5 |
+  }
+}
 ```
 -- description
 
@@ -694,12 +707,17 @@ Returns a cursor position object indicating where a cursor should be placed if
 an application wants to offer the user a way to move the cursor straight to the
 error location.
 
-```ruby
-begin
-  # ...
-rescue Enolib::Error => e
-  e.cursor  #=> { index: 56, line: 3, column: 14 }
-end
+```javascript
+try {
+  // ...
+} catch(err) {
+  if(err instanceof EnoError) {
+    err.cursor.index;   // returns a one-dimensional string-index, e.g. 56
+    
+    err.cursor.line;    // returns the line, e.g. 3
+    err.cursor.column;  // returns the column, e.g. 14
+  }
+}
 ```
 -- description
 
@@ -710,18 +728,22 @@ Returns a selection range object indicating what text area to select if an
 application wants to offer the user a way to select the parts in a document
 affected by the error.
 
-```ruby
-begin
-  # ...
-rescue Enolib::Error => e
-  e.selection 
-  
-  # returns ...
-  # {
-  #   from: { index: 56, line: 3, column: 14 },
-  #   to: { index: 78, line: 3, column: 32 }
-  # }
-end
+```javascript
+try {
+  // ...
+} catch(err) {
+  if(err instanceof EnoError) {
+    // The selection as a one-dimensional string-index range
+    err.selection.from.index;  // e.g. 56 
+    err.selection.to.index;    // e.g. 78
+    
+    // The selection as a line/column range
+    err.selection.from.line;    // e.g. 3
+    err.selection.from.column;  // e.g. 14
+    err.selection.to.line;      // e.g. 3
+    err.selection.to.column;    // e.g. 32
+  }
+}
 ```
 -- description
 
@@ -741,69 +763,69 @@ parsing eno, although more verbose than other formats, has much to offer:
 
 - Decoupling of the field names the user prefers/understands from the ones a developer wants to use in the code
 - Out of the box localized parser and validation errors that can be directly displayed to a non-technical user
-- Out of the box validation of predefined high-level types (comma_separated, datetime, email, slug and url here)
+- Out of the box validation of predefined high-level types (commaSeparated, datetime, email, slug and url here)
 - Native API integration of completely custom types (markdown here)
 - Guaranteed data integrity, including prevention of unhandled extra fields
 
-```ruby
-require 'enolib'
-require 'enolib/locales'
-require 'enotype'
-require 'kramdown'
+```js
+const fs = require('fs');
+const enolib = require('enolib');
+const markdownIt = require('markdown-it')();
 
-loaders = Enotype.procs(:comma_separated, :datetime, :email, :slug, :url)
+const { de } = require('enolib/locales');
+const { commaSeparated, datetime, email, slug, url } = require('enotype');
 
-loaders[:markdown] = proc { |value| Kramdown::Document.new(value).to_html }
+const markdown = value => markdownIt.render(value);
 
-# Makes the .required_xxx_value and .optional_xxx_value methods available below
-Enolib.register(loaders)
+// Makes the .requiredXxxValue() and .optionalXxxValue() methods available below
+enolib.register({ commaSeparated, datetime, email, markdown, slug, url }); 
 
-def read_post(filename)
-  input = File.read(filename)
-  document = Enolib.parse(input, locale: Enolib::Locales::De, source: filename)
+const readPost = filename => {
+  const input = fs.readFileSync(filename, 'utf-8');
+  const document = enolib.parse(input, { locale: de, source: filename });
   
-  author = document.fieldset('Verfasser')
-  post = {
+  const author = document.fieldset('Verfasser');
+  const post = {
     author: {
-      name: author.entry('Name').required_string_value,
-      email: author.entry('Email').optional_email_value,
-      website: author.entry('Website').optional_url_value
+      name: author.entry('Name').requiredStringValue(),
+      email: author.entry('Email').optionalEmailValue(),
+      website: author.entry('Website').optionalUrlValue()
     },
-    title: document.field('Titel').required_string_value,
-    date: document.field('Veröffentlicht').required_datetime_value,
-    permalink: document.field('Permalink').required_slug_value,
-    abstract: document.field('Abstract').optional_markdown_value,
-    body: document.field('Text').required_markdown_value,
-    tags: document.field('Tags').required_comma_separated_values
-  }
+    title: document.field('Titel').requiredStringValue(),
+    date: document.field('Veröffentlicht').requiredDatetimeValue(),
+    permalink: document.field('Permalink').requiredSlugValue(),
+    abstract: document.field('Abstract').optionalMarkdownValue(),
+    body: document.field('Text').requiredMarkdownValue(),
+    tags: document.field('Tags').requiredCommaSeparatedValues()
+  };
 
-  # Throws an error when there are unhandled, mis-typed or unneeded fields in the document
-  document.assert_all_touched
+  // Throws an error when there are unhandled, mis-typed or unneeded fields in the document
+  document.assertAllTouched();
   
-  post
-end
+  return post;
+};
 
-read_post('my_post.eno')
+readPost('my_post.eno');
 ```
 -- description
 
 #### AST inspection
 
 -- description
-You can call `raw()` on a document or any element in it to get a native ruby
+You can call `raw()` on a document or any element in it to get a raw javascript
 object serialization of the abstract syntax tree constructed by enolib.
 
-```ruby
-Enolib.parse("> note\ngreeting: hello").raw
-# returns {
-#   type: :document,
-#   elements: [{
-#     comment: 'note',
-#     key: 'greeting',
-#     type: :field,
-#     value: 'hello'
-#   }]
-# }
+```js
+enolib.parse('> note\ngreeting: hello').raw();
+  // returns {
+  //   type: 'document',
+  //   elements: [{
+  //     comment: 'note',
+  //     key: 'greeting',
+  //     type: 'field',
+  //     value: 'hello'
+  //   }]
+  // }
 ```
 
 Although this can theoretically be used to get a plain object dump of an eno
@@ -815,7 +837,7 @@ work with as well.
 #### FAQ
 
 -- description
-## Is it possible to deserialize an eno file directly into a Ruby object?
+## Is it possible to deserialize an eno file directly into a JavaScript object?
 
 Given that eno notation itself has no knowledge of types there is no way to
 automatically serialize values to anything other than `string` type. Given
@@ -832,6 +854,6 @@ userbase of an application, spending a few minutes on the validation code is
 probably the better tradeoff to make?
 
 Lastly, the enolib API does in fact also offer a way to deserialize a document
-to a native Ruby object, which however is only meant for debugging purposes.
-It is described in the previous chapter: [AST Inspection](/enolib/ruby/addendum/ast-inspection/).
+to a plain JavaScript object, which however is only meant for debugging purposes.
+It is described in the previous chapter: [AST Inspection](/javascript/addendum/ast-inspection/).
 -- description

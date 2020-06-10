@@ -9,9 +9,9 @@ module.exports = async home => {
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="The eno notation language and libraries">
+        <meta name="description" content="Eno · Notation For Users">
 
-        <title>Eno</title>
+        <title>Eno · Notation For Users</title>
 
         <link rel="stylesheet" href="/common.css">
         <link rel="stylesheet" href="/home.css">

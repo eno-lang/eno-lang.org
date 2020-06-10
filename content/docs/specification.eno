@@ -1,7 +1,7 @@
-title: specification
+title: Language Specification
 
 -- intro
-# Technical specification
+# Language specification
 
 Read this if you implement eno libraries, want to give feedback on the language
 design, or are curious. If you just want to use eno, the [language
@@ -20,7 +20,7 @@ Eno documents **must** be encoded as UTF-8.
 
 ## Filename Extension
 
-When saved to disk, eno documents **should** use the .eno extension.
+When saved to disk, eno documents **should** use the `.eno` extension.
 
 ## MIME Type
 
@@ -29,9 +29,7 @@ MIME type for eno documents. If you would like to follow that process or bring i
 and support you are very welcome to do so in the respective [issue on github](https://github.com/eno-lang/eno/issues/1).
 -- description
 
-### subchapters
-
-#### Terminology
+## Terminology
 
 -- description
 A complete glossary of terms in the eno notation language, listed alphabetically and in their singular form.
@@ -270,7 +268,7 @@ A `Value` might appear in a `Field`, `Fieldset Entry`, `List Item` or `Multiline
 `Values` can only include newlines and leading or trailing whitespace when they come from a `Multiline Field`.
 -- description
 
-#### Implementation Details
+## Implementation Details
 
 -- description
 This is a diverse collection of implementation details anyone that implements an
@@ -420,7 +418,7 @@ copy << template
 ```
 -- description
 
-#### Specification Refinement
+## Specification Refinement
 
 -- description
 95% of eno is built on a very simple foundation which has been fully specified,
@@ -435,7 +433,7 @@ These known and either not fully specified or not yet everywhere consistently im
 - At present only LF and CR+LF linebreaks are considered as linebreaks by eno parsers - it is still an open question whether other forms of vertical whitespace as they exist in the unicode specification should also be interpreted as significant characters that can terminate values and therefore separate instructions from each other. If you have relevant (i.e. professional or otherwise significant) experience with the factors to consider here, please get in touch, your experience would be greatly appreciated here!
 -- description
 
-#### ABNF
+## ABNF
 
 -- description
 This is an attempt to write as much of eno's specification down as ABNF. Note
@@ -591,7 +589,7 @@ block-text = [retained-whitespace] value
 ```
 -- description
 
-#### FAQ
+## FAQ
 
 -- description
 See [FAQ](/guide/faq/) in the [guide](/guide/)
