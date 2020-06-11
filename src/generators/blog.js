@@ -2,18 +2,35 @@ const fs = require('fs');
 const moment = require('moment');
 const path = require('path');
 
-const layout = require('../layout.js');
-
 module.exports = async blog => {
-  let content = `
-    <h1>Eno Blog</h1>
+  const html = `
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Eno Blog">
 
-    ${blog.map(entry =>
-      `<p><strong>${moment(entry.date).format('MMMM Do YYYY')}</strong></p>${entry.html}`
-    ).join('')}
-  `;
+        <title>Eno Blog</title>
 
-  const html = layout(content, 'Eno Blog');
+        <link rel="stylesheet" href="/common.css">
+    </head>
+
+    <body>
+        <div class="body_padding boundary padding">
+            <h1>Eno Blog</h1>
+
+            ${blog.map(entry => `
+                <p>
+                    <strong>${moment(entry.date).format('MMMM Do YYYY')}</strong>
+                </p>
+
+                ${entry.html}
+            `).join('')}
+        </div>
+    </body>
+</html>
+  `.trim();
 
   await fs.promises.mkdir(path.join(__dirname, `../../public/blog`));
   await fs.promises.writeFile(path.join(__dirname, `../../public/blog/index.html`), html);
