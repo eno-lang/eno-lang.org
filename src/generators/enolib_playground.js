@@ -62,6 +62,6 @@ module.exports = async demos => {
 </html>
   `.trim();
 
-  await fsExtra.ensureDir(path.join(__dirname, '../../public/enolib/playground/'));
-  await fs.promises.writeFile(path.join(__dirname, '../../public/enolib/playground/index.html'), html);
+  await fsExtra.ensureDir(path.join(__dirname, '../../public/enolib-playground/'));
+  await fs.promises.writeFile(path.join(__dirname, '../../public/enolib-playground/index.html'), html);
 };

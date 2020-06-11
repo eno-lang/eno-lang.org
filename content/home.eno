@@ -69,7 +69,7 @@ developer convenience.
 # Libraries Addendum <span class="light">· Benchmarks, Playground, Types</span>
 
 - [Benchmarks](https://github.com/eno-lang/benchmarks/) - *Enolib* is **fast** - multi-language comparison with toml and yaml parsers
-- [Code Playground](/enolib/playground/) - Interactive playground for *enolib* - javascript and emulated python/ruby examples
+- [Enolib Playground](/enolib-playground/) - Interactive playground for *enolib* - javascript and emulated python/ruby examples
 - [Enotype](https://github.com/eno-lang/enotype/) - Multi-language implementations of common types for use with *enolib*
 
 <a name="about"></a>
