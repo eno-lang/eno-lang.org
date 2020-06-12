@@ -29,6 +29,13 @@ MIME type for eno documents. If you would like to follow that process or bring i
 and support you are very welcome to do so in the respective [issue on github](https://github.com/eno-lang/eno/issues/1).
 -- description
 
+## Types
+
+-- description
+In eno there is no type differentiation on the language level, there are only
+textual representations ("strings"), which are always referred to as *values*.
+-- description
+
 ## Terminology
 
 -- description
