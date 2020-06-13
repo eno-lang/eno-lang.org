@@ -1,3 +1,17 @@
+-- 2020-06-13
+- Updated/cleaned up the original language design repository and migrated more resources to the [specification](https://eno-lang.org/specification/)
+-- 2020-06-13
+
+-- 2020-06-12
+- Implemented internal AST verification for [libeno](https://codeberg.org/simonrepp/libeno)'s examplified spec suite
+- Put some heavy thought into how a simple, future-proof public interface for libeno could or should look like
+-- 2020-06-12
+
+-- 2020-06-11
+- Implemented a proof of concept for systematically testing parsing correctness for [libeno](https://codeberg.org/simonrepp/libeno)
+- Implemented assembling of values from line continuations in libeno
+-- 2020-06-11
+
 -- 2020-06-10
 - Completely overhauled the layout for all documentation pages
 - Improved the libraries section on the frontpage
