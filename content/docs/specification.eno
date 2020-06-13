@@ -27,6 +27,11 @@ When saved to disk, eno documents **should** use the `.eno` extension.
 There are plans to officialy apply to the IANA to get `text/eno` registered as an offical
 MIME type for eno documents. If you would like to follow that process or bring in expertise
 and support you are very welcome to do so in the respective [issue on github](https://github.com/eno-lang/eno/issues/1).
+
+## Ordering
+
+Eno contains only ordered data structures, the order of elements as authored in
+a document is always retained by parsers.
 -- description
 
 ## Types
@@ -279,18 +284,7 @@ A `Value` might appear in a `Field`, `Fieldset Entry`, `List Item` or `Multiline
 `Values` can only include newlines and leading or trailing whitespace when they come from a `Multiline Field`.
 -- description
 
-## Implementation Details
-
--- description
-This is a diverse collection of implementation details anyone that implements an
-eno parser will probably wonder about at some point, and hopefully find a conclusive
-answer to here. Feel free to expand this collection or open an issue if you encounter
-an unclear parsing situation not described here.
--- description
-
-### subchapters
-
-#### Continuations
+## Continuations
 
 -- description
 Empty direct line continuations are always ignored, so this ...
@@ -353,11 +347,59 @@ field:
 ... produces the value `"foo bar"`
 -- description
 
-#### Copying
+## Copies
 
 -- description
-## Template Namespaces
+## Deep copy operators in the context of a non-section element
 
+Although the copy operator `<` exists on both sections and non-section elements,
+the deep copy operator `<<` is only understood as such by the parsing algorithm
+in the context of a section.
+
+Therefore in the following example the parser would look for a template with
+the key `"< template"` rather than `"template"`.
+
+```eno
+copy << template
+```
+-- description
+
+### subchapters
+
+#### Merging fieldsets
+
+-- description
+For flexibility, keys never need to be unique in any of eno's data structures,
+this requires some clarification of copying behavior in some edge cases, though.
+The example below should outline the wanted behavior for merging fieldset entries:
+
+```eno
+settings:
+color = red
+color = green
+foo = bar
+number = one
+
+settings_2 < settings
+color = blue
+number = two
+number = three
+```
+
+`color` and `number` from `settings` are discarded, resulting in this resolved fieldset:
+
+```eno
+settings_2:
+color = blue
+foo = bar
+number = two
+number = three
+```
+-- description
+
+#### Namespaces
+
+-- description
 When looking up a template element for copying, two separate namespaces are
 considered. All section elements live in their own namespace, whereas all
 non-section elements have their own shared namespace separate from sections.
@@ -415,26 +457,6 @@ entry = value
 
 copy < entry
 ```
-
-## Deep copy operators in the context of a non-section element
-
-Although the copy operator `<` exists on both sections and non-section elements,
-the deep copy operator `<<` is only understood as such by the parsing algorithm
-in the context of a section.
-
-Therefore in the following example the parser would look for a template with
-the key `'< template'` rather than `'template'`.
-
-```eno
-copy << template
-```
--- description
-
-#### Ordering
-
--- description
-All data structures in eno respect and retain their ordering, regardless of
-whether they conceptually represent key-value structures or key-less lists.
 -- description
 
 ## Specification Refinement
