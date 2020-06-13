@@ -397,6 +397,108 @@ number = three
 ```
 -- description
 
+#### Merging lists
+
+-- description
+When copied lists are extended with additional items, the merging behavior is to
+append the items specified on the list *being copied to* **after** those specified on the
+list *being copied from*.
+
+This document therefore ...
+
+```eno
+template:
+- A
+- B
+
+copy < template
+- C
+```
+
+... is identical to this one ...
+
+```eno
+template:
+- A
+- B
+
+copy:
+- A
+- B
+- C
+```
+
+Any of the following merge results for `copy` would be **incorrect**:
+
+```eno
+copy:
+- C
+- A
+- B
+```
+
+```eno
+copy:
+- A
+- C
+- B
+```
+
+-- description
+
+#### Merging sections
+
+-- description
+When deep-copying sections, non-section elements applicable for merging
+replace each other:
+
+```eno
+# default
+## grouping
+configuration:
+setting 1 = parameters
+setting 2 = parameters
+
+# specific << default
+## grouping
+configuration:
+- setting 1
+- setting 2
+```
+
+... would resolve `specific`  to this ...
+
+```eno
+# specific
+## grouping
+configuration:
+- setting 1
+- setting 2
+```
+
+Here is another example of this, replacing the `configuration` fieldset with an empty field instead:
+
+```eno
+# default
+## grouping
+configuration:
+setting 1 = parameters
+setting 2 = parameters
+
+# specific << default
+## grouping
+configuration:
+```
+
+... would resolve `specific`  to this ...
+
+```eno
+# specific
+## grouping
+configuration:
+```
+-- description
+
 #### Namespaces
 
 -- description
