@@ -1,13 +1,5 @@
 # Starters
 
-## Hello World
-
--- eno
-> A simple single field named 'Hello' with the value 'World'.
-
-Hello: World
--- eno
-
 ## Frontpage demo
 
 -- eno
