@@ -1,6 +1,6 @@
 # eno-lang.org
 
-The eno-lang.org website
+Language guide and specification, interactive tools, library documentation, blog and more 
 
 ## Working on the website
 
