@@ -14,7 +14,6 @@
     "http-server": "^0.12.3",
     "markdown-it": "^11.0.0",
     "markdown-it-prism": "^2.0.5",
-    "moment": "^2.29.1",
     "nodemon": "^2.0.6",
     "parcel-bundler": "^1.12.4",
     "prismjs": "^1.19.0",

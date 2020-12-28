@@ -1,5 +1,4 @@
 const fs = require('fs');
-const moment = require('moment');
 const path = require('path');
 
 module.exports = async blog => {
@@ -22,7 +21,9 @@ module.exports = async blog => {
 
             ${blog.map(entry => `
                 <p>
-                    <strong>${moment(entry.date).format('MMMM Do YYYY')}</strong>
+                    <strong>
+                      ${entry.date.toLocaleDateString('en-US', { year: 'numeric', day: 'numeric', month: 'long' })}
+                    </strong>
                 </p>
 
                 ${entry.html}
