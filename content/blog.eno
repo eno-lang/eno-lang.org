@@ -1,3 +1,16 @@
+-- 2020-12-28
+RSS is the cool kid again - you can now subscribe to
+eno-lang.org via the shiny new [RSS Feed](/feed.rss) \o/
+
+Also did some extensive housekeeping on the website repository, cleaning up and
+commiting changes of the last months, began moving assets from resources.eno-lang.org
+into the root domain to reduce complexity and server maintenance overhead, etc.
+-- 2020-12-28
+
+-- 2020-12-26
+Moved eno-lang.org to a new server
+-- 2020-12-26
+
 -- 2020-11-29
 Good news everyone! Over the past months [libeno](https://codeberg.org/simonrepp/libeno) has seen its first tagged and versioned release (0.1.0),
 and developers on Arch Linux can already [get it via the AUR](https://aur.archlinux.org/packages/libeno/). The [sicuit](https://fdpl.io/sicuit/)
