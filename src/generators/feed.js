@@ -8,8 +8,9 @@ const truncate = (str, len) =>
 module.exports = blog => {
   const xml = `
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
+    <atom:link href="https://eno-lang.org/feed.rss" rel="self" type="application/rss+xml"/>
     <description>Eno · A Data Language For Everyone</description>
   	<language>en</language>
   	<lastBuildDate>${(new Date).toUTCString()}</lastBuildDate>
@@ -34,7 +35,7 @@ module.exports = blog => {
   `;
 
   fs.writeFileSync(
-    path.join(__dirname, '../../public/feed.xml'),
+    path.join(__dirname, '../../public/feed.rss'),
     xml.trim()
   );
 }

@@ -792,9 +792,6 @@ with the enors (rust) implementation coming up next on the roadmap, likely to co
 
 -- 2018-07-28
 - Officially kicked off development for the rust library implementation - [enors](https://github.com/eno-lang/enors).
--- 2018-07-28
-
--- 2018-07-28
 - Rebooted the [eno](https://github.com/eno-lang/eno) core language repository as the central collection point for all specification documents.
 - Authored a new [terminology](https://github.com/eno-lang/eno/blob/master/TERMINOLOGY.md) document, describing the entire terminology employed by the eno language.
 - Some more rust implementation basic research.

@@ -19,7 +19,7 @@ module.exports = async blog => {
         <div class="body_padding boundary padding">
             <h1>Eno Blog</h1>
 
-            You can subscribe to this blog via its <a href="/feed.xml">RSS feed</a>.
+            You can subscribe to this blog via its <a href="/feed.rss">RSS feed</a>.
 
             ${blog.map(entry => `
                 <p>
