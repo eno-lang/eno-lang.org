@@ -16,7 +16,8 @@ const blog = async () => {
 
   const blog = document.fields().map(entry => ({
     date: entry.dateKey(),
-    html: entry.requiredMarkdownValue()
+    html: entry.requiredMarkdownValue(),
+    permalink: entry.stringKey()
   }));
 
   document.assertAllTouched();
