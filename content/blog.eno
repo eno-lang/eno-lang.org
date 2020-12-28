@@ -1,3 +1,15 @@
+-- 2020-11-29
+Good news everyone! Over the past months [libeno](https://codeberg.org/simonrepp/libeno) has seen its first tagged and versioned release (0.1.0),
+and developers on Arch Linux can already [get it via the AUR](https://aur.archlinux.org/packages/libeno/). The [sicuit](https://fdpl.io/sicuit/)
+password manager is now officially the first application released out in the wild that puts libeno to the test in a live setting, which will help to drive
+stability and testing over the coming months. Feature additions have been only sparse over the past months (most notably copying still
+remains as the last and only unimplemented part of the spec), however to some degree this is actually a direct result of the fact that there
+is really nothing lacking for productive parsing usage, which is also kinda great to see. In the coming weeks I'd like to mostly work on
+libeno's test suite, adding examples for various error cases and possibly implementing algorithmic re-runs of existing tests
+with different whitespace/linebreak-style/(no)-newline-before-EOF permutations to deepen confidence in the soundness of the parser code.
+Unless there's any big news till then ... see you all in 2021!
+-- 2020-11-29
+
 -- 2020-06-13
 - Updated/cleaned up the original language design repository and migrated more resources to the [specification](https://eno-lang.org/specification/)
 -- 2020-06-13
