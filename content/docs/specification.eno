@@ -572,7 +572,7 @@ which are still in the process of being carefullly refined in the interest of
 ending up with a completely solid, bullet-proof specification.
 
 These known and either not fully specified or not yet everywhere consistently implemented details are:
-- The exact rules for whitespace processing on associated comments, currently specified in this [RFC](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/associated-comments-rev2.md)
+- The exact rules for whitespace processing on associated comments, currently specified in this [RFC](https://github.com/eno-lang/eno/blob/master/associated-comments-rev2.md)
 - At present only LF and CR+LF linebreaks are considered as linebreaks by eno parsers - it is still an open question whether other forms of vertical whitespace as they exist in the unicode specification should also be interpreted as significant characters that can terminate values and therefore separate instructions from each other. If you have relevant (i.e. professional or otherwise significant) experience with the factors to consider here, please get in touch, your experience would be greatly appreciated here!
 -- description
 
