@@ -28,7 +28,7 @@
   "repository": "https://github.com/eno-lang/eno-lang.org",
   "scripts": {
     "build": "node build.js && npm run playground && npm run enolib-playground",
-    "deploy": "node deploy.js",
+    "deploy": "./deploy.sh",
     "enolib-playground": "parcel build src/enolib_playground.js --no-source-maps --out-dir public/enolib-playground --out-file bundle.js",
     "playground": "parcel build src/playground.js --no-source-maps --out-dir public/playground --out-file bundle.js",
     "release": "npm run build && npm run deploy",
