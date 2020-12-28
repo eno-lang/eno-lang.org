@@ -1,7 +1,7 @@
 > TODO: Turn the eno snippet into a carousel-style whirlwind tour / teaser video that showcases all landmark features
 
 -- markdown
-# Eno <span class="light">· Notation For Users</span>
+# Eno <span class="light">· A Data Language For Everyone</span>
 
 ```eno
 author: Jane Doe
@@ -24,14 +24,14 @@ Málaga: 36.721447, -4.421291
 Springfield: 38.790312, -77.186418
 ```
 
-Eno is a user-centric data language. Its simple syntax and versatile nature
-serves a wide audience, both in regards to cultural background as well as
-technical ability. Unlike traditional developer- and machine-centric data
-languages, its type-agnostic design acknowledges the human ability to understand
-and use context and puts long-lasting user productivity before short-lived
-developer convenience.
+Eno is a data language for all people, not just developers. Its simple syntax and
+versatile nature welcomes a wide audience, both in regards to cultural background
+as well as technical ability. Unlike traditional developer- and machine-centric
+data languages, its type-agnostic design embraces our human superpower - our
+effortless understanding of context - and in doing so puts day-to-day user
+productivity before one-shot developer shortcuts.
 
-<!-- - [Reference Parser](https://codeberg.org/simonrepp/libeno/) - A new reference parser for eno notation. -->
+<!-- - [Reference Parser](https://codeberg.org/simonrepp/libeno/) - A new reference parser for Eno. -->
 
 - [Guide](/guide/) - The entire language explained in just a few minutes.
 - [Playground](/playground/) - Example documents you can interactively modify and study.
@@ -73,34 +73,34 @@ developer convenience.
 <a name="about"></a>
 # History <span class="light">· The Journey So Far</span>
 
-The first draft for what is now known as eno notation was sketched out in early
+The first draft for what is now known as *Eno* was sketched out in early
 2018 during R&D on a large publishing project around file-based content.  It was
 designed and developed by [Simon Repp](https://simonrepp.com/), and still is to
 this day. Many contributions were made by people who have offered their
 cultural, technical and personal insight, reported bugs and submitted code and
-corrections and set out to develop their own libraries for eno notation - I'd
-like to hereby express my gratitude to all of you, thank you for being part of
-this adventure.
+corrections and set out to develop their own libraries for Eno - I'd
+like to hereby express my gratitude to you, thanks for your support!
 
 
 # Present And Future <span class="light">· The Road Ahead</span>
 
-As of early summer 2020 major efforts are made to enable eno notation usage in
-native development (C, C++, Go, Rust, et al). Therein the development of a new
-C-based reference parsing library will serve as a vehicle for clearly specifying
-and thereby resolving the last remaining ambiguities in the specification.
+Since mid-2020 a big effort is made to enable usage of Eno with compiled
+languages (C/C++, Go, Rust, et al). The development of the [new C-based
+reference parser](https://codeberg.org/simonrepp/libeno/) which is the core part
+of this effort also serves as a vehicle for clearly specifying and thereby
+resolving the last remaining ambiguities in the specification.
 
-Building on top of the new reference parser, research on a native and
-cross-platform parsing code generator is planned for the near future, enabling
-developers to obtain fully functional data serialization code for multiple
-languages based on a schema language that is to be defined in the process.
+Building on top of the new reference parser, work on a cross-platform parsing
+code generator is planned for the near-ish future, enabling developers to obtain
+fully functional data serialization code for multiple languages based on a
+schema language that is to be defined in the process.
 
-The mid and long term vision is to endeavour for standardization of eno notation
-either by institutional backing or through establishment of a de-facto standard
-through the power of community. If you sympathize with this vision, I invite you
-to the join into our endeavour and help make it happen.
+The mid and long term vision is to endeavour for standardization of Eno either
+through the institutional route or by establishing a de-facto standard through
+sufficient adoption in a few key projects or products. If you sympathize with
+this vision, join in to help make it happen!
 
-For the latest developments you can subscribe to the [blog](https://eno-lang.org/blog/).
+For the latest developments you can follow the [blog](https://eno-lang.org/blog/).
 
 
 # Contact <span class="light">· Issues And Questions</span>

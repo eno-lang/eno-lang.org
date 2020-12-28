@@ -817,7 +817,7 @@ work with as well.
 -- description
 ## Is it possible to deserialize an eno file directly into a Ruby object?
 
-Given that eno notation itself has no knowledge of types there is no way to
+Given that Eno itself has no knowledge of types there is no way to
 automatically serialize values to anything other than `string` type. Given
 that eno documents and elements can flexibly represent both associative and
 sequential data structures, there is also no canonical serialization

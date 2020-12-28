@@ -94,7 +94,7 @@ repository on Codeberg: <https://codeberg.org/simonrepp/libeno>
 -- 2020-05-01
 
 -- 2020-01-18
-The eno notation language is now finally getting a schema definition
+Eno is now finally getting a schema definition
 metaformat (by popular request) - after two days of hacking (building on
 previous efforts from a few months ago) a first prototype for a CLI-based
 parser generator is now up on github: <https://github.com/eno-lang/enocli>
