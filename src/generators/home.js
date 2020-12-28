@@ -29,13 +29,8 @@ module.exports = async home => {
                     <a class="optional" href="#plugins">Plugins</a>
                     <a href="#libraries">Libraries</a>
                     <a class="optional" href="#about">About</a>
-                    <a class="optional" href="/blog/" target="_blank">Blog</a>
                 </nav>
             </div>
-        </div>
-
-        <div class="info_badge">
-            Follow 2020 development of the new reference parser at the <a href="/blog/" target="_blank">blog</a>
         </div>
 
         <div class="home_boundary home_padding">

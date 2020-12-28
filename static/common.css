@@ -1,17 +1,13 @@
 /* colors */
-
 :root {
   --color-background: #fafafa;
   --color-code-background: #eaeaea;
-  --color-info-badge: #f8f0e8;
   --color-link: #cca366;
   --color-text: #3f3f3f;
   --color-text-faded: #ccc;
 }
 
-
 /* fonts */
-
 @font-face {
   font-family: 'Fira Mono';
   font-style: normal;
@@ -38,7 +34,6 @@
 }
 
 /* base */
-
 body {
   background-color: var(--color-background);
   color: var(--color-text);
@@ -89,7 +84,6 @@ video { max-width: 100%; }
 }
 
 /* site */
-
 .body_padding {
   padding-bottom: 3em !important;
   padding-top: 3em !important;
@@ -107,11 +101,6 @@ video { max-width: 100%; }
   color: var(--color-text-faded);
 }
 .indented { padding-left: 1em; }
-.info_badge {
-  background-color: var(--color-info-badge);
-  padding: .6em;
-  text-align: center;
-}
 .margin { margin: 1em 0; }
 .padding { padding: 0 1em; }
 
@@ -119,7 +108,6 @@ video { max-width: 100%; }
  * prism.js eno dark theme
  * Based on One Dark (https://github.com/atom/atom/tree/master/packages/one-dark-syntax)
  */
-
 code[class*="language-"],
 pre[class*="language-"] {
 	color: #abb2bf;

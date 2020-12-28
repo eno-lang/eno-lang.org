@@ -32,6 +32,6 @@ ul {
 .header nav { display: flex; }
 .header nav a { margin-left: 1em; }
 
-@media (max-width: 479px) {
+@media (max-width: 390px) {
   .header .optional { display: none; }
 }

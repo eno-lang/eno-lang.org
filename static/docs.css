@@ -34,7 +34,7 @@
   padding: .25em;
 }
 .docs blockquote {
-  background-color: var(--color-info-badge);
+  background-color: #f8f0e8;
   margin: 0;
   padding: 1em;
 }
