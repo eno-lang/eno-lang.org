@@ -36,7 +36,7 @@ to round off the package.
 In the meantime I'm now going back to work on the new reference parser, which, I
 can happily report, has been successfully put into a real-life usecase already,
 powering config and password store parsing for
-[sicuit](https://simonrepp.com/sicuit/), a project I'll be first releasing in a
+[sicuit](https://fdpl.io/sicuit/), a project I'll be first releasing in a
 week or so.
 -- 2020-06-08
 
