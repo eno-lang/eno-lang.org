@@ -33,6 +33,6 @@
     "playground": "parcel build src/playground.js --no-source-maps --out-dir public/playground --out-file bundle.js",
     "release": "npm run build && npm run deploy",
     "serve": "http-server -c-1",
-    "watch": "nodemon --ext css,eno,js,scss --ignore public --exec 'npm run build && npm run serve'"
+    "watch": "nodemon --ext css,eno,html,js --ignore public --exec 'npm run build && npm run serve'"
   }
 }

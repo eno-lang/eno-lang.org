@@ -84,6 +84,14 @@ video { max-width: 100%; }
 }
 
 /* site */
+.center_404 {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+}
+.center_404 h1 { margin-top: 0; }
 .body_padding {
   padding-bottom: 3em !important;
   padding-top: 3em !important;
