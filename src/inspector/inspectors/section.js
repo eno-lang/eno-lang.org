@@ -40,16 +40,16 @@ export default class SectionInspector extends React.Component {
       <div>
         <div>
           {elements.length > 0 ?
-            <a className="inspector_node" onClick={this.toggleFolded}>
-              <span className={this.state.folded ? 'icon-unfold' : 'icon-fold'}/>
-              </a>
+            <a onClick={this.toggleFolded}>
+              <img className="node" src={this.state.folded ? "/images/unfold.svg" : "/images/fold.svg"}/>
+            </a>
             :
-            <span className="inspector_node icon-no-folding"/>
+            <img className="node" src="/images/unfoldable.svg"/>
           }
           {
             isDocument ?
-            <strong class="inspector_key">Document</strong> :
-            <span><span><strong class="inspector_key">{key}</strong> <span className="inspector_element_type">(Section)</span></span> {comment ? <span className="inspector_comment">(Comment – {formatValue(comment)})</span> : null}</span>
+            <strong className="key">Document</strong> :
+            <span><span><strong className="key">{key}</strong> <span className="element_type">(Section)</span></span> {comment ? <span className="comment">(Comment – {formatValue(comment)})</span> : null}</span>
           }
         </div>
 

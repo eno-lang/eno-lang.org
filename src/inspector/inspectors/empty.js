@@ -14,7 +14,8 @@ export default class EmptyInspector extends React.Component {
 
     return(
       <div>
-        <span className="inspector_node icon-no-folding"/> <strong class="inspector_key">{key}</strong> <span className="inspector_element_type">(Empty)</span> {comment ? <span className="inspector_comment">(Comment – {formatValue(comment)})</span> : null}
+        <img className="node" src="/images/unfoldable.svg"/>
+        <strong className="key">{key}</strong> <span className="element_type">(Empty)</span> {comment ? <span className="comment">(Comment – {formatValue(comment)})</span> : null}
       </div>
     );
   }

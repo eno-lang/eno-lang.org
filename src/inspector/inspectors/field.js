@@ -17,7 +17,7 @@ export default class FieldInspector extends React.Component {
 
     return(
       <div>
-        <span className="inspector_node icon-no-folding"/> {key ? <span><strong class="inspector_key">{key}</strong> →</span> : null} <span className="inspector_value">{formatValue(value)}</span> <span className="inspector_element_type">({key ? 'Field' : 'List Item'})</span> {comment ? <span className="inspector_comment">(Comment – {formatValue(comment)})</span> : null}
+        <img className="node" src="/images/unfoldable.svg"/> {key ? <span><strong className="key">{key}</strong> →</span> : null} <span className="value">{formatValue(value)}</span> <span className="element_type">({key ? 'Field' : 'List Item'})</span> {comment ? <span className="comment">(Comment – {formatValue(comment)})</span> : null}
       </div>
     );
   }

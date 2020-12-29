@@ -25,13 +25,13 @@ export default class FieldsetInspector extends React.Component {
     return(
       <div>
         {entries.length > 0 ?
-          <a className="inspector_node" onClick={this.toggleFolded}>
-            <span className={this.state.folded ? 'icon-unfold' : 'icon-fold'}/>
+          <a onClick={this.toggleFolded}>
+            <img className="node" src={this.state.folded ? "/images/unfold.svg" : "/images/fold.svg"}/>
           </a>
           :
-          <span className="inspector_node icon-no-folding"/>
+          <img className="node" src="/images/unfoldable.svg"/>
         }
-        <strong class="inspector_key">{key}</strong> <span className="inspector_element_type">(Fieldset)</span> {comment ? <span className="inspector_comment">(Comment – {formatValue(comment)})</span> : null}
+        <strong className="key">{key}</strong> <span className="element_type">(Fieldset)</span> {comment ? <span className="comment">(Comment – {formatValue(comment)})</span> : null}
 
         {this.state.folded ? null :
           <div className="indented">
