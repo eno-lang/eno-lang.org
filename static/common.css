@@ -56,6 +56,7 @@ code {
 img { max-width: 100%; }
 h1, h2, h3 { font-weight: 600; }
 h1 { font-size: 1.6em; }
+h1 span.light { font-weight: 400; }
 h2 { font-size: 1.2em; }
 h3 { font-size: 1.1em; }
 h1 img,

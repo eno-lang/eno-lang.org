@@ -4,7 +4,6 @@
 }
 
 h1 { margin-top: 3em; }
-h1 span.light { font-weight: 400; }
 ul {
   list-style: square inside;
   padding: 0;

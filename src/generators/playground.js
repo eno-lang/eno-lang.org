@@ -11,13 +11,10 @@ module.exports = async demos => {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Eno Playground">
-
-    <title>Eno Playground</title>
-
     <link href="/common.css" rel="stylesheet">
     <link href="/playground.css" rel="stylesheet">
-
     <script defer src="bundle.js"></script>
+    <title>Eno · Playground</title>
   </head>
 
   <body>
@@ -47,7 +44,7 @@ module.exports = async demos => {
           </select>
         </div>
 
-        <h1>Eno Playground</h1>
+        <h1>Eno <span class="light">· Playground</span></h1>
       </div>
 
       <div class="split">
