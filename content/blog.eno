@@ -1,3 +1,7 @@
+-- 2021-01-04
+Published a new revision of the [associated comments RFC](https://github.com/eno-lang/eno/blob/main/associated-comments.md), specifying top-level comments associated with the document (as already experimentally available in [libeno](https://codeberg.org/simonrepp/libeno)).
+-- 2021-01-04
+
 -- 2020-12-28
 RSS is the cool kid again - you can now subscribe to
 eno-lang.org via the shiny new [RSS Feed](/feed.rss) \o/

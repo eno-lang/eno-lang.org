@@ -571,9 +571,22 @@ There is a small number of intricate details which comprise the 5% of eno
 which are still in the process of being carefullly refined in the interest of
 ending up with a completely solid, bullet-proof specification.
 
-These known and either not fully specified or not yet everywhere consistently implemented details are:
-- The exact rules for whitespace processing on associated comments, currently specified in this [RFC](https://github.com/eno-lang/eno/blob/master/associated-comments-rev2.md)
-- At present only LF and CR+LF linebreaks are considered as linebreaks by eno parsers - it is still an open question whether other forms of vertical whitespace as they exist in the unicode specification should also be interpreted as significant characters that can terminate values and therefore separate instructions from each other. If you have relevant (i.e. professional or otherwise significant) experience with the factors to consider here, please get in touch, your experience would be greatly appreciated here!
+These details are:
+- Whitespace processing on associated comments is specified by this
+  [RFC](https://github.com/eno-lang/eno/blob/master/associated-comments.md), but
+  implementations might still deviate from the described behavior because it has
+  not yet been set in stone
+- Since revision 3 the [associated comments RFC](https://github.com/eno-lang/eno/blob/master/associated-comments.md)
+  also proposes comments that can be associated to the document, these are
+  currently only implemented by the C-based
+  [libeno](https://codeberg.org/simonrepp/libeno) parser
+- At present only LF and CR+LF linebreaks are considered as linebreaks by eno
+  parsers - it is still an open question whether other forms of vertical
+  whitespace as they exist in the unicode specification should also be interpreted
+  as significant characters that can terminate values and therefore separate
+  instructions from each other. If you have relevant (i.e. professional,
+  cultural or otherwise) experience with the factors to consider here, please get
+  in touch, your insight would be greatly appreciated!
 -- description
 
 ## ABNF
