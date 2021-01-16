@@ -81,7 +81,7 @@ week or so.
 - Today on the side I've also kicked off a process of reworking the website, making it simpler and
   more to the point, removing stack bloat and resolving some responsiveness and
   probably also accessibility issues that still remain.
-- I finished and uploaded [revision 2 of the associated comments RFC](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/associated-comments-rev2.md),
+- I finished and uploaded [revision 2 of the associated comments RFC](https://github.com/eno-lang/eno/blob/main/rfcs-final-spec/associated-comments-rev2.md),
   which proposes new, improved whitespace behavior based on research and development over the last months.
 -- 2020-05-23
 
@@ -221,16 +221,16 @@ Released [enolib](https://github.com/eno-lang/enolib/) 0.8.0, supporting the new
 -- 2019-07-27
 
 -- 2019-07-26
-- Multiple updates to [prism-eno](https://github.com/eno-lang/prism-eno), greatly improving multiline field recognition robustness, handling various edge cases, adding support for the new [empties](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/explicit-empty.md) and more
+- Multiple updates to [prism-eno](https://github.com/eno-lang/prism-eno), greatly improving multiline field recognition robustness, handling various edge cases, adding support for the new [empties](https://github.com/eno-lang/eno/blob/main/rfcs-final-spec/explicit-empty.md) and more
 -- 2019-07-26
 
 -- 2019-07-24
-- Released [language-eno](https://atom.io/packages/language-eno) 0.5.0 for Atom, adding support for the new [empties](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/explicit-empty.md)
+- Released [language-eno](https://atom.io/packages/language-eno) 0.5.0 for Atom, adding support for the new [empties](https://github.com/eno-lang/eno/blob/main/rfcs-final-spec/explicit-empty.md)
 -- 2019-07-24
 
 -- 2019-07-19
-- Released [vscode-eno](https://marketplace.visualstudio.com/items?itemName=eno-lang.vscode-eno) 0.4.0 for Visual Studio Code, adding support for the new [empties](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/explicit-empty.md)
-- Released [sublime-eno](https://packagecontrol.io/packages/eno) 0.4.0 for Sublime Text, adding support for the new [empties](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/explicit-empty.md)
+- Released [vscode-eno](https://marketplace.visualstudio.com/items?itemName=eno-lang.vscode-eno) 0.4.0 for Visual Studio Code, adding support for the new [empties](https://github.com/eno-lang/eno/blob/main/rfcs-final-spec/explicit-empty.md)
+- Released [sublime-eno](https://packagecontrol.io/packages/eno) 0.4.0 for Sublime Text, adding support for the new [empties](https://github.com/eno-lang/eno/blob/main/rfcs-final-spec/explicit-empty.md)
 -- 2019-07-19
 
 -- 2019-07-17
@@ -246,7 +246,7 @@ basic eno parsing in C, C++, Rust and other low level languages!
 -- 2019-07-17
 
 -- 2019-06-19
-- Published an [RFC for Empties](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/explicit-empty.md) (explicit key-only elements) - an implementation for evaluating this RFC for is already ready and will be released through enolib in the coming days.
+- Published an [RFC for Empties](https://github.com/eno-lang/eno/blob/main/rfcs-final-spec/explicit-empty.md) (explicit key-only elements) - an implementation for evaluating this RFC for is already ready and will be released through enolib in the coming days.
 - Migrated most of the specification resources in the eno core repository to the eno-lang.org repository (because single source of truth)
 - Added portfolio page and color scheme example documents to the interactive eno document browser
 -- 2019-06-19
@@ -467,13 +467,13 @@ days and weeks.
 -- 2019-02-20
 
 -- 2019-02-18
-- Published an [RFC for excluding fieldsets from section deep merging](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/exclude-fieldsets-from-section-deep-merging.md)
+- Published an [RFC for excluding fieldsets from section deep merging](https://github.com/eno-lang/eno/blob/main/rfcs-final-spec/exclude-fieldsets-from-section-deep-merging.md)
 - Deep refactoring of javascript prerelease library error generator code, cutting down validation errors by a few hundred lines of code
 - Adaptation and extension of the cross-platform error specs for the upcoming prerelease libraries
 -- 2019-02-18
 
 -- 2019-02-17
-- Revised the [associated comments RFC](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/associated-comments-rev1.md) with detailed and updated specification details on whitespace processing
+- Revised the [associated comments RFC](https://github.com/eno-lang/eno/blob/main/rfcs-final-spec/associated-comments-rev1.md) with detailed and updated specification details on whitespace processing
 - Implemented the above mentioned whitespace processing rules for the (yet unreleased) javascript prerelease library, plus some object oriented code refactoring
 - Optimization work on the javascript prerelease library syntax tree model, achieving significant parser performance gains through on-demand document traversal branch instantiation
 -- 2019-02-17
@@ -485,9 +485,9 @@ days and weeks.
 
 -- 2019-02-15
 - Binge coding on the prerelease libraries
-- Published an [RFC for template namespace separation](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/separate-copy-template-namespaces.md)
-- Added a section with details on continuation behavior in various special cases to the [single line field RFC](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/restrict-fields-to-a-single-line-rev1.md)
-- Revised the [hybrid fieldset RFC](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/hybrid-fieldsets-rev1.md) to prevent misunderstandings caused by the merging behavior JSON metaphor (thanks to Nicholas Prado for the feedback!) 
+- Published an [RFC for template namespace separation](https://github.com/eno-lang/eno/blob/main/rfcs-final-spec/separate-copy-template-namespaces.md)
+- Added a section with details on continuation behavior in various special cases to the [single line field RFC](https://github.com/eno-lang/eno/blob/main/rfcs-final-spec/restrict-fields-to-a-single-line-rev1.md)
+- Revised the [hybrid fieldset RFC](https://github.com/eno-lang/eno/blob/main/rfcs-final-spec/hybrid-fieldsets-rev1.md) to prevent misunderstandings caused by the merging behavior JSON metaphor (thanks to Nicholas Prado for the feedback!) 
 -- 2019-02-15
 
 -- 2019-02-14
@@ -520,15 +520,15 @@ lot of documentation will need to be written or updated. ;)
 -- 2019-02-02
 
 -- 2019-01-26
-- Published the [RFC for hybrid fieldsets](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/hybrid-fieldsets.md)
+- Published the [RFC for hybrid fieldsets](https://github.com/eno-lang/eno/blob/main/rfcs-final-spec/hybrid-fieldsets.md)
 -- 2019-01-26
 
 -- 2019-01-19
-- Published the [RFC for changing eno's *name* terminology to *key* instead](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/key-terminology.md)
+- Published the [RFC for changing eno's *name* terminology to *key* instead](https://github.com/eno-lang/eno/blob/main/rfcs-final-spec/key-terminology.md)
 -- 2019-01-19
 
 -- 2019-01-16
-- Completed and published the [RFC for restricting field values to a single line](https://github.com/eno-lang/eno/blob/master/rfcs-final-spec/restrict-fields-to-a-single-line.md), likely the core piece in the final specification changeset 🎉
+- Completed and published the [RFC for restricting field values to a single line](https://github.com/eno-lang/eno/blob/main/rfcs-final-spec/restrict-fields-to-a-single-line.md), likely the core piece in the final specification changeset 🎉
 -- 2019-01-16
 
 -- 2019-01-14
@@ -783,7 +783,7 @@ with the enors (rust) implementation coming up next on the roadmap, likely to co
 -- 2018-08-18
 - Released enorb 0.10.2 with fixes to ensure compatibility with the ruby 2.3 and 2.4 series ([changelog](https://github.com/eno-lang/enorb/blob/master/CHANGELOG.md)) - thanks to Ralf Ebert for reporting the issues!
 - Added info badges to the library documentation pages to indicate how the docs can be edited by everyone who'd like to contribute.
-- Some work towards completing the eno ABNF [specification document](https://github.com/eno-lang/eno/blob/master/eno.abnf).
+- Some work towards completing the eno ABNF [specification document](https://github.com/eno-lang/eno/blob/main/eno.abnf).
 -- 2018-08-18
 
 -- 2018-08-17
@@ -810,7 +810,7 @@ with the enors (rust) implementation coming up next on the roadmap, likely to co
 -- 2018-07-28
 - Officially kicked off development for the rust library implementation - [enors](https://github.com/eno-lang/enors).
 - Rebooted the [eno](https://github.com/eno-lang/eno) core language repository as the central collection point for all specification documents.
-- Authored a new [terminology](https://github.com/eno-lang/eno/blob/master/TERMINOLOGY.md) document, describing the entire terminology employed by the eno language.
+- Authored a new [terminology](https://github.com/eno-lang/eno/blob/main/TERMINOLOGY.md) document, describing the entire terminology employed by the eno language.
 - Some more rust implementation basic research.
 -- 2018-07-28
 

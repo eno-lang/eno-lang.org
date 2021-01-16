@@ -573,10 +573,10 @@ ending up with a completely solid, bullet-proof specification.
 
 These details are:
 - Whitespace processing on associated comments is specified by this
-  [RFC](https://github.com/eno-lang/eno/blob/master/associated-comments.md), but
+  [RFC](https://github.com/eno-lang/eno/blob/main/associated-comments.md), but
   implementations might still deviate from the described behavior because it has
   not yet been set in stone
-- Since revision 3 the [associated comments RFC](https://github.com/eno-lang/eno/blob/master/associated-comments.md)
+- Since revision 3 the [associated comments RFC](https://github.com/eno-lang/eno/blob/main/associated-comments.md)
   also proposes comments that can be associated to the document, these are
   currently only implemented by the C-based
   [libeno](https://codeberg.org/simonrepp/libeno) parser
