@@ -56,7 +56,7 @@ data languages to grasp and author content in.
 - [Haskell](https://github.com/eno-lang/tree-sitter-eno/) - Official *tree-sitter-eno* parser, usable with bindings
 - [Java](https://github.com/Nzen/Enohar/) - Third party *Enohar* library for parsing and emitting documents (incomplete)
 - [JavaScript](/javascript/) - Official *enolib* library, the current reference parser
-- [PHP](/php/) - Official *enophp* library (for an older specification, simple documents are compatible)
+- [PHP](https://archived.eno-lang.org/php/) - Official *enophp* library (for an older specification, simple documents are compatible)
 - [Python](/python/) - Official *enolib* library
 - [Ruby](/ruby/) - Official *enolib* library
 - [Rust](https://github.com/eno-lang/tree-sitter-eno/) - Official *tree-sitter-eno* parser, usable with bindings
