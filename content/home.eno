@@ -28,8 +28,8 @@ Eno is a data language for all people, not just developers. Its simple syntax an
 versatile nature welcomes a wide audience, both in regards to cultural background
 as well as technical ability. Unlike traditional developer- and machine-centric
 data languages, its type-agnostic design embraces our human superpower - our
-effortless understanding of context - and in doing so puts day-to-day user
-productivity before one-shot developer shortcuts.
+effortless understanding of context - and thereby makes it one of the easiest
+data languages to grasp and author content in.
 
 <!-- - [Reference Parser](https://codeberg.org/simonrepp/libeno/) - A new reference parser for Eno. -->
 
