@@ -1,3 +1,7 @@
+-- 2021-01-17
+Published an [RFC for the conceptual unification of Field, Fieldset and List elements](https://github.com/eno-lang/eno/blob/main/unifying-field-fieldset-and-list.md).
+-- 2021-01-17
+
 -- 2021-01-04
 Published a new revision of the [associated comments RFC](https://github.com/eno-lang/eno/blob/main/associated-comments.md), specifying top-level comments associated with the document (as already experimentally available in [libeno](https://codeberg.org/simonrepp/libeno)).
 -- 2021-01-04

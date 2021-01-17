@@ -580,6 +580,14 @@ These details are:
   also proposes comments that can be associated to the document, these are
   currently only implemented by the C-based
   [libeno](https://codeberg.org/simonrepp/libeno) parser
+- The [RFC for the conceptual unification of Field, Fieldset and List
+  elements](https://github.com/eno-lang/eno/blob/main/unifying-field-fieldset-and-list.md).
+  proposes a different conceptual hierarchy and terminology around the Field
+  element, which is currently only used by the C-based
+  [libeno](https://codeberg.org/simonrepp/libeno) parser. This change does not
+  affect existing or future documents at all but will require a substantial
+  one-time effort to update all documentation resources, tools and parsers, hence
+  will take a while to be adopted globally.
 - At present only LF and CR+LF linebreaks are considered as linebreaks by eno
   parsers - it is still an open question whether other forms of vertical
   whitespace as they exist in the unicode specification should also be interpreted
