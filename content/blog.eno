@@ -1,3 +1,29 @@
+-- 2021-04-01
+This week was dedicated to a complex and important [architectural
+change](https://codeberg.org/simonrepp/libeno/commit/7d888a66710fce3c274668ad745b1262570ab325)
+in [libeno](https://codeberg.org/simonrepp/libeno): The AST graph now maps node
+connections through relative memory offsets instead of absolute memory
+addresses, thereby allowing abritrary reallocation of the graph buffer. What
+this means is: libeno is now capable to handle arbitrarily large documents, and
+very efficiently so.
+
+In other important news, over the last weeks I've been secretly writing a pure
+Rust parser implementation for Eno (*secretly* only because I didn't get around
+to write about it, sorry :)). That code currently lives (until I get around
+repackaging it elsewhere) as the local [enolib
+subcrate](https://codeberg.org/simonrepp/faircamp/src/branch/main/enolib) inside
+the [faircamp](https://codeberg.org/simonrepp/faircamp) repository (where I am
+by the way working on a self-hostable, free software alternative to bandcamp,
+which I'm pretty excited about, and judging by feedback so far, others too!).
+The Rust parser is not yet complete, but if you need neither associated comments
+nor copies (which the majority of usecases probably don't) it's perfectly usable
+for the rest already. (Usage: Call `enolib::parse(...)`, then pattern-match yourself
+through the result(s), there's not much more to it really!)
+
+Closing remark, given the date: All of this really happened.\
+(It would be a really weird, unfunny april fool's joke anyhow :))
+-- 2021-04-01
+
 -- 2021-01-17
 Published an [RFC for the conceptual unification of Field, Fieldset and List elements](https://github.com/eno-lang/eno/blob/main/unifying-field-fieldset-and-list.md).
 -- 2021-01-17
